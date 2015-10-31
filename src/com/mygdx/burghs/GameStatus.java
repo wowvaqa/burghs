@@ -46,10 +46,7 @@ public class GameStatus {
         }
         if (bohaterBroniacy.getHp() <= 0){
            // bohaterBroniacy.remove();            
-        }
-        
-        System.out.println("Test brancha");
-        
+        }        
     }
 
 // GETTER AND SETTERS
