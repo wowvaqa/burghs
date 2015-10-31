@@ -43,7 +43,7 @@ public class NewGameScreen implements Screen {
     // przyciski
     private ButtonActor button01, button02, button03, button04;
     
-    private TextButton btnOK;
+    private TextButton btnOK;    
 
     // przyciski left/right przy wybieraniu wyglądu bohatera
     private ButtonActor button05, button06, button07, button08;
