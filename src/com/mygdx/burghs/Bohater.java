@@ -45,9 +45,9 @@ public class Bohater extends Actor {
     private int szybkosc = 0;
     private int pozostaloRuchow = 0;
     // aktualny poziom punktów doświadczenia
-    private int doswiadczenie = 0;    
+    private int doswiadczenie = 0;
     // punkty potrzebne do uzyskania następnego poziomu
-    private int nextLevel = 100;  
+    private int nextLevel = 100;
     // pocziom doświadczenia
     private int level = 1;
 
@@ -110,16 +110,22 @@ public class Bohater extends Actor {
                 // Jeżeli TRUE wtedy uniemozliwia jego zaznaczenie                
                 if (bohaterZaznaczony) {
                     System.out.println("Nie mogę zaznaczyc dwóch bohaterów");
-                // Jeżeli FALSE wtedy uruchamia reszte procedur dla bohatera
+                    // Jeżeli FALSE wtedy uruchamia reszte procedur dla bohatera
                 } else {
-                    // Sprawdza czy bohater gracza porsusza się w sowjej turze.
+                    // Sprawdza czy bohater gracza porusza się w sowjej turze.
                     if (przynaleznoscDoGracza != gs.getTuraGracza()) {
                         System.out.println("Ten Gracz teraz nie ma swojej tury");
                     } else {
-                        moveable = true;
-                        definiujPrzyciski();
-                        sprite.setTexture(bohaterCheckTex);
-                        zaznaczony = true;
+                        // Sprawdza czy bohater posiada jeszcze punkty ruchu.
+                        if (pozostaloRuchow < 1) {
+                            System.out.println("Bohater nie posiada już ruchu!");
+                        // jeżeli posiada punkty ruchu.
+                        } else {
+                            moveable = true;
+                            definiujPrzyciski();
+                            sprite.setTexture(bohaterCheckTex);
+                            zaznaczony = true;
+                        }
                     }
                 }
             }
@@ -330,6 +336,7 @@ public class Bohater extends Actor {
     // 5. Zmienia status bohatera na niezaznaczony
     // 5. Czyści w pole na mapie z referencji bohatera i referencje zapisuje
     // w polu północnym mapy.       
+    // 6. Zmniejsza ilość ruchów dla bohatera.
     private void sprawdzPrzyciskNorth() {
         if (moveable) {
             if (a.btnNorth.isKlikniety()) {
@@ -340,6 +347,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }

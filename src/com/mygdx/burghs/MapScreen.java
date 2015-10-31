@@ -46,7 +46,7 @@ public class MapScreen implements Screen {
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gs.setActualScreen(0);
+                exitClick();
             }
         });
 
@@ -61,12 +61,7 @@ public class MapScreen implements Screen {
         btnKoniecTury.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Koniec Tury");
-                gs.setTuraGracza(gs.getTuraGracza() + 1);
-                if (gs.getTuraGracza() > gs.getGracze().size() - 1) {
-                    gs.setTuraGracza(0);
-                }
-                lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
+                koniecTuryClick();
             }
         });
 
@@ -92,6 +87,27 @@ public class MapScreen implements Screen {
         gs.czyUtworzonoMape = true;
 
         dodajDoStage01();
+    }
+
+    // Działania wywołane po naciśnięciu przycisku koniec tury.
+    private void koniecTuryClick() {
+        System.out.println("Koniec Tury");
+        // Ustala turę następnego gracza
+        gs.setTuraGracza(gs.getTuraGracza() + 1);
+        if (gs.getTuraGracza() > gs.getGracze().size() - 1) {
+            gs.setTuraGracza(0);
+        }
+        lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
+        
+        // Przywrócenie wszystkich punktów ruchu dla bohaterów
+        for (Bohater i: gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()){
+            i.setPozostaloRuchow(i.getSzybkosc());
+        }
+    }
+
+    // Działania wywołane po naciśnięciu przycisku Exit
+    private void exitClick() {
+        gs.setActualScreen(0);
     }
 
     // Dodaje do Stage 02 przycisk Exit i koniec tury oraz labele wyświetlające statystyki
@@ -135,7 +151,7 @@ public class MapScreen implements Screen {
     private void generujGraczy() {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
-        }        
+        }
     }
 
     // wypełnia stage01 aktorami planszy
