@@ -558,31 +558,47 @@ public class Bohater extends Actor {
 
 // SETTERS AND GETTERS
     /**
-     *
+     * Zwraca pozycję X obiektu Bohater na w obiekcie klasy Mapa
      * @return
      */
     public int getPozXnaMapie() {
         return pozXnaMapie;
     }
 
+    /**
+     * Zwraca do którego gracza z tablicy Graczy przynależy bohater
+     * @return
+     */
     public int getPrzynaleznoscDoGracza() {
         return przynaleznoscDoGracza;
     }
 
+    /**
+     * Ustala do którego gracza z tablicy graczy będzie należał bohater
+     * @param przynaleznoscDoGracza
+     */
     public void setPrzynaleznoscDoGracza(int przynaleznoscDoGracza) {
         this.przynaleznoscDoGracza = przynaleznoscDoGracza;
     }
 
+    /**
+     * Zwraca ilość pozostałych ruchów które może wykonać na mapię bohater
+     * @return
+     */
     public int getPozostaloRuchow() {
         return pozostaloRuchow;
     }
 
+    /**
+     * Ustala ilość ruchów które pozostały bohaterowi na mapie
+     * @param pozostaloRuchow
+     */
     public void setPozostaloRuchow(int pozostaloRuchow) {
         this.pozostaloRuchow = pozostaloRuchow;
     }
 
     /**
-     *
+     * Ustala pozycję X w obiekcie klasy Mapa
      * @param pozXnaMapie
      */
     public void setPozXnaMapie(int pozXnaMapie) {
@@ -590,7 +606,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Zwraca pozycję Y obiektu Bohater na w obiekcie klasy Mapa
      * @return
      */
     public int getPozYnaMapie() {
@@ -598,7 +614,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Ustala pozycję Y w obiekcie klasy Mapa
      * @param pozYnaMapie
      */
     public void setPozYnaMapie(int pozYnaMapie) {
@@ -606,7 +622,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Zwraca wartość ataku bohatera
      * @return
      */
     public int getAtak() {
@@ -614,7 +630,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Ustala wartość ataku bohatera
      * @param atak
      */
     public void setAtak(int atak) {
@@ -622,8 +638,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     * Zwraca współczynika obrony
-     *
+     * Zwraca współczynika obrony     
      * @return
      */
     public int getObrona() {
@@ -632,7 +647,6 @@ public class Bohater extends Actor {
 
     /**
      * Ustawia współczynik obrony
-     *
      * @param obrona
      */
     public void setObrona(int obrona) {
@@ -640,7 +654,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Zwraca wartość współczynnika zdrowia bohatera
      * @return
      */
     public int getHp() {
@@ -648,7 +662,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Ustala wartość współczynnika zdrowia bohatera
      * @param hp
      */
     public void setHp(int hp) {
@@ -656,7 +670,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Zwraca wartość współczynnika maksymalnej ilośći ruchów bohatera
      * @return
      */
     public int getSzybkosc() {
@@ -664,7 +678,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Ustala wartość współczynnika maksymalnej ilości ruchu bohatera
      * @param szybkosc
      */
     public void setSzybkosc(int szybkosc) {
@@ -673,7 +687,6 @@ public class Bohater extends Actor {
 
     /**
      * Sprawdza czy bohater jest zaznaczony
-     *
      * @return TRUE jeżeli jest zaznaczony
      */
     public boolean isZaznaczony() {
@@ -681,7 +694,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     *
+     * Ustala czy bohater jest zaznaczony
      * @param zaznaczony
      */
     public void setZaznaczony(boolean zaznaczony) {
