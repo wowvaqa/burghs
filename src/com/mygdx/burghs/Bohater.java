@@ -363,6 +363,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
@@ -378,6 +379,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
@@ -393,6 +395,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
@@ -410,6 +413,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
@@ -427,6 +431,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
@@ -444,6 +449,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
@@ -461,6 +467,7 @@ public class Bohater extends Actor {
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
+                this.pozostaloRuchow -= 1;
             }
         }
     }
