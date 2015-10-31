@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class NewGameScreen implements Screen {
@@ -41,11 +42,11 @@ public class NewGameScreen implements Screen {
 
     // przyciski
     private ButtonActor button01, button02, button03, button04;
+    
+    private TextButton btnOK;
 
     // przyciski left/right przy wybieraniu wyglądu bohatera
     private ButtonActor button05, button06, button07, button08;
-
-    private ButtonActor buttonOK;
 
     public NewGameScreen(Game g, Assets a, GameStatus gs) {
         this.g = g;
@@ -65,16 +66,18 @@ public class NewGameScreen implements Screen {
 
     // dodaje przyciski do manipulowania opcjami nowej gry
     private void dodajPrzyciski() {
-        // przycisk OK w prawym dolnym rogu
-        buttonOK = new ButtonActor(a.btnOK, sW - a.btnOK.getWidth(), 1);
-        buttonOK.addListener(new ClickListener() {
+        
+        btnOK = new TextButton("OK", a.skin);
+        btnOK.setSize(100, 50);
+        btnOK.setPosition(Gdx.graphics.getWidth() - btnOK.getWidth() - 25, 25);
+        btnOK.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 zakonczGnerowanieNowejGry();
             }
         });
-        stage01.addActor(buttonOK);
-
+        stage01.addActor(btnOK);
+        
         // przycisk plus przy ilości graczy
         button01 = new ButtonActor(a.btnPlus, 60, sH - 110);
         button01.addListener(new ClickListener() {
