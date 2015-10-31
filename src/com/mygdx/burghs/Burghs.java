@@ -3,6 +3,7 @@ package com.mygdx.burghs;
 // SCENA 0  - Główne Menu
 // SCENA 1  - Mapa
 // SCENA 3  - Nowa Gra
+// SCENA 4  - Opcje
 import com.badlogic.gdx.Game;
 
 public class Burghs extends Game {

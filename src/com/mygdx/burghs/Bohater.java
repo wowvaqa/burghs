@@ -146,8 +146,7 @@ public class Bohater extends Actor {
         // Sprawdzenie czy przycisk nie przekroczy górnej części mapy
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             // Jeżeli w lokacji na północ jest inny bohater wtedy wyświetla się przycisk ataku
-            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null) {
-                System.out.println("WRÓG");
+            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null) {                
                 a.btnAtcNorth.setPosition(this.getX() + 50, this.getY() + 150);
                 a.btnAtcNorth.setVisible(true);
                 // Jeżeli nie wyświetla się przycisk ruchu

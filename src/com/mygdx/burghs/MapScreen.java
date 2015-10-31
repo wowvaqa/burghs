@@ -29,8 +29,8 @@ public class MapScreen implements Screen {
     // labele informujące o statystykach klikniętego bohatera
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
     private Label lblGold;
-    private Label lblTuraGracza;
-    private Label lblPozostaloRuchow;
+    private final Label lblTuraGracza;
+    private final Label lblPozostaloRuchow;
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
@@ -95,13 +95,13 @@ public class MapScreen implements Screen {
         // Ustala turę następnego gracza
         gs.setTuraGracza(gs.getTuraGracza() + 1);
         if (gs.getTuraGracza() > gs.getGracze().size() - 1) {
-            gs.setTuraGracza(0);
+            gs.setTuraGracza(0);            
         }
         lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
         
         // Przywrócenie wszystkich punktów ruchu dla bohaterów
         for (Bohater i: gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()){
-            i.setPozostaloRuchow(i.getSzybkosc());
+            i.setPozostaloRuchow(i.getSzybkosc());            
         }
     }
 
