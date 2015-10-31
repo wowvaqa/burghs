@@ -48,6 +48,8 @@ public class GameStatus {
            // bohaterBroniacy.remove();            
         }
         
+        System.out.println("Test brancha");
+        
     }
 
 // GETTER AND SETTERS
