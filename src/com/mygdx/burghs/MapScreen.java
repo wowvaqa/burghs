@@ -135,7 +135,7 @@ public class MapScreen implements Screen {
     private void generujGraczy() {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
-        }
+        }        
     }
 
     // wypełnia stage01 aktorami planszy

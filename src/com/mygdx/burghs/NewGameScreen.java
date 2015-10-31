@@ -289,7 +289,7 @@ public class NewGameScreen implements Screen {
             // Ustala do którego gracza z tablicy graczy należy bohater
             gs.gracze.get(i).getBohaterowie().get(0).setPrzynaleznoscDoGracza(i);
         }
-
+        
         // Bohater gracza 1
         gs.getMapa().pola[0][0].setBohater(gs.gracze.get(0).getBohaterowie().get(0));
         gs.getMapa().pola[0][0].getBohater().setPozXnaMapie(0);
