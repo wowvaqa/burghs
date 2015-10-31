@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ public class MapScreen implements Screen {
     private Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
+    
+    private Window window;
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
@@ -38,6 +41,8 @@ public class MapScreen implements Screen {
         this.a = a;
         this.g = g;
         this.gs = gs;
+        
+        utworzOkno();
 
         // Dodaje przycisk wyjścia do planszy 02.
         btnExit = new TextButton("EXIT", a.skin);
@@ -87,6 +92,15 @@ public class MapScreen implements Screen {
         gs.czyUtworzonoMape = true;
 
         dodajDoStage01();
+    }
+    
+    private void utworzOkno(){
+        // Dodanie nowego okna
+        window = new Window("ATAK", a.skin);
+        window.add("Obrazenia: ");
+        window.setSize(400, 300);
+        window.setPosition(500, 500);
+        window.setVisible(false);        
     }
 
     // Działania wywołane po naciśnięciu przycisku koniec tury.
@@ -145,6 +159,7 @@ public class MapScreen implements Screen {
         stage01.addActor(a.btnSouthWest);
         // Przycisk Cancel
         stage01.addActor(a.btnCancel);
+        stage01.addActor(window);
     }
 
     // Gneruje graczy w konstruktorze klasy i dodaje ich do planszy 01
