@@ -1,0 +1,11 @@
+VERSION 0.0001  <25-10-2015>
+
+1. Dodanie algorytmu walki
+
+TODO:
+
+Przenieśienie obsługi ruchu/ataku na obiekt bohatera.
+Tak aby wyswietlanie interfejsu ruchu nie odbywało się z poziomu stage01
+w obiekcie klasy MapScreen.
+Stworzyć tymczasową klase Playera która będzie implementować ww. właściwość
+    
