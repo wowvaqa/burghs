@@ -17,18 +17,10 @@ public class Bohater extends Actor {
     private final Sprite sprite;    // wygląd
     private final Texture bohaterTex;
     private final Texture bohaterCheckTex;
-
+    
     private int pozX = 0;   // pozycja X na mapie
     private int pozY = 0;   // pozycja Y na mapie
     
-    // ekwipunek bohatera
-    private Item itemGlowa = null;
-    private Item itemKorpus = null;
-    private Item itemNogi = null;
-    private Item itemPrawaReka = null;
-    private Item itemLewaReka = null;
-    private Item itemStopy = null;
-
     private final Assets a;
     private final GameStatus gs;
 
@@ -89,7 +81,7 @@ public class Bohater extends Actor {
         this.setSize(sprite.getWidth(), sprite.getHeight());
         this.setPosition(this.pozX, this.pozY);
 
-        this.dodajListnera();
+        this.dodajListnera();        
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater
@@ -127,7 +119,7 @@ public class Bohater extends Actor {
                         // Sprawdza czy bohater posiada jeszcze punkty ruchu.
                         if (pozostaloRuchow < 1) {
                             System.out.println("Bohater nie posiada już ruchu!");
-                        // jeżeli posiada punkty ruchu.
+                            // jeżeli posiada punkty ruchu.
                         } else {
                             moveable = true;
                             definiujPrzyciski();
@@ -154,7 +146,7 @@ public class Bohater extends Actor {
         // Sprawdzenie czy przycisk nie przekroczy górnej części mapy
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             // Jeżeli w lokacji na północ jest inny bohater wtedy wyświetla się przycisk ataku
-            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null) {                
+            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null) {
                 a.btnAtcNorth.setPosition(this.getX() + 50, this.getY() + 150);
                 a.btnAtcNorth.setVisible(true);
                 // Jeżeli nie wyświetla się przycisk ruchu
@@ -334,7 +326,7 @@ public class Bohater extends Actor {
             }
         }
     }
-
+    
     // 1. Sprawdza czy dozwolony jest ruch dla bohatera
     // 2. Sprawdza czy przycisk ruchu został kliknięty jeżeli TRUE wtedy 
     // przesuwa obiekt klasy bohatera na N/S/E/W    
@@ -566,6 +558,7 @@ public class Bohater extends Actor {
 // SETTERS AND GETTERS
     /**
      * Zwraca pozycję X obiektu Bohater na w obiekcie klasy Mapa
+     *
      * @return
      */
     public int getPozXnaMapie() {
@@ -574,6 +567,7 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca do którego gracza z tablicy Graczy przynależy bohater
+     *
      * @return
      */
     public int getPrzynaleznoscDoGracza() {
@@ -582,6 +576,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala do którego gracza z tablicy graczy będzie należał bohater
+     *
      * @param przynaleznoscDoGracza
      */
     public void setPrzynaleznoscDoGracza(int przynaleznoscDoGracza) {
@@ -590,6 +585,7 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca ilość pozostałych ruchów które może wykonać na mapię bohater
+     *
      * @return
      */
     public int getPozostaloRuchow() {
@@ -598,6 +594,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala ilość ruchów które pozostały bohaterowi na mapie
+     *
      * @param pozostaloRuchow
      */
     public void setPozostaloRuchow(int pozostaloRuchow) {
@@ -606,6 +603,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala pozycję X w obiekcie klasy Mapa
+     *
      * @param pozXnaMapie
      */
     public void setPozXnaMapie(int pozXnaMapie) {
@@ -614,6 +612,7 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca pozycję Y obiektu Bohater na w obiekcie klasy Mapa
+     *
      * @return
      */
     public int getPozYnaMapie() {
@@ -622,6 +621,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala pozycję Y w obiekcie klasy Mapa
+     *
      * @param pozYnaMapie
      */
     public void setPozYnaMapie(int pozYnaMapie) {
@@ -630,6 +630,7 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca wartość ataku bohatera
+     *
      * @return
      */
     public int getAtak() {
@@ -638,6 +639,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala wartość ataku bohatera
+     *
      * @param atak
      */
     public void setAtak(int atak) {
@@ -645,7 +647,8 @@ public class Bohater extends Actor {
     }
 
     /**
-     * Zwraca współczynika obrony     
+     * Zwraca współczynika obrony
+     *
      * @return
      */
     public int getObrona() {
@@ -654,6 +657,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustawia współczynik obrony
+     *
      * @param obrona
      */
     public void setObrona(int obrona) {
@@ -662,6 +666,7 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca wartość współczynnika zdrowia bohatera
+     *
      * @return
      */
     public int getHp() {
@@ -670,6 +675,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala wartość współczynnika zdrowia bohatera
+     *
      * @param hp
      */
     public void setHp(int hp) {
@@ -678,6 +684,7 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca wartość współczynnika maksymalnej ilośći ruchów bohatera
+     *
      * @return
      */
     public int getSzybkosc() {
@@ -686,6 +693,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala wartość współczynnika maksymalnej ilości ruchu bohatera
+     *
      * @param szybkosc
      */
     public void setSzybkosc(int szybkosc) {
@@ -694,6 +702,7 @@ public class Bohater extends Actor {
 
     /**
      * Sprawdza czy bohater jest zaznaczony
+     *
      * @return TRUE jeżeli jest zaznaczony
      */
     public boolean isZaznaczony() {
@@ -702,6 +711,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala czy bohater jest zaznaczony
+     *
      * @param zaznaczony
      */
     public void setZaznaczony(boolean zaznaczony) {
