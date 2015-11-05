@@ -45,11 +45,11 @@ public class Bohater extends Actor {
     private int szybkosc = 0;
     private int pozostaloRuchow = 0;
     // aktualny poziom punktów doświadczenia
-    private int doswiadczenie = 0;
+    private int exp = 0;
     // punkty potrzebne do uzyskania następnego poziomu
-    private int nextLevel = 100;
+    private int expToNextLevel = 100;
     // pocziom doświadczenia
-    private int level = 1;
+    private int levelOfExp = 1;
 
     private int przynaleznoscDoGracza;
 
@@ -700,4 +700,27 @@ public class Bohater extends Actor {
         this.zaznaczony = zaznaczony;
     }
 
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getExpToNextLevel() {
+        return expToNextLevel;
+    }
+
+    public void setExpToNextLevel(int expToNextLevel) {
+        this.expToNextLevel = expToNextLevel;
+    }
+
+    public int getLevelOfExp() {
+        return levelOfExp;
+    }
+
+    public void setLevelOfExp(int levelOfExp) {
+        this.levelOfExp = levelOfExp;
+    }
 }

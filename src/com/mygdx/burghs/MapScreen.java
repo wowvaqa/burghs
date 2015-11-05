@@ -28,6 +28,7 @@ public class MapScreen implements Screen {
 
     // labele informujące o statystykach klikniętego bohatera
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
+    private Label lblExp, lblExpToNextLevel, lblLevel;
     private Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
@@ -78,6 +79,12 @@ public class MapScreen implements Screen {
         lblSzybkosc.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 125);
         lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
         lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
+        lblLevel = new Label("Poziom: ", a.skin);
+        lblLevel.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 175);
+        lblExp = new Label("Doswiadczenie: ", a.skin);
+        lblExp.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
+        lblExpToNextLevel = new Label("Pozostalo ruchow: ", a.skin);
+        lblExpToNextLevel.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 225);
 
         dodajDoStage02();
 
@@ -120,6 +127,10 @@ public class MapScreen implements Screen {
         stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnExit);
         stage02.addActor(btnKoniecTury);
+        stage02.addActor(lblExp);
+        stage02.addActor(lblExpToNextLevel);
+        stage02.addActor(lblLevel);
+        
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -217,6 +228,9 @@ public class MapScreen implements Screen {
                     lblHp.setText("HP: " + Integer.toString(j.getHp()));
                     lblSzybkosc.setText("S: " + Integer.toString(j.getSzybkosc()));
                     lblPozostaloRuchow.setText("Pozostalo ruchow: " + Integer.toString(j.getPozostaloRuchow()));
+                    lblExp.setText("Exp: " + Integer.toString(j.getExp()));
+                    lblExpToNextLevel.setText("Exp to next level: " + Integer.toString(j.getExpToNextLevel()));
+                    lblLevel.setText("Poziom doś.: " + Integer.toString(j.getLevelOfExp()));
                 }
             }
         }
