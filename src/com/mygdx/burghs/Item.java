@@ -21,8 +21,8 @@ public class Item {
     private int hp = 0;
     private int szybkosc = 0;
     
-    public Item(Texture texture){
-        this.iconTex = texture;
+    public Item(){
+        
     }    
     
     // Setters and Getters

@@ -5,12 +5,10 @@ package com.mygdx.burghs;
  * @author v
  */
 public enum DostepneItemki {
-    Piesci, Spodnie, LnianeButy;
-    
-    private Assets a;
-    
-    public Item piesci(){
-        Item piesci = new Item(a.btnAttackTex);
-        return piesci;
-    }
+    Piesci,    
+
+    /**
+     *
+     */
+    LnianeSpodnie, LnianeButy;    
 }

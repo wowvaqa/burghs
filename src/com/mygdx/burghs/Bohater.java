@@ -27,8 +27,8 @@ public class Bohater extends Actor {
     private Item itemNogi = null;
     private Item itemPrawaReka = null;
     private Item itemLewaReka = null;
-    private Item itemStopy = null;
-
+    private Item itemStopy = null;    
+    
     private final Assets a;
     private final GameStatus gs;
 
@@ -89,7 +89,12 @@ public class Bohater extends Actor {
         this.setSize(sprite.getWidth(), sprite.getHeight());
         this.setPosition(this.pozX, this.pozY);
 
-        this.dodajListnera();        
+        this.dodajListnera();    
+        
+        // Utworzenie pdst. zestawu itemków i przypisanie do ekwipunku bohatera
+        itemLewaReka = ItemCreator.utworzItem(DostepneItemki.Piesci);
+        itemNogi = ItemCreator.utworzItem(DostepneItemki.LnianeSpodnie);
+        itemStopy = ItemCreator.utworzItem(DostepneItemki.LnianeButy);
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater

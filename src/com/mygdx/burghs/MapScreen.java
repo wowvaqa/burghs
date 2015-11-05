@@ -30,6 +30,7 @@ public class MapScreen implements Screen {
     // labele informujące o statystykach klikniętego bohatera
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
     private Label lblExp, lblExpToNextLevel, lblLevel;
+    private Label lblStopy, lblNogi, lblLewaReka;
     private Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
@@ -90,6 +91,8 @@ public class MapScreen implements Screen {
         lblExp.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
         lblExpToNextLevel = new Label("Pozostalo ruchow: ", a.skin);
         lblExpToNextLevel.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 225);
+        lblNogi = new Label("Nogi: ", a.skin);
+        lblNogi.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 250);
 
         dodajDoStage02();
 
@@ -144,6 +147,7 @@ public class MapScreen implements Screen {
         stage02.addActor(lblExp);
         stage02.addActor(lblExpToNextLevel);
         stage02.addActor(lblLevel);
+        stage02.addActor(lblNogi);
         
     }
 
@@ -246,6 +250,7 @@ public class MapScreen implements Screen {
                     lblExp.setText("Exp: " + Integer.toString(j.getExp()));
                     lblExpToNextLevel.setText("Exp to next level: " + Integer.toString(j.getExpToNextLevel()));
                     lblLevel.setText("Poziom doś.: " + Integer.toString(j.getLevelOfExp()));
+                    lblNogi.setText("Nogi.: " + j.getItemNogi().getNazwa());
                 }
             }
         }
