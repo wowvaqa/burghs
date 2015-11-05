@@ -20,7 +20,15 @@ public class Bohater extends Actor {
     
     private int pozX = 0;   // pozycja X na mapie
     private int pozY = 0;   // pozycja Y na mapie
-    
+
+    // ekwipunek bohatera
+    private Item itemGlowa = null;
+    private Item itemKorpus = null;
+    private Item itemNogi = null;
+    private Item itemPrawaReka = null;
+    private Item itemLewaReka = null;
+    private Item itemStopy = null;
+
     private final Assets a;
     private final GameStatus gs;
 
