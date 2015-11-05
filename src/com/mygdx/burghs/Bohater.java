@@ -20,6 +20,14 @@ public class Bohater extends Actor {
 
     private int pozX = 0;   // pozycja X na mapie
     private int pozY = 0;   // pozycja Y na mapie
+    
+    // ekwipunek bohatera
+    private Item itemGlowa = null;
+    private Item itemKorpus = null;
+    private Item itemNogi = null;
+    private Item itemPrawaReka = null;
+    private Item itemLewaReka = null;
+    private Item itemStopy = null;
 
     private final Assets a;
     private final GameStatus gs;
@@ -723,4 +731,54 @@ public class Bohater extends Actor {
     public void setLevelOfExp(int levelOfExp) {
         this.levelOfExp = levelOfExp;
     }
+
+    public Item getItemGlowa() {
+        return itemGlowa;
+    }
+
+    public void setItemGlowa(Item itemGlowa) {
+        this.itemGlowa = itemGlowa;
+    }
+
+    public Item getItemKorpus() {
+        return itemKorpus;
+    }
+
+    public void setItemKorpus(Item itemKorpus) {
+        this.itemKorpus = itemKorpus;
+    }
+
+    public Item getItemNogi() {
+        return itemNogi;
+    }
+
+    public void setItemNogi(Item itemNogi) {
+        this.itemNogi = itemNogi;
+    }
+
+    public Item getItemPrawaReka() {
+        return itemPrawaReka;
+    }
+
+    public void setItemPrawaReka(Item itemPrawaReka) {
+        this.itemPrawaReka = itemPrawaReka;
+    }
+
+    public Item getItemLewaReka() {
+        return itemLewaReka;
+    }
+
+    public void setItemLewaReka(Item itemLewaReka) {
+        this.itemLewaReka = itemLewaReka;
+    }
+
+    public Item getItemStopy() {
+        return itemStopy;
+    }
+
+    public void setItemStopy(Item itemStopy) {
+        this.itemStopy = itemStopy;
+    }
+    
+    
 }
