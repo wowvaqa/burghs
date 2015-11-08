@@ -26,7 +26,7 @@ public class BohaterScreen implements Screen {
     private final Stage stage01 = new Stage();
 
     // Przyciski
-    private TextButton btnExit;    
+    private TextButton btnExit;
 
     // Inne
     // Labele
@@ -55,7 +55,7 @@ public class BohaterScreen implements Screen {
         // ustawia odstęp od krawędzi tabeli
         tabela.pad(10);
         // włacza linie debugujące tabelę
-        tabela.setDebug(true);        
+        tabela.setDebug(true);
 
         // dodaje label do tabeli        
         tabela.add(lblBohater).align(Align.top).expandX().colspan(tabela.getColumns());
@@ -72,17 +72,17 @@ public class BohaterScreen implements Screen {
         tabela.add(lblExp).align(Align.left);
         tabela.add(lblExpToNextLevel).align(Align.left);
         tabela.row();
-        
+
         tabela.add(lblGlowa).align(Align.left);
         tabela.add(lblLewaReka).align(Align.left);
         tabela.add(lblPrawaReka).align(Align.left);
         tabela.row();
-        
+
         tabela.add(lblKorpus).align(Align.left);
         tabela.add(lblNogi).align(Align.left);
         tabela.add(lblStopy).align(Align.left);
         tabela.row();
-        
+
         tabela.add(btnExit).expand().align(Align.bottom).width(100).height(50).colspan(tabela.getColumns());
     }
 
@@ -114,7 +114,7 @@ public class BohaterScreen implements Screen {
                 gs.setActualScreen(1);
                 System.out.println("Exit klikniety");
             }
-        });        
+        });
     }
 
     // Dodaje do stage01 tabele
@@ -139,8 +139,8 @@ public class BohaterScreen implements Screen {
     // Aktualizuje labele o dane klikniętego bohatera
     private void aktualizujLabele() {
 
-        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak());
-        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona());
+        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak() + " (" + sumujAtak() + ")");
+        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() + " (" + sumujObrone()+ ")");
         lblHp.setText("HP: " + sprawdzBohatera().getHp());
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
 
@@ -150,10 +150,22 @@ public class BohaterScreen implements Screen {
 
         lblKorpus.setText("Korpus: " + sprawdzBohatera().getItemKorpus().getNazwa());
         lblGlowa.setText("Glowa: " + sprawdzBohatera().getItemGlowa().getNazwa());
-        lblLewaReka.setText("L. Reka: " + sprawdzBohatera().getItemLewaReka().getNazwa());        
+        lblLewaReka.setText("L. Reka: " + sprawdzBohatera().getItemLewaReka().getNazwa());
         lblPrawaReka.setText("P. Reka: " + sprawdzBohatera().getItemPrawaReka().getNazwa());
         lblNogi.setText("Nogi: " + sprawdzBohatera().getItemNogi().getNazwa());
         lblStopy.setText("Stopy: " + sprawdzBohatera().getItemStopy().getNazwa());
+    }
+
+    // Sumuje siłę obronę bohatera razem z atakiem wszystkich itemków
+    private int sumujObrone() {
+        int suma = 0;
+        suma += sprawdzBohatera().getAtak();
+        suma += sprawdzBohatera().getItemGlowa().getObrona();
+        return suma;
+    }
+    
+    private int sumujAtak(){
+        return 0;
     }
 
     @Override

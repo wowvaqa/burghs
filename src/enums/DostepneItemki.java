@@ -1,4 +1,4 @@
-package com.mygdx.burghs;
+package enums;
 
 /**
  *  Klasa określa wszystkie dostępne itemki
@@ -7,6 +7,7 @@ package com.mygdx.burghs;
 public enum DostepneItemki {
     // Głowa
     LnianaCzapka,
+    SkorzanaCzapka,
     // Korpus
     LnianaKoszula,
     // Ręce

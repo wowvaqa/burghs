@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.Texture;
 
 /** 

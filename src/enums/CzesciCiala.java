@@ -1,4 +1,4 @@
-package com.mygdx.burghs;
+package enums;
 
 /** Klasa Enum definiuje wszystkie części ciała jakie może posiadać bohater.
  *  Do każdej z tych części ciała można przypisać odpowiedni ekwipunek

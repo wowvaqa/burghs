@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import enums.DostepneItemki;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -96,7 +97,7 @@ public class Bohater extends Actor {
         itemPrawaReka = ItemCreator.utworzItem(DostepneItemki.Piesci);
         itemNogi = ItemCreator.utworzItem(DostepneItemki.LnianeSpodnie);
         itemStopy = ItemCreator.utworzItem(DostepneItemki.LnianeButy);
-        itemGlowa = ItemCreator.utworzItem(DostepneItemki.LnianaCzapka);
+        itemGlowa = ItemCreator.utworzItem(DostepneItemki.SkorzanaCzapka);
         itemKorpus = ItemCreator.utworzItem(DostepneItemki.LnianaKoszula);
     }
 
