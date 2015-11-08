@@ -3,6 +3,7 @@ package com.mygdx.burghs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -28,11 +29,12 @@ public class BohaterScreen implements Screen {
     // Przyciski
     private TextButton btnExit;
 
+    // Inne
     // Labele
     private Label lblBohater;
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
     private Label lblExp, lblExpToNextLevel, lblLevel;
-    private Label lblStopy, lblNogi, lblLewaReka;
+    private Label lblStopy, lblNogi, lblLewaReka, lblPrawaReka, lblKorpus, lblGlowa;
 
     // Tabela
     private final Table tabela = new Table();
@@ -54,20 +56,33 @@ public class BohaterScreen implements Screen {
         // ustawia odstęp od krawędzi tabeli
         tabela.pad(10);
         // włacza linie debugujące tabelę
-        //tabela.setDebug(true);
+        tabela.setDebug(true);        
 
         // dodaje label do tabeli        
-        tabela.add(lblBohater).expand().align(Align.top);
+        tabela.add(lblBohater).align(Align.top).expandX().colspan(tabela.getColumns());
+
         tabela.row();
-        tabela.add(lblAtak).expand().align(Align.topLeft);
-        //tabela.row();
-        tabela.add(lblObrona).expand().align(Align.topLeft);
-        //tabela.row();
-        tabela.add(lblHp).expand().align(Align.topLeft);
-        //tabela.row();
-        tabela.add(lblSzybkosc).expand().align(Align.topLeft);
+
+        tabela.add(lblAtak).align(Align.topLeft);
+        tabela.add(lblObrona).align(Align.topLeft);
+        tabela.add(lblHp).align(Align.topLeft);
+        tabela.add(lblSzybkosc).align(Align.topLeft);
         tabela.row();
-        tabela.add(btnExit).width(100).height(50);
+
+        tabela.add(lblLevel).align(Align.left);
+        tabela.add(lblExp).align(Align.left);
+        tabela.add(lblExpToNextLevel).align(Align.left);
+        tabela.row();
+        
+        tabela.add(lblGlowa).align(Align.left);
+        tabela.add(lblLewaReka).align(Align.left);
+        tabela.add(lblPrawaReka).align(Align.left);
+        tabela.add(lblKorpus).align(Align.left);
+        tabela.add(lblNogi).align(Align.left);
+        tabela.add(lblStopy).align(Align.left);
+        tabela.row();
+
+        tabela.add(btnExit).expand().align(Align.bottom).width(100).height(50).colspan(5);
     }
 
     // Tworzy labele
@@ -79,9 +94,14 @@ public class BohaterScreen implements Screen {
         lblSzybkosc = new Label("Szybkosc: ", a.skin);
         lblLevel = new Label("Poziom: ", a.skin);
         lblExp = new Label("Doswiadczenie: ", a.skin);
-        lblExpToNextLevel = new Label("Pozostalo ruchow: ", a.skin);
+        lblExpToNextLevel = new Label("Pozostalo nast. poz.: ", a.skin);
         lblNogi = new Label("Nogi: ", a.skin);
         lblLewaReka = new Label("L. Reka: ", a.skin);
+        lblPrawaReka = new Label("", a.skin);
+        lblKorpus = new Label("", a.skin);
+        lblGlowa = new Label("", a.skin);
+        lblStopy = new Label("", a.skin);
+
     }
 
     // Tworzy przyciski
@@ -117,10 +137,22 @@ public class BohaterScreen implements Screen {
 
     // Aktualizuje labele o dane klikniętego bohatera
     private void aktualizujLabele() {
+
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak());
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona());
         lblHp.setText("HP: " + sprawdzBohatera().getHp());
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
+
+        lblLevel.setText("Poziom: " + sprawdzBohatera().getLevelOfExp());
+        lblExp.setText("Punkty doswiadczenia: " + sprawdzBohatera().getExp());
+        lblExpToNextLevel.setText("Punkty do nst. poz.: " + sprawdzBohatera().getExpToNextLevel());
+
+        //lblKorpus.setText("Korpus: " + sprawdzBohatera().getItemKorpus().getNazwa());
+        //lblGlowa.setText("Glowa: " + sprawdzBohatera().getItemGlowa().getNazwa());
+        lblLewaReka.setText("L. Reka: " + sprawdzBohatera().getItemLewaReka().getNazwa());
+        //lblPrawaReka.setText("P. Reka: " + sprawdzBohatera().getItemPrawaReka().getNazwa());
+        lblNogi.setText("Nogi: " + sprawdzBohatera().getItemNogi().getNazwa());
+        //lblStopy.setText("Stopy: " + sprawdzBohatera().getItemStopy().getNazwa());
     }
 
     @Override
