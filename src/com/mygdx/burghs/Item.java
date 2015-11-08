@@ -2,12 +2,15 @@ package com.mygdx.burghs;
 
 import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /** 
  *  Klasa definiuje Item: Modyfikatory do statystyk oraz wygląd
  * @author v
  */
-public class Item {
+public class Item extends Actor{
+    
     private String nazwa;
     
     // ikona
@@ -84,5 +87,13 @@ public class Item {
         this.czescCiala = czescCiala;
     }
     
-    
+    @Override
+    public void act(float delta) {
+        super.act(delta); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha); //To change body of generated methods, choose Tools | Templates.
+    }
 }
