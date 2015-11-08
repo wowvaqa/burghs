@@ -1,6 +1,5 @@
 package com.mygdx.burghs;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,12 +11,13 @@ public class GameStatus {
     public float yDlaInterfejsuRuchu = 0;    
     public int iloscGraczy = 6;                                                 // ilosć graczy
     public int maxIloscBohaterow = 1;                                           // maksymalna ilość bohaterów   
+    // informuje czy jakikolwiek z bohaterów został zaznaczony
+    private boolean czyZaznaczonoBohatera = false;
     
     // Zwraca nr gracza z tablicy graczy który posiada swoją turę
     private int turaGracza = 0;
     
-    private Skin skin;
-       
+    //private Skin skin;       
     
     public boolean czyUtworzonoMape = false;                                    // informuje jeżeli TRUE że możliwe jest utworzenie obiektu klasy MapScreen 
     
@@ -99,4 +99,12 @@ public class GameStatus {
     public void setGracze(ArrayList<Gracz> gracze) {
         this.gracze = gracze;
     }
+
+    public boolean isCzyZaznaczonoBohatera() {
+        return czyZaznaczonoBohatera;
+    }
+
+    public void setCzyZaznaczonoBohatera(boolean czyZaznaczonoBohatera) {
+        this.czyZaznaczonoBohatera = czyZaznaczonoBohatera;
+    }    
 }

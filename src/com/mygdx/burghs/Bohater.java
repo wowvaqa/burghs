@@ -138,6 +138,7 @@ public class Bohater extends Actor {
                             definiujPrzyciski();
                             sprite.setTexture(bohaterCheckTex);
                             zaznaczony = true;
+                            gs.setCzyZaznaczonoBohatera(true);
                         }
                     }
                 }
@@ -535,6 +536,8 @@ public class Bohater extends Actor {
         a.btnCancel.setKlikniety(false);
 
         this.moveable = false;
+        
+        gs.setCzyZaznaczonoBohatera(false);
     }
 
     @Override

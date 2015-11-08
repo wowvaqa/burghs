@@ -20,94 +20,123 @@ public class BohaterScreen implements Screen {
 
     // Referencje do obiektu assetów, statusu gry, bohatera który jest kliknięty
     private final Assets a;
-    private final GameStatus gs;    
-    
+    private final GameStatus gs;
+
     // Plansza
     private final Stage stage01 = new Stage();
-    
+
     // Przyciski
     private TextButton btnExit;
-    
+
     // Labele
     private Label lblBohater;
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
     private Label lblExp, lblExpToNextLevel, lblLevel;
     private Label lblStopy, lblNogi, lblLewaReka;
-    
+
     // Tabela
     private final Table tabela = new Table();
 
     public BohaterScreen(Assets a, GameStatus gs) {
         this.a = a;
-        this.gs = gs;        
-                
+        this.gs = gs;
+
         utworzPrzyciski();
-        utworzLabele();        
+        utworzLabele();
         formatujTabele();
         dodajDoStage01();
     }
-    
+
     // Formatuje tabele dodaje do niej elementy
-    private void formatujTabele(){
+    private void formatujTabele() {
         // ustawia rozmiar tebeli na cały ekran
         tabela.setFillParent(true);
         // ustawia odstęp od krawędzi tabeli
         tabela.pad(10);
         // włacza linie debugujące tabelę
         //tabela.setDebug(true);
-        
+
         // dodaje label do tabeli        
         tabela.add(lblBohater).expand().align(Align.top);
         tabela.row();
+        tabela.add(lblAtak).expand().align(Align.topLeft);
+        //tabela.row();
+        tabela.add(lblObrona).expand().align(Align.topLeft);
+        //tabela.row();
+        tabela.add(lblHp).expand().align(Align.topLeft);
+        //tabela.row();
+        tabela.add(lblSzybkosc).expand().align(Align.topLeft);
+        tabela.row();
         tabela.add(btnExit).width(100).height(50);
     }
-    
+
     // Tworzy labele
-    private void utworzLabele(){
+    private void utworzLabele() {
         lblBohater = new Label("BOHATER", a.skin);
-        lblAtak = new Label("Atak: ", a.skin);        
-        lblObrona = new Label("Obrona: ", a.skin);        
-        lblHp = new Label("HP: ", a.skin);        
+        lblAtak = new Label("Atak: ", a.skin);
+        lblObrona = new Label("Obrona: ", a.skin);
+        lblHp = new Label("HP: ", a.skin);
         lblSzybkosc = new Label("Szybkosc: ", a.skin);
-        lblLevel = new Label("Poziom: ", a.skin);        
-        lblExp = new Label("Doswiadczenie: ", a.skin);        
-        lblExpToNextLevel = new Label("Pozostalo ruchow: ", a.skin);        
-        lblNogi = new Label("Nogi: ", a.skin);        
-        lblLewaReka = new Label("L. Reka: ", a.skin);        
+        lblLevel = new Label("Poziom: ", a.skin);
+        lblExp = new Label("Doswiadczenie: ", a.skin);
+        lblExpToNextLevel = new Label("Pozostalo ruchow: ", a.skin);
+        lblNogi = new Label("Nogi: ", a.skin);
+        lblLewaReka = new Label("L. Reka: ", a.skin);
     }
-    
+
     // Tworzy przyciski
-    private void utworzPrzyciski(){
-        btnExit = new TextButton("EXIT", a.skin);        
+    private void utworzPrzyciski() {
+        btnExit = new TextButton("EXIT", a.skin);
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gs.setActualScreen(1);
-                System.out.println("Exit klikniety");                
+                System.out.println("Exit klikniety");
             }
         });
     }
-    
+
     // Dodaje do stage01 tabele
-    private void dodajDoStage01(){
+    private void dodajDoStage01() {
         stage01.addActor(tabela);
     }
-    
-    private Bohater sprawdzBohatera(){
-        return null;
+
+    // Przeszukuje wszystkich bohaterów sprawdzając czy ktoryś nie jest zaznaczony
+    // Jeżeli true zwraca referencje do zaznaczonego bohatera.
+    private Bohater sprawdzBohatera() {
+        Bohater bohater = null;
+        for (Gracz g : gs.getGracze()) {
+            for (Bohater b : g.getBohaterowie()) {
+                if (b.isZaznaczony()) {
+                    return b;
+                }
+            }
+        }
+        return bohater;
+    }
+
+    // Aktualizuje labele o dane klikniętego bohatera
+    private void aktualizujLabele() {
+        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak());
+        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona());
+        lblHp.setText("HP: " + sprawdzBohatera().getHp());
+        lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage01);
-        
+
+        if (gs.isCzyZaznaczonoBohatera()) {
+            aktualizujLabele();
+        }
     }
 
     @Override
     public void render(float f) {
         Gdx.gl.glClearColor(255, 255, 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         stage01.act();
         stage01.draw();
     }
@@ -136,6 +165,6 @@ public class BohaterScreen implements Screen {
     public void dispose() {
 
     }
-    
+
     // Setters and Getters
 }
