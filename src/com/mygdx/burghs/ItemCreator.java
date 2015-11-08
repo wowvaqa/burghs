@@ -11,6 +11,22 @@ public class ItemCreator {
         Item item = new Item();
 
         switch (dostepneItemki) {
+            case LnianaCzapka:
+                item.setNazwa("Lniana Czapka");
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.praweRamie);
+                break;
+            case LnianaKoszula:
+                item.setNazwa("Lniana Koszula");
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.praweRamie);
+                break;
             case Piesci:
                 item.setNazwa("Gole Piesci");
                 item.setAtak(0);

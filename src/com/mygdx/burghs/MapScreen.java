@@ -29,9 +29,6 @@ public class MapScreen implements Screen {
     private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
 
     // labele informujące o statystykach klikniętego bohatera
-    private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
-    private Label lblExp, lblExpToNextLevel, lblLevel;
-    private Label lblStopy, lblNogi, lblLewaReka;
     private Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
@@ -87,26 +84,8 @@ public class MapScreen implements Screen {
         // Dodanie etykiet prezentujących statsy graczy
         lblTuraGracza = new Label("Tura gracz: " + gs.getTuraGracza(), a.skin);
         lblTuraGracza.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 25);
-        lblAtak = new Label("A: ", a.skin);
-        lblAtak.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 50);
-        lblObrona = new Label("O: ", a.skin);
-        lblObrona.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 75);
-        lblHp = new Label("HP: ", a.skin);
-        lblHp.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 100);
-        lblSzybkosc = new Label("S: ", a.skin);
-        lblSzybkosc.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 125);
         lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
         lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
-        lblLevel = new Label("Poziom: ", a.skin);
-        lblLevel.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 175);
-        lblExp = new Label("Doswiadczenie: ", a.skin);
-        lblExp.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
-        lblExpToNextLevel = new Label("Pozostalo ruchow: ", a.skin);
-        lblExpToNextLevel.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 225);
-        lblNogi = new Label("Nogi: ", a.skin);
-        lblNogi.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 250);
-        lblLewaReka = new Label("L. Reka: ", a.skin);
-        lblLewaReka.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 275);
 
         dodajDoStage02();
 
@@ -151,20 +130,10 @@ public class MapScreen implements Screen {
     // Dodaje do Stage 02 przycisk Exit i koniec tury oraz labele wyświetlające statystyki
     private void dodajDoStage02() {
         stage02.addActor(lblTuraGracza);
-        stage02.addActor(lblAtak);
-        stage02.addActor(lblObrona);
-        stage02.addActor(lblHp);
-        stage02.addActor(lblSzybkosc);
         stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
         stage02.addActor(btnKoniecTury);
-        stage02.addActor(lblExp);
-        stage02.addActor(lblExpToNextLevel);
-        stage02.addActor(lblLevel);
-        stage02.addActor(lblNogi);
-        stage02.addActor(lblLewaReka);
-        
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -258,16 +227,7 @@ public class MapScreen implements Screen {
         for (Gracz i : gs.getGracze()) {
             for (Bohater j : i.getBohaterowie()) {
                 if (j.isZaznaczony()) {
-                    lblAtak.setText("A: " + Integer.toString(j.getAtak()));
-                    lblObrona.setText("O: " + Integer.toString(j.getObrona()));
-                    lblHp.setText("HP: " + Integer.toString(j.getHp()));
-                    lblSzybkosc.setText("S: " + Integer.toString(j.getSzybkosc()));
                     lblPozostaloRuchow.setText("Pozostalo ruchow: " + Integer.toString(j.getPozostaloRuchow()));
-                    lblExp.setText("Exp: " + Integer.toString(j.getExp()));
-                    lblExpToNextLevel.setText("Exp to next level: " + Integer.toString(j.getExpToNextLevel()));
-                    lblLevel.setText("Poziom doś.: " + Integer.toString(j.getLevelOfExp()));
-                    lblNogi.setText("Nogi.: " + j.getItemNogi().getNazwa());
-                    lblLewaReka.setText("Lewa Reka: " + j.getItemLewaReka().getNazwa());
                 }
             }
         }

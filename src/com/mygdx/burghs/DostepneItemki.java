@@ -5,10 +5,14 @@ package com.mygdx.burghs;
  * @author v
  */
 public enum DostepneItemki {
-    Piesci,    
-
-    /**
-     *
-     */
-    LnianeSpodnie, LnianeButy;    
+    // Głowa
+    LnianaCzapka,
+    // Korpus
+    LnianaKoszula,
+    // Ręce
+    Piesci,
+    // Nogi
+    LnianeSpodnie,
+    // Stopy
+    LnianeButy;    
 }
