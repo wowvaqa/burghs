@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MapScreen implements Screen {
 
-    private final Game g;
+    //private final Game g;
     private final Assets a;
     private final GameStatus gs;
 
@@ -24,6 +24,7 @@ public class MapScreen implements Screen {
 
     private final TextButton btnExit;
     private final TextButton btnKoniecTury;
+    private final TextButton btnBohaterScreen;
 
     private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
 
@@ -41,11 +42,22 @@ public class MapScreen implements Screen {
     //private Player atakowanyBohater;
     public MapScreen(Game g, Assets a, final GameStatus gs) {
         this.a = a;
-        this.g = g;
+        //this.g = g;
         this.gs = gs;
         
         utworzOkno();
 
+        // Dodaje przycisk wyjścia do planszy 02.
+        btnBohaterScreen = new TextButton("Bohater", a.skin);
+        btnBohaterScreen.setSize(100, 50);
+        btnBohaterScreen.setPosition(Gdx.graphics.getWidth() - btnBohaterScreen.getWidth() - 25, 75);
+        btnBohaterScreen.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gs.setActualScreen(5);
+            }
+        });
+        
         // Dodaje przycisk wyjścia do planszy 02.
         btnExit = new TextButton("EXIT", a.skin);
         btnExit.setSize(100, 50);
@@ -93,6 +105,8 @@ public class MapScreen implements Screen {
         lblExpToNextLevel.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 225);
         lblNogi = new Label("Nogi: ", a.skin);
         lblNogi.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 250);
+        lblLewaReka = new Label("L. Reka: ", a.skin);
+        lblLewaReka.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 275);
 
         dodajDoStage02();
 
@@ -142,12 +156,14 @@ public class MapScreen implements Screen {
         stage02.addActor(lblHp);
         stage02.addActor(lblSzybkosc);
         stage02.addActor(lblPozostaloRuchow);
+        stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
         stage02.addActor(btnKoniecTury);
         stage02.addActor(lblExp);
         stage02.addActor(lblExpToNextLevel);
         stage02.addActor(lblLevel);
         stage02.addActor(lblNogi);
+        stage02.addActor(lblLewaReka);
         
     }
 
@@ -251,6 +267,7 @@ public class MapScreen implements Screen {
                     lblExpToNextLevel.setText("Exp to next level: " + Integer.toString(j.getExpToNextLevel()));
                     lblLevel.setText("Poziom doś.: " + Integer.toString(j.getLevelOfExp()));
                     lblNogi.setText("Nogi.: " + j.getItemNogi().getNazwa());
+                    lblLewaReka.setText("Lewa Reka: " + j.getItemLewaReka().getNazwa());
                 }
             }
         }
