@@ -156,7 +156,7 @@ public class BohaterScreen implements Screen {
         lblStopy.setText("Stopy: " + sprawdzBohatera().getItemStopy().getNazwa());
     }
 
-    // Sumuje siłę obronę bohatera razem z atakiem wszystkich itemków
+    // Sumuje siłę obrony bohatera razem z obrony wszystkich itemków
     private int sumujObrone() {
         int suma = 0;
         suma += sprawdzBohatera().getAtak();
@@ -164,6 +164,7 @@ public class BohaterScreen implements Screen {
         return suma;
     }
     
+    // Sumuje siłę ataku bohatera razem z atakiem wszystkich itemków
     private int sumujAtak(){
         return 0;
     }
