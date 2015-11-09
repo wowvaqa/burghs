@@ -9,7 +9,7 @@ public class ButtonActor extends Actor {
 
     private final Sprite sprite;
     //private boolean dotkniety = false;
-    private GameStatus gs;
+    //private GameStatus gs;
     private boolean klikniety;
 
     public ButtonActor(Texture tekstura, int x, int y) {

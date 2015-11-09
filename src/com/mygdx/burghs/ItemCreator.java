@@ -40,6 +40,7 @@ public class ItemCreator {
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.praweRamie);
                 break;
+// BROŃ RĘCE ===================================================================
             case Piesci:
                 item.setNazwa("Gole Piesci");
                 item.setAtak(0);
@@ -48,7 +49,7 @@ public class ItemCreator {
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.praweRamie);
                 break;
-
+// NOGI ========================================================================
             case LnianeSpodnie:
                 item.setNazwa("Lniane Spodnie");
                 item.setAtak(0);
@@ -57,7 +58,7 @@ public class ItemCreator {
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.nogi);
                 break;
-
+// OBUWIE ======================================================================
             case LnianeButy:
                 item.setNazwa("Lniane Obuwie");
                 item.setAtak(0);

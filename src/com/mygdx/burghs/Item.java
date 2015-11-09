@@ -3,6 +3,7 @@ package com.mygdx.burghs;
 import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /** 
@@ -15,6 +16,7 @@ public class Item extends Actor{
     
     // ikona
     private Texture iconTex;
+    private Sprite sprite;
     
     // na której części ciała można nośić item
     private CzesciCiala czescCiala;
@@ -86,6 +88,14 @@ public class Item extends Actor{
     public void setCzescCiala(CzesciCiala czescCiala) {
         this.czescCiala = czescCiala;
     }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }    
     
     @Override
     public void act(float delta) {
