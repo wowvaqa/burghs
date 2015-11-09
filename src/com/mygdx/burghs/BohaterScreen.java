@@ -93,8 +93,6 @@ public class BohaterScreen implements Screen {
         tabela.row();
 
         tabela.add(btnExit).expand().align(Align.bottom).width(100).height(50).colspan(tabela.getColumns());
-
-        //tabela.clear();
     }
 
     // Tworzy labele

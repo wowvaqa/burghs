@@ -99,7 +99,7 @@ public class Bohater extends Actor {
         itemPrawaReka = ic.utworzItem(DostepneItemki.Piesci);
         itemNogi = ic.utworzItem(DostepneItemki.LnianeSpodnie);
         itemStopy = ic.utworzItem(DostepneItemki.LnianeButy);
-        itemGlowa = ic.utworzItem(DostepneItemki.SkorzanaCzapka);
+        itemGlowa = ic.utworzItem(DostepneItemki.LnianaCzapka);
         itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula);
     }
 

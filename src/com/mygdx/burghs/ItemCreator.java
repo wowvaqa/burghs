@@ -1,6 +1,5 @@
 package com.mygdx.burghs;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import enums.DostepneItemki;
 import enums.CzesciCiala;
 
@@ -24,7 +23,8 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.glowa);                               
+                item.setCzescCiala(CzesciCiala.glowa);  
+                item.getSprite().setTexture(a.texLinenCap);
                 break;
             case SkorzanaCzapka:
                 item.setNazwa("Skorzana czapka");
@@ -62,7 +62,7 @@ public class ItemCreator {
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.nogi);
-                //item.setSprite(new Sprite(a.texLinenTousers));
+                item.getSprite().setTexture(a.texLinenTousers);
                 break;
 // OBUWIE ======================================================================
             case LnianeButy:
@@ -72,7 +72,7 @@ public class ItemCreator {
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.stopy);                
-                //item.setSprite(new Sprite(a.texLinenShoes));
+                item.getSprite().setTexture(a.texLinenShoes);
                 break;
         }
         
