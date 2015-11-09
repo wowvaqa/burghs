@@ -1,7 +1,7 @@
 package com.mygdx.burghs;
 
-import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.Texture;
+import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,8 +14,9 @@ public class Item extends Actor{
     
     private String nazwa;
     
-    // ikona
-    private Texture iconTex;
+    private Assets a;
+    
+    // ikona    
     private Sprite sprite;
     
     // na której części ciała można nośić item
@@ -27,8 +28,9 @@ public class Item extends Actor{
     private int hp = 0;
     private int szybkosc = 0;
     
-    public Item(){
-        
+    public Item(Texture teksura){        
+        sprite = new Sprite(teksura);
+        this.setSize(sprite.getWidth(), sprite.getHeight());
     }    
     
     // Setters and Getters
@@ -71,15 +73,7 @@ public class Item extends Actor{
 
     public void setSzybkosc(int szybkosc) {
         this.szybkosc = szybkosc;
-    }
-
-    public Texture getIconTex() {
-        return iconTex;
-    }
-
-    public void setIconTex(Texture iconTex) {
-        this.iconTex = iconTex;
-    }
+    }    
 
     public CzesciCiala getCzescCiala() {
         return czescCiala;
@@ -96,6 +90,10 @@ public class Item extends Actor{
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }    
+
+    public Assets getA() {
+        return a;
+    }    
     
     @Override
     public void act(float delta) {
@@ -104,6 +102,6 @@ public class Item extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha); //To change body of generated methods, choose Tools | Templates.
+        batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());        
     }
 }

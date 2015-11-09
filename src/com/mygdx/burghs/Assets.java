@@ -2,6 +2,7 @@ package com.mygdx.burghs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -17,6 +18,14 @@ public class Assets {
     public Texture mobHumanTex, mobHumanTexZaznaczony;
     public Texture cancelTex;
     public Skin skin;
+    
+    // tekstury itemków
+    public Texture texLinenTousers;    
+    public Texture texLinenShoes;
+    public Texture texLinenShirt;
+    public Texture texLinenCap;
+    public Texture texLeatherCap;
+    public Sprite sprLeatherCap;
     
     // predefiniowane przyciski ruchu
     public ButtonActor btnNorth;
@@ -67,6 +76,8 @@ public class Assets {
         
         utworzPrzyciskiRuchu();
         utworzPrzyciskiAtaku();
+        
+        utworzItemki();
         
         wypelnijMape();        
     }
@@ -231,6 +242,15 @@ public class Assets {
             }            
         });
         
+    }
+    
+    private void utworzItemki(){
+        texLinenCap = new Texture("items/texLinenCap.png");
+        texLinenShirt = new Texture("items/texLinenShirt.png");
+        texLinenShoes = new Texture("items/texLinenShoes.png");
+        texLinenTousers = new Texture("items/texLinenTrousers.png");        
+        texLeatherCap = new Texture("items/texLeatherCap.png");
+        sprLeatherCap = new Sprite(texLeatherCap);
     }
     
     // wypełnia mapę 

@@ -92,13 +92,15 @@ public class Bohater extends Actor {
 
         this.dodajListnera();    
         
+        ItemCreator ic = new ItemCreator();
+        
         // Utworzenie pdst. zestawu itemków i przypisanie do ekwipunku bohatera
-        itemLewaReka = ItemCreator.utworzItem(DostepneItemki.Piesci);
-        itemPrawaReka = ItemCreator.utworzItem(DostepneItemki.Piesci);
-        itemNogi = ItemCreator.utworzItem(DostepneItemki.LnianeSpodnie);
-        itemStopy = ItemCreator.utworzItem(DostepneItemki.LnianeButy);
-        itemGlowa = ItemCreator.utworzItem(DostepneItemki.SkorzanaCzapka);
-        itemKorpus = ItemCreator.utworzItem(DostepneItemki.LnianaKoszula);
+        itemLewaReka = ic.utworzItem(DostepneItemki.Piesci);
+        itemPrawaReka = ic.utworzItem(DostepneItemki.Piesci);
+        itemNogi = ic.utworzItem(DostepneItemki.LnianeSpodnie);
+        itemStopy = ic.utworzItem(DostepneItemki.LnianeButy);
+        itemGlowa = ic.utworzItem(DostepneItemki.SkorzanaCzapka);
+        itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula);
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater

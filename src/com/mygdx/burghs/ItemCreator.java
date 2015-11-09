@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import enums.DostepneItemki;
 import enums.CzesciCiala;
 
@@ -9,9 +10,11 @@ import enums.CzesciCiala;
  * @author v
  */
 public class ItemCreator {
+    
+    private final Assets a = new Assets();
 
-    public static Item utworzItem(DostepneItemki dostepneItemki) {
-        Item item = new Item();
+    public Item utworzItem(DostepneItemki dostepneItemki) {
+        Item item = new Item(a.texLeatherCap);        
 
         switch (dostepneItemki) {
 // GŁOWA ======================================================================            
@@ -21,7 +24,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.glowa);
+                item.setCzescCiala(CzesciCiala.glowa);                               
                 break;
             case SkorzanaCzapka:
                 item.setNazwa("Skorzana czapka");
@@ -30,6 +33,7 @@ public class ItemCreator {
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.glowa);
+                //item.setSprite(new Sprite(a.texLeatherCap));                             
                 break;
 // KORPUS ======================================================================                
             case LnianaKoszula:
@@ -39,6 +43,7 @@ public class ItemCreator {
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.praweRamie);
+                item.getSprite().setTexture(a.texLinenShirt);
                 break;
 // BROŃ RĘCE ===================================================================
             case Piesci:
@@ -47,7 +52,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.praweRamie);
+                item.setCzescCiala(CzesciCiala.praweRamie);                
                 break;
 // NOGI ========================================================================
             case LnianeSpodnie:
@@ -57,6 +62,7 @@ public class ItemCreator {
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.nogi);
+                //item.setSprite(new Sprite(a.texLinenTousers));
                 break;
 // OBUWIE ======================================================================
             case LnianeButy:
@@ -65,9 +71,12 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.stopy);
+                item.setCzescCiala(CzesciCiala.stopy);                
+                //item.setSprite(new Sprite(a.texLinenShoes));
                 break;
         }
+        
+        item.setSize(100, 100);
         return item;
     }
 }

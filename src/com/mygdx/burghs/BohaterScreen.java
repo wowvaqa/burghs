@@ -18,6 +18,9 @@ import com.badlogic.gdx.utils.Align;
  */
 public class BohaterScreen implements Screen {
 
+    // Informuje czy tabela jest zaktualizowana
+    private boolean tabelaZaktualizowana = false;
+
     // Referencje do obiektu assetów, statusu gry, bohatera który jest kliknięty
     private final Assets a;
     private final GameStatus gs;
@@ -29,6 +32,9 @@ public class BohaterScreen implements Screen {
     private TextButton btnExit;
 
     // Inne
+    // Referencje do itemków
+    //private Item itemGlowa;
+
     // Labele
     private Label lblBohater;
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
@@ -43,8 +49,7 @@ public class BohaterScreen implements Screen {
         this.gs = gs;
 
         utworzPrzyciski();
-        utworzLabele();
-        formatujTabele();
+        utworzLabele();        
         dodajDoStage01();
     }
 
@@ -74,16 +79,22 @@ public class BohaterScreen implements Screen {
         tabela.row();
 
         tabela.add(lblGlowa).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemGlowa()).size(50, 50);
+
         tabela.add(lblLewaReka).align(Align.left);
         tabela.add(lblPrawaReka).align(Align.left);
         tabela.row();
 
         tabela.add(lblKorpus).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemKorpus()).size(50, 50);
+        
         tabela.add(lblNogi).align(Align.left);
         tabela.add(lblStopy).align(Align.left);
         tabela.row();
 
         tabela.add(btnExit).expand().align(Align.bottom).width(100).height(50).colspan(tabela.getColumns());
+
+        //tabela.clear();
     }
 
     // Tworzy labele
@@ -112,6 +123,8 @@ public class BohaterScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gs.setActualScreen(1);
+                tabela.clear();
+                tabelaZaktualizowana = false;
                 System.out.println("Exit klikniety");
             }
         });
@@ -137,10 +150,12 @@ public class BohaterScreen implements Screen {
     }
 
     // Aktualizuje labele o dane klikniętego bohatera
-    private void aktualizujLabele() {
+    private void aktualizujTabele() {
+        
+        formatujTabele();
 
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak() + " (" + sumujAtak() + ")");
-        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() + " (" + sumujObrone()+ ")");
+        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() + " (" + sumujObrone() + ")");
         lblHp.setText("HP: " + sprawdzBohatera().getHp());
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
 
@@ -150,10 +165,13 @@ public class BohaterScreen implements Screen {
 
         lblKorpus.setText("Korpus: " + sprawdzBohatera().getItemKorpus().getNazwa());
         lblGlowa.setText("Glowa: " + sprawdzBohatera().getItemGlowa().getNazwa());
+        
         lblLewaReka.setText("L. Reka: " + sprawdzBohatera().getItemLewaReka().getNazwa());
         lblPrawaReka.setText("P. Reka: " + sprawdzBohatera().getItemPrawaReka().getNazwa());
         lblNogi.setText("Nogi: " + sprawdzBohatera().getItemNogi().getNazwa());
         lblStopy.setText("Stopy: " + sprawdzBohatera().getItemStopy().getNazwa());
+
+        tabelaZaktualizowana = true;
     }
 
     // Sumuje siłę obrony bohatera razem z obrony wszystkich itemków
@@ -163,9 +181,9 @@ public class BohaterScreen implements Screen {
         suma += sprawdzBohatera().getItemGlowa().getObrona();
         return suma;
     }
-    
+
     // Sumuje siłę ataku bohatera razem z atakiem wszystkich itemków
-    private int sumujAtak(){
+    private int sumujAtak() {
         return 0;
     }
 
@@ -174,7 +192,9 @@ public class BohaterScreen implements Screen {
         Gdx.input.setInputProcessor(stage01);
 
         if (gs.isCzyZaznaczonoBohatera()) {
-            aktualizujLabele();
+            if (!tabelaZaktualizowana) {
+                aktualizujTabele();
+            }
         }
     }
 
