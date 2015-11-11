@@ -80,16 +80,24 @@ public class BohaterScreen implements Screen {
 
         tabela.add(lblGlowa).align(Align.left);
         tabela.add(sprawdzBohatera().getItemGlowa()).size(50, 50);
+        tabela.row();
 
         tabela.add(lblLewaReka).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemLewaReka()).size(50, 50);
+        
         tabela.add(lblPrawaReka).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemPrawaReka()).size(50, 50);
         tabela.row();
 
         tabela.add(lblKorpus).align(Align.left);
         tabela.add(sprawdzBohatera().getItemKorpus()).size(50, 50);
         
         tabela.add(lblNogi).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemNogi()).size(50, 50);
+        tabela.row();
+        
         tabela.add(lblStopy).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemStopy()).size(50, 50);
         tabela.row();
 
         tabela.add(btnExit).expand().align(Align.bottom).width(100).height(50).colspan(tabela.getColumns());

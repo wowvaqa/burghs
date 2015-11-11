@@ -2,7 +2,6 @@ package com.mygdx.burghs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,13 +18,19 @@ public class Assets {
     public Texture cancelTex;
     public Skin skin;
     
+    // obiekty na mapie
+    public Texture texTresureBox;
+    
     // tekstury itemków
     public Texture texLinenTousers;    
     public Texture texLinenShoes;
     public Texture texLinenShirt;
     public Texture texLinenCap;
     public Texture texLeatherCap;
-    public Sprite sprLeatherCap;
+    public Texture texLinenGloves;
+    public Texture texFist;
+    
+    //public Sprite sprLeatherCap;
     
     // predefiniowane przyciski ruchu
     public ButtonActor btnNorth;
@@ -71,6 +76,7 @@ public class Assets {
         mobHumanTex = new Texture("mobHumanTex.png");
         mobHumanTexZaznaczony = new Texture("mobHumanTexZaznaczony.png");
         cancelTex = new Texture("cancelBtt.png");
+        
         
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
         
@@ -245,12 +251,14 @@ public class Assets {
     }
     
     private void utworzItemki(){
+        texLinenGloves = new Texture("items/texLinenGloves.png");
         texLinenCap = new Texture("items/texLinenCap.png");
         texLinenShirt = new Texture("items/texLinenShirt.png");
         texLinenShoes = new Texture("items/texLinenShoes.png");
         texLinenTousers = new Texture("items/texLinenTrousers.png");        
         texLeatherCap = new Texture("items/texLeatherCap.png");
-        sprLeatherCap = new Sprite(texLeatherCap);
+        texFist = new Texture("items/texFist.png");
+        //sprLeatherCap = new Sprite(texLeatherCap);
     }
     
     // wypełnia mapę 

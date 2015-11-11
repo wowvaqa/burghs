@@ -9,11 +9,11 @@ import enums.CzesciCiala;
  * @author v
  */
 public class ItemCreator {
-    
+
     private final Assets a = new Assets();
 
     public Item utworzItem(DostepneItemki dostepneItemki) {
-        Item item = new Item(a.texLeatherCap);        
+        Item item = new Item(a.texFist);
 
         switch (dostepneItemki) {
 // GŁOWA ======================================================================            
@@ -23,7 +23,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.glowa);  
+                item.setCzescCiala(CzesciCiala.glowa);
                 item.getSprite().setTexture(a.texLinenCap);
                 break;
             case SkorzanaCzapka:
@@ -33,7 +33,7 @@ public class ItemCreator {
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.glowa);
-                //item.setSprite(new Sprite(a.texLeatherCap));                             
+                item.getSprite().setTexture(a.texLeatherCap);
                 break;
 // KORPUS ======================================================================                
             case LnianaKoszula:
@@ -52,8 +52,9 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.praweRamie);                
-                break;
+                item.setCzescCiala(CzesciCiala.praweRamie);
+                item.getSprite().setTexture(a.texFist);
+                break;            
 // NOGI ========================================================================
             case LnianeSpodnie:
                 item.setNazwa("Lniane Spodnie");
@@ -71,11 +72,11 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.stopy);                
+                item.setCzescCiala(CzesciCiala.stopy);
                 item.getSprite().setTexture(a.texLinenShoes);
                 break;
         }
-        
+
         item.setSize(100, 100);
         return item;
     }
