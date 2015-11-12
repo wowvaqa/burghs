@@ -5,6 +5,9 @@ import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 /** 
  *  Klasa definiuje Item: Modyfikatory do statystyk oraz wygląd
@@ -14,7 +17,7 @@ public class Item extends Actor{
     
     private String nazwa;
     
-    private Assets a;
+    private final Assets a;
     
     // ikona    
     private Sprite sprite;
@@ -28,9 +31,23 @@ public class Item extends Actor{
     private int hp = 0;
     private int szybkosc = 0;
     
-    public Item(Texture teksura){        
+    public Item(Texture teksura, final Assets a){   
+        this.a = a;
         sprite = new Sprite(teksura);
         this.setSize(sprite.getWidth(), sprite.getHeight());
+        
+        this.addListener(new InputListener(){
+
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {                
+                a.pokazInfoWindow(nazwa, atak, obrona, hp, szybkosc);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                a.ukryjInfoWindow();
+            }
+        });
     }    
     
     // Setters and Getters

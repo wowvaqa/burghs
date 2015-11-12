@@ -47,6 +47,8 @@ public class BohaterScreen implements Screen {
     public BohaterScreen(Assets a, GameStatus gs) {
         this.a = a;
         this.gs = gs;
+        
+        stage01.addActor(a.infoWindow);
 
         utworzPrzyciski();
         utworzLabele();        

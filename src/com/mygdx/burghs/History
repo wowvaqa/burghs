@@ -1,11 +1,36 @@
-VERSION 0.0001  <25-10-2015>
-
-1. Dodanie algorytmu walki
+VERSION 0.0002  <25-10-2015>
 
 TODO:
 
-Przenieśienie obsługi ruchu/ataku na obiekt bohatera.
-Tak aby wyswietlanie interfejsu ruchu nie odbywało się z poziomu stage01
-w obiekcie klasy MapScreen.
-Stworzyć tymczasową klase Playera która będzie implementować ww. właściwość
+version 0.0003
+
+        Zaprojektować klasę ekwipunku, która przechowywać będzie itemki w
+        arrayList. Obikety klasy Equip inicjowany będzie razem z stworzeniem 
+        bohatera w obiekcie klasy Bohater.
+
+version 0.0002
+
+DONE    Zaprotjektować okno które wyświetli opis itemka i modyfikatory itemka 
+        do statystyk w ekwipunku bohatera po najechniu kursorem myszy na obrazek
+        itema.
+
+1. Skrzynia ze skarbem:
+    
+    - Zawiera item / itemki
+    - Gracz może wybrać które itemki ze skrzyni chce zabrać.
+    - Po zabraniu itemków, dołączane są one do ekwipunku bohatera.
+    - Skrzynia po otworzeniu i zamknieciu znika
+
+1.1 Skrzynia jest klasą która zawiera arrayList itemków.
+    Wyświetlanie zawartosci skrzyni odbywać się będzie poprzez wyswietlenie 
+    obiektu klasy Window z pakietu Stage2D.
+
+    Każdy itemek ze skrzynie w oknie będzie wyswietlany jako:
+    Nazwa / obrazek / button weź
+
+    Po najechaniu na obrazek wyswietli się okienko z informacją o właściwościach
+    itemka.
+
+
+
     

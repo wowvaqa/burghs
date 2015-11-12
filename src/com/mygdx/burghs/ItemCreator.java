@@ -2,6 +2,7 @@ package com.mygdx.burghs;
 
 import enums.DostepneItemki;
 import enums.CzesciCiala;
+import javafx.scene.Scene;
 
 /**
  * Zwraca item
@@ -10,10 +11,11 @@ import enums.CzesciCiala;
  */
 public class ItemCreator {
 
-    private final Assets a = new Assets();
+    private Assets a;
 
-    public Item utworzItem(DostepneItemki dostepneItemki) {
-        Item item = new Item(a.texFist);
+    public Item utworzItem(DostepneItemki dostepneItemki, Assets a) {
+        this.a = a;
+        Item item = new Item(a.texFist, this.a);
 
         switch (dostepneItemki) {
 // GŁOWA ======================================================================            
