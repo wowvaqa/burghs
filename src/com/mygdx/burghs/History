@@ -2,6 +2,13 @@ VERSION 0.0002  <25-10-2015>
 
 TODO:
 
+version 0.0004
+
+        Zaprojektować klasę tresureBox, którj zadaniem będzie przechowywać
+        losowe itemki. Obiekt tej klasy będzie widoczny na mapie po 'nadepnieciu'
+        przez bohatera. Otworzy się okno Tresure i bohater mógł będzie zabrać
+        itemy z skrzyni do swojego ekwipunku.
+
 version 0.0003
 
         Zaprojektować klasę ekwipunku, która przechowywać będzie itemki w
