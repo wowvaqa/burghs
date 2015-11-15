@@ -182,7 +182,7 @@ public class BohaterScreen implements Screen {
         tabelaZaktualizowana = true;
     }
 
-    // Sumuje siłę obrony bohatera razem z obrony wszystkich itemków
+    // Sumuje siłę obrony bohatera razem z obroną wszystkich itemków
     private int sumujObrone() {
         int suma = 0;
         suma += sprawdzBohatera().getAtak();

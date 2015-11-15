@@ -189,6 +189,8 @@ public class MapScreen implements Screen {
                 y += 1;
             }
         }
+        
+        stage01.addActor(new TresureBox(this.a));
     }
 
     @Override

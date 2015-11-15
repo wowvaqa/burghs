@@ -2,7 +2,6 @@ package com.mygdx.burghs;
 
 import enums.DostepneItemki;
 import enums.CzesciCiala;
-import javafx.scene.Scene;
 
 /**
  * Zwraca item

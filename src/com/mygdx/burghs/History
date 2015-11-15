@@ -1,6 +1,18 @@
-VERSION 0.0002  <25-10-2015>
+VERSION 0.0004  <25-10-2015>
 
 TODO:
+
+version 0.0006
+
+        Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
+        Bohater kiedy żaden z bohaterów nie jest zaznaczony.
+
+version 0.0005
+        
+        Zaprojektować klasę Equipment, która będzie przechowywać itemki gracza.
+        Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
+        podmiany ekwipunku, wyrzucania itp.
+        Dodać możliwość dodania do ekwipunku itemków znalezionych Tresure BOX.
 
 version 0.0004
 
