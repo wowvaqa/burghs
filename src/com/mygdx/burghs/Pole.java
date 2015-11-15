@@ -6,6 +6,8 @@ public class Pole {
     public Player bohaterOld;
     
     private Bohater bohater;
+    
+    private TresureBox tresureBox = null;
 
     public Pole() {
 
@@ -25,5 +27,12 @@ public class Pole {
     public void setBohater(Bohater bohater) {
         this.bohater = bohater;
     }
-    
+
+    public TresureBox getTresureBox() {
+        return tresureBox;
+    }
+
+    public void setTresureBox(TresureBox tresureBox) {
+        this.tresureBox = tresureBox;
+    }
 }
