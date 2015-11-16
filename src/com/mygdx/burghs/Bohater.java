@@ -544,6 +544,17 @@ public class Bohater extends Actor {
         this.moveable = false;
         
         gs.setCzyZaznaczonoBohatera(false);
+        this.checkTresureBox();
+    }
+    
+    /**
+     *  Funkcja sprawdza czy bohater nie wlazł na skrzynkę ze skarbem     
+     */
+    private void checkTresureBox(){
+        if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox()!= null){
+            System.out.println("Nadepnięto na skrzynkę ze skarbem");
+            a.pokazInfoWindow(gs.getMapa().getPola()[4][4].getTresureBox());
+        }        
     }
 
     @Override

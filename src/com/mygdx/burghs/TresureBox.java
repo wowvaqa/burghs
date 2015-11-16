@@ -33,7 +33,9 @@ public class TresureBox extends Actor{
         
         sprite = new Sprite(a.texTresureBox);
         this.setSize(100, 100);
-        this.setPosition(400, 400);        
+        this.setPosition(400, 400);    
+        
+        this.losujItemy();
     }
     
     @Override
@@ -51,9 +53,12 @@ public class TresureBox extends Actor{
         return dostepneItemy;
     }
     
-    // Generuje itemy i dodaje do arraylista
-    public void losujItemy(){
+    /**
+     *  Generuje zestaw itemów i dodaje je do arraylista z itemami     
+     */
+    private void losujItemy(){
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaCzapka, a));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzanaCzapka, a));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a));
     }
 }

@@ -3,9 +3,12 @@ package com.mygdx.burghs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import java.util.ArrayList;
 
 public class Assets {
 
@@ -98,11 +101,18 @@ public class Assets {
         infoWindow = new Window("TEST", skin);
         infoWindow.setPosition(Gdx.graphics.getWidth() / 2 - 200, Gdx.graphics.getHeight() / 2 - 150);
         infoWindow.setSize(400, 300);
-        infoWindow.setVisible(false);        
+        infoWindow.setVisible(false);
     }
 
-    // pokazjue na stage okno z info dt. charakterystyki itemka
-    // metoda przeciążona dla itmeków
+    /**
+     * Pokazuje okno z informacjami dotyczącymi charakterystyki itemka.
+     *
+     * @param nazwa Nazwa itemka
+     * @param atak modyfikator ataku itemka
+     * @param obrona modyfikator obrony itemka
+     * @param hp modyfikator hp itemka
+     * @param szybkosc modyfikator szybkości itemka
+     */
     public void pokazInfoWindow(String nazwa, int atak, int obrona, int hp,
             int szybkosc) {
         infoWindow.setZIndex(200);
@@ -123,12 +133,50 @@ public class Assets {
         infoWindow.add(Integer.toString(szybkosc));
         infoWindow.row();
     }
-    
-    public void pokazInfoWindow(String nazwa, String qpa) {
+
+    /**
+     * Pokazuje okno z informacjami dla Tresure Box
+     *
+     * @param tb Referencja do obiektu TresureBox którego itemy mają być
+     * wyświetlone w oknie informacyjnym
+     */
+    public void pokazInfoWindow(final TresureBox tb) {
+        infoWindow.setZIndex(200);
+        infoWindow.setVisible(true);
         
+        // Tymczasowa ArrayLista przechowująca TextButtony
+        final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>(); 
+
+        for (int i = 0; i < tb.getDostepneItemy().size(); i++) {
+            infoWindow.add(tb.getDostepneItemy().get(i).getNazwa());
+            tmpButtons.add(new TextButton("TAKE IT", skin));             
+            tmpButtons.get(i).addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("przycisk TAKE IT kliknięty");
+                    
+                }
+            });
+            infoWindow.add(tmpButtons.get(i));
+            infoWindow.row();
+        }
+        
+        // tymczasowy przycisk Exit dodany do okna InfoWindow
+        TextButton tmpExitBtn = new TextButton("EXIT", skin);
+        tmpExitBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ukryjInfoWindow();
+            }
+        });
+        
+        infoWindow.add(tmpExitBtn);
+
     }
 
-    // ukrywa okno z charakterystyką itemka
+    /**
+     * Ukrywa okno informacyjne
+     */
     public void ukryjInfoWindow() {
         infoWindow.setVisible(false);
         infoWindow.reset();
