@@ -2,6 +2,11 @@ VERSION 0.0004  <25-10-2015>
 
 TODO:
 
+version 0.0007
+
+        Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
+        na mapie w określonych miejscach.
+
 version 0.0006
 
         Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
