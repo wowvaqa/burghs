@@ -3,7 +3,6 @@ package com.mygdx.burghs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -58,6 +57,9 @@ public class Assets {
 
     // predefiniowane okno ifnoramcyjne
     public Window infoWindow;
+
+    // Ekwipunek
+    public ArrayList<Item> equipment = new ArrayList<Item>();
 
     public int[] mapa = new int[100];
 
@@ -143,34 +145,51 @@ public class Assets {
     public void pokazInfoWindow(final TresureBox tb) {
         infoWindow.setZIndex(200);
         infoWindow.setVisible(true);
-        
+
         // Tymczasowa ArrayLista przechowująca TextButtony
-        final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>(); 
+        final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>();
 
         for (int i = 0; i < tb.getDostepneItemy().size(); i++) {
             infoWindow.add(tb.getDostepneItemy().get(i).getNazwa());
-            tmpButtons.add(new TextButton("TAKE IT", skin));             
-            tmpButtons.get(i).addListener(new ClickListener(){
+            tmpButtons.add(new TextButton("TAKE IT", skin));
+            tmpButtons.get(i).addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     System.out.println("przycisk TAKE IT kliknięty");
-                    
+                    for (int i = 0; i < tmpButtons.size(); i++) {
+                        if (tmpButtons.get(i).isPressed()) {
+                            tmpButtons.get(i).remove();
+                            // dodanie itemka z tresureboxa do ekwipunku
+                            equipment.add(tb.getDostepneItemy().get(i));
+                            // usuniecie wybranego itemka z trasureboxa
+                            tb.getDostepneItemy().remove(i);
+                            // aktualizacja okna
+                            ukryjInfoWindow();
+                            pokazInfoWindow(tb);
+
+                        }
+                    }
+
                 }
             });
             infoWindow.add(tmpButtons.get(i));
             infoWindow.row();
         }
-        
+
         // tymczasowy przycisk Exit dodany do okna InfoWindow
         TextButton tmpExitBtn = new TextButton("EXIT", skin);
-        tmpExitBtn.addListener(new ClickListener(){
+        tmpExitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ukryjInfoWindow();
             }
         });
-        
+
         infoWindow.add(tmpExitBtn);
+    }
+
+    // infoWindow dla eqwipunku
+    public void pokazInfoWindow(ArrayList<Item> equip) {
 
     }
 
