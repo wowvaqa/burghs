@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import java.util.ArrayList;
 
 /**
  * Klasa Bohater odpowiada za rysowanie i zachowanie bohatera na mapie.
@@ -29,6 +30,8 @@ public class Bohater extends Actor {
     private Item itemPrawaReka = null;
     private Item itemLewaReka = null;
     private Item itemStopy = null;    
+    
+    private ArrayList<Item> equipment;
     
     private final Assets a;
     private final GameStatus gs;
@@ -77,6 +80,8 @@ public class Bohater extends Actor {
     public Bohater(Texture textureIcon, Texture textureIconZaznaczona,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, Assets a,
             int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs) {
+        
+        this.equipment = new ArrayList<Item>();
         this.gs = gs;
         this.pozXnaMapie = pozycjaXnaMapie;
         this.pozYnaMapie = pozycjaYnaMapie;
@@ -555,7 +560,7 @@ public class Bohater extends Actor {
             System.out.println("Nadepnięto na skrzynkę ze skarbem");
             //gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().remove(0);
             //System.out.println(gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().size());
-            a.pokazInfoWindow(gs.getMapa().getPola()[4][4].getTresureBox());
+            a.pokazInfoWindow(gs.getMapa().getPola()[4][4].getTresureBox(), this);
         }        
     }
 
@@ -591,6 +596,16 @@ public class Bohater extends Actor {
     }
 
 // SETTERS AND GETTERS
+
+    public ArrayList<Item> getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(ArrayList<Item> equipment) {
+        this.equipment = equipment;
+    }
+    
+    
     /**
      * Zwraca pozycję X obiektu Bohater na w obiekcie klasy Mapa
      *

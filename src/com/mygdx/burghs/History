@@ -7,7 +7,7 @@ version 0.0006
         Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
         Bohater kiedy żaden z bohaterów nie jest zaznaczony.
 
-version 0.0005
+version 0.0005 IN PROGRESS
         
         Zaprojektować klasę Equipment, która będzie przechowywać itemki gracza.
         Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
@@ -16,14 +16,14 @@ version 0.0005
 
 version 0.0004
 
-        Zaprojektować klasę tresureBox, którj zadaniem będzie przechowywać
+DONE    Zaprojektować klasę tresureBox, którj zadaniem będzie przechowywać
         losowe itemki. Obiekt tej klasy będzie widoczny na mapie po 'nadepnieciu'
         przez bohatera. Otworzy się okno Tresure i bohater mógł będzie zabrać
         itemy z skrzyni do swojego ekwipunku.
 
 version 0.0003
 
-        Zaprojektować klasę ekwipunku, która przechowywać będzie itemki w
+DONE    Zaprojektować klasę ekwipunku, która przechowywać będzie itemki w
         arrayList. Obikety klasy Equip inicjowany będzie razem z stworzeniem 
         bohatera w obiekcie klasy Bohater.
 

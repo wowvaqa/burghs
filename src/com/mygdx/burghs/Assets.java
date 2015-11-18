@@ -58,9 +58,6 @@ public class Assets {
     // predefiniowane okno ifnoramcyjne
     public Window infoWindow;
 
-    // Ekwipunek
-    public ArrayList<Item> equipment = new ArrayList<Item>();
-
     public int[] mapa = new int[100];
 
     public Assets() {
@@ -139,18 +136,20 @@ public class Assets {
     /**
      * Pokazuje okno z informacjami dla Tresure Box
      *
-     * @param tb Referencja do obiektu TresureBox którego itemy mają być
+     * @param tresureBox Referencja do obiektu TresureBox którego itemy mają być
      * wyświetlone w oknie informacyjnym
+     * @param bohater Referencja do obiketu bohatera do którego ekwipunku 
+     * dodawane będą itemki z tresure boxa
      */
-    public void pokazInfoWindow(final TresureBox tb) {
+    public void pokazInfoWindow(final TresureBox tresureBox, final Bohater bohater) {
         infoWindow.setZIndex(200);
         infoWindow.setVisible(true);
 
         // Tymczasowa ArrayLista przechowująca TextButtony
         final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>();
 
-        for (int i = 0; i < tb.getDostepneItemy().size(); i++) {
-            infoWindow.add(tb.getDostepneItemy().get(i).getNazwa());
+        for (int i = 0; i < tresureBox.getDostepneItemy().size(); i++) {
+            infoWindow.add(tresureBox.getDostepneItemy().get(i).getNazwa());
             tmpButtons.add(new TextButton("TAKE IT", skin));
             tmpButtons.get(i).addListener(new ClickListener() {
                 @Override
@@ -160,16 +159,14 @@ public class Assets {
                         if (tmpButtons.get(i).isPressed()) {
                             tmpButtons.get(i).remove();
                             // dodanie itemka z tresureboxa do ekwipunku
-                            equipment.add(tb.getDostepneItemy().get(i));
+                            bohater.getEquipment().add(tresureBox.getDostepneItemy().get(i));                            
                             // usuniecie wybranego itemka z trasureboxa
-                            tb.getDostepneItemy().remove(i);
+                            tresureBox.getDostepneItemy().remove(i);
                             // aktualizacja okna
                             ukryjInfoWindow();
-                            pokazInfoWindow(tb);
-
+                            pokazInfoWindow(tresureBox, bohater);
                         }
                     }
-
                 }
             });
             infoWindow.add(tmpButtons.get(i));
