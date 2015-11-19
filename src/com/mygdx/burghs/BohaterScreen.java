@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import java.util.ArrayList;
 
 /**
  * Wyświetla screen z statystykami oraz ekwipunkiem bohatera
@@ -34,7 +35,6 @@ public class BohaterScreen implements Screen {
     // Inne
     // Referencje do itemków
     //private Item itemGlowa;
-
     // Labele
     private Label lblBohater;
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
@@ -43,15 +43,16 @@ public class BohaterScreen implements Screen {
 
     // Tabela
     private final Table tabela = new Table();
+    private final Table tabela2 = new Table();
 
     public BohaterScreen(Assets a, GameStatus gs) {
         this.a = a;
         this.gs = gs;
-        
+
         stage01.addActor(a.infoWindow);
 
         utworzPrzyciski();
-        utworzLabele();        
+        utworzLabele();
         dodajDoStage01();
     }
 
@@ -86,23 +87,53 @@ public class BohaterScreen implements Screen {
 
         tabela.add(lblLewaReka).align(Align.left);
         tabela.add(sprawdzBohatera().getItemLewaReka()).size(50, 50);
-        
+
         tabela.add(lblPrawaReka).align(Align.left);
         tabela.add(sprawdzBohatera().getItemPrawaReka()).size(50, 50);
         tabela.row();
 
         tabela.add(lblKorpus).align(Align.left);
         tabela.add(sprawdzBohatera().getItemKorpus()).size(50, 50);
-        
+
         tabela.add(lblNogi).align(Align.left);
         tabela.add(sprawdzBohatera().getItemNogi()).size(50, 50);
         tabela.row();
-        
+
         tabela.add(lblStopy).align(Align.left);
         tabela.add(sprawdzBohatera().getItemStopy()).size(50, 50);
         tabela.row();
 
+        tabela.add(tabela2).align(Align.topLeft).expand().colspan(tabela.getColumns());
+
+        tabela.row();
+
         tabela.add(btnExit).expand().align(Align.bottom).width(100).height(50).colspan(tabela.getColumns());
+    }
+
+    /**
+     * Formatuje tabele ekwipunku
+     */
+    private void formatujTabele2() {
+        //tabela2.setFillParent(true);
+        // ustawia odstęp od krawędzi tabeli
+        tabela2.pad(10);
+        // włacza linie debugujące tabelę
+        tabela2.setDebug(true);
+
+        tabela2.add(new Label("Ekwipunek:", a.skin)).align(Align.topLeft);
+        tabela2.row();
+
+        System.out.println(sprawdzBohatera().getEquipment().size());
+        
+        final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>();
+
+        for (int i = 0; i < sprawdzBohatera().getEquipment().size(); i++) {
+            tabela2.add( new Label(sprawdzBohatera().getEquipment().get(i).getNazwa(), a.skin)).align(Align.left).pad(5);
+            tabela2.add(sprawdzBohatera().getEquipment().get(i)).size(50);
+            tmpButtons.add(new TextButton("Usun", a.skin));
+            tabela2.add(tmpButtons.get(i)).pad(5);
+            tabela2.row();
+        }
     }
 
     // Tworzy labele
@@ -132,6 +163,7 @@ public class BohaterScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 gs.setActualScreen(1);
                 tabela.clear();
+                tabela2.clear();
                 tabelaZaktualizowana = false;
                 System.out.println("Exit klikniety");
             }
@@ -159,8 +191,9 @@ public class BohaterScreen implements Screen {
 
     // Aktualizuje labele o dane klikniętego bohatera
     private void aktualizujTabele() {
-        
+
         formatujTabele();
+        formatujTabele2();
 
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak() + " (" + sumujAtak() + ")");
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() + " (" + sumujObrone() + ")");
@@ -173,7 +206,7 @@ public class BohaterScreen implements Screen {
 
         lblKorpus.setText("Korpus: " + sprawdzBohatera().getItemKorpus().getNazwa());
         lblGlowa.setText("Glowa: " + sprawdzBohatera().getItemGlowa().getNazwa());
-        
+
         lblLewaReka.setText("L. Reka: " + sprawdzBohatera().getItemLewaReka().getNazwa());
         lblPrawaReka.setText("P. Reka: " + sprawdzBohatera().getItemPrawaReka().getNazwa());
         lblNogi.setText("Nogi: " + sprawdzBohatera().getItemNogi().getNazwa());

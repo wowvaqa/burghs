@@ -39,8 +39,10 @@ public class Item extends Actor{
         this.addListener(new InputListener(){
 
             @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {                
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {     
+                System.out.println("Pokaz info window");
                 a.pokazInfoWindow(nazwa, atak, obrona, hp, szybkosc);
+                //a.infoWindow.toFront();
             }
 
             @Override

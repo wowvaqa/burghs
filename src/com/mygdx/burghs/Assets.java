@@ -114,6 +114,7 @@ public class Assets {
      */
     public void pokazInfoWindow(String nazwa, int atak, int obrona, int hp,
             int szybkosc) {
+        System.out.println("Funkcja pokazInfoWindow jest uruchomiona");
         infoWindow.setZIndex(200);
         infoWindow.setVisible(true);
         infoWindow.add("Nazwa:");
@@ -131,6 +132,7 @@ public class Assets {
         infoWindow.add("Mod. Szybkosci: ");
         infoWindow.add(Integer.toString(szybkosc));
         infoWindow.row();
+        infoWindow.toFront();
     }
 
     /**
@@ -183,11 +185,6 @@ public class Assets {
         });
 
         infoWindow.add(tmpExitBtn);
-    }
-
-    // infoWindow dla eqwipunku
-    public void pokazInfoWindow(ArrayList<Item> equip) {
-
     }
 
     /**

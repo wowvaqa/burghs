@@ -14,10 +14,10 @@ version 0.0006
 
 version 0.0005 IN PROGRESS
         
-        Zaprojektować klasę Equipment, która będzie przechowywać itemki gracza.
-        Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
+        1. Zaprojektować klasę Equipment, która będzie przechowywać itemki gracza.
+        2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
         podmiany ekwipunku, wyrzucania itp.
-        Dodać możliwość dodania do ekwipunku itemków znalezionych Tresure BOX.
+DONE    3. Dodać możliwość dodania do ekwipunku itemków znalezionych Tresure BOX.
 
 version 0.0004 18112015
 
