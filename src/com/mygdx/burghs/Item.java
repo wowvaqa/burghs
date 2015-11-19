@@ -42,7 +42,7 @@ public class Item extends Actor{
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {     
                 System.out.println("Pokaz info window");
                 a.pokazInfoWindow(nazwa, atak, obrona, hp, szybkosc);
-                //a.infoWindow.toFront();
+                a.infoWindow.setVisible(true);
             }
 
             @Override

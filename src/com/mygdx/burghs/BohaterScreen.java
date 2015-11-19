@@ -47,9 +47,7 @@ public class BohaterScreen implements Screen {
 
     public BohaterScreen(Assets a, GameStatus gs) {
         this.a = a;
-        this.gs = gs;
-
-        stage01.addActor(a.infoWindow);
+        this.gs = gs;        
 
         utworzPrzyciski();
         utworzLabele();
@@ -173,6 +171,7 @@ public class BohaterScreen implements Screen {
     // Dodaje do stage01 tabele
     private void dodajDoStage01() {
         stage01.addActor(tabela);
+        stage01.addActor(a.infoWindow);
     }
 
     // Przeszukuje wszystkich bohaterów sprawdzając czy ktoryś nie jest zaznaczony

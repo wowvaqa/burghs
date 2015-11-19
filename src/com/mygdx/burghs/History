@@ -18,6 +18,7 @@ version 0.0005 IN PROGRESS
         2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
         podmiany ekwipunku, wyrzucania itp.
 DONE    3. Dodać możliwość dodania do ekwipunku itemków znalezionych Tresure BOX.
+        4. Dodać klasę Window do wyswietlania statystyk i zawartości Tresure Box
 
 version 0.0004 18112015
 
