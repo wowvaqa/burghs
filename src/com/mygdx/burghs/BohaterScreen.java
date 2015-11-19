@@ -24,6 +24,7 @@ public class BohaterScreen implements Screen {
 
     // Referencje do obiektu assetów, statusu gry, bohatera który jest kliknięty
     private final Assets a;
+    
     private final GameStatus gs;
 
     // Plansza
@@ -47,7 +48,8 @@ public class BohaterScreen implements Screen {
 
     public BohaterScreen(Assets a, GameStatus gs) {
         this.a = a;
-        this.gs = gs;        
+        this.gs = gs;    
+               
 
         utworzPrzyciski();
         utworzLabele();
@@ -121,8 +123,6 @@ public class BohaterScreen implements Screen {
         tabela2.add(new Label("Ekwipunek:", a.skin)).align(Align.topLeft);
         tabela2.row();
 
-        System.out.println(sprawdzBohatera().getEquipment().size());
-        
         final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>();
 
         for (int i = 0; i < sprawdzBohatera().getEquipment().size(); i++) {
@@ -171,7 +171,7 @@ public class BohaterScreen implements Screen {
     // Dodaje do stage01 tabele
     private void dodajDoStage01() {
         stage01.addActor(tabela);
-        stage01.addActor(a.infoWindow);
+        this.stage01.addActor(a.getInfoWindow());
     }
 
     // Przeszukuje wszystkich bohaterów sprawdzając czy ktoryś nie jest zaznaczony

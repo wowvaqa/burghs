@@ -21,15 +21,20 @@ public class TresureBox extends Actor{
     // assety
     private Assets a;
     
+    private GameStatus gs;
+    
     // array list przechowujący itemy.
     private final ArrayList<Item> dostepneItemy = new ArrayList<Item>(); 
     
     // obiekt do generowania itemów.
-    ItemCreator itemCreator = new ItemCreator();
+    private ItemCreator itemCreator;
     
     // Konsturktor
-    public TresureBox(Assets a){
+    public TresureBox(Assets a, GameStatus gs){
         this.a = a;
+        this.gs = gs;
+        
+        itemCreator = new ItemCreator(gs);
         
         sprite = new Sprite(a.texTresureBox);
         this.setSize(100, 100);

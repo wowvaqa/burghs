@@ -97,7 +97,7 @@ public class Bohater extends Actor {
 
         this.dodajListnera();    
         
-        ItemCreator ic = new ItemCreator();
+        ItemCreator ic = new ItemCreator(this.gs);
         
         // Utworzenie pdst. zestawu itemków i przypisanie do ekwipunku bohatera
         itemLewaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);

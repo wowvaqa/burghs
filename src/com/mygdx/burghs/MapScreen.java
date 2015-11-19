@@ -162,7 +162,7 @@ public class MapScreen implements Screen {
         stage01.addActor(window);
         
         // Dodaje do planszy info window z assetów do wyświetlania info o skrzynce ze skarbem
-        stage01.addActor(a.infoWindow);
+        stage01.addActor(a.getInfoWindow());
     }
 
     // Gneruje graczy w konstruktorze klasy i dodaje ich do planszy 01
@@ -195,7 +195,7 @@ public class MapScreen implements Screen {
         
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
-        TresureBox tb = new TresureBox(this.a);        
+        TresureBox tb = new TresureBox(this.a, this.gs);        
         gs.getMapa().getPola()[4][4].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[4][4].getTresureBox());
         

@@ -56,7 +56,7 @@ public class Assets {
     public ButtonActor btnCancel;
 
     // predefiniowane okno ifnoramcyjne
-    public Window infoWindow;
+    private Window infoWindow;
 
     public int[] mapa = new int[100];
 
@@ -387,4 +387,11 @@ public class Assets {
         mapa[67] = 2;
     }
 
+    public Window getInfoWindow() {
+        return infoWindow;
+    }
+
+    public void setInfoWindow(Window infoWindow) {
+        this.infoWindow = infoWindow;
+    }
 }

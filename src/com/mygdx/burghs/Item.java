@@ -7,42 +7,61 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/** 
- *  Klasa definiuje Item: Modyfikatory do statystyk oraz wygląd
+/**
+ * Klasa definiuje Item: Modyfikatory do statystyk oraz wygląd
+ *
  * @author v
  */
-public class Item extends Actor{
-    
+public class Item extends Actor {
+
     private String nazwa;
-    
+
     private final Assets a;
-    
+    private final GameStatus gs;
+
     // ikona    
     private Sprite sprite;
-    
+
     // na której części ciała można nośić item
     private CzesciCiala czescCiala;
-    
+
     // statystyka itemka
     private int atak = 0;
     private int obrona = 0;
     private int hp = 0;
     private int szybkosc = 0;
-    
-    public Item(Texture teksura, final Assets a){   
+
+    public Item(Texture teksura, final Assets a, final GameStatus gs) {
         this.a = a;
+        this.gs = gs;
         sprite = new Sprite(teksura);
-        this.setSize(sprite.getWidth(), sprite.getHeight());
-        
-        this.addListener(new InputListener(){
+        this.setSize(sprite.getWidth(), sprite.getHeight());  
+        final Item qpa = this;
+
+        this.addListener(new ClickListener(){
+            GameStatus tmpGs = gs;
+            //final tmpItem = this;
 
             @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {     
+            public void clicked(InputEvent event, float x, float y) {
+                tmpGs.setLastScreen(5);
+                tmpGs.setActualScreen(6);
+                tmpGs.setItem(qpa);
+            }            
+        });
+
+        this.addListener(new InputListener() {
+            GameStatus tmpGs = gs;
+
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 System.out.println("Pokaz info window");
                 a.pokazInfoWindow(nazwa, atak, obrona, hp, szybkosc);
-                a.infoWindow.setVisible(true);
+                a.getInfoWindow().setVisible(true);
+                //tmpGs.setActualScreen(6);
             }
 
             @Override
@@ -50,10 +69,9 @@ public class Item extends Actor{
                 a.ukryjInfoWindow();
             }
         });
-    }    
-    
-    // Setters and Getters
+    }
 
+    // Setters and Getters
     public String getNazwa() {
         return nazwa;
     }
@@ -92,7 +110,7 @@ public class Item extends Actor{
 
     public void setSzybkosc(int szybkosc) {
         this.szybkosc = szybkosc;
-    }    
+    }
 
     public CzesciCiala getCzescCiala() {
         return czescCiala;
@@ -108,12 +126,12 @@ public class Item extends Actor{
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
-    }    
+    }
 
     public Assets getA() {
         return a;
-    }    
-    
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta); //To change body of generated methods, choose Tools | Templates.
@@ -121,6 +139,6 @@ public class Item extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());        
+        batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
 }

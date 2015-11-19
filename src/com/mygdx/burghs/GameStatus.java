@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameStatus {
-    private int actualScreen = 0;                                               // zapamiętuje aktualną scenę która jest wyświetlana
+    private int actualScreen = 0;                                               // zapamiętuje aktualną scenę która jest wyświetlana    
+    private int lastScreen = 0;                                                 // Ostatnia scena która była wyświetlana
     private int predkoscScrollowaniaKamery = 10;                                // współczynnik prędkości dla scrollingu mapy w obiekcie klasy MapScreen
     private int predkoscZoomKamery = 10;                                        // współczynnik prędkości dla zoomu mapy w obiekcie klasy MapScreen
     public float xDlaInterfejsuRuchu = 0;
@@ -18,6 +19,8 @@ public class GameStatus {
     private int turaGracza = 0;
     
     //private Skin skin;       
+    
+    private Item item;
     
     public boolean czyUtworzonoMape = false;                                    // informuje jeżeli TRUE że możliwe jest utworzenie obiektu klasy MapScreen 
     
@@ -107,4 +110,20 @@ public class GameStatus {
     public void setCzyZaznaczonoBohatera(boolean czyZaznaczonoBohatera) {
         this.czyZaznaczonoBohatera = czyZaznaczonoBohatera;
     }    
+
+    public int getLastScreen() {
+        return lastScreen;
+    }
+
+    public void setLastScreen(int lastScreen) {
+        this.lastScreen = lastScreen;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 }

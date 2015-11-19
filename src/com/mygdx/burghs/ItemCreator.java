@@ -9,12 +9,17 @@ import enums.CzesciCiala;
  * @author v
  */
 public class ItemCreator {
+    private GameStatus gs;
+    
+    public ItemCreator(GameStatus gs){
+        this.gs = gs;
+    }
 
     private Assets a;
 
     public Item utworzItem(DostepneItemki dostepneItemki, Assets a) {
         this.a = a;
-        Item item = new Item(a.texFist, this.a);
+        Item item = new Item(a.texFist, this.a, this.gs);
 
         switch (dostepneItemki) {
 // GŁOWA ======================================================================            

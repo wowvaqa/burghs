@@ -5,7 +5,9 @@ package com.mygdx.burghs;
 // SCENA 3  - Nowa Gra
 // SCENA 4  - Opcje
 // SCENA 5  - Screen Bohatera
+// SCENA 6  - Item Screen
 import com.badlogic.gdx.Game;
+import com.mygdx.burghs.Screens.ItemScreen;
 
 public class Burghs extends Game {
 
@@ -17,6 +19,7 @@ public class Burghs extends Game {
     private NewGameScreen newGameScreen;
     private OptionsScreen optionsScreen;
     private BohaterScreen bohaterScreen;
+    private ItemScreen itemScreen;
     // zmienna informująca czy ma zostać uruchomione tworzenie nowej mapy
     private boolean nieWywolujTworzeniaMapy = false;
 
@@ -28,6 +31,7 @@ public class Burghs extends Game {
         newGameScreen = new NewGameScreen(this, a, gs);
         optionsScreen = new OptionsScreen(this.gs, this.a);
         bohaterScreen = new BohaterScreen(this.a, this.gs);
+        itemScreen = new ItemScreen(this.a, this.gs);
     }
 
     @Override
@@ -58,6 +62,9 @@ public class Burghs extends Game {
         }
         if (gs.getActualScreen() == 5){
             this.setScreen(bohaterScreen);
+        }
+        if (gs.getActualScreen() == 6){
+            this.setScreen(itemScreen);
         }
     }
 }
