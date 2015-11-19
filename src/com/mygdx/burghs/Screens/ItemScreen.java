@@ -25,13 +25,15 @@ import com.mygdx.burghs.GameStatus;
 public class ItemScreen implements Screen {
 
     private final Assets a;
-    private final GameStatus gs;    
+    private final GameStatus gs;
 
     private final Stage stage01 = new Stage();
-    
+
     private final Table tabela;
-    
+
     private final TextButton btnExit;
+
+    private boolean itemScreenShow = false;
 
     public ItemScreen(Assets a, final GameStatus gs) {
         this.a = a;
@@ -46,14 +48,16 @@ public class ItemScreen implements Screen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         tmpGs.setActualScreen(tmpGs.getLastScreen());
+                        itemScreenShow = false;
+                        tabela.clear();
                     }
                 }
-        );        
+        );
     }
-    
-    private void formatujTabele(){
-        Label label = new Label(gs.getItem().getNazwa(), a.skin);        
-        
+
+    private void formatujTabele() {
+        Label label = new Label(gs.getItem().getNazwa(), a.skin);
+
         tabela.setFillParent(true);
         // ustawia odstęp od krawędzi tabeli
         tabela.pad(10);
@@ -66,18 +70,21 @@ public class ItemScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage01);
-        
-        formatujTabele();
-        
-        stage01.addActor(tabela);
+        if (!itemScreenShow) {
+            Gdx.input.setInputProcessor(stage01);
+
+            formatujTabele();
+
+            stage01.addActor(tabela);
+            itemScreenShow = true;
+        }
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(255, 255, 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         stage01.act();
         stage01.draw();
     }
