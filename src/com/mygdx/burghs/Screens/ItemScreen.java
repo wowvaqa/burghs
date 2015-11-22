@@ -35,6 +35,11 @@ public class ItemScreen implements Screen {
 
     private boolean itemScreenShow = false;
 
+    /**
+     *
+     * @param a Assety
+     * @param gs Status gry
+     */
     public ItemScreen(Assets a, final GameStatus gs) {
         this.a = a;
         this.gs = gs;
@@ -63,9 +68,21 @@ public class ItemScreen implements Screen {
         tabela.pad(10);
         // włacza linie debugujące tabelę
         tabela.setDebug(true);
-        tabela.add(label);
+        tabela.add(label).colspan(2);
         tabela.row();
-        tabela.add(btnExit);
+        tabela.add(new Label("Atak:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getAtak()), a.skin)).expandX();        
+        tabela.row();
+        tabela.add(new Label("Obrona:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getObrona()), a.skin)).expandX();
+        tabela.row();
+        tabela.add(new Label("Szybkosc:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getSzybkosc()), a.skin)).expandX();
+        tabela.row();
+        tabela.add(new Label("HP:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getHp()), a.skin)).expandX();
+        tabela.row();
+        tabela.add(btnExit).colspan(2);
     }
 
     @Override
