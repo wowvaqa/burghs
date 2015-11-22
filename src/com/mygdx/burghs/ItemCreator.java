@@ -90,6 +90,15 @@ public class ItemCreator {
                 item.setCzescCiala(CzesciCiala.stopy);
                 item.getSprite().setTexture(a.texLinenShoes);
                 break;
+            case SkorzaneButy:
+                item.setNazwa("Skorzane Buty");
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(1);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.stopy);
+                item.getSprite().setTexture(a.texLeatherShoes);
+                break;
         }
 
         item.setSize(100, 100);

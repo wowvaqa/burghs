@@ -1,6 +1,7 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -27,6 +28,7 @@ public class Assets {
     // tekstury itemków
     public Texture texLinenTousers;
     public Texture texLinenShoes;
+    public Texture texLeatherShoes;
     public Texture texLinenShirt;
     public Texture texLinenCap;
     public Texture texLeatherCap;
@@ -53,6 +55,8 @@ public class Assets {
     public ButtonActor btnAtcNorthWest;
     public ButtonActor btnAtcSouthEast;
     public ButtonActor btnAtcSouthWest;
+    
+    public AssetManager am;
 
     public ButtonActor btnCancel;
 
@@ -61,7 +65,7 @@ public class Assets {
 
     public int[] mapa = new int[100];
 
-    public Assets() {
+    public Assets() {        
         trawaTex = new Texture("grass100x100.png");
         trawaGoraTex = new Texture("grassMountain100x100.png");
         trawaZamekTex = new Texture("grassCastle100x100.png");
@@ -367,6 +371,7 @@ public class Assets {
         texLinenTousers = new Texture("items/texLinenTrousers.png");
         texLeatherCap = new Texture("items/texLeatherCap.png");
         texLeatherTousers = new Texture("items/texLeatherTrousers.png");
+        texLeatherShoes = new Texture("items/texLeatherShoes.png");
         texFist = new Texture("items/texFist.png");
     }
 

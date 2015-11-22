@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import enums.CzesciCiala;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class BohaterScreen implements Screen {
 
     // Referencje do obiektu assetów, statusu gry, bohatera który jest kliknięty
     private final Assets a;
-    
+
     private final GameStatus gs;
 
     // Plansza
@@ -49,8 +50,7 @@ public class BohaterScreen implements Screen {
 
     public BohaterScreen(Assets a, GameStatus gs) {
         this.a = a;
-        this.gs = gs;    
-               
+        this.gs = gs;
 
         utworzPrzyciski();
         utworzLabele();
@@ -59,6 +59,26 @@ public class BohaterScreen implements Screen {
 
     // Formatuje tabele dodaje do niej elementy
     private void formatujTabele() {
+//        sprawdzBohatera().getItemGlowa().addListener(new DragListener() {
+//            @Override
+//            public void drag(InputEvent event, float x, float y, int pointer) {
+//                sprawdzBohatera().getItemGlowa().moveBy(x - sprawdzBohatera().getItemGlowa().getWidth() / 2, y - sprawdzBohatera().getItemGlowa().getHeight() / 2);                
+//            }
+//
+//            @Override
+//            public void dragStop(InputEvent event, float x, float y, int pointer) {
+//                sprawdzBohatera().getItemGlowa().removeListener(this);
+//                if (sprawdzBohatera().getItemGlowa().getY() < tabela2.getY() + tabela.getHeight()){
+//                    sprawdzBohatera().getEquipment().add(sprawdzBohatera().getItemGlowa());      
+//                    sprawdzBohatera().setItemGlowa(sprawdzBohatera().getItemKorpus());
+//                    sprawdzBohatera().getItemGlowa().toFront();
+//                    tabela2.clear();
+//                    tabela.clear();
+//                    aktualizujTabele();
+//                    
+//                }
+//            }            
+//        });
         // ustawia rozmiar tebeli na cały ekran
         tabela.setFillParent(true);
         // ustawia odstęp od krawędzi tabeli
@@ -128,26 +148,27 @@ public class BohaterScreen implements Screen {
         final ArrayList<TextButton> tmpButtonsZaloz = new ArrayList<TextButton>();
 
         for (int i = 0; i < sprawdzBohatera().getEquipment().size(); i++) {
-            tabela2.add( new Label(sprawdzBohatera().getEquipment().get(i).getNazwa(), a.skin)).align(Align.left).pad(5);
+            tabela2.add(new Label(sprawdzBohatera().getEquipment().get(i).getNazwa(), a.skin)).align(Align.left).pad(5);
             tabela2.add(sprawdzBohatera().getEquipment().get(i)).size(50);
             tmpButtonsUsun.add(new TextButton("Usun", a.skin));
             tmpButtonsZaloz.add(new TextButton("Zaloz", a.skin));
-            
+
             tmpButtonsUsun.get(i).addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     System.out.println("przycisk Unus klikniety");
                     for (int i = 0; i < tmpButtonsUsun.size(); i++) {
-                        if (tmpButtonsUsun.get(i).isPressed()) {                            
+                        if (tmpButtonsUsun.get(i).isPressed()) {
 
                             // usuwa przycisk z tabeli
-                            tmpButtonsUsun.get(i).remove();  
+                            tmpButtonsUsun.get(i).remove();
                             tmpButtonsZaloz.get(i).remove();
                             // usuwa itemka z equipmentu
                             sprawdzBohatera().getEquipment().remove(i);
                             // resetuje tabele
                             tabela2.reset();
                             formatujTabele2();
+                            break;
                         }
                     }
                 }
@@ -158,32 +179,56 @@ public class BohaterScreen implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     System.out.println("przycisk zaloz klikniety");
                     for (int i = 0; i < tmpButtonsZaloz.size(); i++) {
-                        if (tmpButtonsZaloz.get(i).isPressed()) {                            
+                        if (tmpButtonsZaloz.get(i).isPressed()) {
 
                             // usuwa przycisk z tabeli
-                            tmpButtonsUsun.get(i).remove();  
-                            tmpButtonsZaloz.get(i).remove();
+                            tmpButtonsUsun.get(i).remove();
+                            //tmpButtonsZaloz.get(i).remove();
+                            tmpButtonsZaloz.remove(i);
                             // usuwa itemka z equipmentu
-                            
-                            if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)){
-                                Item tmpItem;
-                                tmpItem = sprawdzBohatera().getItemGlowa();
-                                sprawdzBohatera().setItemGlowa(sprawdzBohatera().getEquipment().get(i));
-                                sprawdzBohatera().getEquipment().remove(i);
-                                sprawdzBohatera().getEquipment().add(tmpItem);
-                            }
+                            tabelaZaktualizowana = false;
+
+                            podmianaItemkow(i);
+
                             // resetuje tabele
-                            tabela2.reset();
-                            tabela.reset();
+                            tabela.clear();
+                            tabela2.clear();
                             aktualizujTabele();
                         }
                     }
                 }
             });
-            
+
             tabela2.add(tmpButtonsUsun.get(i)).pad(5);
             tabela2.add(tmpButtonsZaloz.get(i)).pad(5);
             tabela2.row();
+        }
+    }
+
+    /**
+     * Podmienia tiemka między ekwipunkiem a wyposażeniem bohatera
+     *
+     * @param i
+     */
+    private void podmianaItemkow(int i) {
+        Item tmpItem;
+        if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)) {
+            tmpItem = sprawdzBohatera().getItemGlowa();
+            sprawdzBohatera().setItemGlowa(sprawdzBohatera().getEquipment().get(i));
+            sprawdzBohatera().getEquipment().remove(i);
+            sprawdzBohatera().getEquipment().add(tmpItem);
+        }
+        if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.nogi)) {
+            tmpItem = sprawdzBohatera().getItemNogi();
+            sprawdzBohatera().setItemNogi(sprawdzBohatera().getEquipment().get(i));
+            sprawdzBohatera().getEquipment().remove(i);
+            sprawdzBohatera().getEquipment().add(tmpItem);
+        }
+        if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.stopy)) {
+            tmpItem = sprawdzBohatera().getItemStopy();
+            sprawdzBohatera().setItemStopy(sprawdzBohatera().getEquipment().get(i));
+            sprawdzBohatera().getEquipment().remove(i);
+            sprawdzBohatera().getEquipment().add(tmpItem);
         }
     }
 
