@@ -165,17 +165,17 @@ public class BohaterScreen implements Screen {
                             tmpButtonsZaloz.get(i).remove();
                             // usuwa itemka z equipmentu
                             
-                            CzesciCiala czescCiala;
-                            
-                            
-                            if(sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)){
-                                
+                            if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)){
+                                Item tmpItem;
+                                tmpItem = sprawdzBohatera().getItemGlowa();
+                                sprawdzBohatera().setItemGlowa(sprawdzBohatera().getEquipment().get(i));
+                                sprawdzBohatera().getEquipment().remove(i);
+                                sprawdzBohatera().getEquipment().add(tmpItem);
                             }
-                            
-                            sprawdzBohatera().getEquipment().remove(i);
                             // resetuje tabele
                             tabela2.reset();
-                            formatujTabele2();
+                            tabela.reset();
+                            aktualizujTabele();
                         }
                     }
                 }
