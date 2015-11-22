@@ -560,7 +560,8 @@ public class Bohater extends Actor {
             System.out.println("Nadepnięto na skrzynkę ze skarbem");
             //gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().remove(0);
             //System.out.println(gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().size());
-            a.pokazInfoWindow(gs.getMapa().getPola()[4][4].getTresureBox(), this);
+            //a.pokazInfoWindow(gs.getMapa().getPola()[2][2].getTresureBox(), this);
+            a.pokazInfoWindow(gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox(), this);
         }        
     }
 

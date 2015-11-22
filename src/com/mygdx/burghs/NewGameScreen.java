@@ -306,7 +306,7 @@ public class NewGameScreen implements Screen {
         gs.gracze.get(0).getBohaterowie().get(0).setAtak(5);
         gs.gracze.get(0).getBohaterowie().get(0).setObrona(5);
         gs.gracze.get(0).getBohaterowie().get(0).setHp(2);
-        gs.gracze.get(0).getBohaterowie().get(0).setSzybkosc(2);
+        gs.gracze.get(0).getBohaterowie().get(0).setSzybkosc(5);
         gs.gracze.get(0).getBohaterowie().get(0).setPozostaloRuchow(2);
         
         gs.gracze.get(1).getBohaterowie().get(0).setAtak(4);

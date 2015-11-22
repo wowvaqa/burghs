@@ -38,7 +38,7 @@ public class TresureBox extends Actor{
         
         sprite = new Sprite(a.texTresureBox);
         this.setSize(100, 100);
-        this.setPosition(400, 400);    
+        this.setPosition(200, 200);    
         
         this.losujItemy();
     }
@@ -65,5 +65,6 @@ public class TresureBox extends Actor{
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaCzapka, a));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzanaCzapka, a));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneSpodnie, a));
     }
 }

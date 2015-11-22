@@ -71,6 +71,15 @@ public class ItemCreator {
                 item.setCzescCiala(CzesciCiala.nogi);
                 item.getSprite().setTexture(a.texLinenTousers);
                 break;
+            case SkorzaneSpodnie:
+                item.setNazwa("Skorzane Spodnie");
+                item.setAtak(0);
+                item.setObrona(1);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.nogi);
+                item.getSprite().setTexture(a.texLeatherTousers);
+                break;
 // OBUWIE ======================================================================
             case LnianeButy:
                 item.setNazwa("Lniane Obuwie");

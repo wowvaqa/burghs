@@ -52,23 +52,6 @@ public class Item extends Actor {
                 tmpGs.setItem(qpa);
             }            
         });
-
-//        this.addListener(new InputListener() {
-//            GameStatus tmpGs = gs;
-//
-//            @Override
-//            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-//                System.out.println("Pokaz info window");
-//                a.pokazInfoWindow(nazwa, atak, obrona, hp, szybkosc);
-//                a.getInfoWindow().setVisible(true);
-//                //tmpGs.setActualScreen(6);
-//            }
-//
-//            @Override
-//            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-//                a.ukryjInfoWindow();
-//            }
-//        });
     }
 
     // Setters and Getters

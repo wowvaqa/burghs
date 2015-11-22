@@ -196,8 +196,8 @@ public class MapScreen implements Screen {
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
         TresureBox tb = new TresureBox(this.a, this.gs);        
-        gs.getMapa().getPola()[4][4].setTresureBox(tb);
-        stage01.addActor(gs.getMapa().getPola()[4][4].getTresureBox());
+        gs.getMapa().getPola()[2][2].setTresureBox(tb);
+        stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
         
     }
 

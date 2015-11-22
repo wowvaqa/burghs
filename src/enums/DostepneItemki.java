@@ -15,6 +15,7 @@ public enum DostepneItemki {
     LnianeRekawice,
     // Nogi
     LnianeSpodnie,
+    SkorzaneSpodnie,
     // Stopy
     LnianeButy;    
 }

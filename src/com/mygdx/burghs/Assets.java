@@ -30,6 +30,7 @@ public class Assets {
     public Texture texLinenShirt;
     public Texture texLinenCap;
     public Texture texLeatherCap;
+    public Texture texLeatherTousers;
     public Texture texLinenGloves;
     public Texture texFist;
 
@@ -365,6 +366,7 @@ public class Assets {
         texLinenShoes = new Texture("items/texLinenShoes.png");
         texLinenTousers = new Texture("items/texLinenTrousers.png");
         texLeatherCap = new Texture("items/texLeatherCap.png");
+        texLeatherTousers = new Texture("items/texLeatherTrousers.png");
         texFist = new Texture("items/texFist.png");
     }
 
