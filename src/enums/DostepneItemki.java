@@ -6,6 +6,7 @@ package enums;
  */
 public enum DostepneItemki {
     // Głowa
+    Glowa,
     LnianaCzapka,
     SkorzanaCzapka,
     // Korpus

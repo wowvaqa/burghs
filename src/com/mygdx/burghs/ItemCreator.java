@@ -22,11 +22,20 @@ public class ItemCreator {
         Item item = new Item(a.texFist, this.a, this.gs);
 
         switch (dostepneItemki) {
-// GŁOWA ======================================================================            
+// GŁOWA ======================================================================         
+            case Glowa:
+                item.setNazwa("Gola Glowa");
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.glowa);
+                item.getSprite().setTexture(a.texHead);
+                break;
             case LnianaCzapka:
                 item.setNazwa("Lniana Czapka");
                 item.setAtak(0);
-                item.setObrona(0);
+                item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.glowa);
@@ -35,7 +44,7 @@ public class ItemCreator {
             case SkorzanaCzapka:
                 item.setNazwa("Skorzana czapka");
                 item.setAtak(0);
-                item.setObrona(1);
+                item.setObrona(2);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.glowa);
@@ -45,7 +54,7 @@ public class ItemCreator {
             case LnianaKoszula:
                 item.setNazwa("Lniana Koszula");
                 item.setAtak(0);
-                item.setObrona(0);
+                item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.praweRamie);
@@ -65,7 +74,7 @@ public class ItemCreator {
             case LnianeSpodnie:
                 item.setNazwa("Lniane Spodnie");
                 item.setAtak(0);
-                item.setObrona(0);
+                item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.nogi);
@@ -74,7 +83,7 @@ public class ItemCreator {
             case SkorzaneSpodnie:
                 item.setNazwa("Skorzane Spodnie");
                 item.setAtak(0);
-                item.setObrona(1);
+                item.setObrona(2);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.nogi);

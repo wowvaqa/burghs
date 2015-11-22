@@ -26,6 +26,7 @@ public class Assets {
     public Texture texTresureBox;
 
     // tekstury itemków
+    public Texture texHead;
     public Texture texLinenTousers;
     public Texture texLinenShoes;
     public Texture texLeatherShoes;
@@ -364,6 +365,7 @@ public class Assets {
     }
 
     private void utworzItemki() {
+        texHead = new Texture("items/texHead.png");
         texLinenGloves = new Texture("items/texLinenGloves.png");
         texLinenCap = new Texture("items/texLinenCap.png");
         texLinenShirt = new Texture("items/texLinenShirt.png");
