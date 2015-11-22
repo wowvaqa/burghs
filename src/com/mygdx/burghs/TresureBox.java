@@ -16,18 +16,18 @@ public class TresureBox extends Actor{
     
     // wygląd
     private Texture icon;
-    private Sprite sprite;
+    private final Sprite sprite;
     
     // assety
-    private Assets a;
+    private final Assets a;
     
-    private GameStatus gs;
+    private final GameStatus gs;
     
     // array list przechowujący itemy.
     private final ArrayList<Item> dostepneItemy = new ArrayList<Item>(); 
     
     // obiekt do generowania itemów.
-    private ItemCreator itemCreator;
+    private final ItemCreator itemCreator;
     
     // Konsturktor
     public TresureBox(Assets a, GameStatus gs){

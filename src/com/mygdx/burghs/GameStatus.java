@@ -52,6 +52,21 @@ public class GameStatus {
         }        
     }
 
+    /**
+     * Zwraca referencje do zaznaczonego bohatera na mapie
+     * @return zwaraca referencje do obiketu zaznaczonego bohatera
+     */
+    public Bohater getBohaterZaznaczony(){
+        for (Gracz gracz: this.getGracze()){
+            for(Bohater bohater: gracz.getBohaterowie()){
+                if (bohater.isZaznaczony()){
+                    return bohater;
+                }
+            }
+        }
+        return null;
+    }
+
 // GETTER AND SETTERS
 
     public int getTuraGracza() {

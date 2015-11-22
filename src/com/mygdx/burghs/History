@@ -14,11 +14,11 @@ version 0.0006
 
 version 0.0005 IN PROGRESS
         
-        1. Zaprojektować klasę Equipment, która będzie przechowywać itemki gracza.
+DONE    1. Zaprojektować obiekt klasy ArrayList, która będzie przechowywać itemki gracza.        
         2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
         podmiany ekwipunku, wyrzucania itp.
 DONE    3. Dodać możliwość dodania do ekwipunku itemków znalezionych Tresure BOX.
-        4. Dodać klasę Window do wyswietlania statystyk i zawartości Tresure Box
+DONE    4. Dodać klasę Window do wyswietlania statystyk i zawartości Tresure Box
 
 version 0.0004 18112015
 

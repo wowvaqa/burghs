@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import enums.CzesciCiala;
 import java.util.ArrayList;
 
 /**
@@ -123,13 +124,65 @@ public class BohaterScreen implements Screen {
         tabela2.add(new Label("Ekwipunek:", a.skin)).align(Align.topLeft);
         tabela2.row();
 
-        final ArrayList<TextButton> tmpButtons = new ArrayList<TextButton>();
+        final ArrayList<TextButton> tmpButtonsUsun = new ArrayList<TextButton>();
+        final ArrayList<TextButton> tmpButtonsZaloz = new ArrayList<TextButton>();
 
         for (int i = 0; i < sprawdzBohatera().getEquipment().size(); i++) {
             tabela2.add( new Label(sprawdzBohatera().getEquipment().get(i).getNazwa(), a.skin)).align(Align.left).pad(5);
             tabela2.add(sprawdzBohatera().getEquipment().get(i)).size(50);
-            tmpButtons.add(new TextButton("Usun", a.skin));
-            tabela2.add(tmpButtons.get(i)).pad(5);
+            tmpButtonsUsun.add(new TextButton("Usun", a.skin));
+            tmpButtonsZaloz.add(new TextButton("Zaloz", a.skin));
+            
+            tmpButtonsUsun.get(i).addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("przycisk Unus klikniety");
+                    for (int i = 0; i < tmpButtonsUsun.size(); i++) {
+                        if (tmpButtonsUsun.get(i).isPressed()) {                            
+
+                            // usuwa przycisk z tabeli
+                            tmpButtonsUsun.get(i).remove();  
+                            tmpButtonsZaloz.get(i).remove();
+                            // usuwa itemka z equipmentu
+                            sprawdzBohatera().getEquipment().remove(i);
+                            // resetuje tabele
+                            tabela2.reset();
+                            formatujTabele2();
+                        }
+                    }
+                }
+            });
+            
+            tmpButtonsZaloz.get(i).addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("przycisk zaloz klikniety");
+                    for (int i = 0; i < tmpButtonsZaloz.size(); i++) {
+                        if (tmpButtonsZaloz.get(i).isPressed()) {                            
+
+                            // usuwa przycisk z tabeli
+                            tmpButtonsUsun.get(i).remove();  
+                            tmpButtonsZaloz.get(i).remove();
+                            // usuwa itemka z equipmentu
+                            
+                            CzesciCiala czescCiala;
+                            
+                            
+                            if(sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)){
+                                
+                            }
+                            
+                            sprawdzBohatera().getEquipment().remove(i);
+                            // resetuje tabele
+                            tabela2.reset();
+                            formatujTabele2();
+                        }
+                    }
+                }
+            });
+            
+            tabela2.add(tmpButtonsUsun.get(i)).pad(5);
+            tabela2.add(tmpButtonsZaloz.get(i)).pad(5);
             tabela2.row();
         }
     }
