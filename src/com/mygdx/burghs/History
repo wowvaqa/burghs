@@ -2,17 +2,43 @@ VERSION 0.0004  <25-10-2015>
 
 TODO:
 
-version 0.0007
+version 0.0009
 
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
 
+version 0.0008
+    
+        1. Dodać okno dialogowe z informacją o skutkach ataku bohatera. 
+        Okno wyświetlać będzie informacje takie jak:
+            - Siła ataku bohatera który zaatakował
+            - Siła obrony bohater który się broni
+            - Obrażenia zadane przez bohatera atakującego
+            - Pozostała ilość punktów życia bohatera broniącego się
+
+version 0.0007
+        
+        1. Dodać do itemków broń tj. miecze, tarcze, noże itp.
+        2. Dodać możliwość zakładania bronii
+            Zasady zakładania bronii:
+                - w każdej z rąk bohater może nosić jedną z bronii
+                - po kliknięciu w przycisk załóż broń dodaje się do wolnej ręki
+                - gdy żadna z rąk nie jest wolna gra zapyta gracza do której 
+                ręki wziąść broń.
+        3. Zaimplementowąć podliczanie statystyk A/O/S/HP dla wszystkich części
+        ciała bohatera.
+        
+
 version 0.0006
 
-        Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
+        1. Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
         Bohater kiedy żaden z bohaterów nie jest zaznaczony.
+        2. Usunąć buga powodującego, że ilosć ruchów bohatera na początku gry 
+        jest równa 2 pomimo tego iż jego szybkość = np. 5
+        3. Dodać możliwość zaznaczenia bohatera jeżeli liczba jego ruchów = 0
+        bez wyświetlania przycisków ruchu/ataku.
 
-version 0.0005 IN PROGRESS
+version 0.0005 23112015
         
 DONE    1. Zaprojektować obiekt klasy ArrayList, która będzie przechowywać itemki gracza.        
 DONE    2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
