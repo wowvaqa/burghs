@@ -54,6 +54,7 @@ public class Bohater extends Actor {
     private int atak = 0;
     private int obrona = 0;
     private int hp = 0;
+    private int actualHp = 0;
     private int szybkosc = 0;
     private int pozostaloRuchow = 0;
     // aktualny poziom punktów doświadczenia
@@ -102,7 +103,7 @@ public class Bohater extends Actor {
         // Utworzenie pdst. zestawu itemków i przypisanie do ekwipunku bohatera
         itemLewaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);
         itemPrawaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);
-        itemNogi = ic.utworzItem(DostepneItemki.LnianeSpodnie, this.a);
+        itemNogi = ic.utworzItem(DostepneItemki.Nogi, this.a);
         itemStopy = ic.utworzItem(DostepneItemki.LnianeButy, this.a);
         itemGlowa = ic.utworzItem(DostepneItemki.Glowa, this.a);
         itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a);
@@ -597,6 +598,14 @@ public class Bohater extends Actor {
     }
 
 // SETTERS AND GETTERS
+
+    public int getActualHp() {
+        return actualHp;
+    }
+
+    public void setActualHp(int actualHp) {
+        this.actualHp = actualHp;
+    }    
 
     public ArrayList<Item> getEquipment() {
         return equipment;

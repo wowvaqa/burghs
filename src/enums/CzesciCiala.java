@@ -6,5 +6,5 @@ package enums;
  * @author v
  */
 public enum CzesciCiala {
-    glowa, korpus, praweRamie, leweRamie, nogi, stopy;
+    glowa, korpus, praweRamie, leweRamie, nogi, stopy, rece;
 }

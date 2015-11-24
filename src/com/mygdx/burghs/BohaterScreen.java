@@ -9,10 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import enums.CzesciCiala;
-import enums.DostepneItemki;
 import java.util.ArrayList;
 
 /**
@@ -208,12 +206,21 @@ public class BohaterScreen implements Screen {
             tmpItem = sprawdzBohatera().getItemNogi();
             sprawdzBohatera().setItemNogi(sprawdzBohatera().getEquipment().get(i));
             sprawdzBohatera().getEquipment().remove(i);
-            sprawdzBohatera().getEquipment().add(tmpItem);
+            if (!"Gole Nogi".equals(tmpItem.getNazwa())) {
+                sprawdzBohatera().getEquipment().add(tmpItem);
+            }
         } else if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.stopy)) {
             tmpItem = sprawdzBohatera().getItemStopy();
             sprawdzBohatera().setItemStopy(sprawdzBohatera().getEquipment().get(i));
             sprawdzBohatera().getEquipment().remove(i);
             sprawdzBohatera().getEquipment().add(tmpItem);
+        } else if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.rece)) {
+            tmpItem = sprawdzBohatera().getItemPrawaReka();
+            sprawdzBohatera().setItemPrawaReka(sprawdzBohatera().getEquipment().get(i));
+            sprawdzBohatera().getEquipment().remove(i);
+            if (!"Gole Piesci".equals(tmpItem.getNazwa())) {
+                sprawdzBohatera().getEquipment().add(tmpItem);
+            }
         }
     }
 

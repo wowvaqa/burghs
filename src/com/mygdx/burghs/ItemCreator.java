@@ -9,9 +9,10 @@ import enums.CzesciCiala;
  * @author v
  */
 public class ItemCreator {
+
     private GameStatus gs;
-    
-    public ItemCreator(GameStatus gs){
+
+    public ItemCreator(GameStatus gs) {
         this.gs = gs;
     }
 
@@ -67,10 +68,28 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
-                item.setCzescCiala(CzesciCiala.praweRamie);
+                item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texFist);
-                break;            
+                break;
+            case Kij:
+                item.setNazwa("Kij");
+                item.setAtak(1);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.rece);
+                item.getSprite().setTexture(a.texStick);
+                break;
 // NOGI ========================================================================
+            case Nogi:
+                item.setNazwa("Gole Nogi");
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.nogi);
+                item.getSprite().setTexture(a.texLegs);
+                break;
             case LnianeSpodnie:
                 item.setNazwa("Lniane Spodnie");
                 item.setAtak(0);

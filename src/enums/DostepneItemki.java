@@ -13,8 +13,10 @@ public enum DostepneItemki {
     LnianaKoszula,
     // Ręce
     Piesci,
+    Kij,
     LnianeRekawice,
     // Nogi
+    Nogi,
     LnianeSpodnie,
     SkorzaneSpodnie,
     // Stopy

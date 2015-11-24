@@ -67,5 +67,6 @@ public class TresureBox extends Actor{
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneSpodnie, a));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneButy, a));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Kij, a));
     }
 }

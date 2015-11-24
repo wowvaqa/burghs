@@ -36,6 +36,8 @@ public class Assets {
     public Texture texLeatherTousers;
     public Texture texLinenGloves;
     public Texture texFist;
+    public Texture texStick;
+    public Texture texLegs;
 
     // predefiniowane przyciski ruchu
     public ButtonActor btnNorth;
@@ -375,6 +377,8 @@ public class Assets {
         texLeatherTousers = new Texture("items/texLeatherTrousers.png");
         texLeatherShoes = new Texture("items/texLeatherShoes.png");
         texFist = new Texture("items/texFist.png");
+        texStick = new Texture("items/texStick.png");
+        texLegs = new Texture("items/texLegs.png");
     }
 
     // wypełnia mapę 
