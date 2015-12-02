@@ -92,6 +92,7 @@ public class Assets {
         texTresureBox = new Texture("texTresureBox.png");
 
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
+        
 
         utworzPrzyciskiRuchu();
         utworzPrzyciskiAtaku();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -193,7 +194,7 @@ public class BohaterScreen implements Screen {
      *
      * @param i
      */
-    private void podmianaItemkow(int i) {
+    private void podmianaItemkow(final int i) {
         Item tmpItem;
         if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)) {
             tmpItem = sprawdzBohatera().getItemGlowa();
@@ -215,12 +216,44 @@ public class BohaterScreen implements Screen {
             sprawdzBohatera().getEquipment().remove(i);
             sprawdzBohatera().getEquipment().add(tmpItem);
         } else if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.rece)) {
-            tmpItem = sprawdzBohatera().getItemPrawaReka();
-            sprawdzBohatera().setItemPrawaReka(sprawdzBohatera().getEquipment().get(i));
-            sprawdzBohatera().getEquipment().remove(i);
-            if (!"Gole Piesci".equals(tmpItem.getNazwa())) {
-                sprawdzBohatera().getEquipment().add(tmpItem);
-            }
+            new Dialog("Ktora reka?", a.skin) {
+                {
+                    text("Ktora reka?");
+                    button("Lewa", "lewa");
+                    button("Prawa", "prawa");
+                }
+
+                @Override
+                protected void result(Object object) {
+                    Item tmpItem2;
+                    if (object.equals("lewa")) {
+                        System.out.println("Wcisnieto lewa");
+                        tmpItem2 = sprawdzBohatera().getItemPrawaReka();
+                        sprawdzBohatera().setItemLewaReka(sprawdzBohatera().getEquipment().get(i));
+                        sprawdzBohatera().getEquipment().remove(i);
+                        if (!"Gole Piesci".equals(tmpItem2.getNazwa())) {
+                            sprawdzBohatera().getEquipment().add(tmpItem2);
+                        }
+                        tabela.clear();
+                        tabela2.clear();
+                        tabelaZaktualizowana = false;
+                        aktualizujTabele();
+
+                    } else {
+                        System.out.println("Wcisnieto Prawa");
+                        tmpItem2 = sprawdzBohatera().getItemPrawaReka();
+                        sprawdzBohatera().setItemPrawaReka(sprawdzBohatera().getEquipment().get(i));
+                        sprawdzBohatera().getEquipment().remove(i);
+                        if (!"Gole Piesci".equals(tmpItem2.getNazwa())) {
+                            sprawdzBohatera().getEquipment().add(tmpItem2);
+                        }
+                        tabela.clear();
+                        tabela2.clear();
+                        tabelaZaktualizowana = false;
+                        aktualizujTabele();
+                    }
+                }
+            }.show(stage01);
         }
     }
 
