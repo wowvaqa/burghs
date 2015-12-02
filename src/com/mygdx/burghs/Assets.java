@@ -363,7 +363,6 @@ public class Assets {
                 btnCancel.setKlikniety(true);
             }
         });
-
     }
 
     private void utworzItemki() {
