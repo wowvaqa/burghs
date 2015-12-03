@@ -228,18 +228,18 @@ public class BohaterScreen implements Screen {
                     Item tmpItem2;
                     if (object.equals("lewa")) {
                         System.out.println("Wcisnieto lewa");
-                        tmpItem2 = sprawdzBohatera().getItemPrawaReka();
+                        tmpItem2 = sprawdzBohatera().getItemLewaReka();
                         sprawdzBohatera().setItemLewaReka(sprawdzBohatera().getEquipment().get(i));
                         sprawdzBohatera().getEquipment().remove(i);
                         if (!"Gole Piesci".equals(tmpItem2.getNazwa())) {
                             sprawdzBohatera().getEquipment().add(tmpItem2);
-                        }
+                        }                        
                         tabela.clear();
                         tabela2.clear();
                         tabelaZaktualizowana = false;
                         aktualizujTabele();
 
-                    } else {
+                    } else if (object.equals("prawa")) {
                         System.out.println("Wcisnieto Prawa");
                         tmpItem2 = sprawdzBohatera().getItemPrawaReka();
                         sprawdzBohatera().setItemPrawaReka(sprawdzBohatera().getEquipment().get(i));

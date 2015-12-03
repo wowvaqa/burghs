@@ -14,6 +14,8 @@ public enum DostepneItemki {
     // Ręce
     Piesci,
     Kij,
+    Miecz,
+    Tarcza,
     LnianeRekawice,
     // Nogi
     Nogi,

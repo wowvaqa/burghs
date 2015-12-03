@@ -80,6 +80,24 @@ public class ItemCreator {
                 item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texStick);
                 break;
+            case Miecz:
+                item.setNazwa("Miecz");
+                item.setAtak(2);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.rece);
+                item.getSprite().setTexture(a.texSword);
+                break;
+            case Tarcza:
+                item.setNazwa("Tarcza");
+                item.setAtak(0);
+                item.setObrona(2);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.rece);
+                item.getSprite().setTexture(a.texShield);
+                break;
 // NOGI ========================================================================
             case Nogi:
                 item.setNazwa("Gole Nogi");
