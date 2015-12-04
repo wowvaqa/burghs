@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.Color;
 import enums.DostepneItemki;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -268,7 +269,10 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorth() {
         if (moveable) {
             if (a.btnAtcNorth.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
+                a.lblDmg.setText(Integer.toString(Fight.getObrazenia(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie].getBohater())));
+                a.lblDmg.moveBy(20, 20);
+                
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;

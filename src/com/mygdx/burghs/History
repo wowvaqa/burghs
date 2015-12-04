@@ -2,20 +2,25 @@ VERSION 0.0004  <25-10-2015>
 
 TODO:
 
-version 0.0007
+version 0.0008
 
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
 
-version 0.0006
+version 0.0007
 
         Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
         Bohater kiedy żaden z bohaterów nie jest zaznaczony.
 
+version 0.0006
+
+        1. Zaimplementować sprita wyświetlającego ilość obrażeń podczas ataku
+        bohatera.
+
 version 0.0005 IN PROGRESS
         
 DONE    1. Zaprojektować obiekt klasy ArrayList, która będzie przechowywać itemki gracza.        
-        2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
+DONE    2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 
         podmiany ekwipunku, wyrzucania itp.
 DONE    3. Dodać możliwość dodania do ekwipunku itemków znalezionych Tresure BOX.
 DONE    4. Dodać klasę Window do wyswietlania statystyk i zawartości Tresure Box

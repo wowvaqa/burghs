@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -64,6 +65,8 @@ public class Assets {
     public AssetManager am;
 
     public ButtonActor btnCancel;
+    
+    public Label lblDmg;
 
     // predefiniowane okno ifnoramcyjne
     private Window infoWindow;
@@ -95,7 +98,8 @@ public class Assets {
 
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
         
-
+        lblDmg = new Label("null", skin);
+        
         utworzPrzyciskiRuchu();
         utworzPrzyciskiAtaku();
 

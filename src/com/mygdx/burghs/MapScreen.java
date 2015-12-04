@@ -29,7 +29,7 @@ public class MapScreen implements Screen {
     private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
 
     // labele informujące o statystykach klikniętego bohatera
-    private Label lblGold;
+    private Label lblGold;    
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
     
@@ -134,6 +134,7 @@ public class MapScreen implements Screen {
         stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
         stage02.addActor(btnKoniecTury);
+        stage02.addActor(a.lblDmg);
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel

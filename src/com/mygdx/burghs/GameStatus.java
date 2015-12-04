@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class GameStatus {
     // Zwraca nr gracza z tablicy graczy który posiada swoją turę
     private int turaGracza = 0;
     
-    //private Skin skin;       
+    //private Skin skin;    
     
     private Item item;
     
@@ -49,7 +50,7 @@ public class GameStatus {
         }
         if (bohaterBroniacy.getHp() <= 0){
            // bohaterBroniacy.remove();            
-        }        
+        }                
     }
 
     /**
