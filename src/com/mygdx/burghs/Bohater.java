@@ -273,13 +273,8 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorth() {
         if (moveable) {
             if (a.btnAtcNorth.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
                 a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
-
-//                if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater().getHp() <= 0){
-//                    gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].setBohater(null);
-//                }
                 usunMartwychBohaterow();
 
                 this.sprite.setTexture(bohaterTex);
@@ -292,7 +287,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouth() {
         if (moveable) {
             if (a.btnAtcSouth.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
                 a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
                 usunMartwychBohaterow();
@@ -306,7 +300,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcEast() {
         if (moveable) {
             if (a.btnAtcEast.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
                 a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
                 usunMartwychBohaterow();
@@ -320,7 +313,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcWest() {
         if (moveable) {
             if (a.btnAtcWest.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
                 a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
                 usunMartwychBohaterow();
@@ -334,7 +326,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorthEast() {
         if (moveable) {
             if (a.btnAtcNorthEast.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
                 a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
                 usunMartwychBohaterow();
@@ -348,7 +339,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorthWest() {
         if (moveable) {
             if (a.btnAtcNorthWest.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
                 a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
                 usunMartwychBohaterow();
@@ -362,7 +352,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouthEast() {
         if (moveable) {
             if (a.btnAtcSouthEast.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
                 a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
                         this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
                 usunMartwychBohaterow();
@@ -399,7 +388,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskNorth() {
         if (moveable) {
             if (a.btnNorth.isKlikniety()) {
-                //this.setY(this.getY() + 100);
                 this.addAction(Actions.moveBy(0, 100, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].setBohater(this);
@@ -416,7 +404,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskSouth() {
         if (moveable) {
             if (a.btnSouth.isKlikniety()) {
-                //this.setY(this.getY() - 100);
                 this.addAction(Actions.moveBy(0, -100, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].setBohater(this);
@@ -433,7 +420,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskEast() {
         if (moveable) {
             if (a.btnEast.isKlikniety()) {
-                //this.setX(this.getX() + 100);
                 this.addAction(Actions.moveBy(100, 0, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].setBohater(this);
@@ -450,7 +436,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskWest() {
         if (moveable) {
             if (a.btnWest.isKlikniety()) {
-                //this.setX(this.getX() - 100);
                 this.addAction(Actions.moveBy(-100, 0, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].setBohater(this);
@@ -467,8 +452,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskNorthEast() {
         if (moveable) {
             if (a.btnNorthEast.isKlikniety()) {
-                //this.setY(this.getY() + 100);
-                //this.setX(this.getX() + 100);
                 this.addAction(Actions.moveBy(100, 100, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].setBohater(this);
@@ -486,8 +469,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskNorthWest() {
         if (moveable) {
             if (a.btnNorthWest.isKlikniety()) {
-                //this.setY(this.getY() + 100);
-                //this.setX(this.getX() - 100);
                 this.addAction(Actions.moveBy(-100, 100, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].setBohater(this);
@@ -505,8 +486,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskSouthEast() {
         if (moveable) {
             if (a.btnSouthEast.isKlikniety()) {
-                //this.setY(this.getY() - 100);
-                //this.setX(this.getX() + 100);
                 this.addAction(Actions.moveBy(100, -100, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].setBohater(this);
@@ -524,8 +503,6 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskSouthWest() {
         if (moveable) {
             if (a.btnSouthWest.isKlikniety()) {
-                //this.setY(this.getY() - 100);
-                //this.setX(this.getX() - 100);
                 this.addAction(Actions.moveBy(-100, -100, 0.25f));
                 gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie].setBohater(null);
                 gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].setBohater(this);
