@@ -222,17 +222,17 @@ public class MapScreen implements Screen {
         //sprawdzMartwychBohaterow();
     }
 
-    private void sprawdzMartwychBohaterow(){
-        for(int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i) instanceof Bohater){
-                System.out.println("Wykryto instanccje bohatera indeks : " + i);
-                Bohater bohaterTmp = (Bohater)stage01.getActors().get(i);
-                if (bohaterTmp.getHp() <= 0){
-                    stage01.getActors().removeIndex(i);
-                }
-            }
-        }
-    }
+//    private void sprawdzMartwychBohaterow(){
+//        for(int i = 0; i < stage01.getActors().size; i ++){
+//            if (stage01.getActors().get(i) instanceof Bohater){
+//                System.out.println("Wykryto instanccje bohatera indeks : " + i);
+//                Bohater bohaterTmp = (Bohater)stage01.getActors().get(i);
+//                if (bohaterTmp.getHp() <= 0){
+//                    stage01.getActors().removeIndex(i);
+//                }
+//            }
+//        }
+//    }
 
     // Sprawdza położenie kursora 
     // w zależności od lokalizacji ustawia sterowanie na odpowiedni stage
