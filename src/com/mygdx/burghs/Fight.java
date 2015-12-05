@@ -29,6 +29,7 @@ public class Fight {
             bohaterBroniacy.setHp(bohaterBroniacy.getHp() - dmg);
         }
         if (bohaterBroniacy.getHp() <= 0){
+            bohaterBroniacy.remove();
             System.out.println("Smierc Bohatera broniacego się");
            // bohaterBroniacy.remove();            
         }                

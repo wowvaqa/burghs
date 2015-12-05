@@ -23,5 +23,7 @@ public enum DostepneItemki {
     SkorzaneSpodnie,
     // Stopy
     LnianeButy,  
-    SkorzaneButy;
+    SkorzaneButy,
+    // Inne
+    Gold;
 }
