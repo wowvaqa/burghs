@@ -133,8 +133,7 @@ public class MapScreen implements Screen {
         stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
-        stage02.addActor(btnKoniecTury);
-        stage02.addActor(a.lblDmg);
+        stage02.addActor(btnKoniecTury);        
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -164,6 +163,8 @@ public class MapScreen implements Screen {
         
         // Dodaje do planszy info window z assetów do wyświetlania info o skrzynce ze skarbem
         stage01.addActor(a.getInfoWindow());
+        
+        stage01.addActor(a.lblDmg);
     }
 
     // Gneruje graczy w konstruktorze klasy i dodaje ich do planszy 01

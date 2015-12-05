@@ -2,8 +2,11 @@ package com.mygdx.burghs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -61,11 +64,11 @@ public class Assets {
     public ButtonActor btnAtcNorthWest;
     public ButtonActor btnAtcSouthEast;
     public ButtonActor btnAtcSouthWest;
-    
+
     public AssetManager am;
 
     public ButtonActor btnCancel;
-    
+
     public Label lblDmg;
 
     // predefiniowane okno ifnoramcyjne
@@ -73,7 +76,7 @@ public class Assets {
 
     public int[] mapa = new int[100];
 
-    public Assets() {        
+    public Assets() {
         trawaTex = new Texture("grass100x100.png");
         trawaGoraTex = new Texture("grassMountain100x100.png");
         trawaZamekTex = new Texture("grassCastle100x100.png");
@@ -97,9 +100,10 @@ public class Assets {
         texTresureBox = new Texture("texTresureBox.png");
 
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
-        
+
         lblDmg = new Label("null", skin);
-        
+        //lblDmg.getStyle().fontColor = Color.RED;
+
         utworzPrzyciskiRuchu();
         utworzPrzyciskiAtaku();
 
@@ -108,6 +112,24 @@ public class Assets {
         wypelnijMape();
         utworzInfoWindow();
 
+    }
+
+    /**
+     * Funkcja animuje Labelkę od wyświetlania obrażeń
+     *
+     * @param pozX pozycja x gdzie ma być ustawiona labelka
+     * @param pozY pozycja y gdzie ma być ustawiona labelka
+     * @param bohaterAtakujacy referencja do obiketu bohatera atakującego
+     * @param bohaterBroniacy referencja do obiektu bohatera broniącego
+     */
+    public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Bohater bohaterBroniacy) {
+        lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(bohaterAtakujacy, bohaterBroniacy)));
+        lblDmg.setPosition(pozX - 50, pozY - 25);
+        lblDmg.setFontScale(1.5f);
+        lblDmg.addAction(Actions.alpha(1));
+        lblDmg.addAction(Actions.fadeOut(2.0f));
+        lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
+        lblDmg.act(Gdx.graphics.getDeltaTime());
     }
 
     // utworzenie okna informacyjnego
@@ -155,7 +177,7 @@ public class Assets {
      *
      * @param tresureBox Referencja do obiektu TresureBox którego itemy mają być
      * wyświetlone w oknie informacyjnym
-     * @param bohater Referencja do obiketu bohatera do którego ekwipunku 
+     * @param bohater Referencja do obiketu bohatera do którego ekwipunku
      * dodawane będą itemki z tresure boxa
      */
     public void pokazInfoWindow(final TresureBox tresureBox, final Bohater bohater) {
@@ -176,7 +198,7 @@ public class Assets {
                         if (tmpButtons.get(i).isPressed()) {
                             tmpButtons.get(i).remove();
                             // dodanie itemka z tresureboxa do ekwipunku
-                            bohater.getEquipment().add(tresureBox.getDostepneItemy().get(i));                            
+                            bohater.getEquipment().add(tresureBox.getDostepneItemy().get(i));
                             // usuniecie wybranego itemka z trasureboxa
                             tresureBox.getDostepneItemy().remove(i);
                             // aktualizacja okna

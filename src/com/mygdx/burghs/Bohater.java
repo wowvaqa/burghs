@@ -1,12 +1,16 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import enums.DostepneItemki;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
 
@@ -20,7 +24,7 @@ public class Bohater extends Actor {
     private final Sprite sprite;    // wygląd
     private final Texture bohaterTex;
     private final Texture bohaterCheckTex;
-    
+
     private int pozX = 0;   // pozycja X na mapie
     private int pozY = 0;   // pozycja Y na mapie
 
@@ -30,10 +34,10 @@ public class Bohater extends Actor {
     private Item itemNogi = null;
     private Item itemPrawaReka = null;
     private Item itemLewaReka = null;
-    private Item itemStopy = null;    
-    
+    private Item itemStopy = null;
+
     private ArrayList<Item> equipment;
-    
+
     private final Assets a;
     private final GameStatus gs;
 
@@ -82,7 +86,7 @@ public class Bohater extends Actor {
     public Bohater(Texture textureIcon, Texture textureIconZaznaczona,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, Assets a,
             int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs) {
-        
+
         this.equipment = new ArrayList<Item>();
         this.gs = gs;
         this.pozXnaMapie = pozycjaXnaMapie;
@@ -97,10 +101,10 @@ public class Bohater extends Actor {
         this.setSize(sprite.getWidth(), sprite.getHeight());
         this.setPosition(this.pozX, this.pozY);
 
-        this.dodajListnera();    
-        
+        this.dodajListnera();
+
         ItemCreator ic = new ItemCreator(this.gs);
-        
+
         // Utworzenie pdst. zestawu itemków i przypisanie do ekwipunku bohatera
         itemLewaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);
         itemPrawaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);
@@ -270,9 +274,9 @@ public class Bohater extends Actor {
         if (moveable) {
             if (a.btnAtcNorth.isKlikniety()) {
                 //gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
-                a.lblDmg.setText(Integer.toString(Fight.getObrazenia(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie].getBohater())));
-                a.lblDmg.moveBy(20, 20);
-                
+                a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
+
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -283,7 +287,9 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouth() {
         if (moveable) {
             if (a.btnAtcSouth.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
+                a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -294,7 +300,9 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcEast() {
         if (moveable) {
             if (a.btnAtcEast.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
+                a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -305,7 +313,9 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcWest() {
         if (moveable) {
             if (a.btnAtcWest.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
+                a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -316,7 +326,9 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorthEast() {
         if (moveable) {
             if (a.btnAtcNorthEast.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
+                a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -327,7 +339,9 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorthWest() {
         if (moveable) {
             if (a.btnAtcNorthWest.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
+                a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -338,7 +352,9 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouthEast() {
         if (moveable) {
             if (a.btnAtcSouthEast.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
+                a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -349,14 +365,16 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouthWest() {
         if (moveable) {
             if (a.btnAtcSouthWest.isKlikniety()) {
-                gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
+                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
+                a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
+                        this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
             }
         }
     }
-    
+
     // 1. Sprawdza czy dozwolony jest ruch dla bohatera
     // 2. Sprawdza czy przycisk ruchu został kliknięty jeżeli TRUE wtedy 
     // przesuwa obiekt klasy bohatera na N/S/E/W    
@@ -552,22 +570,22 @@ public class Bohater extends Actor {
         a.btnCancel.setKlikniety(false);
 
         this.moveable = false;
-        
+
         gs.setCzyZaznaczonoBohatera(false);
         this.checkTresureBox();
     }
-    
+
     /**
-     *  Funkcja sprawdza czy bohater nie wlazł na skrzynkę ze skarbem     
+     * Funkcja sprawdza czy bohater nie wlazł na skrzynkę ze skarbem
      */
-    private void checkTresureBox(){
-        if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox()!= null){
+    private void checkTresureBox() {
+        if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox() != null) {
             System.out.println("Nadepnięto na skrzynkę ze skarbem");
             //gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().remove(0);
             //System.out.println(gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().size());
             //a.pokazInfoWindow(gs.getMapa().getPola()[2][2].getTresureBox(), this);
             a.pokazInfoWindow(gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox(), this);
-        }        
+        }
     }
 
     @Override
@@ -602,14 +620,13 @@ public class Bohater extends Actor {
     }
 
 // SETTERS AND GETTERS
-
     public int getActualHp() {
         return actualHp;
     }
 
     public void setActualHp(int actualHp) {
         this.actualHp = actualHp;
-    }    
+    }
 
     public ArrayList<Item> getEquipment() {
         return equipment;
@@ -618,8 +635,7 @@ public class Bohater extends Actor {
     public void setEquipment(ArrayList<Item> equipment) {
         this.equipment = equipment;
     }
-    
-    
+
     /**
      * Zwraca pozycję X obiektu Bohater na w obiekcie klasy Mapa
      *
@@ -853,6 +869,5 @@ public class Bohater extends Actor {
     public void setItemStopy(Item itemStopy) {
         this.itemStopy = itemStopy;
     }
-    
-    
+
 }
