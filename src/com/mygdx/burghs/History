@@ -2,22 +2,35 @@ VERSION 0.0004  <25-10-2015>
 
 TODO:
 
-version 0.0008
+version 0.0009
 
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
 
-version 0.0007
+version 0.0008
 
         Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
         Bohater kiedy żaden z bohaterów nie jest zaznaczony.
 
-version 0.0006
+version 0.0007 IN PROGRESS
 
-        1. Zaimplementować sprita wyświetlającego ilość obrażeń podczas ataku
+        Zaprojektować na nowo plansze nowej gry
+        1. Użyć tabeli
+        2. Zaimplementować graczy 1 - 4 w zależności od wyboru
+            a) na planszy ma pojawić się taka ilość graczy jaka została wybrana
+        3. Zaimplementować 4 rodzaje postaci do wyboru przez graczy:
+            a)  postać z bonusem do Ataku
+            b)  postać z bonusem do Obrony
+            c)  postać z bonusem do Szybkosci
+            d)  postać z bonusem do HP
+            
+
+version 0.0006 DONE 05122015
+
+DONE    1. Zaimplementować sprita wyświetlającego ilość obrażeń podczas ataku
         bohatera.
 
-version 0.0005 IN PROGRESS
+version 0.0005 DONE 24112015
         
 DONE    1. Zaprojektować obiekt klasy ArrayList, która będzie przechowywać itemki gracza.        
 DONE    2. Dodać do klasy BohaterScreen implementacje ekwipunku tj. możliwość 

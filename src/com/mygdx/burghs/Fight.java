@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Fight {
     
-    static int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy){
+    static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy){
         
         Random rnd = new Random();
         System.out.println("Nastąpił atak mf");

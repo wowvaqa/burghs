@@ -25,6 +25,7 @@ public class MapScreen implements Screen {
     private final TextButton btnExit;
     private final TextButton btnKoniecTury;
     private final TextButton btnBohaterScreen;
+    private final TextButton btnKupBohatera;
 
     private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
 
@@ -43,6 +44,10 @@ public class MapScreen implements Screen {
         this.gs = gs;
         
         utworzOkno();
+        
+        btnKupBohatera = new TextButton("Kup bohatera", a.skin);
+        btnKupBohatera.setSize(100, 50);
+        btnKupBohatera.setPosition(Gdx.graphics.getWidth() - btnKupBohatera.getWidth() - 25, 175);
 
         // Dodaje przycisk wyjścia do planszy 02.
         btnBohaterScreen = new TextButton("Bohater", a.skin);
@@ -133,7 +138,8 @@ public class MapScreen implements Screen {
         stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
-        stage02.addActor(btnKoniecTury);        
+        stage02.addActor(btnKoniecTury);    
+        stage02.addActor(btnKupBohatera);
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel

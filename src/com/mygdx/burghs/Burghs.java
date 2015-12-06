@@ -8,6 +8,7 @@ package com.mygdx.burghs;
 // SCENA 6  - Item Screen
 import com.badlogic.gdx.Game;
 import com.mygdx.burghs.Screens.ItemScreen;
+import com.mygdx.burghs.Screens.NewGameScreen;
 
 public class Burghs extends Game {
 
@@ -16,6 +17,7 @@ public class Burghs extends Game {
 
     private Main mainScreen;
     private MapScreen mapScreen;
+    //private NewGameScreenOld newGameScreen;
     private NewGameScreen newGameScreen;
     private OptionsScreen optionsScreen;
     private BohaterScreen bohaterScreen;
@@ -28,7 +30,8 @@ public class Burghs extends Game {
         a = new Assets();
         mainScreen = new Main(this, a, gs);
         //mapScreen = new MapScreen(this, a, gs);
-        newGameScreen = new NewGameScreen(this, a, gs);
+        //newGameScreen = new NewGameScreenOld(this, a, gs);
+        newGameScreen = new NewGameScreen(a, gs);
         optionsScreen = new OptionsScreen(this.gs, this.a);
         bohaterScreen = new BohaterScreen(this.a, this.gs);
         itemScreen = new ItemScreen(this.a, this.gs);

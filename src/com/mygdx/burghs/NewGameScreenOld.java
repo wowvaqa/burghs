@@ -16,11 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class NewGameScreen implements Screen {
+public class NewGameScreenOld implements Screen {
 
     private final BitmapFont font;
 
-    private final Game g;
+    //private final Game g;
     private final Assets a;
     private final GameStatus gs;
 
@@ -48,8 +48,8 @@ public class NewGameScreen implements Screen {
     // przyciski left/right przy wybieraniu wyglądu bohatera
     private ButtonActor button05, button06, button07, button08;
 
-    public NewGameScreen(Game g, Assets a, GameStatus gs) {
-        this.g = g;
+    public NewGameScreenOld(Game g, Assets a, GameStatus gs) {
+//        this.g = g;
         this.a = a;
         this.gs = gs;
         this.font = new BitmapFont();
