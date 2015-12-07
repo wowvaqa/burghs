@@ -98,8 +98,18 @@ public class NewGameScreen implements Screen {
                 System.out.println("EXIT");
             }
         });
-        tabela01.add(btnExit).align(Align.top).expandX().colspan(tabela01.getColumns()).pad(10);
+        tabela01.add(btnExit).align(Align.right).expandX().colspan(tabela01.getColumns()).pad(10);
 
+//        // Przycisk Anuluj
+//        TextButton btnAnuluj = new TextButton("ANULUJ", a.skin);
+//        btnAnuluj.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                System.out.println("Anuluj");
+//            }
+//        });
+//        tabela01.add(btnAnuluj).align(Align.left).expandX().colspan(tabela01.getColumns()).pad(10);
+        
         tabelaUtworzona = true;
     }
     
