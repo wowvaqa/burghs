@@ -19,15 +19,9 @@ public class NewGame {
    static public KlasyPostaci klasaPostaciGracz04 = KlasyPostaci.Berserk;
    
    private static final Assets a = new Assets();
-   
-//   private static final DefaultActor portretBerserk = new DefaultActor(a.mobHumanTex, 0, 0);
-//   private static final DefaultActor portretObronca = new DefaultActor(a.mobDwarfTex, 0, 0);
-//   private static final DefaultActor portretLowca = new DefaultActor(a.mobElfTex, 0, 0);
-//   private static final DefaultActor portretTwierdza = new DefaultActor(a.mobOrkTex, 0, 0);
 
     /**
      * Zwiększa ilość graczy
-     *
      * @param iloscGraczy
      * @return
      */
@@ -43,7 +37,6 @@ public class NewGame {
 
     /**
      * Zmniejsza ilosc graczy
-     *
      * @param iloscGraczy
      * @return
      */
@@ -93,6 +86,11 @@ public class NewGame {
         return KlasyPostaci.Berserk;
     }
 
+    /**
+     * Zwraca aktora zawierającego odpowiedni portret
+     * @param kP Klasa postaci dla której ma być zwrócony odpowiedni portret
+     * @return 
+     */
     static public DefaultActor pobierzPortret(KlasyPostaci kP){
         switch (kP) {
             case Berserk:
@@ -107,6 +105,11 @@ public class NewGame {
         return null;
     }
     
+    /**
+     * Zwraca String z odpowiednią nazwą klasy
+     * @param kP klasa postaci
+     * @return 
+     */
     static public String pobierzTytul(KlasyPostaci kP) {                
         switch (kP) {
             case Berserk:
@@ -121,6 +124,11 @@ public class NewGame {
         return "error";
     }
     
+    /**
+     * Zwraca siłę ataku w zależności od klasy postaci
+     * @param kP klasa postaci
+     * @return 
+     */
     static public int pobierzAtak(KlasyPostaci kP) {                
         switch (kP) {
             case Berserk:
@@ -135,6 +143,11 @@ public class NewGame {
         return 0;
     }
     
+    /**
+     * Zwraca wartość obrony w zależności od klasy postaci
+     * @param kP
+     * @return 
+     */
     static public int pobierzObrone(KlasyPostaci kP) {                
         switch (kP) {
             case Berserk:
@@ -149,6 +162,11 @@ public class NewGame {
         return 0;
     }
     
+    /**
+     * Zwraca szybkość w zależności od klasy postaci
+     * @param kP Klasa postaci
+     * @return 
+     */
     static public int pobierzSzybkosc(KlasyPostaci kP) {                
         switch (kP) {
             case Berserk:
@@ -163,6 +181,11 @@ public class NewGame {
         return 0;
     }
     
+    /**
+     * Zwraca ilość punktów życia w zależności od klasy postaci
+     * @param kP
+     * @return 
+     */
     static public int pobierzHp(KlasyPostaci kP) {                
         switch (kP) {
             case Berserk:

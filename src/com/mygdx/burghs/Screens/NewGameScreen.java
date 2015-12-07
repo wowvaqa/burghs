@@ -56,6 +56,9 @@ public class NewGameScreen implements Screen {
         stage01.addActor(tabela01);
     }
 
+    /**
+     * Formatuje tabelę główną, w której znajdują się tabele graczy.
+     */
     private void formatujTabele01() {
         // ustawia rozmiar tebeli na cały ekran
         tabela01.setFillParent(true);
@@ -100,6 +103,9 @@ public class NewGameScreen implements Screen {
         tabelaUtworzona = true;
     }
     
+    /**
+     * Formatuje tabelę wewnetrzną służącą do wyboru ilości graczy
+     */
     private void formatujTabeleIlosciGraczy(){   
         //tabelaIlosciGraczy.setFillParent(true);
         tabelaIlosciGraczy.pad(10);
@@ -137,6 +143,9 @@ public class NewGameScreen implements Screen {
         tabelaIlosciGraczy.add(tB02).pad(5);
     }
 
+    /**
+     * Formatuje tabelę gracza 1
+     */
     private void formatujTabeleGracza01() {
         tabelaGracz01.pad(10);
         tabelaGracz01.add(new Label("Gracz 1", a.skin)).colspan(tabelaGracz01.getColumns()).align(Align.center);
@@ -182,6 +191,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz01.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
     }
 
+    /**
+     * Formatuje tabelę gracza 2
+     */
     private void formatujTabeleGracza02() {
         tabelaGracz02.pad(10);
         tabelaGracz02.add(new Label("Gracz 2", a.skin)).colspan(tabelaGracz02.getColumns()).align(Align.center);
@@ -227,6 +239,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz02.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
     }
 
+    /**
+     * Formatuje tabelę gracza 3
+     */
     private void formatujTabeleGracza03() {
         tabelaGracz03.pad(10);
         tabelaGracz03.add(new Label("Gracz 3", a.skin)).colspan(tabelaGracz03.getColumns()).align(Align.center);
@@ -272,6 +287,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz03.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
     }
 
+    /**
+     * Formatuje tabelę gracza 4
+     */
     private void formatujTabeleGracza04() {
         tabelaGracz04.pad(10);
         tabelaGracz04.add(new Label("Gracz 3", a.skin)).colspan(tabelaGracz04.getColumns()).align(Align.center);

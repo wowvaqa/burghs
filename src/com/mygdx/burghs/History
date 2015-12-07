@@ -15,14 +15,15 @@ version 0.0008
 version 0.0007 IN PROGRESS
 
         Zaprojektować na nowo plansze nowej gry
-        1. Użyć tabeli
-        2. Zaimplementować graczy 1 - 4 w zależności od wyboru
+DONE    1. Użyć tabeli
+DONE    2. Zaimplementować graczy 1 - 4 w zależności od wyboru
             a) na planszy ma pojawić się taka ilość graczy jaka została wybrana
-        3. Zaimplementować 4 rodzaje postaci do wyboru przez graczy:
+DONE    3. Zaimplementować 4 rodzaje postaci do wyboru przez graczy:
             a)  postać z bonusem do Ataku
             b)  postać z bonusem do Obrony
             c)  postać z bonusem do Szybkosci
             d)  postać z bonusem do HP
+        4. Zaimplementować ustawinia z nowej gry na mapie
             
 
 version 0.0006 DONE 05122015
