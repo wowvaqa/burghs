@@ -22,9 +22,11 @@ import com.mygdx.burghs.NewGame;
 public class NewGameScreen implements Screen {
 
     private final Assets a;
-    private final GameStatus gs;
+    //private final GameStatus gs;
 
     private final Table tabela01 = new Table();
+    
+    private final Table tabelaIlosciGraczy = new Table();
 
     private final Table tabelaGracz01 = new Table();
     private final Table tabelaGracz02 = new Table();
@@ -43,7 +45,7 @@ public class NewGameScreen implements Screen {
 
         // referencje do obiektów assetów i gamestatusu
         this.a = a;
-        this.gs = gs;
+        //this.gs = gs;
 
         stage01 = new Stage();
 
@@ -64,51 +66,24 @@ public class NewGameScreen implements Screen {
 
         tabela01.add(new Label("Nowa Gra", a.skin)).align(Align.center).align(Align.top).expandX().colspan(tabela01.getColumns());
         tabela01.row();
-        tabela01.add(new Label("Ilosc graczy", a.skin));
-        tabela01.add(lblIloscGraczy);
 
-        // Przycisk - przy wyborze ilosci graczy
-        TextButton tB01 = new TextButton("-", a.skin);
-        tB01.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                iloscGraczy = NewGame.odejmijGracza(iloscGraczy);
-                lblIloscGraczy.setText(Integer.toString(iloscGraczy));
-                tabela01.reset();
-                formatujTabele01();
-            }
-        });
-        tabela01.add(tB01);
-
-        // Przycisk + przy wyborze ilośći graczy
-        TextButton tB02 = new TextButton("+", a.skin);
-        tB02.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                iloscGraczy = NewGame.dodajGracza(iloscGraczy);
-                lblIloscGraczy.setText(Integer.toString(iloscGraczy));
-                tabela01.reset();
-                formatujTabele01();
-            }
-        });
-        tabela01.add(tB02);
-
+        tabela01.add(tabelaIlosciGraczy).colspan(4);
         tabela01.row();
 
         if (iloscGraczy == 2) {
-            tabela01.add(tabelaGracz01).align(Align.topLeft).expand();            
-            tabela01.add(tabelaGracz02).align(Align.topLeft).expand();
+            tabela01.add(tabelaGracz01).align(Align.topLeft).expand().align(Align.center);
+            tabela01.add(tabelaGracz02).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
-        } else if (iloscGraczy == 3){
-            tabela01.add(tabelaGracz01).align(Align.topLeft).expand();            
-            tabela01.add(tabelaGracz02).align(Align.topLeft).expand();
-            tabela01.add(tabelaGracz03).align(Align.topLeft).expand();
+        } else if (iloscGraczy == 3) {
+            tabela01.add(tabelaGracz01).align(Align.topLeft).expand().align(Align.center);
+            tabela01.add(tabelaGracz02).align(Align.topLeft).expand().align(Align.center);
+            tabela01.add(tabelaGracz03).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
-        } else if (iloscGraczy == 4){
-            tabela01.add(tabelaGracz01).align(Align.topLeft).expand();            
-            tabela01.add(tabelaGracz02).align(Align.topLeft).expand();
-            tabela01.add(tabelaGracz03).align(Align.topLeft).expand();
-            tabela01.add(tabelaGracz04).align(Align.topLeft).expand();
+        } else if (iloscGraczy == 4) {
+            tabela01.add(tabelaGracz01).align(Align.topLeft).expand().align(Align.center);
+            tabela01.add(tabelaGracz02).align(Align.topLeft).expand().align(Align.center);
+            tabela01.add(tabelaGracz03).align(Align.topLeft).expand().align(Align.center);
+            tabela01.add(tabelaGracz04).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
         }
 
@@ -120,105 +95,226 @@ public class NewGameScreen implements Screen {
                 System.out.println("EXIT");
             }
         });
-        tabela01.add(btnExit).align(Align.top).expandX().colspan(tabela01.getColumns());
+        tabela01.add(btnExit).align(Align.top).expandX().colspan(tabela01.getColumns()).pad(10);
 
         tabelaUtworzona = true;
+    }
+    
+    private void formatujTabeleIlosciGraczy(){   
+        //tabelaIlosciGraczy.setFillParent(true);
+        tabelaIlosciGraczy.pad(10);
+        tabelaIlosciGraczy.add(new Label("Ilosc graczy: ", a.skin)).expandX();
+        tabelaIlosciGraczy.add(lblIloscGraczy);
+
+        // Przycisk - przy wyborze ilosci graczy
+        TextButton tB01 = new TextButton("-", a.skin);
+        tB01.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                iloscGraczy = NewGame.odejmijGracza(iloscGraczy);
+                lblIloscGraczy.setText(Integer.toString(iloscGraczy));
+                tabela01.reset();
+                formatujTabele01();
+                tabelaIlosciGraczy.reset();
+                formatujTabeleIlosciGraczy();
+            }
+        });
+        tabelaIlosciGraczy.add(tB01).pad(5);
+
+        // Przycisk + przy wyborze ilośći graczy
+        TextButton tB02 = new TextButton("+", a.skin);
+        tB02.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                iloscGraczy = NewGame.dodajGracza(iloscGraczy);
+                lblIloscGraczy.setText(Integer.toString(iloscGraczy));
+                tabela01.reset();
+                formatujTabele01();
+                tabelaIlosciGraczy.reset();
+                formatujTabeleIlosciGraczy();
+            }
+        });
+        tabelaIlosciGraczy.add(tB02).pad(5);
     }
 
     private void formatujTabeleGracza01() {
         tabelaGracz01.pad(10);
-        tabelaGracz01.add(new Label("Gracz 1", a.skin));
+        tabelaGracz01.add(new Label("Gracz 1", a.skin)).colspan(tabelaGracz01.getColumns()).align(Align.center);
         tabelaGracz01.row();
 
         // Przycisk - przy wyborze ilosci graczy
-        TextButton g01B01 = new TextButton("-", a.skin);
+        TextButton g01B01 = new TextButton("Prev", a.skin);
         g01B01.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz01 = NewGame.poprzedniaKlasaPostaci(NewGame.klasaPostaciGracz01);
+                tabelaGracz01.clear();
+                formatujTabeleGracza01();
             }
         });
         tabelaGracz01.add(g01B01).pad(10);
 
         // Przycisk + przy wyborze ilośći graczy
-        TextButton tB02 = new TextButton("+", a.skin);
+        TextButton tB02 = new TextButton("Next", a.skin);
         tB02.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz01 = NewGame.nastepnaKlasaPostaci(NewGame.klasaPostaciGracz01);
+                tabelaGracz01.clear();
+                formatujTabeleGracza01();
             }
         });
         tabelaGracz01.add(tB02).pad(10);
+        tabelaGracz01.row();
+
+        tabelaGracz01.add(new Label(NewGame.pobierzTytul(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns()).align(Align.center);
+        tabelaGracz01.row();
+
+        tabelaGracz01.add(NewGame.pobierzPortret(NewGame.klasaPostaciGracz01)).align(Align.center).colspan(tabelaGracz01.getColumns());
+
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Atak: " + NewGame.pobierzAtak(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Obrona: " + NewGame.pobierzObrone(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
     }
 
     private void formatujTabeleGracza02() {
         tabelaGracz02.pad(10);
-        tabelaGracz02.add(new Label("Gracz 2", a.skin));
+        tabelaGracz02.add(new Label("Gracz 2", a.skin)).colspan(tabelaGracz02.getColumns()).align(Align.center);
         tabelaGracz02.row();
 
         // Przycisk - przy wyborze ilosci graczy
-        TextButton g01B01 = new TextButton("-", a.skin);
-        g01B01.addListener(new ClickListener() {
+        TextButton g02B01 = new TextButton("Prev", a.skin);
+        g02B01.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz02 = NewGame.poprzedniaKlasaPostaci(NewGame.klasaPostaciGracz02);
+                tabelaGracz02.clear();
+                formatujTabeleGracza02();
             }
         });
-        tabelaGracz02.add(g01B01).pad(10);
+        tabelaGracz02.add(g02B01).pad(10);
 
         // Przycisk + przy wyborze ilośći graczy
-        TextButton tB02 = new TextButton("+", a.skin);
+        TextButton tB02 = new TextButton("Next", a.skin);
         tB02.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz02 = NewGame.nastepnaKlasaPostaci(NewGame.klasaPostaciGracz02);
+                tabelaGracz02.clear();
+                formatujTabeleGracza02();
             }
         });
         tabelaGracz02.add(tB02).pad(10);
+        tabelaGracz02.row();
+
+        tabelaGracz02.add(new Label(NewGame.pobierzTytul(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns()).align(Align.center);
+        tabelaGracz02.row();
+
+        tabelaGracz02.add(NewGame.pobierzPortret(NewGame.klasaPostaciGracz02)).align(Align.center).colspan(tabelaGracz02.getColumns());
+
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Atak: " + NewGame.pobierzAtak(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Obrona: " + NewGame.pobierzObrone(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
     }
 
     private void formatujTabeleGracza03() {
         tabelaGracz03.pad(10);
-        tabelaGracz03.add(new Label("Gracz 3", a.skin));
+        tabelaGracz03.add(new Label("Gracz 3", a.skin)).colspan(tabelaGracz03.getColumns()).align(Align.center);
         tabelaGracz03.row();
 
         // Przycisk - przy wyborze ilosci graczy
-        TextButton g01B01 = new TextButton("-", a.skin);
-        g01B01.addListener(new ClickListener() {
+        TextButton g02B01 = new TextButton("Prev", a.skin);
+        g02B01.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz03 = NewGame.poprzedniaKlasaPostaci(NewGame.klasaPostaciGracz03);
+                tabelaGracz03.clear();
+                formatujTabeleGracza03();
             }
         });
-        tabelaGracz03.add(g01B01).pad(10);
+        tabelaGracz03.add(g02B01).pad(10);
 
         // Przycisk + przy wyborze ilośći graczy
-        TextButton tB02 = new TextButton("+", a.skin);
+        TextButton tB02 = new TextButton("Next", a.skin);
         tB02.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz03 = NewGame.nastepnaKlasaPostaci(NewGame.klasaPostaciGracz03);
+                tabelaGracz03.clear();
+                formatujTabeleGracza03();
             }
         });
         tabelaGracz03.add(tB02).pad(10);
+        tabelaGracz03.row();
+
+        tabelaGracz03.add(new Label(NewGame.pobierzTytul(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns()).align(Align.center);
+        tabelaGracz03.row();
+
+        tabelaGracz03.add(NewGame.pobierzPortret(NewGame.klasaPostaciGracz03)).align(Align.center).colspan(tabelaGracz03.getColumns());
+
+        tabelaGracz03.row();
+        tabelaGracz03.add(new Label("Atak: " + NewGame.pobierzAtak(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
+        tabelaGracz03.row();
+        tabelaGracz03.add(new Label("Obrona: " + NewGame.pobierzObrone(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
+        tabelaGracz03.row();
+        tabelaGracz03.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
+        tabelaGracz03.row();
+        tabelaGracz03.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
     }
 
     private void formatujTabeleGracza04() {
         tabelaGracz04.pad(10);
-        tabelaGracz04.add(new Label("Gracz 4", a.skin));
+        tabelaGracz04.add(new Label("Gracz 3", a.skin)).colspan(tabelaGracz04.getColumns()).align(Align.center);
         tabelaGracz04.row();
 
         // Przycisk - przy wyborze ilosci graczy
-        TextButton g01B01 = new TextButton("-", a.skin);
-        g01B01.addListener(new ClickListener() {
+        TextButton g02B01 = new TextButton("Prev", a.skin);
+        g02B01.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz04 = NewGame.poprzedniaKlasaPostaci(NewGame.klasaPostaciGracz04);
+                tabelaGracz04.clear();
+                formatujTabeleGracza04();
             }
         });
-        tabelaGracz04.add(g01B01).pad(10);
+        tabelaGracz04.add(g02B01).pad(10);
 
         // Przycisk + przy wyborze ilośći graczy
-        TextButton tB02 = new TextButton("+", a.skin);
+        TextButton tB02 = new TextButton("Next", a.skin);
         tB02.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                NewGame.klasaPostaciGracz04 = NewGame.nastepnaKlasaPostaci(NewGame.klasaPostaciGracz04);
+                tabelaGracz04.clear();
+                formatujTabeleGracza04();
             }
         });
         tabelaGracz04.add(tB02).pad(10);
+        tabelaGracz04.row();
+
+        tabelaGracz04.add(new Label(NewGame.pobierzTytul(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns()).align(Align.center);
+        tabelaGracz04.row();
+
+        tabelaGracz04.add(NewGame.pobierzPortret(NewGame.klasaPostaciGracz04)).align(Align.center).colspan(tabelaGracz04.getColumns());
+
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Atak: " + NewGame.pobierzAtak(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Obrona: " + NewGame.pobierzObrone(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
     }
 
     @Override
@@ -230,6 +326,7 @@ public class NewGameScreen implements Screen {
             formatujTabeleGracza03();
             formatujTabeleGracza04();
             formatujTabele01();
+            formatujTabeleIlosciGraczy();
             dodajDoStage01();
         }
     }
