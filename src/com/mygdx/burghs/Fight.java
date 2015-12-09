@@ -15,6 +15,8 @@ public class Fight {
     
     static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy){
         
+        System.out.println("Funkacja Fight.getObrazenia");
+        
         Random rnd = new Random();
         System.out.println("Nastąpił atak mf");
         int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy) + 1);
@@ -31,8 +33,9 @@ public class Fight {
         if (bohaterBroniacy.getHp() <= 0){
             bohaterBroniacy.remove();
             System.out.println("Smierc Bohatera broniacego się");
-           // bohaterBroniacy.remove();            
-        }                
+        }              
+        
+        bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
         
         return dmg;
     }

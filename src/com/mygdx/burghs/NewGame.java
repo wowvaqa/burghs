@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.Texture;
 import enums.KlasyPostaci;
 import static enums.KlasyPostaci.Berserk;
 import static enums.KlasyPostaci.Lowca;
@@ -13,15 +14,21 @@ import static enums.KlasyPostaci.Twierdza;
  */
 public class NewGame {
 
-   static public KlasyPostaci klasaPostaciGracz01 = KlasyPostaci.Berserk; 
-   static public KlasyPostaci klasaPostaciGracz02 = KlasyPostaci.Berserk;
-   static public KlasyPostaci klasaPostaciGracz03 = KlasyPostaci.Berserk;
-   static public KlasyPostaci klasaPostaciGracz04 = KlasyPostaci.Berserk;
-   
-   private static final Assets a = new Assets();
+    static public KlasyPostaci klasaPostaciGracz01 = KlasyPostaci.Berserk;
+    static public KlasyPostaci klasaPostaciGracz02 = KlasyPostaci.Berserk;
+    static public KlasyPostaci klasaPostaciGracz03 = KlasyPostaci.Berserk;
+    static public KlasyPostaci klasaPostaciGracz04 = KlasyPostaci.Berserk;
+
+    private static final Assets a = new Assets();
+
+    /**
+     * Określa ilość graczy
+     */
+    public static int iloscGraczy = 2;
 
     /**
      * Zwiększa ilość graczy
+     *
      * @param iloscGraczy
      * @return
      */
@@ -37,6 +44,7 @@ public class NewGame {
 
     /**
      * Zmniejsza ilosc graczy
+     *
      * @param iloscGraczy
      * @return
      */
@@ -47,51 +55,54 @@ public class NewGame {
         }
         return iloscGraczy;
     }
-    
+
     /**
      * Pobiera klase postaci gracza i zwraca następną z enum-a
+     *
      * @param kP klasa postaci
-     * @return 
+     * @return
      */
-    static public KlasyPostaci nastepnaKlasaPostaci(KlasyPostaci kP){
-        switch (kP){
-            case Berserk:                
+    static public KlasyPostaci nastepnaKlasaPostaci(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
                 return KlasyPostaci.Obronca;
             case Obronca:
                 return KlasyPostaci.Lowca;
             case Lowca:
                 return KlasyPostaci.Twierdza;
             case Twierdza:
-                return KlasyPostaci.Berserk;                
+                return KlasyPostaci.Berserk;
         }
         return KlasyPostaci.Berserk;
     }
-    
-        /**
+
+    /**
      * Pobiera klase postaci gracza i zwraca następną z enum-a
+     *
      * @param kP klasa postaci
-     * @return 
+     * @return
      */
-    static public KlasyPostaci poprzedniaKlasaPostaci(KlasyPostaci kP){
-        switch (kP){
-            case Berserk:                
+    static public KlasyPostaci poprzedniaKlasaPostaci(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
                 return KlasyPostaci.Twierdza;
             case Obronca:
                 return KlasyPostaci.Berserk;
             case Lowca:
                 return KlasyPostaci.Obronca;
             case Twierdza:
-                return KlasyPostaci.Lowca;                
+                return KlasyPostaci.Lowca;
         }
         return KlasyPostaci.Berserk;
     }
 
     /**
      * Zwraca aktora zawierającego odpowiedni portret
+     *
      * @param kP Klasa postaci dla której ma być zwrócony odpowiedni portret
-     * @return 
+     * @return
      */
-    static public DefaultActor pobierzPortret(KlasyPostaci kP){
+    static public DefaultActor pobierzPortret(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
                 return new DefaultActor(a.mobHumanTex, 0, 0);
@@ -104,16 +115,17 @@ public class NewGame {
         }
         return null;
     }
-    
+
     /**
      * Zwraca String z odpowiednią nazwą klasy
+     *
      * @param kP klasa postaci
-     * @return 
+     * @return
      */
-    static public String pobierzTytul(KlasyPostaci kP) {                
+    static public String pobierzTytul(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return "Berserk";                
+                return "Berserk";
             case Obronca:
                 return "Obronca";
             case Lowca:
@@ -123,16 +135,17 @@ public class NewGame {
         }
         return "error";
     }
-    
+
     /**
      * Zwraca siłę ataku w zależności od klasy postaci
+     *
      * @param kP klasa postaci
-     * @return 
+     * @return
      */
-    static public int pobierzAtak(KlasyPostaci kP) {                
+    static public int pobierzAtak(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return 6;                
+                return 6;
             case Obronca:
                 return 5;
             case Lowca:
@@ -142,16 +155,17 @@ public class NewGame {
         }
         return 0;
     }
-    
+
     /**
      * Zwraca wartość obrony w zależności od klasy postaci
+     *
      * @param kP
-     * @return 
+     * @return
      */
-    static public int pobierzObrone(KlasyPostaci kP) {                
+    static public int pobierzObrone(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return 5;                
+                return 5;
             case Obronca:
                 return 6;
             case Lowca:
@@ -161,16 +175,17 @@ public class NewGame {
         }
         return 0;
     }
-    
+
     /**
      * Zwraca szybkość w zależności od klasy postaci
+     *
      * @param kP Klasa postaci
-     * @return 
+     * @return
      */
-    static public int pobierzSzybkosc(KlasyPostaci kP) {                
+    static public int pobierzSzybkosc(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return 5;                
+                return 5;
             case Obronca:
                 return 5;
             case Lowca:
@@ -180,16 +195,17 @@ public class NewGame {
         }
         return 0;
     }
-    
+
     /**
      * Zwraca ilość punktów życia w zależności od klasy postaci
+     *
      * @param kP
-     * @return 
+     * @return
      */
-    static public int pobierzHp(KlasyPostaci kP) {                
+    static public int pobierzHp(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return 10;                
+                return 10;
             case Obronca:
                 return 10;
             case Lowca:
@@ -198,5 +214,170 @@ public class NewGame {
                 return 15;
         }
         return 0;
+    }
+
+    /**
+     * @param gs
+     * @param a
+     */
+    static public void zakonczGenerowanieNowejGry(GameStatus gs, Assets a) {
+        gs.setActualScreen(1);
+        gs.iloscGraczy = iloscGraczy;
+        // Po kliknięciu w OK następuje przekazanie info, że mapa
+        // została utworzona (wszystkie parametry zadane przez screen
+        // nowej gry zostaną użyte do tworzenia nowej mapy).
+        gs.czyUtworzonoMape = true;
+
+        // Dodoaje nowych graczy wg. ilości zadeklarowanej
+        for (int i = 0; i < gs.iloscGraczy; i++) {
+            gs.gracze.add(new Gracz());
+            //System.out.println(gs.gracze.size());
+        }
+        // Dodanie dla każdego gracza bohatera
+        for (int i = 0; i < gs.gracze.size(); i++) {
+            // tymczasowa tekstura przekazana do konstruktora nowego bohatera
+            Texture tmpTex = null, tmpTexZazanaczony = null;
+            // tymczasowa tekstura do określenia lokacji początkowej gracza
+            int lokPoczatkowaX = 0, lokPoczatkowaY = 0;
+
+            // Ustawienie lokacji początkowej dla bohatera
+            switch (i) {
+                case 0:
+                    lokPoczatkowaX = 0;
+                    lokPoczatkowaY = 0;
+                    tmpTex = getTeksturaBohatera(klasaPostaciGracz01);
+                    tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz01);
+                    break;
+                case 1:
+                    lokPoczatkowaX = 900;
+                    lokPoczatkowaY = 900;
+                    tmpTex = getTeksturaBohatera(klasaPostaciGracz02);
+                    tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz02);
+                    break;
+                case 2:
+                    lokPoczatkowaX = 0;
+                    lokPoczatkowaY = 900;
+                    tmpTex = getTeksturaBohatera(klasaPostaciGracz03);
+                    tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz03);
+                    break;
+                case 3:
+                    lokPoczatkowaX = 900;
+                    lokPoczatkowaY = 0;
+                    tmpTex = getTeksturaBohatera(klasaPostaciGracz04);
+                    tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz04);
+                    break;
+            }
+            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs));
+            // Ustala do którego gracza z tablicy graczy należy bohater
+            gs.gracze.get(i).getBohaterowie().get(0).setPrzynaleznoscDoGracza(i);
+
+            ustawPozycjeNaMapie(gs, i);
+        }
+
+        podepnijStatystkiBohaterow(gs);
+    }
+
+    /**
+     * Ustawia pozycje bohatera na mapie
+     *
+     * @param gs GameStatus
+     * @param i
+     */
+    private static void ustawPozycjeNaMapie(GameStatus gs, int i) {
+        switch (i) {
+            case 0:
+                gs.getMapa().pola[0][0].setBohater(gs.gracze.get(0).getBohaterowie().get(0));
+                gs.getMapa().pola[0][0].getBohater().setPozXnaMapie(0);
+                gs.getMapa().pola[0][0].getBohater().setPozYnaMapie(0);
+                break;
+            case 1:
+                gs.getMapa().pola[9][9].setBohater(gs.gracze.get(1).getBohaterowie().get(0));
+                gs.getMapa().pola[9][9].getBohater().setPozXnaMapie(9);
+                gs.getMapa().pola[9][9].getBohater().setPozYnaMapie(9);
+                break;
+            case 2:
+                gs.getMapa().pola[0][9].setBohater(gs.gracze.get(2).getBohaterowie().get(0));
+                gs.getMapa().pola[0][9].getBohater().setPozXnaMapie(0);
+                gs.getMapa().pola[0][9].getBohater().setPozYnaMapie(9);
+                break;
+            case 3:
+                gs.getMapa().pola[9][0].setBohater(gs.gracze.get(3).getBohaterowie().get(0));
+                gs.getMapa().pola[9][0].getBohater().setPozXnaMapie(9);
+                gs.getMapa().pola[9][0].getBohater().setPozYnaMapie(0);
+                break;
+        }
+    }
+
+    /**
+     * Podpina odpowiednie statystyki pod poszczególnego bohatera każdego
+     * gracza.
+     *
+     * @param gs GameStatus
+     */
+    private static void podepnijStatystkiBohaterow(GameStatus gs) {
+        for (int i = 0; i < iloscGraczy; i++) {
+            KlasyPostaci tmpKp = null;
+
+            switch (i) {
+                case 0:
+                    tmpKp = klasaPostaciGracz01;
+                    break;
+                case 1:
+                    tmpKp = klasaPostaciGracz02;
+                    break;
+                case 2:
+                    tmpKp = klasaPostaciGracz03;
+                    break;
+                case 3:
+                    tmpKp = klasaPostaciGracz04;
+                    break;
+            }
+
+            gs.gracze.get(i).getBohaterowie().get(0).setAtak(pobierzAtak(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setObrona(pobierzObrone(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setHp(pobierzHp(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setSzybkosc(pobierzSzybkosc(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setPozostaloRuchow(pobierzSzybkosc(tmpKp));
+        }
+    }
+
+    /**
+     * Ustala odpowiednią teksturę dla bohatera
+     *
+     * @param kP Klasa Postaci
+     * @return
+     */
+    private static Texture getTeksturaBohatera(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
+                return a.mobHumanTex;
+            case Lowca:
+                return a.mobElfTex;
+            case Obronca:
+                return a.mobDwarfTex;
+            case Twierdza:
+                return a.mobOrkTex;
+        }
+        return null;
+    }
+
+    /**
+     * Ustawia teksturę bohatera zaznaczonego
+     *
+     * @param kP Klasa Postaci
+     * @return
+     */
+    private static Texture getTeksturaBohateraZaznaczonego(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
+                return a.mobHumanTexZaznaczony;
+            case Lowca:
+                return a.mobElfTexZaznaczony;
+            case Obronca:
+                return a.mobDwarfTexZaznaczony;
+            case Twierdza:
+                return a.mobOrkTexZaznaczony;
+        }
+        return null;
     }
 }

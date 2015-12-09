@@ -22,7 +22,7 @@ import com.mygdx.burghs.NewGame;
 public class NewGameScreen implements Screen {
 
     private final Assets a;
-    //private final GameStatus gs;
+    private final GameStatus gs;
 
     private final Table tabela01 = new Table();
     
@@ -37,7 +37,7 @@ public class NewGameScreen implements Screen {
 
     private final Label lblIloscGraczy;
 
-    private int iloscGraczy = 2;
+    //private int iloscGraczy = 2;
 
     private boolean tabelaUtworzona = false;
 
@@ -45,11 +45,11 @@ public class NewGameScreen implements Screen {
 
         // referencje do obiektów assetów i gamestatusu
         this.a = a;
-        //this.gs = gs;
+        this.gs = gs;
 
         stage01 = new Stage();
 
-        lblIloscGraczy = new Label(Integer.toString(iloscGraczy), a.skin);
+        lblIloscGraczy = new Label(Integer.toString(NewGame.iloscGraczy), a.skin);
     }
 
     private void dodajDoStage01() {
@@ -73,22 +73,33 @@ public class NewGameScreen implements Screen {
         tabela01.add(tabelaIlosciGraczy).colspan(4);
         tabela01.row();
 
-        if (iloscGraczy == 2) {
+        if (NewGame.iloscGraczy == 2) {
             tabela01.add(tabelaGracz01).align(Align.topLeft).expand().align(Align.center);
             tabela01.add(tabelaGracz02).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
-        } else if (iloscGraczy == 3) {
+        } else if (NewGame.iloscGraczy == 3) {
             tabela01.add(tabelaGracz01).align(Align.topLeft).expand().align(Align.center);
             tabela01.add(tabelaGracz02).align(Align.topLeft).expand().align(Align.center);
             tabela01.add(tabelaGracz03).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
-        } else if (iloscGraczy == 4) {
+        } else if (NewGame.iloscGraczy == 4) {
             tabela01.add(tabelaGracz01).align(Align.topLeft).expand().align(Align.center);
             tabela01.add(tabelaGracz02).align(Align.topLeft).expand().align(Align.center);
             tabela01.add(tabelaGracz03).align(Align.topLeft).expand().align(Align.center);
             tabela01.add(tabelaGracz04).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
         }
+        
+        // Przycisk Anuluj
+        TextButton btnAnuluj = new TextButton("ANULUJ", a.skin);
+        btnAnuluj.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Anuluj");
+                gs.setActualScreen(0);
+            }
+        });
+        tabela01.add(btnAnuluj).align(Align.left);
 
         // Przycisk Zakończ
         TextButton btnExit = new TextButton("ZAKONCZ", a.skin);
@@ -96,20 +107,12 @@ public class NewGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("EXIT");
+                NewGame.zakonczGenerowanieNowejGry(gs, a);
             }
         });
-        tabela01.add(btnExit).align(Align.right).expandX().colspan(tabela01.getColumns()).pad(10);
+        //tabela01.add(btnExit).align(Align.right).colspan(tabela01.getColumns()).pad(10);
+        tabela01.add(btnExit).align(Align.right).colspan(3);
 
-//        // Przycisk Anuluj
-//        TextButton btnAnuluj = new TextButton("ANULUJ", a.skin);
-//        btnAnuluj.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Anuluj");
-//            }
-//        });
-//        tabela01.add(btnAnuluj).align(Align.left).expandX().colspan(tabela01.getColumns()).pad(10);
-        
         tabelaUtworzona = true;
     }
     
@@ -127,8 +130,8 @@ public class NewGameScreen implements Screen {
         tB01.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                iloscGraczy = NewGame.odejmijGracza(iloscGraczy);
-                lblIloscGraczy.setText(Integer.toString(iloscGraczy));
+                NewGame.iloscGraczy = NewGame.odejmijGracza(NewGame.iloscGraczy);
+                lblIloscGraczy.setText(Integer.toString(NewGame.iloscGraczy));
                 tabela01.reset();
                 formatujTabele01();
                 tabelaIlosciGraczy.reset();
@@ -142,8 +145,8 @@ public class NewGameScreen implements Screen {
         tB02.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                iloscGraczy = NewGame.dodajGracza(iloscGraczy);
-                lblIloscGraczy.setText(Integer.toString(iloscGraczy));
+                NewGame.iloscGraczy = NewGame.dodajGracza(NewGame.iloscGraczy);
+                lblIloscGraczy.setText(Integer.toString(NewGame.iloscGraczy));
                 tabela01.reset();
                 formatujTabele01();
                 tabelaIlosciGraczy.reset();

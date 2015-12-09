@@ -9,12 +9,14 @@ version 0.0009
 
 version 0.0008
 
-        Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
+        1. Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
         Bohater kiedy żaden z bohaterów nie jest zaznaczony.
+DONE    2. Zaimplementować odjęcie punktu ruchu za każdy atak bohatera.
+        3. Uniemożliwić ruch bohatera w wypadku otwarcia skrzyni.
 
-version 0.0007 IN PROGRESS
+version 0.0007 DONE 08122015
 
-        Zaprojektować na nowo plansze nowej gry
+DONE    Zaprojektować na nowo plansze nowej gry
 DONE    1. Użyć tabeli
 DONE    2. Zaimplementować graczy 1 - 4 w zależności od wyboru
             a) na planszy ma pojawić się taka ilość graczy jaka została wybrana
@@ -23,7 +25,7 @@ DONE    3. Zaimplementować 4 rodzaje postaci do wyboru przez graczy:
             b)  postać z bonusem do Obrony
             c)  postać z bonusem do Szybkosci
             d)  postać z bonusem do HP
-        4. Zaimplementować ustawinia z nowej gry na mapie
+DONE    4. Zaimplementować ustawinia z nowej gry na mapie
             
 
 version 0.0006 DONE 05122015
