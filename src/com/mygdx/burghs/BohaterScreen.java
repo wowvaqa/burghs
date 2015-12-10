@@ -323,9 +323,12 @@ public class BohaterScreen implements Screen {
         formatujTabele();
         formatujTabele2();
 
-        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak() + " (" + sumujAtak() + ")");
-        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() + " (" + sumujObrone() + ")");
-        lblHp.setText("HP: " + sprawdzBohatera().getHp());
+        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak() + 
+                " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")");
+        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() +
+                " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")");
+        lblHp.setText("HP: " + sprawdzBohatera().getHp() +
+                " (" + Fight.getSzybkoscEkwipunkuBohatera(gs.getBohaterZaznaczony()) + ")");
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
 
         lblLevel.setText("Poziom: " + sprawdzBohatera().getLevelOfExp());
@@ -341,19 +344,6 @@ public class BohaterScreen implements Screen {
         lblStopy.setText("Stopy: " + sprawdzBohatera().getItemStopy().getNazwa());
 
         tabelaZaktualizowana = true;
-    }
-
-    // Sumuje siłę obrony bohatera razem z obroną wszystkich itemków
-    private int sumujObrone() {
-        int suma = 0;
-        suma += sprawdzBohatera().getAtak();
-        suma += sprawdzBohatera().getItemGlowa().getObrona();
-        return suma;
-    }
-
-    // Sumuje siłę ataku bohatera razem z atakiem wszystkich itemków
-    private int sumujAtak() {
-        return 0;
     }
 
     @Override

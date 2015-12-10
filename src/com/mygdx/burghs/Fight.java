@@ -45,7 +45,7 @@ public class Fight {
      * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
      * @return zwraca wartość obrony dla wszystkich itemków bohatera broniącego się
      */
-    static private int getObronaEkwipunkuBohaterBroniacego(Bohater bohaterBroniacy){
+    static public int getObronaEkwipunkuBohaterBroniacego(Bohater bohaterBroniacy){
         int sumaObrony = 0;
         sumaObrony += bohaterBroniacy.getItemGlowa().getObrona();
         sumaObrony += bohaterBroniacy.getItemKorpus().getObrona();
@@ -64,7 +64,7 @@ public class Fight {
      * @param bohaterAtakujacy referencja do obiektu bohatera atakującego
      * @return zwraca wartość ataku dla wszystkich itemków bohatera atakującego
      */
-    static private int getAtakEkwipunkuBohaterAtakujacego(Bohater bohaterAtakujacy){
+    static public int getAtakEkwipunkuBohaterAtakujacego(Bohater bohaterAtakujacy){
         int sumaAtaku = 0;
         sumaAtaku += bohaterAtakujacy.getItemGlowa().getAtak();
         sumaAtaku += bohaterAtakujacy.getItemKorpus().getAtak();
@@ -76,6 +76,27 @@ public class Fight {
         System.out.println("Suma ataku itemków: " + sumaAtaku);
         
         return sumaAtaku;
+    }
+    
+    /**
+     * Zwraca sumę szybkości dla wszsytkich itemków w które wyposażony jest
+     * bohater
+     * @param bohaterAtakujacy referencja do obiketu bohatera dla którego 
+     * ma zostać zsumowana ilość punktów szybkości
+     * @return 
+     */
+    static public int getSzybkoscEkwipunkuBohatera(Bohater bohaterAtakujacy){
+        int sumaSzybkosci = 0;
+        sumaSzybkosci += bohaterAtakujacy.getItemGlowa().getSzybkosc();
+        sumaSzybkosci += bohaterAtakujacy.getItemKorpus().getSzybkosc();
+        sumaSzybkosci += bohaterAtakujacy.getItemLewaReka().getSzybkosc();
+        sumaSzybkosci += bohaterAtakujacy.getItemPrawaReka().getSzybkosc();
+        sumaSzybkosci += bohaterAtakujacy.getItemNogi().getSzybkosc();
+        sumaSzybkosci += bohaterAtakujacy.getItemStopy().getSzybkosc();
+        
+        System.out.println("Suma zwiększenia szybkości: " + sumaSzybkosci);
+        
+        return sumaSzybkosci;
     }
     
 }
