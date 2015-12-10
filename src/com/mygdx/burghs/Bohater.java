@@ -39,6 +39,8 @@ public class Bohater extends Actor {
 
     // informuje cz bohater jest zaznaczony
     private boolean zaznaczony = false;
+    
+    private boolean otwartaSkrzyniaZeSkarbem = false;
 
     // lokacja bohatera w obiekcie klasy Mapa
     private int pozXnaMapie;
@@ -147,11 +149,15 @@ public class Bohater extends Actor {
                             System.out.println("Bohater nie posiada już ruchu!");
                             // jeżeli posiada punkty ruchu.
                         } else {
-                            moveable = true;
-                            definiujPrzyciski();
-                            sprite.setTexture(bohaterCheckTex);
-                            zaznaczony = true;
-                            gs.setCzyZaznaczonoBohatera(true);
+                            if (otwartaSkrzyniaZeSkarbem) {
+                                System.out.println("Nie mogę zaznaczyć - otwarta skrzynia ze skarbem");
+                            } else {
+                                moveable = true;
+                                definiujPrzyciski();
+                                sprite.setTexture(bohaterCheckTex);
+                                zaznaczony = true;
+                                gs.setCzyZaznaczonoBohatera(true);
+                            }
                         }
                     }
                 }
@@ -589,10 +595,8 @@ public class Bohater extends Actor {
     private void checkTresureBox() {
         if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox() != null) {
             System.out.println("Nadepnięto na skrzynkę ze skarbem");
-            //gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().remove(0);
-            //System.out.println(gs.getMapa().getPola()[4][4].getTresureBox().getDostepneItemy().size());
-            //a.pokazInfoWindow(gs.getMapa().getPola()[2][2].getTresureBox(), this);
-            a.pokazInfoWindow(gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox(), this);
+            a.pokazInfoWindow(gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getTresureBox(), this, this.gs);
+            otwartaSkrzyniaZeSkarbem = true;
         }
     }
 
@@ -878,4 +882,11 @@ public class Bohater extends Actor {
         this.itemStopy = itemStopy;
     }
 
+    public boolean isOtwartaSkrzyniaZeSkarbem() {
+        return otwartaSkrzyniaZeSkarbem;
+    }
+
+    public void setOtwartaSkrzyniaZeSkarbem(boolean otwartaSkrzyniaZeSkarbem) {
+        this.otwartaSkrzyniaZeSkarbem = otwartaSkrzyniaZeSkarbem;
+    }
 }

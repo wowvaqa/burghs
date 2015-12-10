@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
 
@@ -30,11 +29,11 @@ public class MapScreen implements Screen {
     private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
 
     // labele informujące o statystykach klikniętego bohatera
-    private Label lblGold;    
+    private final Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
-    
-    private Window window;
+
+    //private Window window;
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
@@ -42,8 +41,8 @@ public class MapScreen implements Screen {
         this.a = a;
         //this.g = g;
         this.gs = gs;
-        
-        utworzOkno();
+
+//      utworzOkno();
         
         btnKupBohatera = new TextButton("Kup bohatera", a.skin);
         btnKupBohatera.setSize(100, 50);
@@ -56,10 +55,14 @@ public class MapScreen implements Screen {
         btnBohaterScreen.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gs.setActualScreen(5);
+                if (gs.isCzyZaznaczonoBohatera()) {
+                    gs.setActualScreen(5);
+                } else {
+                    System.out.println("Nie zaznaczono bohatera");
+                }
             }
         });
-        
+
         // Dodaje przycisk wyjścia do planszy 02.
         btnExit = new TextButton("EXIT", a.skin);
         btnExit.setSize(100, 50);
@@ -91,6 +94,9 @@ public class MapScreen implements Screen {
         lblTuraGracza.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 25);
         lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
         lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
+        
+        lblGold = new Label("Zloto: " + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
+        lblGold.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 75);
 
         dodajDoStage02();
 
@@ -101,15 +107,15 @@ public class MapScreen implements Screen {
 
         dodajDoStage01();
     }
-    
-    private void utworzOkno(){
-        // Dodanie nowego okna
-        window = new Window("ATAK", a.skin);
-        window.add("Obrazenia: ");
-        window.setSize(400, 300);
-        window.setPosition(500, 500);
-        window.setVisible(false);        
-    }
+
+//    private void utworzOkno() {
+//        // Dodanie nowego okna
+//        window = new Window("ATAK", a.skin);
+//        window.add("Obrazenia: ");
+//        window.setSize(400, 300);
+//        window.setPosition(500, 500);
+//        window.setVisible(false);
+//    }
 
     // Działania wywołane po naciśnięciu przycisku koniec tury.
     private void koniecTuryClick() {
@@ -117,13 +123,14 @@ public class MapScreen implements Screen {
         // Ustala turę następnego gracza
         gs.setTuraGracza(gs.getTuraGracza() + 1);
         if (gs.getTuraGracza() > gs.getGracze().size() - 1) {
-            gs.setTuraGracza(0);            
+            gs.setTuraGracza(0);
         }
         lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
-        
+        lblGold.setText("Zloto: " + gs.gracze.get(gs.getTuraGracza()).getGold());
+
         // Przywrócenie wszystkich punktów ruchu dla bohaterów
-        for (Bohater i: gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()){
-            i.setPozostaloRuchow(i.getSzybkosc());            
+        for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
+            i.setPozostaloRuchow(i.getSzybkosc());
         }
     }
 
@@ -138,8 +145,9 @@ public class MapScreen implements Screen {
         stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
-        stage02.addActor(btnKoniecTury);    
+        stage02.addActor(btnKoniecTury);
         stage02.addActor(btnKupBohatera);
+        stage02.addActor(lblGold);
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -165,11 +173,11 @@ public class MapScreen implements Screen {
         stage01.addActor(a.btnSouthWest);
         // Przycisk Cancel
         stage01.addActor(a.btnCancel);
-        stage01.addActor(window);
-        
+        //stage01.addActor(window);
+
         // Dodaje do planszy info window z assetów do wyświetlania info o skrzynce ze skarbem
         stage01.addActor(a.getInfoWindow());
-        
+
         stage01.addActor(a.lblDmg);
     }
 
@@ -177,6 +185,8 @@ public class MapScreen implements Screen {
     private void generujGraczy() {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
+            // Ustawia tymczasową ilość złota dla każdego z graczy do testów
+            gs.getGracze().get(i).setGold(10 + 10 * i);
         }
     }
 
@@ -200,13 +210,13 @@ public class MapScreen implements Screen {
                 y += 1;
             }
         }
-        
+
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
-        TresureBox tb = new TresureBox(this.a, this.gs);        
+        TresureBox tb = new TresureBox(this.a, this.gs);
         gs.getMapa().getPola()[2][2].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
-        
+
     }
 
     @Override
@@ -224,21 +234,9 @@ public class MapScreen implements Screen {
 
         stage02.act();
         stage02.draw();
-        
+
         //sprawdzMartwychBohaterow();
     }
-
-//    private void sprawdzMartwychBohaterow(){
-//        for(int i = 0; i < stage01.getActors().size; i ++){
-//            if (stage01.getActors().get(i) instanceof Bohater){
-//                System.out.println("Wykryto instanccje bohatera indeks : " + i);
-//                Bohater bohaterTmp = (Bohater)stage01.getActors().get(i);
-//                if (bohaterTmp.getHp() <= 0){
-//                    stage01.getActors().removeIndex(i);
-//                }
-//            }
-//        }
-//    }
 
     // Sprawdza położenie kursora 
     // w zależności od lokalizacji ustawia sterowanie na odpowiedni stage
@@ -320,7 +318,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        //Gdx.input.setInputProcessor(stage01);
-    }
-
+        this.lblGold.setText(Integer.toString(gs.getZlotoAktualnegoGracza()));        
+    }   
 }

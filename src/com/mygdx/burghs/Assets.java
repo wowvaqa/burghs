@@ -2,9 +2,7 @@ package com.mygdx.burghs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -12,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import enums.CzesciCiala;
 import java.util.ArrayList;
 
 public class Assets {
@@ -44,6 +43,7 @@ public class Assets {
     public Texture texLegs;
     public Texture texSword;
     public Texture texShield;
+    public Texture texGold;
 
     // predefiniowane przyciski ruchu
     public ButtonActor btnNorth;
@@ -179,8 +179,9 @@ public class Assets {
      * wyświetlone w oknie informacyjnym
      * @param bohater Referencja do obiketu bohatera do którego ekwipunku
      * dodawane będą itemki z tresure boxa
+     * @param gs
      */
-    public void pokazInfoWindow(final TresureBox tresureBox, final Bohater bohater) {
+    public void pokazInfoWindow(final TresureBox tresureBox, final Bohater bohater, final GameStatus gs) {
         infoWindow.setZIndex(200);
         infoWindow.setVisible(true);
 
@@ -196,14 +197,24 @@ public class Assets {
                     System.out.println("przycisk TAKE IT kliknięty");
                     for (int i = 0; i < tmpButtons.size(); i++) {
                         if (tmpButtons.get(i).isPressed()) {
-                            tmpButtons.get(i).remove();
-                            // dodanie itemka z tresureboxa do ekwipunku
-                            bohater.getEquipment().add(tresureBox.getDostepneItemy().get(i));
-                            // usuniecie wybranego itemka z trasureboxa
-                            tresureBox.getDostepneItemy().remove(i);
-                            // aktualizacja okna
-                            ukryjInfoWindow();
-                            pokazInfoWindow(tresureBox, bohater);
+                            // Sprawdzenie czy itemek nie jest złotem
+                            if (tresureBox.getDostepneItemy().get(i).getCzescCiala().equals(CzesciCiala.gold)) {
+                                gs.dodajDoZlotaAktualnegoGracza(tresureBox.getDostepneItemy().get(i).getGold());
+                                tresureBox.getDostepneItemy().remove(i);
+                                tmpButtons.get(i).remove();
+                                ukryjInfoWindow();
+                                pokazInfoWindow(tresureBox, bohater, gs);
+                            // Jeżeli nie jest złotem
+                            } else {
+                                tmpButtons.get(i).remove();
+                                // dodanie itemka z tresureboxa do ekwipunku
+                                bohater.getEquipment().add(tresureBox.getDostepneItemy().get(i));
+                                // usuniecie wybranego itemka z trasureboxa
+                                tresureBox.getDostepneItemy().remove(i);
+                                // aktualizacja okna
+                                ukryjInfoWindow();
+                                pokazInfoWindow(tresureBox, bohater, gs);
+                            }
                         }
                     }
                 }
@@ -217,7 +228,9 @@ public class Assets {
         tmpExitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                bohater.setOtwartaSkrzyniaZeSkarbem(false);
                 ukryjInfoWindow();
+
             }
         });
 
@@ -409,6 +422,7 @@ public class Assets {
         texLegs = new Texture("items/texLegs.png");
         texSword = new Texture("items/texSword.png");
         texShield = new Texture("items/texShield.png");
+        texGold = new Texture("items/texGold.png");
     }
 
     // wypełnia mapę 

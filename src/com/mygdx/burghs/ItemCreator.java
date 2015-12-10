@@ -10,7 +10,7 @@ import enums.CzesciCiala;
  */
 public class ItemCreator {
 
-    private GameStatus gs;
+    private final GameStatus gs;
 
     public ItemCreator(GameStatus gs) {
         this.gs = gs;
@@ -144,6 +144,17 @@ public class ItemCreator {
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.stopy);
                 item.getSprite().setTexture(a.texLeatherShoes);
+                break;
+// INNE ========================================================================     
+            case Gold:
+                item.setNazwa("Zloto");
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.gold);
+                item.getSprite().setTexture(a.texGold);
+                item.setGold(100);
                 break;
         }
 

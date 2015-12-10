@@ -1,18 +1,34 @@
-VERSION 0.0004  <25-10-2015>
 
 TODO:
 
-version 0.0009
+version 0.0010
 
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
+        
+version 0.0010
+        1. Zaprojektować klasę zamku
+            opis: Zamek nie może atakować ale ma określoną siłę obrony oraz HP
+            Gracz może atakować zamek i jeżeli jego HP spadnie do 0 zamek 
+            zostaje przejęty przez danego gracza
+        2. Po zdobyciu zamku Bohater gracza ma 5 tur na podbicie innego zamku
+        w przeciwnym wypadku kończy się dla niego gra.
 
-version 0.0008
 
-        1. Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
+version 0.0009 DONE 10122015
+
+DONE    1. Dodać label wyświetlający ilość złota.                        
+DONE    2. Zaprojektować item złota.
+DONE    3. Dodać item do skrzyni ze skarbem. 
+DONE    4. Umożliwić zabranie złota bohaterowi.
+DONE    5. Poprawić wyświetlanie statystyk w MapScreen
+
+version 0.0008 DONE 10122015
+
+DONE    1. Usunąć buga który powoduje biały ekran podczas kliku na parzycisk
         Bohater kiedy żaden z bohaterów nie jest zaznaczony.
 DONE    2. Zaimplementować odjęcie punktu ruchu za każdy atak bohatera.
-        3. Uniemożliwić ruch bohatera w wypadku otwarcia skrzyni.
+DONE    3. Uniemożliwić ruch bohatera w wypadku otwarcia skrzyni.
 
 version 0.0007 DONE 08122015
 

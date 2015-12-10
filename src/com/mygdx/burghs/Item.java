@@ -31,6 +31,7 @@ public class Item extends Actor {
     private int obrona = 0;
     private int hp = 0;
     private int szybkosc = 0;
+    private int gold = 0;
 
     public Item(Texture teksura, final Assets a, final GameStatus gs) {
         this.a = a;
@@ -112,6 +113,14 @@ public class Item extends Actor {
     public Assets getA() {
         return a;
     }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }    
 
     @Override
     public void act(float delta) {
