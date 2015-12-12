@@ -36,9 +36,8 @@ public class MapScreen implements Screen {
     //private Player atakowanyBohater;
     public MapScreen(Game g, Assets a, final GameStatus gs) {
         this.a = a;
-        //this.g = g;
         this.gs = gs;
-        
+
         btnKupBohatera = new TextButton("Kup bohatera", a.skin);
         btnKupBohatera.setSize(100, 50);
         btnKupBohatera.setPosition(Gdx.graphics.getWidth() - btnKupBohatera.getWidth() - 25, 175);
@@ -89,7 +88,7 @@ public class MapScreen implements Screen {
         lblTuraGracza.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 25);
         lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
         lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
-        
+
         lblGold = new Label("Zloto: " + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
         lblGold.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 75);
 
@@ -183,7 +182,9 @@ public class MapScreen implements Screen {
             if (a.mapa[i] == 1) {
                 teren.add(new DefaultActor(a.trawaTex, x * 100, y * 100));
             } else if (a.mapa[i] == 3) {
-                teren.add(new DefaultActor(a.trawaZamekTex, x * 100, y * 100));
+                teren.add(new DefaultActor(a.trawaTex, x * 100, y * 100));
+                // Stare wywołanie utworzenia zamku
+                //teren.add(new DefaultActor(a.trawaZamekTex, x * 100, y * 100));
             } else {
                 teren.add(new DefaultActor(a.trawaGoraTex, x * 100, y * 100));
             }
@@ -201,6 +202,43 @@ public class MapScreen implements Screen {
         gs.getMapa().getPola()[2][2].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
 
+        // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
+        // zamków
+        switch (gs.iloscGraczy) {
+            // generuje zamek dla 2 graczy
+            case 2:
+                generujZamki();
+                break;
+            // generuje zamek dla 3 graczy
+            case 3:
+                generujZamki();
+                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900));
+                stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
+                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(3);
+                break;
+            // generuje zamek dla 4 graczy
+            case 4:
+                generujZamki();
+                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900));
+                stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
+                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(3);
+
+                gs.getMapa().getPola()[9][0].setCastle(new Castle(this.stage01, a, 900, 0));
+                stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
+                gs.getMapa().getPola()[9][0].getCastle().setPrzynaleznoscDoGracza(4);
+                break;
+        }
+    }
+
+    // generuje zamki 2 dwóch podstawowych graczy
+    private void generujZamki() {
+        gs.getMapa().getPola()[0][0].setCastle(new Castle(this.stage01, a, 0, 0));
+        stage01.addActor(gs.getMapa().getPola()[0][0].getCastle());
+        gs.getMapa().getPola()[0][0].getCastle().setPrzynaleznoscDoGracza(0);
+
+        gs.getMapa().getPola()[9][9].setCastle(new Castle(this.stage01, a, 900, 900));
+        stage01.addActor(gs.getMapa().getPola()[9][9].getCastle());
+        gs.getMapa().getPola()[9][9].getCastle().setPrzynaleznoscDoGracza(1);
     }
 
     @Override
@@ -300,6 +338,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        this.lblGold.setText("Zloto: " + Integer.toString(gs.getZlotoAktualnegoGracza()));        
-    }   
+        this.lblGold.setText("Zloto: " + Integer.toString(gs.getZlotoAktualnegoGracza()));
+    }
 }
