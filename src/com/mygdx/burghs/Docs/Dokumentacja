@@ -4,4 +4,7 @@ zmienna prachowująca: Gracz.gold
 wymagana w: 
     1. MapScreen (do wyświetlania ilosci złota zgromadzoengo przez gracza)
         lblGold (wyświetlany na stage02 w MapScreen)        
-        aktualizowany w MapScreen.Show()
+        status lbl Gold aktualizowany w MapScreen.Show()
+
+ZAMEK:
+
