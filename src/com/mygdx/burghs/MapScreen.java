@@ -318,6 +318,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        this.lblGold.setText(Integer.toString(gs.getZlotoAktualnegoGracza()));        
+        this.lblGold.setText("Zloto: " + Integer.toString(gs.getZlotoAktualnegoGracza()));        
     }   
 }

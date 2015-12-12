@@ -5,6 +5,10 @@ version 0.0010
 
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
+
+version 0.0011
+        1. Po naciśnięciu przez gracza przycisku koniec tury jeżeli którykolwiek
+        z bohaterów gracza jest zaznaczonyl - odznaczyć bohatera.
         
 version 0.0010
         1. Zaprojektować klasę zamku
