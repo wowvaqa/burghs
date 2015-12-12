@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class MapScreen implements Screen {
 
-    //private final Game g;
     private final Assets a;
     private final GameStatus gs;
 
@@ -33,16 +32,12 @@ public class MapScreen implements Screen {
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
 
-    //private Window window;
-
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
     public MapScreen(Game g, Assets a, final GameStatus gs) {
         this.a = a;
         //this.g = g;
         this.gs = gs;
-
-//      utworzOkno();
         
         btnKupBohatera = new TextButton("Kup bohatera", a.skin);
         btnKupBohatera.setSize(100, 50);
@@ -107,15 +102,6 @@ public class MapScreen implements Screen {
 
         dodajDoStage01();
     }
-
-//    private void utworzOkno() {
-//        // Dodanie nowego okna
-//        window = new Window("ATAK", a.skin);
-//        window.add("Obrazenia: ");
-//        window.setSize(400, 300);
-//        window.setPosition(500, 500);
-//        window.setVisible(false);
-//    }
 
     // Działania wywołane po naciśnięciu przycisku koniec tury.
     private void koniecTuryClick() {
@@ -185,8 +171,6 @@ public class MapScreen implements Screen {
     private void generujGraczy() {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
-            // Ustawia tymczasową ilość złota dla każdego z graczy do testów
-            //gs.getGracze().get(i).setGold(10 + 10 * i);
         }
     }
 
@@ -234,8 +218,6 @@ public class MapScreen implements Screen {
 
         stage02.act();
         stage02.draw();
-
-        //sprawdzMartwychBohaterow();
     }
 
     // Sprawdza położenie kursora 
