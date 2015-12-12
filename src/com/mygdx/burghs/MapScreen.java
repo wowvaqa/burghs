@@ -126,7 +126,7 @@ public class MapScreen implements Screen {
             gs.setTuraGracza(0);
         }
         lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
-        lblGold.setText("Zloto: " + gs.gracze.get(gs.getTuraGracza()).getGold());
+        //lblGold.setText("Zloto: " + gs.gracze.get(gs.getTuraGracza()).getGold());
 
         // Przywrócenie wszystkich punktów ruchu dla bohaterów
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
@@ -186,7 +186,7 @@ public class MapScreen implements Screen {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
             // Ustawia tymczasową ilość złota dla każdego z graczy do testów
-            gs.getGracze().get(i).setGold(10 + 10 * i);
+            //gs.getGracze().get(i).setGold(10 + 10 * i);
         }
     }
 

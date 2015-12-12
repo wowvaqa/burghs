@@ -20,6 +20,14 @@ public class Castle extends Actor{
     private int Obrona = 0;
     private int przynaleznoscDoGracza = 0;
 
+    /**
+     * 
+     * @param gs
+     * @param a
+     * @param tekstura
+     * @param x
+     * @param y 
+     */
     public Castle(GameStatus gs, Assets a, Texture tekstura, int x, int y) {
         this.sprite = new Sprite(tekstura);
         this.gs = gs;
@@ -37,5 +45,69 @@ public class Castle extends Actor{
     }
     
     //Setters and Getters
+
+    /**
+     * 
+     * @return 
+     */
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    /**
+     * 
+     * @param maxHp 
+     */
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getActualHp() {
+        return actualHp;
+    }
+
+    /**
+     *
+     * @param actualHp
+     */
+    public void setActualHp(int actualHp) {
+        this.actualHp = actualHp;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getObrona() {
+        return Obrona;
+    }
+
+    /**
+     *
+     * @param Obrona
+     */
+    public void setObrona(int Obrona) {
+        this.Obrona = Obrona;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getPrzynaleznoscDoGracza() {
+        return przynaleznoscDoGracza;
+    }
+
+    /**
+     *
+     * @param przynaleznoscDoGracza
+     */
+    public void setPrzynaleznoscDoGracza(int przynaleznoscDoGracza) {
+        this.przynaleznoscDoGracza = przynaleznoscDoGracza;
+    }
     
 }
