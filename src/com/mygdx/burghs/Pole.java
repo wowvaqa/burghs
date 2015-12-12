@@ -8,6 +8,8 @@ public class Pole {
     private Bohater bohater;
     
     private TresureBox tresureBox = null;
+    
+    private Castle castle = null;
 
     public Pole() {
 
@@ -35,4 +37,12 @@ public class Pole {
     public void setTresureBox(TresureBox tresureBox) {
         this.tresureBox = tresureBox;
     }
+
+    public Castle getCastle() {
+        return castle;
+    }
+
+    public void setCastle(Castle castle) {
+        this.castle = castle;
+    }    
 }

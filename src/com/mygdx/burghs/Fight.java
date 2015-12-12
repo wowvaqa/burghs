@@ -13,6 +13,12 @@ import java.util.Random;
  */
 public class Fight {
     
+    /**
+     * Zwraca ilość obrażeń po ataku bohatera
+     * @param bohaterAtakujacy  referencja do obiektu bohatera atakującego
+     * @param bohaterBroniacy   referencja do obiketu bohatera broniącego się
+     * @return Zwraca ilość obrażeń
+     */
     static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy){
         
         System.out.println("Funkacja Fight.getObrazenia");

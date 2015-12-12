@@ -8,3 +8,14 @@ wymagana w:
 
 ZAMEK:
     Klasa: Castle.java
+    Obiekty zamków definiowane są w obiekcie klasy MapScreen.generujPlansze() 
+    
+
+SRZYNIA ZE SKARBEM:
+    Klasa: TresureBox.java
+
+    Przykładowa skrzynia ze skarbem dodana w:
+    MapScreen.generujPlansze()
+
+MAPA:
+    

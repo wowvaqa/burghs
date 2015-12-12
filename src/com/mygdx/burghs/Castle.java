@@ -1,38 +1,74 @@
 package com.mygdx.burghs;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Klasa odpowiedzialna za zachowanie zamku.
+ *
  * @author v
  */
-public class Castle extends Actor{
-    
+public class Castle extends Actor {
+
     private final Sprite sprite;
-    private final GameStatus gs;
     private final Assets a;
-    
-    private int maxHp = 0;
-    private int actualHp = 0;
-    private int Obrona = 0;
+    private final Stage stage;
+
+    private int maxHp = 20;
+    private int actualHp = 20;
+    private int Obrona = 5;
     private int przynaleznoscDoGracza = 0;
 
     /**
-     * 
-     * @param gs
+     *
+     * @param stage     
      * @param a
-     * @param tekstura
      * @param x
-     * @param y 
+     * @param y
      */
-    public Castle(GameStatus gs, Assets a, Texture tekstura, int x, int y) {
-        this.sprite = new Sprite(tekstura);
-        this.gs = gs;
+    public Castle(Stage stage, Assets a, int x, int y) {
+        this.sprite = new Sprite(a.trawaZamekTex);
+        this.setSize(sprite.getWidth(), sprite.getHeight());
+        this.setPosition(x, y);
         this.a = a;
-    }    
+        this.stage = stage;
+
+        this.dodajListnera();
+    }
+
+    // Dodaje ClickListnera do obiektu Zamku
+    private void dodajListnera() {
+        this.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Zamek został kliknięty");
+                new Dialog("Zamek", a.skin) {
+                    {
+                        text("Wlasciciel: " + przynaleznoscDoGracza);
+                        this.row();
+                        text("Obrona: " + Obrona);
+                        this.row();
+                        text("HP: " + actualHp);
+                        this.row();
+                        button("Zakoncz", "zakoncz");
+                    }
+
+                    @Override
+                    protected void result(Object object) {
+                        if (object.equals("zakoncz")) {
+                            this.remove();
+                        }
+                    }
+
+                }.show(stage);
+            }
+        });
+    }
 
     @Override
     public void act(float delta) {
@@ -43,20 +79,19 @@ public class Castle extends Actor{
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
-    
-    //Setters and Getters
 
+    //Setters and Getters
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getMaxHp() {
         return maxHp;
     }
 
     /**
-     * 
-     * @param maxHp 
+     *
+     * @param maxHp
      */
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
@@ -109,5 +144,5 @@ public class Castle extends Actor{
     public void setPrzynaleznoscDoGracza(int przynaleznoscDoGracza) {
         this.przynaleznoscDoGracza = przynaleznoscDoGracza;
     }
-    
+
 }
