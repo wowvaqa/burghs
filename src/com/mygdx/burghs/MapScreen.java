@@ -111,7 +111,6 @@ public class MapScreen implements Screen {
             gs.setTuraGracza(0);
         }
         lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
-        //lblGold.setText("Zloto: " + gs.gracze.get(gs.getTuraGracza()).getGold());
 
         // Przywrócenie wszystkich punktów ruchu dla bohaterów
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {

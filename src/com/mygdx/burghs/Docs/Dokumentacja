@@ -9,13 +9,16 @@ wymagana w:
 ZAMEK:
     Klasa: Castle.java
     Obiekty zamków definiowane są w obiekcie klasy MapScreen.generujPlansze() 
-    
+    Sprawdzenie czy któryś gracz nie nadepnął na zamke następuje w:
+        Bohater.checkCastle();        
 
 SRZYNIA ZE SKARBEM:
     Klasa: TresureBox.java
 
     Przykładowa skrzynia ze skarbem dodana w:
     MapScreen.generujPlansze()
+    Nadepnięcie na skrzynie zostaje sprawdzone w metodzie
+        Bohater.checkTresureBox();
 
 MAPA:
     

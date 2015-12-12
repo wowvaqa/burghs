@@ -47,6 +47,38 @@ public class Fight {
     }
     
     /**
+     * Zwraca ilość obrażeń po ataku bohatera na zamek
+     * @param bohaterAtakujacy Referencja do obiektu bohatera atakującego
+     * @param castle Referencja do obiektu zamku
+     * @return Ilosć obrażeń
+     */
+    static public int getObrazenia(Bohater bohaterAtakujacy, Castle castle){
+        
+        System.out.println("Funkacja Fight.getObrazenia");
+        
+        Random rnd = new Random();
+        System.out.println("Nastąpił atak na zamek");
+        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy) + 1);
+        int obrona = rnd.nextInt(castle.getObrona() + 1);
+        System.out.println("Siła ataku:  " + atak);
+        System.out.println("siła obrony: " + obrona);
+        int dmg = atak - obrona;
+        if (dmg < 0)
+            dmg = 0;
+        System.out.println("damage: " + dmg);
+        if (dmg > 0){
+            castle.setActualHp(castle.getActualHp()- dmg);
+        }
+        if (castle.getActualHp()<= 0){            
+            System.out.println("Zamek nie posiada już obrońców - można go zająć");
+        }              
+        
+        bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
+        
+        return dmg;
+    }
+    
+    /**
      * 
      * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
      * @return zwraca wartość obrony dla wszystkich itemków bohatera broniącego się

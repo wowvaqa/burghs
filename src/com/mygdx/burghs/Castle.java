@@ -19,8 +19,8 @@ public class Castle extends Actor {
     private final Assets a;
     private final Stage stage;
 
-    private int maxHp = 20;
-    private int actualHp = 20;
+    private int maxHp = 5;
+    private int actualHp = 5;
     private int Obrona = 5;
     private int przynaleznoscDoGracza = 0;
 

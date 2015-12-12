@@ -39,7 +39,7 @@ public class Bohater extends Actor {
 
     // informuje cz bohater jest zaznaczony
     private boolean zaznaczony = false;
-    
+
     private boolean otwartaSkrzyniaZeSkarbem = false;
 
     // lokacja bohatera w obiekcie klasy Mapa
@@ -165,6 +165,19 @@ public class Bohater extends Actor {
         });
     }
 
+    /**
+     * Sprawdza możliwość ataku na zamek
+     *
+     * @return zwraca TRUE jeżeli atak na zamek jest możliwy
+     */
+    private boolean sprawdzWarunekAtakuNaZamek() {
+        if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null 
+                && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza() 
+                && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getActualHp() > 0) {
+        }
+        return true;
+    }
+
     // Ustawia widzialnosć przycisków dodanych do obiektu klasy Stage w obiekcie
     // klasy MapScreen na true. 
     // Definiuje położenie przycisków względem bohatera który aktualnie
@@ -179,7 +192,11 @@ public class Bohater extends Actor {
         // Sprawdzenie czy przycisk nie przekroczy górnej części mapy
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             // Jeżeli w lokacji na północ jest inny bohater wtedy wyświetla się przycisk ataku
-            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null) {
+            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null
+                    || (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null 
+                    && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza() 
+                    && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
+                    //|| this.sprawdzWarunekAtakuNaZamek() != true){
                 a.btnAtcNorth.setPosition(this.getX() + 50, this.getY() + 150);
                 a.btnAtcNorth.setVisible(true);
                 // Jeżeli nie wyświetla się przycisk ruchu
@@ -275,8 +292,15 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorth() {
         if (moveable) {
             if (a.btnAtcNorth.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
+                //Sprawdzenie czym jest obiekt który ma zostać zaatakowany
+                if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getCastle());
+                }
+
                 usunMartwychBohaterow();
 
                 this.sprite.setTexture(bohaterTex);
@@ -587,6 +611,18 @@ public class Bohater extends Actor {
 
         gs.setCzyZaznaczonoBohatera(false);
         this.checkTresureBox();
+        this.checkCastle();
+    }
+
+    /**
+     * Funkcja sprawdza czy bohater nie wlazł na zamek
+     */
+    private void checkCastle() {
+        if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle() != null) {
+            System.out.println("Nadepnięto na zamek :-)");
+            gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle().setPrzynaleznoscDoGracza(gs.getTuraGracza());
+            System.out.println("Zamek zmienił włąsciciela");
+        }
     }
 
     /**
