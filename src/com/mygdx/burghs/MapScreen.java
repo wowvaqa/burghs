@@ -104,6 +104,7 @@ public class MapScreen implements Screen {
 
     // Działania wywołane po naciśnięciu przycisku koniec tury.
     private void koniecTuryClick() {
+        wylaczAktywnychBohaterow();
         sprawdzCzyKoniecTuryOgolnej();
         System.out.println("Koniec Tury");
         // Ustala turę następnego gracza
@@ -118,6 +119,20 @@ public class MapScreen implements Screen {
             i.setPozostaloRuchow(i.getSzybkosc());
         }
 
+    }
+
+    /**
+     * Funkcja wyłącza aktywnych bohaterów
+     */
+    private void wylaczAktywnychBohaterow() {
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().getPola()[i][j].getBohater() != null) {
+                    gs.getMapa().getPola()[i][j].getBohater().wylaczPrzyciski();
+                    gs.getMapa().getPola()[i][j].getBohater().setZaznaczony(false);
+                }
+            }
+        }
     }
 
     // Działania wywołane po naciśnięciu przycisku Exit
@@ -141,7 +156,6 @@ public class MapScreen implements Screen {
      * Odnawia co turę gry HP zamków +1
      */
     private void odnowZdrowieZamkow() {
-        //gs.mapa.getPola()[][]
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
                 if (gs.getMapa().getPola()[i][j].getCastle() != null

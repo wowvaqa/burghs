@@ -165,19 +165,6 @@ public class Bohater extends Actor {
         });
     }
 
-    /**
-     * Sprawdza możliwość ataku na zamek
-     *
-     * @return zwraca TRUE jeżeli atak na zamek jest możliwy
-     */
-    private boolean sprawdzWarunekAtakuNaZamek() {
-        if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null
-                && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
-                && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getActualHp() > 0) {
-        }
-        return true;
-    }
-
     // Ustawia widzialnosć przycisków dodanych do obiektu klasy Stage w obiekcie
     // klasy MapScreen na true. 
     // Definiuje położenie przycisków względem bohatera który aktualnie
@@ -621,9 +608,10 @@ public class Bohater extends Actor {
         }
     }
 
-    // 1. Wyłącza wszystkie przyciski ruchu
-    // 2. Wyłącza możliwość ruchu dla bohatera
-    private void wylaczPrzyciski() {
+    /**
+     * Wyłącza wszystkie aktywne przyciski oraz uniemożliwia ruch bohatera
+     */
+    public void wylaczPrzyciski() {
         a.btnNorth.setVisible(false);
         a.btnNorth.setKlikniety(false);
         a.btnSouth.setVisible(false);
