@@ -28,3 +28,13 @@ MAPA:
 BOHATER:
     Sprawdzenie czy bohater może walczyć z zamkiem lub innym bohaterem następuje
     w Bohater.definiujPrzyciski()
+
+KONIEC GRY:
+    Sprawdzenie czy nastąpił koniec gry dla Gracza następuje w:
+    MapScreen.KoniecTuryClick();
+    Kolejno sprawdzane są:
+        - Czy gracz posiada zamek
+        - jeśli nie - zaczyna się odliczanie 5 tur
+        - po 5 turach następuje nadanie graczowi statusu (Gracz.java) GameOver
+        - Następuje wyrzucenie wszystkich bohaterów gracza z planszy.
+        - Gracz pomijany jest przy kolejnych turach.

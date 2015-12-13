@@ -10,14 +10,14 @@ version 0.0012
         1. Bug: w przypadku naciśnięcia przycisku KoniecTury jeżeli bohater
         był zaznaczony - przyciski dezaktywują się ale nie zmienia się tekstura
         bohatera na nie zaznaczonego.
+        2. Zaprojektować klasę dialog służącą do wyświetlania prostych 
+        komunikatów.
 
-version 0.0011
+version 0.0011 DONE 13122015
 DONE    1. Po naciśnięciu przez gracza przycisku koniec tury jeżeli którykolwiek
         z bohaterów gracza jest zaznaczony - odznaczyć bohatera.
-        2. Po zdobyciu zamku Bohater gracza ma 5 tur na podbicie innego zamku
+DONE    2. Po zdobyciu zamku Bohater gracza ma 5 tur na podbicie innego zamku
         w przeciwnym wypadku kończy się dla niego gra.
-        3. Zaprojektować klasę dialog służącą do wyświetlania prostych 
-        komunikatów.
 
 version 0.0010 DONE 13122015
 DONE    1. Zaprojektować klasę zamku

@@ -102,8 +102,24 @@ public class MapScreen implements Screen {
         dodajDoStage01();
     }
 
-    // Działania wywołane po naciśnięciu przycisku koniec tury.
+    /**
+     * Przycisk Koniec Tury
+     */
     private void koniecTuryClick() {
+
+        if (!sprawdzCzyGraczPosiadaZamek()) {
+            System.out.println("Sprawdzanie czy gracz posiada zamek.");
+            // Jeżeli gracz nie będzie posiadał zamku wtedy zmianie ulegnie jego
+            // status oraz zwiększona zostanie ilość tur bez zamku
+            gs.getGracze().get(gs.getTuraGracza()).setStatusBezZamku(true);
+            gs.getGracze().get(gs.getTuraGracza()).setTuryBezZamku(gs.getGracze().get(gs.getTuraGracza()).getTuryBezZamku() + 1);
+            if (gs.getGracze().get(gs.getTuraGracza()).getTuryBezZamku() >= 5) {
+                System.out.println("Gracz: " + gs.getTuraGracza() + " kaput");
+                gs.getGracze().get(gs.getTuraGracza()).setStatusGameOver(true);
+            }
+            System.out.println("Gracz " + gs.getTuraGracza() + " nie posiada zamku: "
+                    + gs.getGracze().get(gs.getTuraGracza()).getTuryBezZamku() + " tur.");
+        }
         wylaczAktywnychBohaterow();
         sprawdzCzyKoniecTuryOgolnej();
         System.out.println("Koniec Tury");
@@ -118,7 +134,53 @@ public class MapScreen implements Screen {
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
             i.setPozostaloRuchow(i.getSzybkosc());
         }
+        usunBohaterowGraczyGO();
+    }
 
+    /**
+     * Usuwa bohaterów graczy którzy mają status Game Over
+     */
+    private void usunBohaterowGraczyGO() {
+        if (gs.getGracze().get(gs.getTuraGracza()).isStatusGameOver()) {
+            if (gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() > 0) {
+                for (int i = 0; i < gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size(); i++) {
+                    System.out.println("Usunięcie bohatera");
+                    gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().remove(i);
+
+                }
+            }
+            for (int x = 0; x < gs.getMapa().getIloscPolX(); x++) {
+                for (int y = 0; y < gs.getMapa().getIloscPolY(); y++) {
+                    if (gs.getMapa().getPola()[x][y].getBohater() != null
+                            && gs.getMapa().getPola()[x][y].getBohater().getPrzynaleznoscDoGracza() == gs.getTuraGracza()) {
+                        System.out.println("XXX");
+                        gs.getMapa().pola[x][y].getBohater().remove();
+                        gs.getMapa().pola[x][y].setBohater(null);                        
+                    }
+                }
+            }
+            koniecTuryClick();
+        }
+    }
+
+    /**
+     * Sprawdza czy gracz posiada zamek. Zwraca True jeżeli posiada False jeżeli
+     * nie posiada
+     *
+     * @return
+     */
+    private boolean sprawdzCzyGraczPosiadaZamek() {
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().getPola()[i][j].getCastle() != null) {
+                    if (gs.getMapa().getPola()[i][j].getCastle().getPrzynaleznoscDoGracza() == gs.getTuraGracza()) {
+                        System.out.println("Gracz posiada zamek.");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**

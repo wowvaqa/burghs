@@ -653,7 +653,7 @@ public class Bohater extends Actor {
 
         gs.setCzyZaznaczonoBohatera(false);
         this.checkTresureBox();
-        this.checkCastle();
+        checkCastle();
     }
 
     /**
@@ -661,8 +661,8 @@ public class Bohater extends Actor {
      */
     private void checkCastle() {
         if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle() != null) {
-            System.out.println("Nadepnięto na zamek :-)");
-            gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle().setPrzynaleznoscDoGracza(gs.getTuraGracza());
+            System.out.println(gs.getTuraGracza() + " Nadepnięto na zamek :-)");
+            gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle().setPrzynaleznoscDoGracza(this.getPrzynaleznoscDoGracza());
             System.out.println("Zamek zmienił włąsciciela");
         }
     }

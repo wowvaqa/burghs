@@ -10,7 +10,14 @@ public class Gracz {
 
     private int gold;                                                           // złoto zgromadzone przez gracza
     
+    // Ile tur gracz przebywa bez zamku.
     private int turyBezZamku = 0;
+    
+    // Informuje czy gracz jest posiadaczem zamku.
+    private boolean statusBezZamku = false;
+    
+    // informuje czy gracz zakończył grę
+    private boolean statusGameOver = false;
 
     public Gracz() {
 
@@ -71,6 +78,40 @@ public class Gracz {
      */
     public void setTuryBezZamku(int turyBezZamku) {
         this.turyBezZamku = turyBezZamku;
+    }
+
+    /**
+     * Zwraca True jeżeli gracz zakończył grę
+     * Zwraca False jeżeli gracz nie zakończył gry.
+     * @return 
+     */
+    public boolean isStatusGameOver() {
+        return statusGameOver;
+    }
+
+    /**
+     * Ustala czy gracz uczestniczy w grze(False) lub nie (TRUE)
+     * @param statusGameOver 
+     */
+    public void setStatusGameOver(boolean statusGameOver) {
+        this.statusGameOver = statusGameOver;
+    }
+
+    /**
+     * Zwraca TRUE jeżeli gracz nie posiada zadnego zamku, FALSE jeżeli 
+     * posiada
+     * @return 
+     */
+    public boolean isStatusBezZamku() {
+        return statusBezZamku;
+    }
+
+    /**
+     * Ustala czy gracz jest posiadaczem zamku.
+     * @param statusBezZamku 
+     */
+    public void setStatusBezZamku(boolean statusBezZamku) {
+        this.statusBezZamku = statusBezZamku;
     }
     
     
