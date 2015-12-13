@@ -9,16 +9,26 @@ public class Gracz {
     private ArrayList<Bohater> bohaterowie = new ArrayList<Bohater>();
 
     private int gold;                                                           // złoto zgromadzone przez gracza
+    
+    private int turyBezZamku = 0;
 
     public Gracz() {
 
     }
 
     //SETTERS AND GETTERS
+    /**
+     * Zwraca ilość złota posiadanego przez gracza
+     * @return złoto
+     */
     public int getGold() {
         return gold;
     }
 
+    /**
+     * Ustala ilość złota należącego do gracza.
+     * @param gold 
+     */
     public void setGold(int gold) {
         this.gold = gold;
     }
@@ -31,12 +41,36 @@ public class Gracz {
         this.bohaterowieOld = bohaterowie;
     }
 
+    /**
+     * Zwraca ArrayList<> z Bohaterami należącymi do gracza.
+     * @return ArrayList<> z bohaterami
+     */
     public ArrayList<Bohater> getBohaterowie() {
         return bohaterowie;
     }
 
+    /**
+     * Pobiera ArrayList<> z bohaterami gracza
+     * @param bohaterowie 
+     */
     public void setBohaterowie(ArrayList<Bohater> bohaterowie) {
         this.bohaterowie = bohaterowie;
+    }
+
+    /**
+     * Zwraca ile tur bez zamku ma gracz
+     * @return ilość tur bez zamku
+     */
+    public int getTuryBezZamku() {
+        return turyBezZamku;
+    }
+
+    /**
+     * Ustala ilość tur bez zamku gracza
+     * @param turyBezZamku 
+     */
+    public void setTuryBezZamku(int turyBezZamku) {
+        this.turyBezZamku = turyBezZamku;
     }
     
     

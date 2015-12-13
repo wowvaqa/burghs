@@ -22,3 +22,7 @@ SRZYNIA ZE SKARBEM:
 
 MAPA:
     
+
+BOHATER:
+    Sprawdzenie czy bohater może walczyć z zamkiem lub innym bohaterem następuje
+    w Bohater.definiujPrzyciski()
