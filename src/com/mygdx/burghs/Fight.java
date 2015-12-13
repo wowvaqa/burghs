@@ -71,6 +71,7 @@ public class Fight {
         }
         if (castle.getActualHp()<= 0){            
             System.out.println("Zamek nie posiada już obrońców - można go zająć");
+            castle.setActualHp(0);
         }              
         
         bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);

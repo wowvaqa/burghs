@@ -171,8 +171,8 @@ public class Bohater extends Actor {
      * @return zwraca TRUE jeżeli atak na zamek jest możliwy
      */
     private boolean sprawdzWarunekAtakuNaZamek() {
-        if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null 
-                && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza() 
+        if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null
+                && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                 && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getActualHp() > 0) {
         }
         return true;
@@ -193,10 +193,10 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             // Jeżeli w lokacji na północ jest inny bohater wtedy wyświetla się przycisk ataku
             if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null
-                    || (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null 
-                    && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza() 
+                    || (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null
+                    && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                     && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
-                    //|| this.sprawdzWarunekAtakuNaZamek() != true){
+                //|| this.sprawdzWarunekAtakuNaZamek() != true){
                 a.btnAtcNorth.setPosition(this.getX() + 50, this.getY() + 150);
                 a.btnAtcNorth.setVisible(true);
                 // Jeżeli nie wyświetla się przycisk ruchu
@@ -211,7 +211,10 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie > 0) {
             // Wyświetlenie odpowiedniego przycisku w zależności od możliwości 
             // ataku lub ruchu.
-            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getBohater() != null) {
+            if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getBohater() != null
+                    || (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getCastle() != null
+                    && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                    && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getCastle().getActualHp() > 0)) {
                 a.btnAtcSouth.setPosition(this.getX() + 50, this.getY() - 50);
                 a.btnAtcSouth.setVisible(true);
             } else {
@@ -221,7 +224,10 @@ public class Bohater extends Actor {
         }
 
         if (this.pozXnaMapie < gs.mapa.getIloscPolX() - 1) {
-            if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getBohater() != null) {
+            if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getBohater() != null
+                    || (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getCastle() != null
+                    && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                    && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getCastle().getActualHp() > 0)) {
                 a.btnAtcEast.setPosition(this.getX() + 150, this.getY() + 50);
                 a.btnAtcEast.setVisible(true);
             } else {
@@ -231,7 +237,10 @@ public class Bohater extends Actor {
         }
 
         if (this.pozXnaMapie > 0) {
-            if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getBohater() != null) {
+            if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getBohater() != null
+                    || (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getCastle() != null
+                    && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                    && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getCastle().getActualHp() > 0)) {
                 a.btnAtcWest.setPosition(this.getX() - 50, this.getY() + 50);
                 a.btnAtcWest.setVisible(true);
             } else {
@@ -242,7 +251,10 @@ public class Bohater extends Actor {
 
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             if (this.pozXnaMapie < gs.mapa.getIloscPolX() - 1) {
-                if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getBohater() != null) {
+                if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getBohater() != null
+                        || (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getCastle() != null
+                        && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                        && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
                     a.btnAtcNorthEast.setPosition(this.getX() + 150, this.getY() + 150);
                     a.btnAtcNorthEast.setVisible(true);
                 } else {
@@ -254,7 +266,10 @@ public class Bohater extends Actor {
 
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             if (this.pozXnaMapie > 0) {
-                if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getBohater() != null) {
+                if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getBohater() != null
+                        || (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getCastle() != null
+                        && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                        && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
                     a.btnAtcNorthWest.setPosition(this.getX() - 50, this.getY() + 150);
                     a.btnAtcNorthWest.setVisible(true);
                 } else {
@@ -266,7 +281,10 @@ public class Bohater extends Actor {
 
         if (this.pozYnaMapie > 0) {
             if (this.pozXnaMapie < gs.mapa.getIloscPolX() - 1) {
-                if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getBohater() != null) {
+                if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getBohater() != null
+                        || (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getCastle() != null
+                        && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                        && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getCastle().getActualHp() > 0)) {
                     a.btnAtcSouthEast.setPosition(this.getX() + 150, this.getY() - 50);
                     a.btnAtcSouthEast.setVisible(true);
                 } else {
@@ -278,7 +296,10 @@ public class Bohater extends Actor {
 
         if (this.pozYnaMapie > 0) {
             if (this.pozXnaMapie > 0) {
-                if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getBohater() != null) {
+                if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getBohater() != null
+                        || (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getCastle() != null
+                        && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
+                        && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getCastle().getActualHp() > 0)) {
                     a.btnAtcSouthWest.setPosition(this.getX() - 50, this.getY() - 50);
                     a.btnAtcSouthWest.setVisible(true);
                 } else {
@@ -302,7 +323,6 @@ public class Bohater extends Actor {
                 }
 
                 usunMartwychBohaterow();
-
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -313,8 +333,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouth() {
         if (moveable) {
             if (a.btnAtcSouth.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -326,8 +351,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcEast() {
         if (moveable) {
             if (a.btnAtcEast.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -339,8 +369,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcWest() {
         if (moveable) {
             if (a.btnAtcWest.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -352,8 +387,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorthEast() {
         if (moveable) {
             if (a.btnAtcNorthEast.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -365,8 +405,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcNorthWest() {
         if (moveable) {
             if (a.btnAtcNorthWest.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -378,8 +423,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouthEast() {
         if (moveable) {
             if (a.btnAtcSouthEast.isKlikniety()) {
-                a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -391,9 +441,13 @@ public class Bohater extends Actor {
     private void sprawdzPrzyciskAtcSouthWest() {
         if (moveable) {
             if (a.btnAtcSouthWest.isKlikniety()) {
-                //gs.atak(this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
-                a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
-                        this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
+                if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater() != null) {
+                    a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
+                } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getCastle() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getCastle());
+                }
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();

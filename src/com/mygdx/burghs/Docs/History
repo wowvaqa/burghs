@@ -8,15 +8,20 @@ version 0.0010
 
 version 0.0011
         1. Po naciśnięciu przez gracza przycisku koniec tury jeżeli którykolwiek
-        z bohaterów gracza jest zaznaczonyl - odznaczyć bohatera.
-        
+        z bohaterów gracza jest zaznaczony - odznaczyć bohatera.
+        2. Po zdobyciu zamku Bohater gracza ma 5 tur na podbicie innego zamku
+        w przeciwnym wypadku kończy się dla niego gra.
+        3. Zaprojektować klasę dialog służącą do wyświetlania prostych 
+        komunikatów.
+
 version 0.0010
 DONE    1. Zaprojektować klasę zamku
             opis: Zamek nie może atakować ale ma określoną siłę obrony oraz HP
             Gracz może atakować zamek i jeżeli jego HP spadnie do 0 zamek 
-            zostaje przejęty przez danego gracza
-        2. Po zdobyciu zamku Bohater gracza ma 5 tur na podbicie innego zamku
-        w przeciwnym wypadku kończy się dla niego gra.
+            może zostać przejęty przez bohatera.                
+DONE    2. Ustawić system zmiany tury. Każdy z graczy wyknouje swoją rundę.
+        Po zakończeniu każdej z rund gracza następuje następna tura.
+DONE    3. Zdrowie zamku musi się odnawiać +1 co jedną turę
 
 
 version 0.0009 DONE 10122015

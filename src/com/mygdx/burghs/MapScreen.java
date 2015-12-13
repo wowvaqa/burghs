@@ -104,6 +104,7 @@ public class MapScreen implements Screen {
 
     // Działania wywołane po naciśnięciu przycisku koniec tury.
     private void koniecTuryClick() {
+        sprawdzCzyKoniecTuryOgolnej();
         System.out.println("Koniec Tury");
         // Ustala turę następnego gracza
         gs.setTuraGracza(gs.getTuraGracza() + 1);
@@ -116,11 +117,42 @@ public class MapScreen implements Screen {
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
             i.setPozostaloRuchow(i.getSzybkosc());
         }
+
     }
 
     // Działania wywołane po naciśnięciu przycisku Exit
     private void exitClick() {
         gs.setActualScreen(0);
+    }
+
+    /**
+     * Funkcja sprawdza czy tura gry nie została zakończona Jezeli TRUE zwiększa
+     * +1
+     */
+    private void sprawdzCzyKoniecTuryOgolnej() {
+        if (gs.getTuraGracza() == gs.iloscGraczy - 1) {
+            System.out.println("Koniec tury ogólnej");
+            gs.setTuraGry(gs.getTuraGry() + 1);
+            odnowZdrowieZamkow();
+        }
+    }
+
+    /**
+     * Odnawia co turę gry HP zamków +1
+     */
+    private void odnowZdrowieZamkow() {
+        //gs.mapa.getPola()[][]
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().getPola()[i][j].getCastle() != null
+                        && gs.getMapa().getPola()[i][j].getCastle().getActualHp()
+                        < gs.getMapa().getPola()[i][j].getCastle().getMaxHp()) {
+                    System.out.println("Zamek odnawia życie");
+                    gs.getMapa().getPola()[i][j].getCastle().setActualHp(
+                            gs.getMapa().getPola()[i][j].getCastle().getActualHp() + 1);
+                }
+            }
+        }
     }
 
     // Dodaje do Stage 02 przycisk Exit i koniec tury oraz labele wyświetlające statystyki
@@ -213,18 +245,18 @@ public class MapScreen implements Screen {
                 generujZamki();
                 gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900));
                 stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
-                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(3);
+                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(2);
                 break;
             // generuje zamek dla 4 graczy
             case 4:
                 generujZamki();
                 gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900));
                 stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
-                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(3);
+                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(2);
 
                 gs.getMapa().getPola()[9][0].setCastle(new Castle(this.stage01, a, 900, 0));
                 stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
-                gs.getMapa().getPola()[9][0].getCastle().setPrzynaleznoscDoGracza(4);
+                gs.getMapa().getPola()[9][0].getCastle().setPrzynaleznoscDoGracza(3);
                 break;
         }
     }

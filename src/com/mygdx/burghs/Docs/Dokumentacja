@@ -10,7 +10,9 @@ ZAMEK:
     Klasa: Castle.java
     Obiekty zamków definiowane są w obiekcie klasy MapScreen.generujPlansze() 
     Sprawdzenie czy któryś gracz nie nadepnął na zamke następuje w:
-        Bohater.checkCastle();        
+        Bohater.checkCastle();       
+    Zdrowie zamku odnawia się co turę ogólną w metodzie:
+        MapScreen.SprawdzCzyKoniecTuryOgolnej.OdnowZdrowieZamkow()
 
 SRZYNIA ZE SKARBEM:
     Klasa: TresureBox.java

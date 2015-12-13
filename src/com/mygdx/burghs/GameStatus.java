@@ -17,6 +17,9 @@ public class GameStatus {
 
     // Zwraca nr gracza z tablicy graczy który posiada swoją turę
     private int turaGracza = 0;
+    
+    // Określa ogólną turę gry.
+    private int turaGry = 0;
 
     // Do uniemożliweinia ruchu podczas penetrowania skrzyni ze skarbem    
     private Item item;
@@ -133,4 +136,22 @@ public class GameStatus {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    /**
+     * Zwraca turę gry
+     * @return Tura gry
+     */
+    public int getTuraGry() {
+        return turaGry;
+    }
+
+    /**
+     * Ustala turę gry
+     * @param turaGry tura gry
+     */
+    public void setTuraGry(int turaGry) {
+        this.turaGry = turaGry;
+    }
+    
+    
 }
