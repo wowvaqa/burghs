@@ -34,13 +34,20 @@ public class MapScreen implements Screen {
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
-    public MapScreen(Game g, Assets a, final GameStatus gs) {
+    public MapScreen(Game g, final Assets a, final GameStatus gs) {
         this.a = a;
         this.gs = gs;
 
         btnKupBohatera = new TextButton("Kup bohatera", a.skin);
         btnKupBohatera.setSize(100, 50);
         btnKupBohatera.setPosition(Gdx.graphics.getWidth() - btnKupBohatera.getWidth() - 25, 175);
+        btnKupBohatera.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Dodanie nowego bohatera.");
+                stage01.addActor(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs));
+            }            
+        });
 
         // Dodaje przycisk wyjścia do planszy 02.
         btnBohaterScreen = new TextButton("Bohater", a.skin);
@@ -155,7 +162,7 @@ public class MapScreen implements Screen {
                             && gs.getMapa().getPola()[x][y].getBohater().getPrzynaleznoscDoGracza() == gs.getTuraGracza()) {
                         System.out.println("XXX");
                         gs.getMapa().pola[x][y].getBohater().remove();
-                        gs.getMapa().pola[x][y].setBohater(null);                        
+                        gs.getMapa().pola[x][y].setBohater(null);
                     }
                 }
             }

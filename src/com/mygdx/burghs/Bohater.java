@@ -324,7 +324,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getCastle());
                 }
                 usunMartwychBohaterow();
@@ -342,7 +342,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getCastle());
                 }
                 usunMartwychBohaterow();
@@ -360,7 +360,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getCastle());
                 }
                 usunMartwychBohaterow();
@@ -378,7 +378,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getCastle());
                 }
                 usunMartwychBohaterow();
@@ -396,7 +396,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getCastle());
                 }
                 usunMartwychBohaterow();
@@ -414,7 +414,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getCastle());
                 }
                 usunMartwychBohaterow();
@@ -432,7 +432,7 @@ public class Bohater extends Actor {
                     a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getBohater());
                 } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getCastle() != null) {
-                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                    a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getCastle());
                 }
                 usunMartwychBohaterow();

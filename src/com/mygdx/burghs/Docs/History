@@ -2,9 +2,12 @@
 TODO:
 
 version 0.0020
-
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
+
+version 0.0015
+        Zaprojektować okno/screen kupna nowego bohatera wraz z implementacja
+        zakupu nowego bohatera i dodania go do mapy w formie grywalnej.        
 
 version 0.0012
         1. Bug: w przypadku naciśnięcia przycisku KoniecTury jeżeli bohater
@@ -12,6 +15,8 @@ version 0.0012
         bohatera na nie zaznaczonego.
         2. Zaprojektować klasę dialog służącą do wyświetlania prostych 
         komunikatów.
+DONE    3. Poprawić błąd powodujący niepoprawne wyswietlanie się lablki z 
+        ilością obrażeń podczas ataku bohatera.
 
 version 0.0011 DONE 13122015
 DONE    1. Po naciśnięciu przez gracza przycisku koniec tury jeżeli którykolwiek
