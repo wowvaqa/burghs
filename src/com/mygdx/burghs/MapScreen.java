@@ -18,7 +18,7 @@ public class MapScreen implements Screen {
     private final GameStatus gs;
 
     private final Stage stage01 = new Stage();  // wyświetla mapę i playera
-    private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu        
+    private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu            
 
     private final TextButton btnExit;
     private final TextButton btnKoniecTury;
@@ -37,6 +37,9 @@ public class MapScreen implements Screen {
     public MapScreen(Game g, final Assets a, final GameStatus gs) {
         this.a = a;
         this.gs = gs;
+        
+        Assets.stage01MapScreen = this.stage01;
+        Assets.stage02MapScreen = this.stage02;
 
         btnKupBohatera = new TextButton("Kup bohatera", a.skin);
         btnKupBohatera.setSize(100, 50);
@@ -45,7 +48,13 @@ public class MapScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Dodanie nowego bohatera.");
-                stage01.addActor(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs));
+                gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs));
+                int index = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() - 1;
+                stage01.addActor(gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index));
+                Bohater tmpBohater = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index);
+                tmpBohater.setPrzynaleznoscDoGracza(gs.getTuraGracza());
+                tmpBohater.setSzybkosc(100);
+                
             }            
         });
 

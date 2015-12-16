@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.burghs.Screens.DialogScreen;
 import java.util.ArrayList;
 
 /**
@@ -136,7 +137,8 @@ public class Bohater extends Actor {
                     }
                 }
                 // Jeżeli TRUE wtedy uniemozliwia jego zaznaczenie                
-                if (bohaterZaznaczony) {
+                if (bohaterZaznaczony) {                    
+                    DialogScreen dS = new DialogScreen("Blad", a.skin, "Nie moge zaznaczyc dwoch bohaterow", Assets.stage01MapScreen);
                     System.out.println("Nie mogę zaznaczyc dwóch bohaterów");
                     // Jeżeli FALSE wtedy uruchamia reszte procedur dla bohatera
                 } else {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -75,6 +76,9 @@ public class Assets {
     private Window infoWindow;
 
     public int[] mapa = new int[100];
+    
+    public static Stage stage01MapScreen;
+    public static Stage stage02MapScreen;
 
     public Assets() {
         trawaTex = new Texture("grass100x100.png");
