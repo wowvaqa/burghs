@@ -5,17 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 
 public class MapScreen implements Screen {
+    
+    private final OrthographicCamera c;
+    private final FitViewport viewPort;
 
     private final Assets a;
     private final GameStatus gs;
+    private final Game g;
 
     private final Stage stage01 = new Stage();  // wyświetla mapę i playera
     private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu            
@@ -34,9 +40,10 @@ public class MapScreen implements Screen {
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
-    public MapScreen(Game g, final Assets a, final GameStatus gs) {
+    public MapScreen(final Game g, final Assets a, final GameStatus gs) {
         this.a = a;
         this.gs = gs;
+        this.g = g;
         
         Assets.stage01MapScreen = this.stage01;
         Assets.stage02MapScreen = this.stage02;
@@ -66,7 +73,8 @@ public class MapScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (gs.isCzyZaznaczonoBohatera()) {
-                    gs.setActualScreen(5);
+                    //gs.setActualScreen(5);
+                    g.setScreen(Assets.bohaterScreen);
                 } else {
                     System.out.println("Nie zaznaczono bohatera");
                 }
@@ -116,6 +124,12 @@ public class MapScreen implements Screen {
         gs.czyUtworzonoMape = true;
 
         dodajDoStage01();
+        
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        c = new OrthographicCamera(w, h);
+        viewPort = new FitViewport(w, h, c);
     }
 
     /**
@@ -215,6 +229,7 @@ public class MapScreen implements Screen {
 
     // Działania wywołane po naciśnięciu przycisku Exit
     private void exitClick() {
+        g.setScreen(Assets.mainMenuScreen);
         gs.setActualScreen(0);
     }
 
@@ -441,6 +456,9 @@ public class MapScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        stage01.getViewport().update(width, height, true);
+        stage02.getViewport().update(width, height, true);
+        viewPort.update(width, height, true);
     }
 
     @Override

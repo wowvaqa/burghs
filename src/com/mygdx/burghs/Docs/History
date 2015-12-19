@@ -5,16 +5,20 @@ version 0.0020
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
 
-version 0.0015
+version 0.0016
         1. Bug: w przypadku naciśnięcia przycisku KoniecTury jeżeli bohater
         był zaznaczony - przyciski dezaktywują się ale nie zmienia się tekstura
         bohatera na nie zaznaczonego.
         2. Zaprojektować klasę dialog służącą do wyświetlania prostych 
         komunikatów.
 
-version 0.0013
+version 0.0014
         Zaprojektować okno/screen kupna nowego bohatera wraz z implementacja
-        zakupu nowego bohatera i dodania go do mapy w formie grywalnej.        
+        zakupu nowego bohatera i dodania go do mapy w formie grywalnej.      
+
+version 0.0013 DONE 19122015
+DONE    Zmieniono obsługę Screenów gry. Poprawiono błąd, w którym po zmianie 
+        wielkości okna UI nie reagował.
 
 version 0.0012 DONE 15122015
 DONE    3. Poprawić błąd powodujący niepoprawne wyswietlanie się lablki z 

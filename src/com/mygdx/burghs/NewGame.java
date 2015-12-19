@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import enums.KlasyPostaci;
 import static enums.KlasyPostaci.Berserk;
@@ -217,10 +218,11 @@ public class NewGame {
     }
 
     /**
+     * @param g
      * @param gs
      * @param a
      */
-    static public void zakonczGenerowanieNowejGry(GameStatus gs, Assets a) {
+    static public void zakonczGenerowanieNowejGry(Game g, GameStatus gs, Assets a) {
         gs.setActualScreen(1);
         gs.iloscGraczy = iloscGraczy;
         // Po kliknięciu w OK następuje przekazanie info, że mapa
@@ -275,6 +277,8 @@ public class NewGame {
         }
 
         podepnijStatystkiBohaterow(gs);
+        
+        Assets.mapScreen = new MapScreen(g, a, gs);
     }
 
     /**

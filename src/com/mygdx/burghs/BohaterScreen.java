@@ -1,8 +1,10 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import enums.CzesciCiala;
 import java.util.ArrayList;
 
@@ -20,14 +23,17 @@ import java.util.ArrayList;
  * @author wow
  */
 public class BohaterScreen implements Screen {
+    
+    private final OrthographicCamera c;
+    private final FitViewport viewPort;
 
     // Informuje czy tabela jest zaktualizowana
     private boolean tabelaZaktualizowana = false;
 
     // Referencje do obiektu assetów, statusu gry, bohatera który jest kliknięty
     private final Assets a;
-
     private final GameStatus gs;
+    private final Game g;
 
     // Plansza
     private final Stage stage01 = new Stage();
@@ -48,13 +54,20 @@ public class BohaterScreen implements Screen {
     private final Table tabela = new Table();
     private final Table tabela2 = new Table();
 
-    public BohaterScreen(Assets a, GameStatus gs) {
+    public BohaterScreen(Game g, Assets a, GameStatus gs) {
         this.a = a;
         this.gs = gs;
+        this.g = g;
 
         utworzPrzyciski();
         utworzLabele();
         dodajDoStage01();
+        
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        c = new OrthographicCamera(w, h);
+        viewPort = new FitViewport(w, h, c);
     }
 
     // Formatuje tabele dodaje do niej elementy
@@ -286,7 +299,8 @@ public class BohaterScreen implements Screen {
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gs.setActualScreen(1);
+                //gs.setActualScreen(1);
+                g.setScreen(Assets.mapScreen);
                 tabela.clear();
                 tabela2.clear();
                 tabelaZaktualizowana = false;
@@ -367,8 +381,9 @@ public class BohaterScreen implements Screen {
     }
 
     @Override
-    public void resize(int i, int i1) {
-
+    public void resize(int width, int height) {
+        stage01.getViewport().update(width, height, true);
+        viewPort.update(width, height, true);
     }
 
     @Override

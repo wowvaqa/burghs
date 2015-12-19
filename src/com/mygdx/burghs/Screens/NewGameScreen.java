@@ -1,8 +1,10 @@
 package com.mygdx.burghs.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.NewGame;
@@ -20,9 +23,13 @@ import com.mygdx.burghs.NewGame;
  * @author v
  */
 public class NewGameScreen implements Screen {
+    
+    private final OrthographicCamera c;
+    private final FitViewport viewPort;
 
     private final Assets a;
     private final GameStatus gs;
+    private final Game g;
 
     private final Table tabela01 = new Table();
     
@@ -41,15 +48,19 @@ public class NewGameScreen implements Screen {
 
     private boolean tabelaUtworzona = false;
 
-    public NewGameScreen(Assets a, GameStatus gs) {
+    public NewGameScreen(Game g, Assets a, GameStatus gs) {
 
         // referencje do obiektów assetów i gamestatusu
         this.a = a;
         this.gs = gs;
+        this.g = g;
 
         stage01 = new Stage();
 
         lblIloscGraczy = new Label(Integer.toString(NewGame.iloscGraczy), a.skin);
+        
+        c = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), c);
     }
 
     private void dodajDoStage01() {
@@ -96,7 +107,8 @@ public class NewGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Anuluj");
-                gs.setActualScreen(0);
+                //gs.setActualScreen(0);
+                g.setScreen(Assets.mainMenuScreen);
             }
         });
         tabela01.add(btnAnuluj).align(Align.left);
@@ -107,7 +119,8 @@ public class NewGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("EXIT");
-                NewGame.zakonczGenerowanieNowejGry(gs, a);
+                NewGame.zakonczGenerowanieNowejGry(g, gs, a);
+                g.setScreen(Assets.mapScreen);
             }
         });
         //tabela01.add(btnExit).align(Align.right).colspan(tabela01.getColumns()).pad(10);
@@ -373,7 +386,8 @@ public class NewGameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage01.getViewport().update(width, height, true);
+        viewPort.update(width, height, true);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -79,6 +80,12 @@ public class Assets {
     
     public static Stage stage01MapScreen;
     public static Stage stage02MapScreen;
+    
+    public static Screen testScreen;
+    public static Screen mainMenuScreen;
+    public static Screen newGameScreen;
+    public static Screen mapScreen;
+    public static Screen bohaterScreen;
 
     public Assets() {
         trawaTex = new Texture("grass100x100.png");
