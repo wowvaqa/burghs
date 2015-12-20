@@ -1,6 +1,8 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import enums.DostepneItemki;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,9 +21,11 @@ import java.util.ArrayList;
  */
 public class Bohater extends Actor {
 
-    private final Sprite sprite;    // wygląd
-    private final Texture bohaterTex;
-    private final Texture bohaterCheckTex;
+    private Sprite sprite;    // wygląd
+    private Texture bohaterTex;
+    private Texture bohaterCheckTex;
+    private Pixmap pixMap;
+    private boolean teksturaZaktualizowana = false;
 
     private int pozX = 0;   // pozycja X na mapie
     private int pozY = 0;   // pozycja Y na mapie
@@ -38,7 +42,7 @@ public class Bohater extends Actor {
 
     private final Assets a;
     private final GameStatus gs;
-    private Game g;
+    private final Game g;
 
     // informuje cz bohater jest zaznaczony
     private boolean zaznaczony = false;
@@ -141,7 +145,7 @@ public class Bohater extends Actor {
                     }
                 }
                 // Jeżeli TRUE wtedy uniemozliwia jego zaznaczenie                
-                if (bohaterZaznaczony) {                    
+                if (bohaterZaznaczony) {
                     DialogScreen dS = new DialogScreen("Blad", a.skin, "Nie moge zaznaczyc dwoch bohaterow", Assets.stage01MapScreen);
                     System.out.println("Nie mogę zaznaczyc dwóch bohaterów");
                     // Jeżeli FALSE wtedy uruchamia reszte procedur dla bohatera
@@ -606,7 +610,7 @@ public class Bohater extends Actor {
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
                 if (gs.getMapa().pola[i][j].getBohater() != null) {
-                    if (gs.getMapa().pola[i][j].getBohater().getHp() <= 0) {
+                    if (gs.getMapa().pola[i][j].getBohater().getActualHp() <= 0) {
                         gs.getMapa().pola[i][j].setBohater(null);
                     }
                 }
@@ -684,13 +688,54 @@ public class Bohater extends Actor {
         }
     }
 
+    /**
+     * Aktualizuje status paska energi bohatera
+     */
+    public void aktualizujTeksture() {
+
+        if (!bohaterTex.getTextureData().isPrepared()) {
+            bohaterTex.getTextureData().prepare();
+        }
+        this.setPixMap(bohaterTex.getTextureData().consumePixmap());
+
+        this.getPixMap().setColor(Color.RED);
+        this.getPixMap().fillRectangle(0, 0, 5, 100);
+        this.getPixMap().setColor(Color.WHITE);
+        this.getPixMap().fillRectangle(1, 1, 3, 100 - poziomHP());
+
+        this.setBohaterTex(new Texture(this.getPixMap()));
+        this.sprite.setTexture(bohaterTex);
+
+    }
+
+    private int poziomHP() {
+
+        System.out.println(this.getHp());
+        System.out.println(this.hp);
+
+        float poziom = this.actualHp * 100 / this.hp;
+//        if (poziom < 1) {
+//            poziom = 1;
+//        }
+//        if (poziom > 99) {
+//            poziom = 99;
+//        }
+        System.out.println((int) Math.round(poziom));
+        return (int) Math.round(poziom);
+    }
+
     @Override
-    public void act(float delta) {
+    public void act(float delta) {        
         super.act(delta); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        if (!teksturaZaktualizowana) {
+            aktualizujTeksture();
+            teksturaZaktualizowana = true;
+        }
+
         batch.draw(this.sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
 
         // Sprawdza co klatkę czy którykolwiek z przycisków ruchu został kliknięty        
@@ -716,6 +761,38 @@ public class Bohater extends Actor {
     }
 
 // SETTERS AND GETTERS
+    public Pixmap getPixMap() {
+        return pixMap;
+    }
+
+    public void setPixMap(Pixmap pixMap) {
+        this.pixMap = pixMap;
+    }
+
+    public Texture getBohaterTex() {
+        return bohaterTex;
+    }
+
+    public void setBohaterTex(Texture bohaterTex) {
+        this.bohaterTex = bohaterTex;
+    }
+
+    public Texture getBohaterCheckTex() {
+        return bohaterCheckTex;
+    }
+
+    public void setBohaterCheckTex(Texture bohaterCheckTex) {
+        this.bohaterCheckTex = bohaterCheckTex;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
     public int getActualHp() {
         return actualHp;
     }

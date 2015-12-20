@@ -341,8 +341,8 @@ public class BohaterScreen implements Screen {
                 " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")");
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() +
                 " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")");
-        lblHp.setText("HP: " + sprawdzBohatera().getHp() +
-                " (" + Fight.getSzybkoscEkwipunkuBohatera(gs.getBohaterZaznaczony()) + ")");
+        lblHp.setText("HP: " + sprawdzBohatera().getActualHp() + 
+                " (" + sprawdzBohatera().getHp() + ")");
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
 
         lblLevel.setText("Poziom: " + sprawdzBohatera().getLevelOfExp());

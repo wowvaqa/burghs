@@ -309,6 +309,7 @@ public class MapScreen implements Screen {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
         }
+        
     }
 
     // wypełnia stage01 aktorami planszy
@@ -381,6 +382,23 @@ public class MapScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        
+//        if (gs.isWymaganePrzerysowanieTeksturyBohatera()){
+//            for (Gracz gracz: gs.getGracze()){
+//                for (Bohater bohater: gracz.getBohaterowie()){
+//                    bohater.aktualizujTeksture();
+//                    stage01.draw();
+//                    stage01.act();
+//                    stage01.act(delta);
+//                    bohater.setVisible(false);
+//                    bohater.setVisible(true);
+//                    
+//                    //bohater.draw(stage01.getBatch(), 0);
+//                    System.out.println("Wywoloano aktualizacje tekstury");
+//                }
+//            }
+//            gs.setWymaganePrzerysowanieTeksturyBohatera(false);
+//        }
 
         sprawdzPolozenieKursora();
         ruchKamery();

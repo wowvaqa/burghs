@@ -340,6 +340,7 @@ public class NewGame {
             gs.gracze.get(i).getBohaterowie().get(0).setAtak(pobierzAtak(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setObrona(pobierzObrone(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setHp(pobierzHp(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setActualHp(pobierzHp(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setSzybkosc(pobierzSzybkosc(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setPozostaloRuchow(pobierzSzybkosc(tmpKp));
         }

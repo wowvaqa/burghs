@@ -14,10 +14,11 @@ public class GameStatus {
     public int maxIloscBohaterow = 1;                                           // maksymalna ilość bohaterów   
     // informuje czy jakikolwiek z bohaterów został zaznaczony
     private boolean czyZaznaczonoBohatera = false;
+    //private boolean wymaganePrzerysowanieTeksturyBohatera = true;
 
     // Zwraca nr gracza z tablicy graczy który posiada swoją turę
     private int turaGracza = 0;
-    
+
     // Określa ogólną turę gry.
     private int turaGry = 0;
 
@@ -50,21 +51,31 @@ public class GameStatus {
         }
         return null;
     }
+    
+    // GETTER AND SETTERS
+
+//    public boolean isWymaganePrzerysowanieTeksturyBohatera() {
+//        return wymaganePrzerysowanieTeksturyBohatera;
+//    }
+//
+//    public void setWymaganePrzerysowanieTeksturyBohatera(boolean wymaganePrzerysowanieTeksturyBohatera) {
+//        this.wymaganePrzerysowanieTeksturyBohatera = wymaganePrzerysowanieTeksturyBohatera;
+//    }
 
     /**
      * Zwraca ilość złota gracza który aktualnie ma turę
-     * @return 
+     *
+     * @return
      */
     public int getZlotoAktualnegoGracza() {
         return this.gracze.get(this.turaGracza).getGold();
     }
-    
-    public void dodajDoZlotaAktualnegoGracza(int zloto){
-        this.gracze.get(this.turaGracza).setGold(zloto + 
-                this.getZlotoAktualnegoGracza());
+
+    public void dodajDoZlotaAktualnegoGracza(int zloto) {
+        this.gracze.get(this.turaGracza).setGold(zloto
+                + this.getZlotoAktualnegoGracza());
     }
 
-// GETTER AND SETTERS
     public int getTuraGracza() {
         return turaGracza;
     }
@@ -139,6 +150,7 @@ public class GameStatus {
 
     /**
      * Zwraca turę gry
+     *
      * @return Tura gry
      */
     public int getTuraGry() {
@@ -147,11 +159,11 @@ public class GameStatus {
 
     /**
      * Ustala turę gry
+     *
      * @param turaGry tura gry
      */
     public void setTuraGry(int turaGry) {
         this.turaGry = turaGry;
     }
-    
-    
+
 }

@@ -4,8 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -39,10 +43,27 @@ public class TestingScreen implements Screen {
     private final Assets a;
     private final Game g;
     private final GameStatus gs;
+    
+    Pixmap pm;
 
     private final float rotationSpeed;
 
     public TestingScreen(Game g, Assets a, GameStatus gs) {
+        
+        //pm = new Pixmap(200, 200, Format.RGBA8888);
+        pm = new Pixmap(Gdx.files.internal("mobElfTex.png"));
+        
+        //pm.setColor(0, 1, 0, 0.75f);
+        pm.setColor(Color.RED);
+        //pm.fillCircle(10, 10, 10);
+        //pm.drawRectangle(0, 0, 10, 20);        
+        pm.fillRectangle(0, 0, 10, 100);
+        pm.setColor(Color.WHITE);
+        pm.fillRectangle(1, 1, 8, 90);
+        
+        Texture pmTex = new Texture(pm);
+        pm.dispose();
+        
         rotationSpeed = 0.5f;
 
         float w = Gdx.graphics.getWidth();
@@ -50,11 +71,6 @@ public class TestingScreen implements Screen {
 
         c = new OrthographicCamera(w, h);
         viewPort = new FitViewport(w, h, c);
-        //stage01.setViewport(viewPort);
-        //stage01.getViewport().setCamera(c);
-        //c = new OrthographicCamera(30, 30 * (h / w));
-        //c.position.set(c.viewportWidth / 2f, c.viewportHeight / 2f, 0);
-        //c.update();
 
         this.a = a;
         this.gs = gs;
@@ -62,18 +78,16 @@ public class TestingScreen implements Screen {
 
         tabela = new Table(a.skin);
 
-        makeSprites();
+        makeSprites(pmTex);
 
         makeButtons();
 
         formatujTabele();
-        
-        //c.update();
     }
 
-    private void makeSprites() {
+    private void makeSprites(Texture tex) {
 
-        DefaultActor da = new DefaultActor(a.mobDwarfTex, 200, 200);
+        DefaultActor da = new DefaultActor(tex, 200, 200);
         stage01.addActor(da);
     }
 
@@ -144,8 +158,6 @@ public class TestingScreen implements Screen {
     @Override
     public void render(float delta) {
         handleInput();
-        //c.update();
-        //stage01.getBatch().setProjectionMatrix(c.combined);
         Gdx.gl.glClearColor(255, 255, 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -157,9 +169,6 @@ public class TestingScreen implements Screen {
     public void resize(int width, int height) {
         stage01.getViewport().update(width, height, true);
         viewPort.update(width, height, true);
-//        c.viewportWidth = 30f;
-//        c.viewportHeight = 30f * height / width;
-//        c.update();
     }
 
     @Override
@@ -178,5 +187,4 @@ public class TestingScreen implements Screen {
     public void dispose() {
         stage01.dispose();
     }
-
 }

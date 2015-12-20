@@ -446,7 +446,7 @@ public class Assets {
         texSword = new Texture("items/texSword.png");
         texShield = new Texture("items/texShield.png");
         texGold = new Texture("items/texGold.png");
-    }
+    }    
 
     // wypełnia mapę 
     private void wypelnijMape() {

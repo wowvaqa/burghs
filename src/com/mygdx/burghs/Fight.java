@@ -5,6 +5,7 @@
  */
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Gdx;
 import java.util.Random;
 
 /**
@@ -34,14 +35,16 @@ public class Fight {
             dmg = 0;
         System.out.println("damage: " + dmg);
         if (dmg > 0){
-            bohaterBroniacy.setHp(bohaterBroniacy.getHp() - dmg);
+            bohaterBroniacy.setActualHp(bohaterBroniacy.getActualHp() - dmg);
         }
-        if (bohaterBroniacy.getHp() <= 0){
+        if (bohaterBroniacy.getActualHp() <= 0){
             bohaterBroniacy.remove();
             System.out.println("Smierc Bohatera broniacego się");
         }              
         
         bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
+        
+        bohaterBroniacy.aktualizujTeksture();              
         
         return dmg;
     }
