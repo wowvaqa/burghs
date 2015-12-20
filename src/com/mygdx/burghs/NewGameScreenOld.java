@@ -23,6 +23,7 @@ public class NewGameScreenOld implements Screen {
     //private final Game g;
     private final Assets a;
     private final GameStatus gs;
+    private final Game g;
 
     private final Stage stage01 = new Stage();
     private final SpriteBatch batch;
@@ -52,6 +53,7 @@ public class NewGameScreenOld implements Screen {
 //        this.g = g;
         this.a = a;
         this.gs = gs;
+        this.g = g;
         this.font = new BitmapFont();
         font.setColor(Color.BLACK);
         batch = new SpriteBatch();
@@ -288,7 +290,7 @@ public class NewGameScreenOld implements Screen {
             }
             //gs.gracze.get(i).getBohaterowieOld().add(new Player(tmpTex, tmpTexZazanaczony, gs, lokPoczatkowaX, lokPoczatkowaY, 0, 0));
             
-            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, this.a, 0, 0, gs));
+            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, this.a, 0, 0, gs, g));
             // Ustala do którego gracza z tablicy graczy należy bohater
             gs.gracze.get(i).getBohaterowie().get(0).setPrzynaleznoscDoGracza(i);
         }

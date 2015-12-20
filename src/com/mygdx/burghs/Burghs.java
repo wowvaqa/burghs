@@ -36,7 +36,7 @@ public class Burghs extends Game {
         newGameScreen = new NewGameScreen(this, this.a, this.gs);
         optionsScreen = new OptionsScreen(this.gs, this.a);
         bohaterScreen = new BohaterScreen(this, this.a, this.gs);
-        itemScreen = new ItemScreen(this.a, this.gs);
+        itemScreen = new ItemScreen(this.a, this.gs, this);
         testScreen = new TestingScreen(this, this.a, this.gs);
         
         Assets.testScreen = testScreen;
@@ -44,6 +44,7 @@ public class Burghs extends Game {
         Assets.newGameScreen = newGameScreen;
         Assets.mapScreen = mapScreen;
         Assets.bohaterScreen = bohaterScreen;
+        Assets.itemScreen = itemScreen;
         
         this.setScreen(mainScreen);
     }

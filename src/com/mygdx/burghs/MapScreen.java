@@ -55,7 +55,7 @@ public class MapScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Dodanie nowego bohatera.");
-                gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs));
+                gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs, g));
                 int index = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() - 1;
                 stage01.addActor(gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index));
                 Bohater tmpBohater = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index);
@@ -336,7 +336,7 @@ public class MapScreen implements Screen {
 
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
-        TresureBox tb = new TresureBox(this.a, this.gs);
+        TresureBox tb = new TresureBox(this.a, this.gs, this.g);
         gs.getMapa().getPola()[2][2].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
 

@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,7 +21,7 @@ public class TresureBox extends Actor{
     
     // assety
     private final Assets a;
-    
+    private Game g;
     private final GameStatus gs;
     
     // array list przechowujący itemy.
@@ -30,9 +31,10 @@ public class TresureBox extends Actor{
     private final ItemCreator itemCreator;
     
     // Konsturktor
-    public TresureBox(Assets a, GameStatus gs){
+    public TresureBox(Assets a, GameStatus gs, Game g){
         this.a = a;
         this.gs = gs;
+        this.g = g;
         
         itemCreator = new ItemCreator(gs);
         
@@ -62,14 +64,14 @@ public class TresureBox extends Actor{
      *  Generuje zestaw itemów i dodaje je do arraylista z itemami     
      */
     private void losujItemy(){
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaCzapka, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzanaCzapka, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneSpodnie, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneButy, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Kij, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Miecz, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Tarcza, a));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Gold, a));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaCzapka, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzanaCzapka, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneSpodnie, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneButy, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Kij, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Miecz, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Tarcza, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Gold, a, g));
     }
 }

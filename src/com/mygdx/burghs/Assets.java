@@ -86,6 +86,8 @@ public class Assets {
     public static Screen newGameScreen;
     public static Screen mapScreen;
     public static Screen bohaterScreen;
+    public static Screen itemScreen;
+    public static Screen lastScreen;
 
     public Assets() {
         trawaTex = new Texture("grass100x100.png");

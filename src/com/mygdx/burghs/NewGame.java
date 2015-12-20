@@ -269,7 +269,7 @@ public class NewGame {
                     tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz04);
                     break;
             }
-            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs));
+            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs, g));
             // Ustala do którego gracza z tablicy graczy należy bohater
             gs.gracze.get(i).getBohaterowie().get(0).setPrzynaleznoscDoGracza(i);
 

@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import enums.CzesciCiala;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,6 +20,7 @@ public class Item extends Actor {
 
     private final Assets a;
     private final GameStatus gs;
+    private Game g;
 
     // ikona    
     private Sprite sprite;
@@ -33,7 +35,8 @@ public class Item extends Actor {
     private int szybkosc = 0;
     private int gold = 0;
 
-    public Item(Texture teksura, final Assets a, final GameStatus gs) {
+    public Item(Texture teksura, final Assets a, final GameStatus gs, final Game g) {
+        this.g = g;
         this.a = a;
         this.gs = gs;
         sprite = new Sprite(teksura);
@@ -46,9 +49,11 @@ public class Item extends Actor {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tmpGs.setLastScreen(5);
-                tmpGs.setActualScreen(6);
+                //tmpGs.setLastScreen(5);
+                Assets.lastScreen = g.getScreen();
+                //tmpGs.setActualScreen(6);
                 tmpGs.setItem(qpa);
+                g.setScreen(Assets.itemScreen);                
             }            
         });
     }

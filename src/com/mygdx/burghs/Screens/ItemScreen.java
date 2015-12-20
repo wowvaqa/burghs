@@ -5,6 +5,7 @@
  */
 package com.mygdx.burghs.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,6 +27,7 @@ public class ItemScreen implements Screen {
 
     private final Assets a;
     private final GameStatus gs;
+    private final Game g;
 
     private final Stage stage01 = new Stage();
 
@@ -39,8 +41,10 @@ public class ItemScreen implements Screen {
      *
      * @param a Assety
      * @param gs Status gry
+     * @param g
      */
-    public ItemScreen(Assets a, final GameStatus gs) {
+    public ItemScreen(Assets a, final GameStatus gs, final Game g) {
+        this.g = g;
         this.a = a;
         this.gs = gs;
         this.tabela = new Table(a.skin);
@@ -52,9 +56,10 @@ public class ItemScreen implements Screen {
 
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        tmpGs.setActualScreen(tmpGs.getLastScreen());
+                        //tmpGs.setActualScreen(tmpGs.getLastScreen());                        
                         itemScreenShow = false;
                         tabela.clear();
+                        g.setScreen(Assets.lastScreen);
                     }
                 }
         );

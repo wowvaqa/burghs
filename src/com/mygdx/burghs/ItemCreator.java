@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import enums.DostepneItemki;
 import enums.CzesciCiala;
 
@@ -11,16 +12,17 @@ import enums.CzesciCiala;
 public class ItemCreator {
 
     private final GameStatus gs;
+    private Game g;
+    private Assets a;
 
     public ItemCreator(GameStatus gs) {
         this.gs = gs;
     }
 
-    private Assets a;
-
-    public Item utworzItem(DostepneItemki dostepneItemki, Assets a) {
+    public Item utworzItem(DostepneItemki dostepneItemki, Assets a, Game g) {
         this.a = a;
-        Item item = new Item(a.texFist, this.a, this.gs);
+        this.g = g;
+        Item item = new Item(a.texFist, this.a, this.gs, this.g);
 
         switch (dostepneItemki) {
 // GŁOWA ======================================================================         

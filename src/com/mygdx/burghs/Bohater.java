@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import enums.DostepneItemki;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -37,6 +38,7 @@ public class Bohater extends Actor {
 
     private final Assets a;
     private final GameStatus gs;
+    private Game g;
 
     // informuje cz bohater jest zaznaczony
     private boolean zaznaczony = false;
@@ -81,10 +83,11 @@ public class Bohater extends Actor {
      * @param pozycjaXnaMapie definiuje pozycje X w obiekcie klasy Mapa
      * @param pozycjaYnaMapie definiuje pozycje Y w obiekcie klasy Mapa
      * @param gs
+     * @param g
      */
     public Bohater(Texture textureIcon, Texture textureIconZaznaczona,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, Assets a,
-            int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs) {
+            int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs, Game g) {
 
         this.equipment = new ArrayList<Item>();
         this.gs = gs;
@@ -93,6 +96,7 @@ public class Bohater extends Actor {
         this.bohaterTex = textureIcon;
         this.bohaterCheckTex = textureIconZaznaczona;
         this.a = a;
+        this.g = g;
         this.pozX = lokaczjaPoczatkowaX;
         this.pozY = lokaczjaPoczatkowaY;
 
@@ -105,12 +109,12 @@ public class Bohater extends Actor {
         ItemCreator ic = new ItemCreator(this.gs);
 
         // Utworzenie pdst. zestawu itemków i przypisanie do ekwipunku bohatera
-        itemLewaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);
-        itemPrawaReka = ic.utworzItem(DostepneItemki.Piesci, this.a);
-        itemNogi = ic.utworzItem(DostepneItemki.Nogi, this.a);
-        itemStopy = ic.utworzItem(DostepneItemki.LnianeButy, this.a);
-        itemGlowa = ic.utworzItem(DostepneItemki.Glowa, this.a);
-        itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a);
+        itemLewaReka = ic.utworzItem(DostepneItemki.Piesci, this.a, this.g);
+        itemPrawaReka = ic.utworzItem(DostepneItemki.Piesci, this.a, this.g);
+        itemNogi = ic.utworzItem(DostepneItemki.Nogi, this.a, this.g);
+        itemStopy = ic.utworzItem(DostepneItemki.LnianeButy, this.a, this.g);
+        itemGlowa = ic.utworzItem(DostepneItemki.Glowa, this.a, this.g);
+        itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a, this.g);
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater
