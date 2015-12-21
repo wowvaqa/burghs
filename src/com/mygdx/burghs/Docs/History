@@ -16,6 +16,18 @@ version 0.0100
         Zaprojektować okno/screen kupna nowego bohatera wraz z implementacja
         zakupu nowego bohatera i dodania go do mapy w formie grywalnej.      
 
+version 0.0000
+        1. Dodać kolory dla graczy podczas tworzenia nowej gry.
+        2. Zaimplementować kolory dla bohaterów graczy
+
+version 0.0016
+        1. Przeprojektować Screen2 w Map Screen
+            - uporządkować wyświetlanie przycisków, labeli
+
+version 0.0015 DONE 21122015
+DONE    1. Dodano pasek energii do bohatera zaznaczonego.
+DONE    2. Dodano kolor gracza przy bohaterze.
+
 version 0.0014 DONE 20122015
 DONE    1. Dodano pasek ze stanem energii bohatera
 DONE    2. Naprawiono błąd z wyświetlanie i użyciem zdrowia bohatera.

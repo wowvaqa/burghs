@@ -3,8 +3,10 @@ package com.mygdx.burghs.Screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
+import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.NewGame;
 
@@ -61,6 +64,15 @@ public class NewGameScreen implements Screen {
         
         c = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), c);
+        
+        NewGame.pixmapRed.setColor(Color.RED);        
+        NewGame.pixmapRed.fillRectangle(0, 0, 50, 25);
+        NewGame.pixmapBlue.setColor(Color.BLUE);        
+        NewGame.pixmapBlue.fillRectangle(0, 0, 50, 25);
+        NewGame.pixmapYellow.setColor(Color.YELLOW);        
+        NewGame.pixmapYellow.fillRectangle(0, 0, 50, 25);
+        NewGame.pixmapGreen.setColor(Color.GREEN);        
+        NewGame.pixmapGreen.fillRectangle(0, 0, 50, 25);
     }
 
     private void dodajDoStage01() {
@@ -215,6 +227,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz01.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
         tabelaGracz01.row();
         tabelaGracz01.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz01.add(new DefaultActor(new Texture(NewGame.pixmapRed), 0, 0)).colspan(tabelaGracz01.getColumns());
     }
 
     /**
@@ -263,6 +278,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz02.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
         tabelaGracz02.row();
         tabelaGracz02.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz02.add(new DefaultActor(new Texture(NewGame.pixmapBlue), 0, 0)).colspan(tabelaGracz02.getColumns());
     }
 
     /**
@@ -311,6 +329,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz03.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
         tabelaGracz03.row();
         tabelaGracz03.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
+        tabelaGracz03.row();
+        tabelaGracz03.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz03.add(new DefaultActor(new Texture(NewGame.pixmapYellow), 0, 0)).colspan(tabelaGracz03.getColumns());
     }
 
     /**
@@ -359,6 +380,9 @@ public class NewGameScreen implements Screen {
         tabelaGracz04.add(new Label("Hp: " + NewGame.pobierzHp(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
         tabelaGracz04.row();
         tabelaGracz04.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz04.add(new DefaultActor(new Texture(NewGame.pixmapGreen), 0, 0)).colspan(tabelaGracz04.getColumns());
     }
 
     @Override

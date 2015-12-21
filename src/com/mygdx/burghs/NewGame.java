@@ -1,6 +1,8 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import enums.KlasyPostaci;
 import static enums.KlasyPostaci.Berserk;
@@ -19,6 +21,11 @@ public class NewGame {
     static public KlasyPostaci klasaPostaciGracz02 = KlasyPostaci.Berserk;
     static public KlasyPostaci klasaPostaciGracz03 = KlasyPostaci.Berserk;
     static public KlasyPostaci klasaPostaciGracz04 = KlasyPostaci.Berserk;
+
+    static public Pixmap pixmapRed = new Pixmap(50, 25, Pixmap.Format.RGBA8888);
+    static public Pixmap pixmapBlue = new Pixmap(50, 25, Pixmap.Format.RGBA8888);
+    static public Pixmap pixmapGreen = new Pixmap(50, 25, Pixmap.Format.RGBA8888);
+    static public Pixmap pixmapYellow = new Pixmap(50, 25, Pixmap.Format.RGBA8888);
 
     private static final Assets a = new Assets();
 
@@ -277,7 +284,7 @@ public class NewGame {
         }
 
         podepnijStatystkiBohaterow(gs);
-        
+
         Assets.mapScreen = new MapScreen(g, a, gs);
     }
 
@@ -343,6 +350,21 @@ public class NewGame {
             gs.gracze.get(i).getBohaterowie().get(0).setActualHp(pobierzHp(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setSzybkosc(pobierzSzybkosc(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setPozostaloRuchow(pobierzSzybkosc(tmpKp));
+
+            switch (i) {
+                case 0:
+                    gs.gracze.get(i).setColor(Color.RED);
+                    break;
+                case 1:
+                    gs.gracze.get(i).setColor(Color.BLUE);
+                    break;
+                case 2:
+                    gs.gracze.get(i).setColor(Color.YELLOW);
+                    break;
+                case 3:
+                    gs.gracze.get(i).setColor(Color.GREEN);
+                    break;
+            }
         }
     }
 

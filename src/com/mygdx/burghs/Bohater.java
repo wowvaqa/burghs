@@ -688,11 +688,49 @@ public class Bohater extends Actor {
         }
     }
 
+    public void aktualizujKolorTeksturyBohatera(){
+        if (!bohaterTex.getTextureData().isPrepared()) {
+            bohaterTex.getTextureData().prepare();
+        }
+        this.setPixMap(bohaterTex.getTextureData().consumePixmap());
+
+        this.getPixMap().setColor(zwrocKolorBohatera(this.przynaleznoscDoGracza));
+        this.getPixMap().fillRectangle(80, 5, 15, 15);        
+
+        this.setBohaterTex(new Texture(this.getPixMap()));
+        this.sprite.setTexture(bohaterTex);
+        
+        // aktualizacja tekxtury bohatera zaznaczonej
+        if (!bohaterCheckTex.getTextureData().isPrepared()) {
+            bohaterCheckTex.getTextureData().prepare();
+        }
+        this.setPixMap(bohaterCheckTex.getTextureData().consumePixmap());
+
+        this.getPixMap().setColor(zwrocKolorBohatera(this.przynaleznoscDoGracza));
+        this.getPixMap().fillRectangle(80, 5, 15, 15);        
+
+        this.setBohaterCheckTex(new Texture(this.getPixMap()));
+    }
+    
+    private Color zwrocKolorBohatera(int gracz){
+        switch (gracz){
+            case 0:
+                return Color.RED;                
+            case 1:
+                return Color.BLUE;                
+            case 2:
+                return Color.YELLOW;                
+            case 3:
+                return Color.GREEN;                
+        }        
+        return null;
+    }
+    
     /**
      * Aktualizuje status paska energi bohatera
      */
     public void aktualizujTeksture() {
-
+        // aktualizacja tekxtury bohatera nie zaznaczonej
         if (!bohaterTex.getTextureData().isPrepared()) {
             bohaterTex.getTextureData().prepare();
         }
@@ -705,21 +743,32 @@ public class Bohater extends Actor {
 
         this.setBohaterTex(new Texture(this.getPixMap()));
         this.sprite.setTexture(bohaterTex);
+        
+        // aktualizacja tekxtury bohatera zaznaczonej
+        if (!bohaterCheckTex.getTextureData().isPrepared()) {
+            bohaterCheckTex.getTextureData().prepare();
+        }
+        this.setPixMap(bohaterCheckTex.getTextureData().consumePixmap());
 
+        this.getPixMap().setColor(Color.RED);
+        this.getPixMap().fillRectangle(0, 0, 5, 100);
+        this.getPixMap().setColor(Color.WHITE);
+        this.getPixMap().fillRectangle(1, 1, 3, 100 - poziomHP());
+
+        this.setBohaterCheckTex(new Texture(this.getPixMap()));
     }
 
+    /**
+     * Zwraca proporcjonalny poziom zdrowia bohatera do jego maksymalnych 
+     * punktów życia.
+     * @return 
+     */
     private int poziomHP() {
-
         System.out.println(this.getHp());
         System.out.println(this.hp);
 
         float poziom = this.actualHp * 100 / this.hp;
-//        if (poziom < 1) {
-//            poziom = 1;
-//        }
-//        if (poziom > 99) {
-//            poziom = 99;
-//        }
+
         System.out.println((int) Math.round(poziom));
         return (int) Math.round(poziom);
     }
@@ -733,6 +782,7 @@ public class Bohater extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         if (!teksturaZaktualizowana) {
             aktualizujTeksture();
+            this.aktualizujKolorTeksturyBohatera();
             teksturaZaktualizowana = true;
         }
 

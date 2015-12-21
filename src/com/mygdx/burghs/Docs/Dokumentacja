@@ -73,6 +73,7 @@ SCHMAT RUCHU:
 PASEK ENERGII BOHATERA
     Kod odpowiedzialny za aktualizacja paska jest w Bohater.aktualizujTeksture().
     Metoda ta wywoływana jest w Bohater.draw() tylko raz (podczas tworzenia
-    bohatera) oraz w Fight.getObrazenia()
+    bohatera) oraz w Fight.getObrazenia() za każdym razem gdy następuje atak
+    bohatera.        
     
     

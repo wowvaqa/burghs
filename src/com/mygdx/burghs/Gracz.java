@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.Color;
 import java.util.ArrayList;
 
 public class Gracz {
@@ -18,12 +19,32 @@ public class Gracz {
     
     // informuje czy gracz zakończył grę
     private boolean statusGameOver = false;
+    
+    // kolor gracza
+    private Color color;
 
     public Gracz() {
 
     }
 
     //SETTERS AND GETTERS
+
+    /**
+     * Pobiera kolor gracza
+     * @return 
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
+     * Ustala kolor dla gracza
+     * @param color 
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }    
+    
     /**
      * Zwraca ilość złota posiadanego przez gracza
      * @return złoto
