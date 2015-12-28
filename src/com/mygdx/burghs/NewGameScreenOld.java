@@ -257,7 +257,7 @@ public class NewGameScreenOld implements Screen {
 
         // Dodoaje nowych graczy wg. ilości zadeklarowanej
         for (int i = 0; i < gs.iloscGraczy; i++) {
-            gs.gracze.add(new Gracz());
+            gs.gracze.add(new Gracz(i));
             //System.out.println(gs.gracze.size());
         }
         // Dodanie dla każdego gracza bohatera

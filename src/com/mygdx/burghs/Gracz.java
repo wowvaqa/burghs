@@ -1,6 +1,8 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 public class Gracz {
@@ -10,6 +12,8 @@ public class Gracz {
     private ArrayList<Bohater> bohaterowie = new ArrayList<Bohater>();
 
     private int gold;                                                           // złoto zgromadzone przez gracza
+    
+    private int numerGracza;
     
     // Ile tur gracz przebywa bez zamku.
     private int turyBezZamku = 0;
@@ -22,12 +26,68 @@ public class Gracz {
     
     // kolor gracza
     private Color color;
+    
+    // Kolora ikona gracza wyświetlana w na Mapie. Informująca który gracz ma turę
+    private Texture teksturaIkonyGracza;
 
-    public Gracz() {
-
+    /**
+     * 
+     * @param numerGracza 
+     */
+    public Gracz(int numerGracza) {
+        this.numerGracza = numerGracza;
+        Pixmap pM = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
+        ustalKolor();
+        pM.setColor(color);
+        pM.fillRectangle(0, 0, 20, 20);
+        teksturaIkonyGracza = new Texture(pM);
+    }
+    
+    /** 
+     * Ustala kolor gracza
+     */
+    private void ustalKolor(){
+        switch (numerGracza){
+                case 0:
+                    color = Color.RED;
+                    break;
+                case 1:
+                    color = Color.BLUE;
+                    break;
+                case 2:
+                    color = Color.YELLOW;
+                    break;
+                case 3:
+                    color = Color.GREEN;
+                    break;
+            }            
     }
 
     //SETTERS AND GETTERS
+
+    public Texture getTeksturaIkonyGracza() {
+        return teksturaIkonyGracza;
+    }
+
+    public void setTeksturaIkonyGracza(Texture teksturaIkonyGracza) {
+        this.teksturaIkonyGracza = teksturaIkonyGracza;
+    }
+
+    /**
+     * Zwraca numer gracza
+     * @return 
+     */
+    public int getNumerGracza() {
+        return numerGracza;
+    }
+
+    /**
+     * Ustala numer Gracza
+     * @param numerGracza 
+     */
+    public void setNumerGracza(int numerGracza) {
+        this.numerGracza = numerGracza;
+    }
 
     /**
      * Pobiera kolor gracza

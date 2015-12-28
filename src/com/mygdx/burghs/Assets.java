@@ -110,7 +110,7 @@ public class Assets {
         mobHumanTexZaznaczony = new Texture("mobHumanTexZaznaczony.png");
         cancelTex = new Texture("cancelBtt.png");
 
-        texTresureBox = new Texture("texTresureBox.png");
+        texTresureBox = new Texture("texTresureBox2.png");
 
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
 

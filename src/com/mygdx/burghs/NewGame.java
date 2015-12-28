@@ -238,8 +238,11 @@ public class NewGame {
         gs.czyUtworzonoMape = true;
 
         // Dodoaje nowych graczy wg. ilości zadeklarowanej
-        for (int i = 0; i < gs.iloscGraczy; i++) {
-            gs.gracze.add(new Gracz());
+        for (int i = 0; i < gs.iloscGraczy; i++) {            
+            gs.gracze.add(new Gracz(i));
+            gs.gracze.get(i).setNumerGracza(i);
+            
+//            
             //System.out.println(gs.gracze.size());
         }
         // Dodanie dla każdego gracza bohatera

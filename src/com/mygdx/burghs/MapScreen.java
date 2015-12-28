@@ -4,8 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -15,6 +18,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 
 public class MapScreen implements Screen {
+    
+    private DefaultActor gornaBelka;
+    //private DefaultActor prawaBelka;
     
     private final OrthographicCamera c;
     private final FitViewport viewPort;
@@ -37,6 +43,9 @@ public class MapScreen implements Screen {
     private final Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
+    
+    // ikona gracza który aktualnie posiada swoją kolej 
+    private final DefaultActor ikonaGracza;
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
@@ -44,6 +53,12 @@ public class MapScreen implements Screen {
         this.a = a;
         this.gs = gs;
         this.g = g;
+        
+        utworzInterfejs();
+        
+        ikonaGracza = new DefaultActor(a.btnAttackTex, 0, 0);        
+        ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());          
+        ikonaGracza.setPosition(110, Gdx.graphics.getHeight() - 23);
         
         Assets.stage01MapScreen = this.stage01;
         Assets.stage02MapScreen = this.stage02;
@@ -109,12 +124,15 @@ public class MapScreen implements Screen {
 
         // Dodanie etykiet prezentujących statsy graczy
         lblTuraGracza = new Label("Tura gracz: " + gs.getTuraGracza(), a.skin);
-        lblTuraGracza.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 25);
+        lblTuraGracza.setPosition(10, Gdx.graphics.getHeight() - 25);
+        //lblTuraGracza.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 25);
         lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
-        lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
+        //lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
+        lblPozostaloRuchow.setPosition(150, Gdx.graphics.getHeight() - 25);
 
         lblGold = new Label("Zloto: " + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
-        lblGold.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 75);
+        //lblGold.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 75);
+        lblGold.setPosition(350, Gdx.graphics.getHeight() - 25);
 
         dodajDoStage02();
 
@@ -136,7 +154,7 @@ public class MapScreen implements Screen {
      * Przycisk Koniec Tury
      */
     private void koniecTuryClick() {
-
+        
         if (!sprawdzCzyGraczPosiadaZamek()) {
             System.out.println("Sprawdzanie czy gracz posiada zamek.");
             // Jeżeli gracz nie będzie posiadał zamku wtedy zmianie ulegnie jego
@@ -165,6 +183,10 @@ public class MapScreen implements Screen {
             i.setPozostaloRuchow(i.getSzybkosc());
         }
         usunBohaterowGraczyGO();
+        
+        // zmiana ikony gracza na górnej belce
+        this.ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());
+        
     }
 
     /**
@@ -261,9 +283,23 @@ public class MapScreen implements Screen {
             }
         }
     }
+    
+    /**
+     * Tworzy wygląd interfejsu
+     */
+    private void utworzInterfejs(){
+        Pixmap pmGornaBelka = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
+        pmGornaBelka.setColor(Color.LIGHT_GRAY);
+        pmGornaBelka.fillRectangle(0, 0, Gdx.graphics.getWidth(), 30);
+        pmGornaBelka.fillRectangle(Gdx.graphics.getWidth() - 250, 0, 250, Gdx.graphics.getHeight());
+        Texture texGornaBelka = new Texture(pmGornaBelka);
+        
+        gornaBelka = new DefaultActor(texGornaBelka, 0, Gdx.graphics.getHeight() - texGornaBelka.getHeight());
+    }
 
     // Dodaje do Stage 02 przycisk Exit i koniec tury oraz labele wyświetlające statystyki
     private void dodajDoStage02() {
+        stage02.addActor(gornaBelka);
         stage02.addActor(lblTuraGracza);
         stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnBohaterScreen);
@@ -271,6 +307,7 @@ public class MapScreen implements Screen {
         stage02.addActor(btnKoniecTury);
         stage02.addActor(btnKupBohatera);
         stage02.addActor(lblGold);
+        stage02.addActor(ikonaGracza);
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -382,23 +419,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        
-//        if (gs.isWymaganePrzerysowanieTeksturyBohatera()){
-//            for (Gracz gracz: gs.getGracze()){
-//                for (Bohater bohater: gracz.getBohaterowie()){
-//                    bohater.aktualizujTeksture();
-//                    stage01.draw();
-//                    stage01.act();
-//                    stage01.act(delta);
-//                    bohater.setVisible(false);
-//                    bohater.setVisible(true);
-//                    
-//                    //bohater.draw(stage01.getBatch(), 0);
-//                    System.out.println("Wywoloano aktualizacje tekstury");
-//                }
-//            }
-//            gs.setWymaganePrzerysowanieTeksturyBohatera(false);
-//        }
 
         sprawdzPolozenieKursora();
         ruchKamery();

@@ -76,4 +76,10 @@ PASEK ENERGII BOHATERA
     bohatera) oraz w Fight.getObrazenia() za każdym razem gdy następuje atak
     bohatera.        
     
-    
+GRACZ
+
+    Ikona gracza który ma aktualnie turę. 
+    Definicja i pierwsze wywołanie następuje w konstruktorze MapScreen
+    Aktualizacja kolory (zmiana aktualnego gracza) następuje w 
+    MapScreen.KoniecTury
+    Tekstura pobierana jest z Gracz.GetTeksturaIkonaGracza()
