@@ -230,7 +230,7 @@ public class NewGame {
      * @param a
      */
     static public void zakonczGenerowanieNowejGry(Game g, GameStatus gs, Assets a) {
-        gs.setActualScreen(1);
+        //gs.setActualScreen(1);
         gs.iloscGraczy = iloscGraczy;
         // Po kliknięciu w OK następuje przekazanie info, że mapa
         // została utworzona (wszystkie parametry zadane przez screen
@@ -377,7 +377,7 @@ public class NewGame {
      * @param kP Klasa Postaci
      * @return
      */
-    private static Texture getTeksturaBohatera(KlasyPostaci kP) {
+    public static Texture getTeksturaBohatera(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
                 return a.mobHumanTex;
@@ -397,7 +397,7 @@ public class NewGame {
      * @param kP Klasa Postaci
      * @return
      */
-    private static Texture getTeksturaBohateraZaznaczonego(KlasyPostaci kP) {
+    public static Texture getTeksturaBohateraZaznaczonego(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
                 return a.mobHumanTexZaznaczony;

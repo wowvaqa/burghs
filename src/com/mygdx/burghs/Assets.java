@@ -88,6 +88,7 @@ public class Assets {
     public static Screen bohaterScreen;
     public static Screen itemScreen;
     public static Screen lastScreen;
+    public static Screen newBohaterScreen;
 
     public Assets() {
         trawaTex = new Texture("grass100x100.png");
@@ -220,7 +221,7 @@ public class Assets {
                     System.out.println("przycisk TAKE IT kliknięty");
                     for (int i = 0; i < tmpButtons.size(); i++) {
                         if (tmpButtons.get(i).isPressed()) {
-                            // Sprawdzenie czy itemek nie jest złotem
+                            // Sprawdzenie czy itemek jest złotem
                             if (tresureBox.getDostepneItemy().get(i).getCzescCiala().equals(CzesciCiala.gold)) {
                                 gs.dodajDoZlotaAktualnegoGracza(tresureBox.getDostepneItemy().get(i).getGold());
                                 tresureBox.getDostepneItemy().remove(i);
@@ -446,7 +447,7 @@ public class Assets {
         texSword = new Texture("items/texSword.png");
         texShield = new Texture("items/texShield.png");
         texGold = new Texture("items/texGold.png");
-    }    
+    }  
 
     // wypełnia mapę 
     private void wypelnijMape() {

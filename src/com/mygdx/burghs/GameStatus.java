@@ -52,15 +52,12 @@ public class GameStatus {
         return null;
     }
     
+    public void dodajDoZlotaAktualnegoGracza(int zloto) {
+        this.gracze.get(this.turaGracza).setGold(zloto
+                + this.getZlotoAktualnegoGracza());
+    }
+    
     // GETTER AND SETTERS
-
-//    public boolean isWymaganePrzerysowanieTeksturyBohatera() {
-//        return wymaganePrzerysowanieTeksturyBohatera;
-//    }
-//
-//    public void setWymaganePrzerysowanieTeksturyBohatera(boolean wymaganePrzerysowanieTeksturyBohatera) {
-//        this.wymaganePrzerysowanieTeksturyBohatera = wymaganePrzerysowanieTeksturyBohatera;
-//    }
 
     /**
      * Zwraca ilość złota gracza który aktualnie ma turę
@@ -69,11 +66,6 @@ public class GameStatus {
      */
     public int getZlotoAktualnegoGracza() {
         return this.gracze.get(this.turaGracza).getGold();
-    }
-
-    public void dodajDoZlotaAktualnegoGracza(int zloto) {
-        this.gracze.get(this.turaGracza).setGold(zloto
-                + this.getZlotoAktualnegoGracza());
     }
 
     public int getTuraGracza() {

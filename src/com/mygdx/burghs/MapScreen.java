@@ -29,7 +29,7 @@ public class MapScreen implements Screen {
     private final GameStatus gs;
     private final Game g;
 
-    private final Stage stage01 = new Stage();  // wyświetla mapę i playera
+    private Stage stage01 = new Stage();  // wyświetla mapę i playera
     private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu            
 
     private final TextButton btnExit;
@@ -46,6 +46,7 @@ public class MapScreen implements Screen {
     
     // ikona gracza który aktualnie posiada swoją kolej 
     private final DefaultActor ikonaGracza;
+    private final DefaultActor ikonaGold;
 
     // przechowuje referencje do obiektu bohatera który będzie atakowany
     //private Player atakowanyBohater;
@@ -60,6 +61,9 @@ public class MapScreen implements Screen {
         ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());          
         ikonaGracza.setPosition(110, Gdx.graphics.getHeight() - 23);
         
+        ikonaGold = new DefaultActor(a.texGold, 315, Gdx.graphics.getHeight() - 25);
+        ikonaGold.setSize(25, 25);
+        
         Assets.stage01MapScreen = this.stage01;
         Assets.stage02MapScreen = this.stage02;
 
@@ -69,14 +73,17 @@ public class MapScreen implements Screen {
         btnKupBohatera.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Dodanie nowego bohatera.");
-                gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs, g));
-                int index = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() - 1;
-                stage01.addActor(gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index));
-                Bohater tmpBohater = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index);
-                tmpBohater.setPrzynaleznoscDoGracza(gs.getTuraGracza());
-                tmpBohater.setSzybkosc(100);
-                
+                System.out.println("Dodanie nowego bohatera.");                
+                g.setScreen(Assets.newBohaterScreen);
+//                gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs, g));
+//                int index = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() - 1;
+//                stage01.addActor(gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index));
+//                Bohater tmpBohater = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index);
+//                tmpBohater.setPrzynaleznoscDoGracza(gs.getTuraGracza());
+//                tmpBohater.setSzybkosc(100);
+//                tmpBohater.setActualHp(5);
+//                tmpBohater.setHp(5);       
+//                tmpBohater.setPozostaloRuchow(100);
             }            
         });
 
@@ -130,18 +137,18 @@ public class MapScreen implements Screen {
         //lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
         lblPozostaloRuchow.setPosition(150, Gdx.graphics.getHeight() - 25);
 
-        lblGold = new Label("Zloto: " + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
-        //lblGold.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 75);
+        lblGold = new Label("" + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
         lblGold.setPosition(350, Gdx.graphics.getHeight() - 25);
 
         dodajDoStage02();
 
         generujPlansze();
         generujGraczy();
+        
+        dodajDoStage01();
 
         gs.czyUtworzonoMape = true;
 
-        dodajDoStage01();
         
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -292,6 +299,15 @@ public class MapScreen implements Screen {
         pmGornaBelka.setColor(Color.LIGHT_GRAY);
         pmGornaBelka.fillRectangle(0, 0, Gdx.graphics.getWidth(), 30);
         pmGornaBelka.fillRectangle(Gdx.graphics.getWidth() - 250, 0, 250, Gdx.graphics.getHeight());
+        pmGornaBelka.setColor(Color.BLACK);
+        // czarna ramka wokół mapy 
+        pmGornaBelka.drawRectangle(0, 30, Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 30);
+        pmGornaBelka.drawRectangle(1, 31, Gdx.graphics.getWidth() - 252, Gdx.graphics.getHeight() - 2 - 30);
+        // imitacja miniMapy
+        pmGornaBelka.fillRectangle(Gdx.graphics.getWidth() - 240, 30, 230, 200);
+        pmGornaBelka.setColor(Color.WHITE);
+        pmGornaBelka.drawRectangle(Gdx.graphics.getWidth() - 240, 30, 230, 200);
+        
         Texture texGornaBelka = new Texture(pmGornaBelka);
         
         gornaBelka = new DefaultActor(texGornaBelka, 0, Gdx.graphics.getHeight() - texGornaBelka.getHeight());
@@ -308,6 +324,7 @@ public class MapScreen implements Screen {
         stage02.addActor(btnKupBohatera);
         stage02.addActor(lblGold);
         stage02.addActor(ikonaGracza);
+        stage02.addActor(ikonaGold);
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -388,33 +405,28 @@ public class MapScreen implements Screen {
             // generuje zamek dla 3 graczy
             case 3:
                 generujZamki();
-                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900));
+                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900, 2));
                 stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
-                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(2);
                 break;
             // generuje zamek dla 4 graczy
             case 4:
                 generujZamki();
-                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900));
+                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900, 2));
                 stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
-                gs.getMapa().getPola()[0][9].getCastle().setPrzynaleznoscDoGracza(2);
 
-                gs.getMapa().getPola()[9][0].setCastle(new Castle(this.stage01, a, 900, 0));
+                gs.getMapa().getPola()[9][0].setCastle(new Castle(this.stage01, a, 900, 0, 3));
                 stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
-                gs.getMapa().getPola()[9][0].getCastle().setPrzynaleznoscDoGracza(3);
                 break;
         }
     }
 
     // generuje zamki 2 dwóch podstawowych graczy
     private void generujZamki() {
-        gs.getMapa().getPola()[0][0].setCastle(new Castle(this.stage01, a, 0, 0));
+        gs.getMapa().getPola()[0][0].setCastle(new Castle(this.stage01, a, 0, 0, 0));
         stage01.addActor(gs.getMapa().getPola()[0][0].getCastle());
-        gs.getMapa().getPola()[0][0].getCastle().setPrzynaleznoscDoGracza(0);
 
-        gs.getMapa().getPola()[9][9].setCastle(new Castle(this.stage01, a, 900, 900));
+        gs.getMapa().getPola()[9][9].setCastle(new Castle(this.stage01, a, 900, 900, 1));
         stage01.addActor(gs.getMapa().getPola()[9][9].getCastle());
-        gs.getMapa().getPola()[9][9].getCastle().setPrzynaleznoscDoGracza(1);
     }
 
     @Override
@@ -423,6 +435,7 @@ public class MapScreen implements Screen {
         sprawdzPolozenieKursora();
         ruchKamery();
         wyswietlStatystykiBohatera();
+        this.lblGold.setText(Integer.toString(gs.getZlotoAktualnegoGracza()));
 
         Gdx.gl.glClearColor(255, 255, 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -517,6 +530,45 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        this.lblGold.setText("Zloto: " + Integer.toString(gs.getZlotoAktualnegoGracza()));
+        //a.przyciskiNaWierzch();
+        
+//        for (int i = 0; i < stage01.getActors().size; i ++){
+//            if (stage01.getActors().get(i).getClass() == Bohater.class){
+//                
+//                stage01.getActors().get(i).setZIndex(120);
+//                
+//                System.out.println("!!!! " + i );
+////                stage01.getActors().get(i).toFront();
+//                System.out.println("z p: " + stage01.getActors().get(i).getZIndex());
+//            }
+//        }
+////       
+//        for (int i = 0; i < stage01.getActors().size; i ++){
+//            if (stage01.getActors().get(i).getClass() == ButtonActor.class){
+//                
+//                stage01.getActors().removeIndex(i);
+//                
+//                
+//                
+//                System.out.println("!!!! " + i );
+////                stage01.getActors().get(i).toFront();
+//                System.out.println("z p: " + stage01.getActors().get(i).getZIndex());
+//            }
+//        }
+//        
+//        stage01.addActor(a.btnNorth);
+//        
+////        int ost;
+////        ost = gs.gracze.get(gs.getTuraGracza()).getBohaterowie().size() - 1;
+////        
+////        System.out.println("z b: " + gs.gracze.get(gs.getTuraGracza()).getBohaterowie().get(ost).getZIndex());
+        
+        this.lblGold.setText("" + Integer.toString(gs.getZlotoAktualnegoGracza()));
     }
+    
+    // Setters and Getters
+    public Stage getStage01() {
+        return stage01;
+    }
+    
 }

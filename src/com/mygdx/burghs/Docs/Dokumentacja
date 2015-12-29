@@ -77,9 +77,26 @@ PASEK ENERGII BOHATERA
     bohatera.        
     
 GRACZ
-
-    Ikona gracza który ma aktualnie turę. 
+    Ikona gracza który ma aktualnie turę: 
     Definicja i pierwsze wywołanie następuje w konstruktorze MapScreen
     Aktualizacja kolory (zmiana aktualnego gracza) następuje w 
     MapScreen.KoniecTury
     Tekstura pobierana jest z Gracz.GetTeksturaIkonaGracza()
+
+ZAMEK
+    Tworzenie zamku:
+        Tworzenie zamków i dodanie ich do planszy następuje w:
+    MapScreen.generujPlansze() poprzez wywołanie metody
+    MapScreen.generujZamki().
+    W ww metodzie następuje utworzenie obiektu klasy zamek, po czym referencja
+    do obiektu dodana zostaje do odpowiedniego obiektu pole w obikecie klasy 
+    Mapa. Obiket zamku dodany zostaje także do stage01 w MapScreen.
+
+    Ikona zamku:
+        Utworzenie ikony zamku następuje w Konstruktorze klasy Castle(); poprzez
+    wywołanie metody Castle.rysujIkoneZamku();
+        Zmiana ikony zamku (zamek zmienia właściciela) następuje poprzez 
+    wywołanie metody Castle.aktualizujIkoneZamku().
+    Metoda ta wywołana zostaje w Bohater.CheckCastle()
+
+NOWY BOHATER

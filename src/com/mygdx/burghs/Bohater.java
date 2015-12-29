@@ -673,6 +673,8 @@ public class Bohater extends Actor {
         if (gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle() != null) {
             System.out.println(gs.getTuraGracza() + " Nadepnięto na zamek :-)");
             gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle().setPrzynaleznoscDoGracza(this.getPrzynaleznoscDoGracza());
+            gs.getMapa().getPola()[this.pozXnaMapie][this.pozYnaMapie].getCastle().aktualizujIkoneZamku();
+
             System.out.println("Zamek zmienił włąsciciela");
         }
     }
@@ -700,7 +702,7 @@ public class Bohater extends Actor {
         this.setBohaterTex(new Texture(this.getPixMap()));
         this.sprite.setTexture(bohaterTex);
         
-        // aktualizacja tekxtury bohatera zaznaczonej
+        // aktualizacja tekstury bohatera zaznaczonej
         if (!bohaterCheckTex.getTextureData().isPrepared()) {
             bohaterCheckTex.getTextureData().prepare();
         }

@@ -1,5 +1,8 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,15 +26,18 @@ public class Castle extends Actor {
     private int actualHp = 5;
     private int Obrona = 5;
     private int przynaleznoscDoGracza = 0;
+    private Pixmap ikonaZamku;
 
     /**
      *
-     * @param stage     
+     * @param stage
      * @param a
      * @param x
      * @param y
+     * @param wlascicielZamku
      */
-    public Castle(Stage stage, Assets a, int x, int y) {
+    public Castle(Stage stage, Assets a, int x, int y, int wlascicielZamku) {
+        this.przynaleznoscDoGracza = wlascicielZamku;
         this.sprite = new Sprite(a.trawaZamekTex);
         this.setSize(sprite.getWidth(), sprite.getHeight());
         this.setPosition(x, y);
@@ -39,6 +45,49 @@ public class Castle extends Actor {
         this.stage = stage;
 
         this.dodajListnera();
+
+        this.ikonaZamku = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
+
+        rysujIkoneZamku();
+    }
+
+    // Rysuje ikonę zamku
+    private void rysujIkoneZamku() {
+
+        if (!this.sprite.getTexture().getTextureData().isPrepared()) {
+            this.sprite.getTexture().getTextureData().prepare();
+        }
+
+        this.ikonaZamku = this.sprite.getTexture().getTextureData().consumePixmap();
+        // Narysowanie tyczek od chorągwii
+        ikonaZamku.setColor(Color.BLACK);
+        ikonaZamku.fillRectangle(32, 0, 2, 15);
+        ikonaZamku.fillRectangle(68, 0, 2, 15);
+
+        // Rysowanie poszczególnych chorągwii
+        switch (this.przynaleznoscDoGracza) {
+            case 0:
+                ikonaZamku.setColor(Color.RED);
+                break;
+            case 1:
+                ikonaZamku.setColor(Color.BLUE);
+                break;
+            case 2:
+                ikonaZamku.setColor(Color.YELLOW);
+                break;
+            case 3:
+                ikonaZamku.setColor(Color.GREEN);
+                break;
+        }
+        ikonaZamku.fillTriangle(34, 0, 34, 10, 44, 5);
+        ikonaZamku.fillTriangle(70, 0, 70, 10, 80, 5);
+
+        this.sprite.setTexture(new Texture(ikonaZamku));
+    }
+    
+    // Metoda aktualizuje ikonę zamku.
+    public void aktualizujIkoneZamku(){
+        this.rysujIkoneZamku();
     }
 
     // Dodaje ClickListnera do obiektu Zamku

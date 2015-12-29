@@ -20,9 +20,18 @@ version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
+version 0.0018
+        1. Naprawić błąd z brakiem widocznosci przycisków dla przycisków
+
+version 0.0017 DONE 29122015
+DONE    1. Dodanie chorągwii do zamków graczy z kolorem odpowiadającym 
+        właścielowi zamku.
+DONE    2. Naprawa błędu z opóźnionym wyświetlaniem ilości złota gracza.
+DONE    3. Dodano Screen kupna nowego bohatera. Nowy bohater jest postacią
+        grywalną.
+
 version 0.0016 DONE 28122015
-DONE    1. Dodano ikone gracza informującą kolorem, który gracz ma aktualnie 
-        turę.
+DONE    1. Dodano ikone informującą kolorem, który gracz ma aktualnie turę.
 
 version 0.0015 DONE 21122015
 DONE    1. Dodano pasek energii do bohatera zaznaczonego.
