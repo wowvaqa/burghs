@@ -3,13 +3,13 @@ package com.mygdx.burghs;
 // Klasa Pole jest wirtualnym polem przechowującym referencje do obiektu bohatera
 public class Pole {
     
-    public Player bohaterOld;
-    
     private Bohater bohater;
     
     private TresureBox tresureBox = null;
     
     private Castle castle = null;
+    
+    private Mob mob = null;
 
     public Pole() {
 
@@ -22,6 +22,14 @@ public class Pole {
     
     // Setters and Getters
 
+    public Mob getMob() {
+        return mob;
+    }
+
+    public void setMob(Mob mob) {
+        this.mob = mob;
+    }    
+    
     public Bohater getBohater() {
         return bohater;
     }

@@ -13,17 +13,18 @@ import java.util.Random;
  * @author v
  */
 public class Fight {
-    
+
     /**
      * Zwraca ilość obrażeń po ataku bohatera
-     * @param bohaterAtakujacy  referencja do obiektu bohatera atakującego
-     * @param bohaterBroniacy   referencja do obiketu bohatera broniącego się
+     *
+     * @param bohaterAtakujacy referencja do obiektu bohatera atakującego
+     * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
      * @return Zwraca ilość obrażeń
      */
-    static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy){
-        
+    static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy) {
+
         System.out.println("Funkacja Fight.getObrazenia");
-        
+
         Random rnd = new Random();
         System.out.println("Nastąpił atak mf");
         int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy) + 1);
@@ -31,34 +32,36 @@ public class Fight {
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
         int dmg = atak - obrona;
-        if (dmg < 0)
+        if (dmg < 0) {
             dmg = 0;
+        }
         System.out.println("damage: " + dmg);
-        if (dmg > 0){
+        if (dmg > 0) {
             bohaterBroniacy.setActualHp(bohaterBroniacy.getActualHp() - dmg);
         }
-        if (bohaterBroniacy.getActualHp() <= 0){
+        if (bohaterBroniacy.getActualHp() <= 0) {
             bohaterBroniacy.remove();
             System.out.println("Smierc Bohatera broniacego się");
-        }              
-        
+        }
+
         bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
-        
-        bohaterBroniacy.aktualizujTeksture();              
-        
+
+        bohaterBroniacy.aktualizujTeksture();
+
         return dmg;
     }
-    
+
     /**
      * Zwraca ilość obrażeń po ataku bohatera na zamek
+     *
      * @param bohaterAtakujacy Referencja do obiektu bohatera atakującego
      * @param castle Referencja do obiektu zamku
      * @return Ilosć obrażeń
      */
-    static public int getObrazenia(Bohater bohaterAtakujacy, Castle castle){
-        
+    static public int getObrazenia(Bohater bohaterAtakujacy, Castle castle) {
+
         System.out.println("Funkacja Fight.getObrazenia");
-        
+
         Random rnd = new Random();
         System.out.println("Nastąpił atak na zamek");
         int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy) + 1);
@@ -66,28 +69,65 @@ public class Fight {
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
         int dmg = atak - obrona;
-        if (dmg < 0)
+        if (dmg < 0) {
             dmg = 0;
-        System.out.println("damage: " + dmg);
-        if (dmg > 0){
-            castle.setActualHp(castle.getActualHp()- dmg);
         }
-        if (castle.getActualHp()<= 0){            
+        System.out.println("damage: " + dmg);
+        if (dmg > 0) {
+            castle.setActualHp(castle.getActualHp() - dmg);
+        }
+        if (castle.getActualHp() <= 0) {
             System.out.println("Zamek nie posiada już obrońców - można go zająć");
             castle.setActualHp(0);
-        }              
-        
+        }
+
         bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
-        
+
         return dmg;
     }
-    
+
     /**
-     * 
-     * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
-     * @return zwraca wartość obrony dla wszystkich itemków bohatera broniącego się
+     *
+     * @param bohaterAtakujacy Referencja do obiektu bohatera atakującego
+     * @param mob Referencja do obiektu moba
+     * @return Ilość obrażeń
      */
-    static public int getObronaEkwipunkuBohaterBroniacego(Bohater bohaterBroniacy){
+    static public int getObrazenia(Bohater bohaterAtakujacy, Mob mob) {
+
+        System.out.println("Funkacja Fight.getObrazenia");
+
+        Random rnd = new Random();
+        System.out.println("Nastąpił atak na zamek");
+        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy) + 1);
+        int obrona = rnd.nextInt(mob.getObrona() + 1);
+        System.out.println("Siła ataku:  " + atak);
+        System.out.println("siła obrony: " + obrona);
+        int dmg = atak - obrona;
+        if (dmg < 0) {
+            dmg = 0;
+        }
+        System.out.println("damage: " + dmg);
+        if (dmg > 0) {
+            mob.setAktualneHp(mob.getAktualneHp() - dmg);
+        }
+        if (mob.getAktualneHp() <= 0) {
+            System.out.println("Zamek nie posiada już obrońców - można go zająć");
+            mob.setAktualneHp(0);
+            bohaterAtakujacy.setExp(bohaterAtakujacy.getExp() + mob.getExpReward());
+        }
+
+        bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
+
+        return dmg;
+    }
+
+    /**
+     *
+     * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
+     * @return zwraca wartość obrony dla wszystkich itemków bohatera broniącego
+     * się
+     */
+    static public int getObronaEkwipunkuBohaterBroniacego(Bohater bohaterBroniacy) {
         int sumaObrony = 0;
         sumaObrony += bohaterBroniacy.getItemGlowa().getObrona();
         sumaObrony += bohaterBroniacy.getItemKorpus().getObrona();
@@ -95,18 +135,18 @@ public class Fight {
         sumaObrony += bohaterBroniacy.getItemPrawaReka().getObrona();
         sumaObrony += bohaterBroniacy.getItemNogi().getObrona();
         sumaObrony += bohaterBroniacy.getItemStopy().getObrona();
-        
+
         System.out.println("Suma obrony itemków: " + sumaObrony);
-        
+
         return sumaObrony;
     }
-    
+
     /**
-     * 
+     *
      * @param bohaterAtakujacy referencja do obiektu bohatera atakującego
      * @return zwraca wartość ataku dla wszystkich itemków bohatera atakującego
      */
-    static public int getAtakEkwipunkuBohaterAtakujacego(Bohater bohaterAtakujacy){
+    static public int getAtakEkwipunkuBohaterAtakujacego(Bohater bohaterAtakujacy) {
         int sumaAtaku = 0;
         sumaAtaku += bohaterAtakujacy.getItemGlowa().getAtak();
         sumaAtaku += bohaterAtakujacy.getItemKorpus().getAtak();
@@ -114,20 +154,21 @@ public class Fight {
         sumaAtaku += bohaterAtakujacy.getItemPrawaReka().getAtak();
         sumaAtaku += bohaterAtakujacy.getItemNogi().getAtak();
         sumaAtaku += bohaterAtakujacy.getItemStopy().getAtak();
-        
+
         System.out.println("Suma ataku itemków: " + sumaAtaku);
-        
+
         return sumaAtaku;
     }
-    
+
     /**
      * Zwraca sumę szybkości dla wszsytkich itemków w które wyposażony jest
      * bohater
-     * @param bohaterAtakujacy referencja do obiketu bohatera dla którego 
-     * ma zostać zsumowana ilość punktów szybkości
-     * @return 
+     *
+     * @param bohaterAtakujacy referencja do obiketu bohatera dla którego ma
+     * zostać zsumowana ilość punktów szybkości
+     * @return
      */
-    static public int getSzybkoscEkwipunkuBohatera(Bohater bohaterAtakujacy){
+    static public int getSzybkoscEkwipunkuBohatera(Bohater bohaterAtakujacy) {
         int sumaSzybkosci = 0;
         sumaSzybkosci += bohaterAtakujacy.getItemGlowa().getSzybkosc();
         sumaSzybkosci += bohaterAtakujacy.getItemKorpus().getSzybkosc();
@@ -135,10 +176,10 @@ public class Fight {
         sumaSzybkosci += bohaterAtakujacy.getItemPrawaReka().getSzybkosc();
         sumaSzybkosci += bohaterAtakujacy.getItemNogi().getSzybkosc();
         sumaSzybkosci += bohaterAtakujacy.getItemStopy().getSzybkosc();
-        
+
         System.out.println("Suma zwiększenia szybkości: " + sumaSzybkosci);
-        
+
         return sumaSzybkosci;
     }
-    
+
 }

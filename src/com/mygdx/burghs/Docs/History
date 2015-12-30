@@ -20,8 +20,13 @@ version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
-version 0.0018
-        1. Naprawić błąd z brakiem widocznosci przycisków dla przycisków
+version 0.0018 30122015 DONE
+DONE    1. Naprawić błąd z brakiem widocznosci przycisków ruchu/ataku
+        po kupnie nowego bohatera.
+DONE    2. Usunięcie klas nieużywanych: Player, BohaterOld
+DONE    3. Refraktoryzacja klas MapScreen, OptionScreen
+DONE    4. Dodano klasę Mob reprezentującą Moba wraz z tymczasową implementacją
+        w grze.
 
 version 0.0017 DONE 29122015
 DONE    1. Dodanie chorągwii do zamków graczy z kolorem odpowiadającym 

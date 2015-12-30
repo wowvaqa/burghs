@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Gracz {
 
-    public ArrayList<Player> bohaterowieOld = new ArrayList<Player>();
+    //public ArrayList<Player> bohaterowieOld = new ArrayList<Player>();
     
     private ArrayList<Bohater> bohaterowie = new ArrayList<Bohater>();
 
@@ -119,14 +119,6 @@ public class Gracz {
      */
     public void setGold(int gold) {
         this.gold = gold;
-    }
-
-    public ArrayList<Player> getBohaterowieOld() {
-        return bohaterowieOld;
-    }
-
-    public void setBohaterowieOld(ArrayList<Player> bohaterowie) {
-        this.bohaterowieOld = bohaterowie;
     }
 
     /**

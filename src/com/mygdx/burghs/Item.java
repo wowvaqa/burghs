@@ -20,7 +20,7 @@ public class Item extends Actor {
 
     private final Assets a;
     private final GameStatus gs;
-    private Game g;
+    private final Game g;
 
     // ikona    
     private Sprite sprite;
@@ -34,6 +34,7 @@ public class Item extends Actor {
     private int hp = 0;
     private int szybkosc = 0;
     private int gold = 0;
+    private int zasieg = 0;
 
     public Item(Texture teksura, final Assets a, final GameStatus gs, final Game g) {
         this.g = g;
@@ -118,6 +119,14 @@ public class Item extends Actor {
     public Assets getA() {
         return a;
     }
+
+    public int getZasieg() {
+        return zasieg;
+    }
+
+    public void setZasieg(int zasieg) {
+        this.zasieg = zasieg;
+    }    
 
     public int getGold() {
         return gold;

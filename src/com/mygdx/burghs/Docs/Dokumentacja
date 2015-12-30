@@ -35,6 +35,11 @@ BOHATER:
     Dodanie referencji ww Bohaterow następuje w obiekcie klasy 
     MapScreen.generujGraczy()
 
+DOSWIADCZNIE BOHATERA
+        Doświadczenie zwiększa się po zabiciu moba lub bohatera.
+    Zwiększenie doświadczenia bohatera następuje:
+    1. w metodzie Fight.getObrazenia(...)
+
 
 KONIEC GRY:
     Sprawdzenie czy nastąpił koniec gry dla Gracza następuje w:
@@ -100,3 +105,11 @@ ZAMEK
     Metoda ta wywołana zostaje w Bohater.CheckCastle()
 
 NOWY BOHATER
+        Dodanie i wygenerowanie nowego bohatera następuje w metodach obiektu
+    klasy NewBohaterScreen().
+    Metody ww. obiektu korzystają z metod udostepnionych w klasie statycznej
+    NewGame().
+
+MOB
+        Obiekt moba reprezentuje klasa Mob().
+    Tymczasowe obiekty mobów tworzone są w moetodzie MapScreen.generujPlansze()

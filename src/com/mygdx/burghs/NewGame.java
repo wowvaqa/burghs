@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.mygdx.burghs.Screens.MapScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;

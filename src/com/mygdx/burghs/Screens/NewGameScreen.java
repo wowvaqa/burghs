@@ -76,7 +76,7 @@ public class NewGameScreen implements Screen {
     }
 
     private void dodajDoStage01() {
-        stage01.addActor(tabela01);
+        stage01.addActor(tabela01);        
     }
 
     /**
@@ -89,7 +89,7 @@ public class NewGameScreen implements Screen {
         tabela01.pad(10);
         // włacza linie debugujące tabelę
         tabela01.setDebug(true);
-
+        
         tabela01.add(new Label("Nowa Gra", a.skin)).align(Align.center).align(Align.top).expandX().colspan(tabela01.getColumns());
         tabela01.row();
 

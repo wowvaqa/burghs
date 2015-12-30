@@ -1,5 +1,8 @@
 package com.mygdx.burghs;
 
+import com.mygdx.burghs.Screens.OptionsScreen;
+import com.mygdx.burghs.Screens.MapScreen;
+import com.mygdx.burghs.Screens.BohaterScreen;
 import com.badlogic.gdx.Game;
 import com.mygdx.burghs.Screens.ItemScreen;
 import com.mygdx.burghs.Screens.NewBohaterScreen;

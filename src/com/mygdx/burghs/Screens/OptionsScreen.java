@@ -1,4 +1,4 @@
-package com.mygdx.burghs;
+package com.mygdx.burghs.Screens;
 
 // Screen Opcji
 import com.badlogic.gdx.Gdx;
@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.burghs.Assets;
+import com.mygdx.burghs.GameStatus;
 
 // Odpowiada za wyświetlanie opcji z gry.
 public class OptionsScreen implements Screen {

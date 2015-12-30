@@ -1,4 +1,4 @@
-package com.mygdx.burghs;
+package com.mygdx.burghs.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.burghs.Assets;
+import com.mygdx.burghs.Bohater;
+import com.mygdx.burghs.Fight;
+import com.mygdx.burghs.GameStatus;
+import com.mygdx.burghs.Gracz;
+import com.mygdx.burghs.Item;
 import enums.CzesciCiala;
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.mygdx.burghs;
+package com.mygdx.burghs.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -15,6 +15,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.burghs.Assets;
+import com.mygdx.burghs.Bohater;
+import com.mygdx.burghs.ButtonActor;
+import com.mygdx.burghs.Castle;
+import com.mygdx.burghs.DefaultActor;
+import com.mygdx.burghs.GameStatus;
+import com.mygdx.burghs.Gracz;
+import com.mygdx.burghs.Mob;
+import com.mygdx.burghs.TresureBox;
 import java.util.ArrayList;
 
 public class MapScreen implements Screen {
@@ -75,15 +84,6 @@ public class MapScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Dodanie nowego bohatera.");                
                 g.setScreen(Assets.newBohaterScreen);
-//                gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs, g));
-//                int index = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() - 1;
-//                stage01.addActor(gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index));
-//                Bohater tmpBohater = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index);
-//                tmpBohater.setPrzynaleznoscDoGracza(gs.getTuraGracza());
-//                tmpBohater.setSzybkosc(100);
-//                tmpBohater.setActualHp(5);
-//                tmpBohater.setHp(5);       
-//                tmpBohater.setPozostaloRuchow(100);
             }            
         });
 
@@ -394,6 +394,15 @@ public class MapScreen implements Screen {
         TresureBox tb = new TresureBox(this.a, this.gs, this.g);
         gs.getMapa().getPola()[2][2].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
+        
+        // Tymczasowa obiekt moba
+        Mob mob = new Mob(a.texWilkMob, gs, a, 300, 0);
+        gs.getMapa().getPola()[3][0].setMob(mob);
+        stage01.addActor(gs.getMapa().getPola()[3][0].getMob());
+        
+        Mob mob2 = new Mob(a.texSzkieletMob, gs, a, 0, 300);
+        gs.getMapa().getPola()[0][3].setMob(mob2);
+        stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
 
         // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
         // zamków
@@ -499,6 +508,50 @@ public class MapScreen implements Screen {
             stage01.getCamera().viewportWidth -= predkoscZoom;
         }
     }
+    
+    /**
+     * Metoda sortuje Zindex aktorów z ArrayList Stage01 ustawiając przyciski
+     * jako te na 'górze'.
+     */
+    private void sortujZindex(){
+        // Pętla szukająca przycisków
+        for (int i = 0; i < stage01.getActors().size; i ++){
+            if (stage01.getActors().get(i).getClass() == ButtonActor.class){
+                stage01.getActors().get(i).toBack();
+            }
+        }
+        
+        // Pętla szukająca bohaterowie
+        for (int i = 0; i < stage01.getActors().size; i ++){
+            if (stage01.getActors().get(i).getClass() == Bohater.class){
+                stage01.getActors().get(i).toBack();
+            }
+        }
+        
+        for (int i = 0; i < stage01.getActors().size; i ++){
+            if (stage01.getActors().get(i).getClass() == TresureBox.class){
+                stage01.getActors().get(i).toBack();
+            }
+        }
+        
+        for (int i = 0; i < stage01.getActors().size; i ++){
+            if (stage01.getActors().get(i).getClass() == Castle.class){
+                stage01.getActors().get(i).toBack();
+            }
+        }        
+        
+        for (int i = 0; i < stage01.getActors().size; i ++){
+            if (stage01.getActors().get(i).getClass() == Mob.class){
+                stage01.getActors().get(i).toBack();
+            }
+        }        
+        
+        for (int i = 0; i < stage01.getActors().size; i ++){
+            if (stage01.getActors().get(i).getClass() == DefaultActor.class){
+                stage01.getActors().get(i).toBack();
+            }
+        }
+    }
 
     // Setters and Getters
     public GameStatus getGs() {
@@ -530,40 +583,7 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        //a.przyciskiNaWierzch();
-        
-//        for (int i = 0; i < stage01.getActors().size; i ++){
-//            if (stage01.getActors().get(i).getClass() == Bohater.class){
-//                
-//                stage01.getActors().get(i).setZIndex(120);
-//                
-//                System.out.println("!!!! " + i );
-////                stage01.getActors().get(i).toFront();
-//                System.out.println("z p: " + stage01.getActors().get(i).getZIndex());
-//            }
-//        }
-////       
-//        for (int i = 0; i < stage01.getActors().size; i ++){
-//            if (stage01.getActors().get(i).getClass() == ButtonActor.class){
-//                
-//                stage01.getActors().removeIndex(i);
-//                
-//                
-//                
-//                System.out.println("!!!! " + i );
-////                stage01.getActors().get(i).toFront();
-//                System.out.println("z p: " + stage01.getActors().get(i).getZIndex());
-//            }
-//        }
-//        
-//        stage01.addActor(a.btnNorth);
-//        
-////        int ost;
-////        ost = gs.gracze.get(gs.getTuraGracza()).getBohaterowie().size() - 1;
-////        
-////        System.out.println("z b: " + gs.gracze.get(gs.getTuraGracza()).getBohaterowie().get(ost).getZIndex());
-        
-        this.lblGold.setText("" + Integer.toString(gs.getZlotoAktualnegoGracza()));
+        this.sortujZindex();
     }
     
     // Setters and Getters

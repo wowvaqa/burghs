@@ -10,7 +10,6 @@ public final class Mapa {
 
     public Mapa() {
         this.generujMape(10, 10);
-
     }
 
     public void generujMape(int iloscPolX, int iloscPolY) {
@@ -21,19 +20,6 @@ public final class Mapa {
         for (int i = 0; i < this.iloscPolX; i++) {
             for (int j = 0; j < this.iloscPolY; j++) {
                 pola[i][j] = new Pole();
-            }
-        }
-    }
-
-    // Sprawdza czy któryś z bohaterów na mapie nie jest martwy i go usuwa
-    public void wyczyscBohaterow() {
-        for (int i = 0; i < this.iloscPolX; i++) {
-            for (int j = 0; j < this.iloscPolY; j++) {
-                if (pola[i][j].bohaterOld != null) {
-                    if (pola[i][j].bohaterOld.getHp() <= 0) {
-                        pola[i][j].bohaterOld = null;
-                    }
-                }
             }
         }
     }
@@ -54,5 +40,4 @@ public final class Mapa {
     public void setPola(Pole[][] pola) {
         this.pola = pola;
     }
-
 }

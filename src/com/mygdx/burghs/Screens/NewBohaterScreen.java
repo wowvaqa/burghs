@@ -19,9 +19,6 @@ import com.mygdx.burghs.Bohater;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.NewGame;
 import static com.mygdx.burghs.NewGame.klasaPostaciGracz01;
-import static com.mygdx.burghs.NewGame.klasaPostaciGracz02;
-import static com.mygdx.burghs.NewGame.klasaPostaciGracz03;
-import static com.mygdx.burghs.NewGame.klasaPostaciGracz04;
 import static com.mygdx.burghs.NewGame.pobierzAtak;
 import static com.mygdx.burghs.NewGame.pobierzHp;
 import static com.mygdx.burghs.NewGame.pobierzObrone;
@@ -157,18 +154,9 @@ public class NewBohaterScreen implements Screen {
     }
 
     private void zakonczGenerowanieNowegoBohatera() {
-//        gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(a.mobDwarfTex, a.mobDwarfTexZaznaczony, 0, 0, a, 0, 0, gs, g));
-//        int index = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().size() - 1;
-//        Assets.stage01MapScreen.addActor(gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index));
-//        Bohater tmpBohater = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(index);
-//        tmpBohater.setPrzynaleznoscDoGracza(gs.getTuraGracza());
-//        tmpBohater.setSzybkosc(100);
-//        tmpBohater.setActualHp(5);
-//        tmpBohater.setHp(5);
-//        tmpBohater.setPozostaloRuchow(100);
 
         // tymczasowa tekstura przekazana do konstruktora nowego bohatera
-        Texture tmpTex = null, tmpTexZazanaczony = null;
+        Texture tmpTex, tmpTexZazanaczony;
         // tymczasowa tekstura do określenia lokacji początkowej gracza
         int lokPoczatkowaX = 0, lokPoczatkowaY = 0;
 

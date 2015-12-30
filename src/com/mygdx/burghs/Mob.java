@@ -9,28 +9,50 @@ public class Mob extends Actor {
 
     private Sprite sprite;    // wygląd
     private Texture icon;
-    private Texture iconZaznaczony;
 
     private int pozX = 0;   // pozycja X na mapie
     private int pozY = 0;   // pozycja Y na mapie
 
-    public GameStatus gs;
+    private final GameStatus gs;
+    private final Assets a;
 
     // Statystyki
     private String imie = null;
     private int atak = 0;
     private int obrona = 0;
     private int hp = 0;
+    private int aktualneHp = 0;
     private int szybkosc = 0;
+    private int expReward = 0;
 
-    public Mob(Texture textureIcon, Texture textureIconZaznaczona, GameStatus gs,
+    /**
+     * 
+     * @param textureIcon Tekstura moba
+     * @param gs Referencja do obiketu Game Status
+     * @param a Referencja do obiektu Assets
+     * @param lokaczjaPoczatkowaX Lokacja początkowa X w Stage
+     * @param lokaczjaPoczatkowaY Lokacja początkowa Y w Stage
+     */
+    public Mob(Texture textureIcon, GameStatus gs, Assets a,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY) {
         this.gs = gs;
+        this.a = a;
         this.icon = textureIcon;
-        this.iconZaznaczony = textureIconZaznaczona;
         sprite = new Sprite(this.icon);
         this.setSize(sprite.getWidth(), sprite.getHeight());
         this.setPosition(lokaczjaPoczatkowaX, lokaczjaPoczatkowaY);
+        
+        podepnijTymczasoweStatystyki();        
+    }
+    
+    private void podepnijTymczasoweStatystyki(){
+        // tymczasowe statystyki
+        this.atak = 5;
+        this.obrona = 5;
+        this.hp = 3;
+        this.aktualneHp = this.hp;
+        this.szybkosc = 1;  
+        this.expReward = 100;
     }
 
     @Override
@@ -43,22 +65,14 @@ public class Mob extends Actor {
         batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
 
-    public GameStatus getGs() {
-        return gs;
+    public int getExpReward() {
+        return expReward;
     }
 
-    public void setGs(GameStatus gs) {
-        this.gs = gs;
-    }
-
-    public Texture getIconZaznaczony() {
-        return iconZaznaczony;
-    }
-
-    public void setIconZaznaczony(Texture iconZaznaczony) {
-        this.iconZaznaczony = iconZaznaczony;
-    }
-
+    public void setExpReward(int expReward) {
+        this.expReward = expReward;
+    }   
+    
     public Texture getIcon() {
         return icon;
     }
@@ -105,6 +119,14 @@ public class Mob extends Actor {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public int getAktualneHp() {
+        return aktualneHp;
+    }
+
+    public void setAktualneHp(int aktualneHp) {
+        this.aktualneHp = aktualneHp;
     }
 
     public int getSzybkosc() {

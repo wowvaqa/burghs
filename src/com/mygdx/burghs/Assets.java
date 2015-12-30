@@ -30,6 +30,10 @@ public class Assets {
     // obiekty na mapie
     public Texture texTresureBox;
 
+    // tekstury mobów
+    public Texture texSzkieletMob;
+    public Texture texWilkMob;
+    
     // tekstury itemków
     public Texture texHead;
     public Texture texLinenTousers;
@@ -122,6 +126,8 @@ public class Assets {
         utworzPrzyciskiAtaku();
 
         utworzItemki();
+        
+        utworzMoby();
 
         wypelnijMape();
         utworzInfoWindow();
@@ -148,6 +154,23 @@ public class Assets {
     
     public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Castle castle) {
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(bohaterAtakujacy, castle)));
+        lblDmg.setPosition(pozX - 50, pozY - 25);
+        lblDmg.setFontScale(1.5f);
+        lblDmg.addAction(Actions.alpha(1));
+        lblDmg.addAction(Actions.fadeOut(2.0f));
+        lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
+        lblDmg.act(Gdx.graphics.getDeltaTime());
+    }
+    
+    /**
+     * 
+     * @param pozX
+     * @param pozY
+     * @param bohaterAtakujacy
+     * @param mob 
+     */
+    public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Mob mob) {
+        lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(bohaterAtakujacy, mob)));
         lblDmg.setPosition(pozX - 50, pozY - 25);
         lblDmg.setFontScale(1.5f);
         lblDmg.addAction(Actions.alpha(1));
@@ -474,5 +497,10 @@ public class Assets {
 
     public void setInfoWindow(Window infoWindow) {
         this.infoWindow = infoWindow;
+    }
+
+    private void utworzMoby() {
+        this.texWilkMob = new Texture("moby/mobWolfTex.png");
+        this.texSzkieletMob = new Texture("moby/mobSzkieletfTex.png");
     }
 }

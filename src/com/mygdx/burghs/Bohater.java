@@ -190,6 +190,7 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             // Jeżeli w lokacji na północ jest inny bohater wtedy wyświetla się przycisk ataku
             if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getBohater() != null
+                    || gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getMob() != null
                     || (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle() != null
                     && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                     && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
@@ -209,6 +210,7 @@ public class Bohater extends Actor {
             // Wyświetlenie odpowiedniego przycisku w zależności od możliwości 
             // ataku lub ruchu.
             if (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getBohater() != null
+                    || gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getMob() != null
                     || (gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getCastle() != null
                     && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                     && gs.getMapa().pola[this.pozXnaMapie][pozYnaMapie - 1].getCastle().getActualHp() > 0)) {
@@ -222,6 +224,7 @@ public class Bohater extends Actor {
 
         if (this.pozXnaMapie < gs.mapa.getIloscPolX() - 1) {
             if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getBohater() != null
+                    || gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getMob() != null
                     || (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getCastle() != null
                     && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                     && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie].getCastle().getActualHp() > 0)) {
@@ -235,6 +238,7 @@ public class Bohater extends Actor {
 
         if (this.pozXnaMapie > 0) {
             if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getBohater() != null
+                    || gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getMob() != null
                     || (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getCastle() != null
                     && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                     && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie].getCastle().getActualHp() > 0)) {
@@ -249,6 +253,7 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             if (this.pozXnaMapie < gs.mapa.getIloscPolX() - 1) {
                 if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getBohater() != null
+                        || gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getMob() != null
                         || (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getCastle() != null
                         && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                         && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
@@ -264,6 +269,7 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie < gs.mapa.getIloscPolY() - 1) {
             if (this.pozXnaMapie > 0) {
                 if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getBohater() != null
+                        || gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getMob() != null
                         || (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getCastle() != null
                         && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                         && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie + 1].getCastle().getActualHp() > 0)) {
@@ -279,6 +285,7 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie > 0) {
             if (this.pozXnaMapie < gs.mapa.getIloscPolX() - 1) {
                 if (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getBohater() != null
+                        || gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getMob() != null
                         || (gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getCastle() != null
                         && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                         && gs.getMapa().pola[this.pozXnaMapie + 1][pozYnaMapie - 1].getCastle().getActualHp() > 0)) {
@@ -294,6 +301,7 @@ public class Bohater extends Actor {
         if (this.pozYnaMapie > 0) {
             if (this.pozXnaMapie > 0) {
                 if (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getBohater() != null
+                        || gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getMob() != null
                         || (gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getCastle() != null
                         && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
                         && gs.getMapa().pola[this.pozXnaMapie - 1][pozYnaMapie - 1].getCastle().getActualHp() > 0)) {
@@ -317,9 +325,12 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcNorth.getX(), a.btnAtcNorth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie + 1].getMob());
                 }
-
                 usunMartwychBohaterow();
+                usunMartweMoby();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -336,7 +347,11 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcSouth.getX(), a.btnAtcSouth.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie][this.pozYnaMapie - 1].getMob());
                 }
+                usunMartweMoby();
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -354,8 +369,12 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcEast.getX(), a.btnAtcEast.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie].getMob());
                 }
                 usunMartwychBohaterow();
+                usunMartweMoby();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
                 zaznaczony = false;
@@ -372,7 +391,11 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcWest.getX(), a.btnAtcWest.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie].getMob());
                 }
+                usunMartweMoby();
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -390,7 +413,11 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcNorthEast.getX(), a.btnAtcNorthEast.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie + 1].getMob());
                 }
+                usunMartweMoby();
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -408,7 +435,11 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcNorthWest.getX(), a.btnAtcNorthWest.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie + 1].getMob());
                 }
+                usunMartweMoby();
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -426,7 +457,11 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcSouthEast.getX(), a.btnAtcSouthEast.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie + 1][this.pozYnaMapie - 1].getMob());
                 }
+                usunMartweMoby();
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -444,7 +479,11 @@ public class Bohater extends Actor {
                 } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getCastle() != null) {
                     a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
                             this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getCastle());
+                } else if (gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getMob() != null) {
+                    a.animujLblDmg(a.btnAtcSouthWest.getX(), a.btnAtcSouthWest.getY(),
+                            this, gs.mapa.pola[this.pozXnaMapie - 1][this.pozYnaMapie - 1].getMob());
                 }
+                usunMartweMoby();
                 usunMartwychBohaterow();
                 this.sprite.setTexture(bohaterTex);
                 wylaczPrzyciski();
@@ -618,6 +657,27 @@ public class Bohater extends Actor {
         }
     }
 
+    private void usunMartweMoby() {
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().pola[i][j].getMob() != null) {
+                    if (gs.getMapa().pola[i][j].getMob().getAktualneHp() <= 0) {
+                        gs.getMapa().pola[i][j].setMob(null);
+                    }
+                }
+            }
+        }
+
+        for (int j = 0; j < Assets.stage01MapScreen.getActors().size; j++) {
+            if (Assets.stage01MapScreen.getActors().get(j).getClass() == Mob.class) {
+                Mob tmpMob = (Mob) Assets.stage01MapScreen.getActors().get(j);
+                if (tmpMob.getAktualneHp() < 1) {
+                    Assets.stage01MapScreen.getActors().removeIndex(j);
+                }
+            }
+        }
+    }
+
     /**
      * Wyłącza wszystkie aktywne przyciski oraz uniemożliwia ruch bohatera
      */
@@ -690,18 +750,18 @@ public class Bohater extends Actor {
         }
     }
 
-    public void aktualizujKolorTeksturyBohatera(){
+    public void aktualizujKolorTeksturyBohatera() {
         if (!bohaterTex.getTextureData().isPrepared()) {
             bohaterTex.getTextureData().prepare();
         }
         this.setPixMap(bohaterTex.getTextureData().consumePixmap());
 
         this.getPixMap().setColor(zwrocKolorBohatera(this.przynaleznoscDoGracza));
-        this.getPixMap().fillRectangle(80, 5, 15, 15);        
+        this.getPixMap().fillRectangle(80, 5, 15, 15);
 
         this.setBohaterTex(new Texture(this.getPixMap()));
         this.sprite.setTexture(bohaterTex);
-        
+
         // aktualizacja tekstury bohatera zaznaczonej
         if (!bohaterCheckTex.getTextureData().isPrepared()) {
             bohaterCheckTex.getTextureData().prepare();
@@ -709,25 +769,25 @@ public class Bohater extends Actor {
         this.setPixMap(bohaterCheckTex.getTextureData().consumePixmap());
 
         this.getPixMap().setColor(zwrocKolorBohatera(this.przynaleznoscDoGracza));
-        this.getPixMap().fillRectangle(80, 5, 15, 15);        
+        this.getPixMap().fillRectangle(80, 5, 15, 15);
 
         this.setBohaterCheckTex(new Texture(this.getPixMap()));
     }
-    
-    private Color zwrocKolorBohatera(int gracz){
-        switch (gracz){
+
+    private Color zwrocKolorBohatera(int gracz) {
+        switch (gracz) {
             case 0:
-                return Color.RED;                
+                return Color.RED;
             case 1:
-                return Color.BLUE;                
+                return Color.BLUE;
             case 2:
-                return Color.YELLOW;                
+                return Color.YELLOW;
             case 3:
-                return Color.GREEN;                
-        }        
+                return Color.GREEN;
+        }
         return null;
     }
-    
+
     /**
      * Aktualizuje status paska energi bohatera
      */
@@ -745,7 +805,7 @@ public class Bohater extends Actor {
 
         this.setBohaterTex(new Texture(this.getPixMap()));
         this.sprite.setTexture(bohaterTex);
-        
+
         // aktualizacja tekxtury bohatera zaznaczonej
         if (!bohaterCheckTex.getTextureData().isPrepared()) {
             bohaterCheckTex.getTextureData().prepare();
@@ -761,22 +821,23 @@ public class Bohater extends Actor {
     }
 
     /**
-     * Zwraca proporcjonalny poziom zdrowia bohatera do jego maksymalnych 
+     * Zwraca proporcjonalny poziom zdrowia bohatera do jego maksymalnych
      * punktów życia.
-     * @return 
+     *
+     * @return
      */
     private int poziomHP() {
-        System.out.println(this.getHp());
-        System.out.println(this.hp);
+        //System.out.println(this.getHp());
+        //System.out.println(this.hp);
 
         float poziom = this.actualHp * 100 / this.hp;
 
-        System.out.println((int) Math.round(poziom));
+        //System.out.println((int) Math.round(poziom));
         return (int) Math.round(poziom);
     }
 
     @Override
-    public void act(float delta) {        
+    public void act(float delta) {
         super.act(delta); //To change body of generated methods, choose Tools | Templates.
     }
 
