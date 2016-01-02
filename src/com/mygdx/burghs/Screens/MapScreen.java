@@ -10,15 +10,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.Bohater;
@@ -348,29 +344,6 @@ public class MapScreen implements Screen {
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
     private void dodajDoStage01() {
-//        // Dodaje predefiniowane przyciski w obiekcie klasy Assets do Stage01
-//        // Przyciski ataku
-//        stage01.addActor(a.btnAtcNorth);
-//        stage01.addActor(a.btnAtcSouth);
-//        stage01.addActor(a.btnAtcEast);
-//        stage01.addActor(a.btnAtcWest);
-//        stage01.addActor(a.btnAtcNorthEast);
-//        stage01.addActor(a.btnAtcNorthWest);
-//        stage01.addActor(a.btnAtcSouthEast);
-//        stage01.addActor(a.btnAtcSouthWest);
-//        // Przyciski ruchu
-//        stage01.addActor(a.btnNorth);
-//        stage01.addActor(a.btnSouth);
-//        stage01.addActor(a.btnEast);
-//        stage01.addActor(a.btnWest);
-//        stage01.addActor(a.btnNorthEast);
-//        stage01.addActor(a.btnNorthWest);
-//        stage01.addActor(a.btnSouthEast);
-//        stage01.addActor(a.btnSouthWest);
-//        // Przycisk Cancel
-//        stage01.addActor(a.btnCancel);
-//        //stage01.addActor(window);
-
         // Dodaje do planszy info window z assetów do wyświetlania info o skrzynce ze skarbem
         stage01.addActor(a.getInfoWindow());
 
