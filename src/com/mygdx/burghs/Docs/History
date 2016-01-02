@@ -20,6 +20,12 @@ version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
+version 0.0020 02012016
+DONE    1. Przeprojektowanie ruchu/ataku bohatera
+
+version 0.0019 01012016 DONE
+DONE    1. Po zmianie tury kamera przesuwa się nad bohatera następnego gracza.
+
 version 0.0018 30122015 DONE
 DONE    1. Naprawić błąd z brakiem widocznosci przycisków ruchu/ataku
         po kupnie nowego bohatera.

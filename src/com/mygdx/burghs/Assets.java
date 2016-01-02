@@ -51,29 +51,34 @@ public class Assets {
     public Texture texShield;
     public Texture texGold;
 
-    // predefiniowane przyciski ruchu
-    public ButtonActor btnNorth;
-    public ButtonActor btnSouth;
-    public ButtonActor btnEast;
-    public ButtonActor btnWest;
-    public ButtonActor btnNorthEast;
-    public ButtonActor btnNorthWest;
-    public ButtonActor btnSouthEast;
-    public ButtonActor btnSouthWest;
-
-    // predefiniowane przyciski ataku
-    public ButtonActor btnAtcNorth;
-    public ButtonActor btnAtcSouth;
-    public ButtonActor btnAtcEast;
-    public ButtonActor btnAtcWest;
-    public ButtonActor btnAtcNorthEast;
-    public ButtonActor btnAtcNorthWest;
-    public ButtonActor btnAtcSouthEast;
-    public ButtonActor btnAtcSouthWest;
+    // interfejs
+    public Texture moveIcon;
+    public Texture cancelIcon;
+    public Texture attackIcon;
+    
+//    // predefiniowane przyciski ruchu
+//    public ButtonActor btnNorth;
+//    public ButtonActor btnSouth;
+//    public ButtonActor btnEast;
+//    public ButtonActor btnWest;
+//    public ButtonActor btnNorthEast;
+//    public ButtonActor btnNorthWest;
+//    public ButtonActor btnSouthEast;
+//    public ButtonActor btnSouthWest;
+//
+//    // predefiniowane przyciski ataku
+//    public ButtonActor btnAtcNorth;
+//    public ButtonActor btnAtcSouth;
+//    public ButtonActor btnAtcEast;
+//    public ButtonActor btnAtcWest;
+//    public ButtonActor btnAtcNorthEast;
+//    public ButtonActor btnAtcNorthWest;
+//    public ButtonActor btnAtcSouthEast;
+//    public ButtonActor btnAtcSouthWest;
 
     public AssetManager am;
 
-    public ButtonActor btnCancel;
+//    public ButtonActor btnCancel;
 
     public Label lblDmg;
 
@@ -120,10 +125,13 @@ public class Assets {
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
 
         lblDmg = new Label("null", skin);
-        //lblDmg.getStyle().fontColor = Color.RED;
 
-        utworzPrzyciskiRuchu();
-        utworzPrzyciskiAtaku();
+        moveIcon = new Texture("interface/texMoveIcon.png");
+        cancelIcon = new Texture("interface/texCancelIcon.png");
+        attackIcon = new Texture("interface/texAtakIcon.png");
+        
+//        utworzPrzyciskiRuchu();
+//        utworzPrzyciskiAtaku();
 
         utworzItemki();
         
@@ -292,167 +300,167 @@ public class Assets {
         infoWindow.reset();
     }
 
-    private void utworzPrzyciskiAtaku() {
-        btnAtcNorth = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcNorth.setVisible(false);
-        btnAtcNorth.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcNorth.setKlikniety(true);
-            }
-        });
-
-        btnAtcSouth = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcSouth.setVisible(false);
-        btnAtcSouth.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcSouth.setKlikniety(true);
-            }
-        });
-
-        btnAtcEast = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcEast.setVisible(false);
-        btnAtcEast.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcEast.setKlikniety(true);
-            }
-        });
-
-        btnAtcWest = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcWest.setVisible(false);
-        btnAtcWest.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcWest.setKlikniety(true);
-            }
-        });
-
-        btnAtcNorthEast = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcNorthEast.setVisible(false);
-        btnAtcNorthEast.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcNorthEast.setKlikniety(true);
-            }
-        });
-
-        btnAtcNorthWest = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcNorthWest.setVisible(false);
-        btnAtcNorthWest.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcNorthWest.setKlikniety(true);
-            }
-        });
-
-        btnAtcSouthEast = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcSouthEast.setVisible(false);
-        btnAtcSouthEast.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcSouthEast.setKlikniety(true);
-            }
-        });
-
-        btnAtcSouthWest = new ButtonActor(this.btnAttackTex, 0, 0);
-        btnAtcSouthWest.setVisible(false);
-        btnAtcSouthWest.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnAtcSouthWest.setKlikniety(true);
-            }
-        });
-    }
+//    private void utworzPrzyciskiAtaku() {
+//        btnAtcNorth = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcNorth.setVisible(false);
+//        btnAtcNorth.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcNorth.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcSouth = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcSouth.setVisible(false);
+//        btnAtcSouth.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcSouth.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcEast = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcEast.setVisible(false);
+//        btnAtcEast.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcEast.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcWest = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcWest.setVisible(false);
+//        btnAtcWest.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcWest.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcNorthEast = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcNorthEast.setVisible(false);
+//        btnAtcNorthEast.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcNorthEast.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcNorthWest = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcNorthWest.setVisible(false);
+//        btnAtcNorthWest.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcNorthWest.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcSouthEast = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcSouthEast.setVisible(false);
+//        btnAtcSouthEast.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcSouthEast.setKlikniety(true);
+//            }
+//        });
+//
+//        btnAtcSouthWest = new ButtonActor(this.btnAttackTex, 0, 0);
+//        btnAtcSouthWest.setVisible(false);
+//        btnAtcSouthWest.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnAtcSouthWest.setKlikniety(true);
+//            }
+//        });
+//    }
 
     /**
      * 1. Tworzy przycisk ruchu po kliknięciu na bohatera 2. Ustawia widzialność
      * przycisku na FALSE 3. Dodaje ClickListnera do przycisku, który po
      * kliknięciu
      */
-    private void utworzPrzyciskiRuchu() {
-        btnNorth = new ButtonActor(this.btnGoTex, 0, 0);
-        btnNorth.setVisible(false);
-        btnNorth.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnNorth.setKlikniety(true);
-            }
-        });
-
-        btnSouth = new ButtonActor(this.btnGoTex, 0, 0);
-        btnSouth.setVisible(false);
-        btnSouth.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnSouth.setKlikniety(true);
-            }
-        });
-
-        btnEast = new ButtonActor(this.btnGoTex, 0, 0);
-        btnEast.setVisible(false);
-        btnEast.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnEast.setKlikniety(true);
-            }
-        });
-
-        btnWest = new ButtonActor(this.btnGoTex, 0, 0);
-        btnWest.setVisible(false);
-        btnWest.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnWest.setKlikniety(true);
-            }
-        });
-
-        btnNorthEast = new ButtonActor(this.btnGoTex, 0, 0);
-        btnNorthEast.setVisible(false);
-        btnNorthEast.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnNorthEast.setKlikniety(true);
-            }
-        });
-
-        btnNorthWest = new ButtonActor(this.btnGoTex, 0, 0);
-        btnNorthWest.setVisible(false);
-        btnNorthWest.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnNorthWest.setKlikniety(true);
-            }
-        });
-
-        btnSouthEast = new ButtonActor(this.btnGoTex, 0, 0);
-        btnSouthEast.setVisible(false);
-        btnSouthEast.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnSouthEast.setKlikniety(true);
-            }
-        });
-
-        btnSouthWest = new ButtonActor(this.btnGoTex, 0, 0);
-        btnSouthWest.setVisible(false);
-        btnSouthWest.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnSouthWest.setKlikniety(true);
-            }
-        });
-
-        btnCancel = new ButtonActor(this.cancelTex, 0, 0);
-        btnCancel.setVisible(false);
-        btnCancel.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnCancel.setKlikniety(true);
-            }
-        });
-    }
+//    private void utworzPrzyciskiRuchu() {
+//        btnNorth = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnNorth.setVisible(false);
+//        btnNorth.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnNorth.setKlikniety(true);
+//            }
+//        });
+//
+//        btnSouth = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnSouth.setVisible(false);
+//        btnSouth.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnSouth.setKlikniety(true);
+//            }
+//        });
+//
+//        btnEast = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnEast.setVisible(false);
+//        btnEast.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnEast.setKlikniety(true);
+//            }
+//        });
+//
+//        btnWest = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnWest.setVisible(false);
+//        btnWest.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnWest.setKlikniety(true);
+//            }
+//        });
+//
+//        btnNorthEast = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnNorthEast.setVisible(false);
+//        btnNorthEast.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnNorthEast.setKlikniety(true);
+//            }
+//        });
+//
+//        btnNorthWest = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnNorthWest.setVisible(false);
+//        btnNorthWest.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnNorthWest.setKlikniety(true);
+//            }
+//        });
+//
+//        btnSouthEast = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnSouthEast.setVisible(false);
+//        btnSouthEast.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnSouthEast.setKlikniety(true);
+//            }
+//        });
+//
+//        btnSouthWest = new ButtonActor(this.btnGoTex, 0, 0);
+//        btnSouthWest.setVisible(false);
+//        btnSouthWest.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnSouthWest.setKlikniety(true);
+//            }
+//        });
+//
+//        btnCancel = new ButtonActor(this.cancelTex, 0, 0);
+//        btnCancel.setVisible(false);
+//        btnCancel.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                btnCancel.setKlikniety(true);
+//            }
+//        });
+//    }
 
     private void utworzItemki() {
         texHead = new Texture("items/texHead.png");

@@ -4,16 +4,21 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.Bohater;
@@ -191,9 +196,23 @@ public class MapScreen implements Screen {
         }
         usunBohaterowGraczyGO();
         
+        przesunKamereNadBohatera();
+        
         // zmiana ikony gracza na górnej belce
         this.ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());
+    }
+    
+    /**
+     * Przesuwa kamerę nad bohatera
+     */
+    public void przesunKamereNadBohatera(){
+        Camera cam = stage01.getCamera();
+        System.out.println(cam.position);
+        //cam.translate(100, 100, 0);
+        float xCord = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(0).getX();
+        float yCord = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(0).getY();
         
+        cam.translate(xCord - cam.position.x + 200, yCord - cam.position.y + 100, 0);        
     }
 
     /**
@@ -249,7 +268,7 @@ public class MapScreen implements Screen {
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
                 if (gs.getMapa().getPola()[i][j].getBohater() != null) {
-                    gs.getMapa().getPola()[i][j].getBohater().wylaczPrzyciski();
+                    //gs.getMapa().getPola()[i][j].getBohater().wylaczPrzyciski();
                     gs.getMapa().getPola()[i][j].getBohater().setZaznaczony(false);
                 }
             }
@@ -329,28 +348,28 @@ public class MapScreen implements Screen {
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
     private void dodajDoStage01() {
-        // Dodaje predefiniowane przyciski w obiekcie klasy Assets do Stage01
-        // Przyciski ataku
-        stage01.addActor(a.btnAtcNorth);
-        stage01.addActor(a.btnAtcSouth);
-        stage01.addActor(a.btnAtcEast);
-        stage01.addActor(a.btnAtcWest);
-        stage01.addActor(a.btnAtcNorthEast);
-        stage01.addActor(a.btnAtcNorthWest);
-        stage01.addActor(a.btnAtcSouthEast);
-        stage01.addActor(a.btnAtcSouthWest);
-        // Przyciski ruchu
-        stage01.addActor(a.btnNorth);
-        stage01.addActor(a.btnSouth);
-        stage01.addActor(a.btnEast);
-        stage01.addActor(a.btnWest);
-        stage01.addActor(a.btnNorthEast);
-        stage01.addActor(a.btnNorthWest);
-        stage01.addActor(a.btnSouthEast);
-        stage01.addActor(a.btnSouthWest);
-        // Przycisk Cancel
-        stage01.addActor(a.btnCancel);
-        //stage01.addActor(window);
+//        // Dodaje predefiniowane przyciski w obiekcie klasy Assets do Stage01
+//        // Przyciski ataku
+//        stage01.addActor(a.btnAtcNorth);
+//        stage01.addActor(a.btnAtcSouth);
+//        stage01.addActor(a.btnAtcEast);
+//        stage01.addActor(a.btnAtcWest);
+//        stage01.addActor(a.btnAtcNorthEast);
+//        stage01.addActor(a.btnAtcNorthWest);
+//        stage01.addActor(a.btnAtcSouthEast);
+//        stage01.addActor(a.btnAtcSouthWest);
+//        // Przyciski ruchu
+//        stage01.addActor(a.btnNorth);
+//        stage01.addActor(a.btnSouth);
+//        stage01.addActor(a.btnEast);
+//        stage01.addActor(a.btnWest);
+//        stage01.addActor(a.btnNorthEast);
+//        stage01.addActor(a.btnNorthWest);
+//        stage01.addActor(a.btnSouthEast);
+//        stage01.addActor(a.btnSouthWest);
+//        // Przycisk Cancel
+//        stage01.addActor(a.btnCancel);
+//        //stage01.addActor(window);
 
         // Dodaje do planszy info window z assetów do wyświetlania info o skrzynce ze skarbem
         stage01.addActor(a.getInfoWindow());
@@ -403,6 +422,11 @@ public class MapScreen implements Screen {
         Mob mob2 = new Mob(a.texSzkieletMob, gs, a, 0, 300);
         gs.getMapa().getPola()[0][3].setMob(mob2);
         stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
+        
+        //new TextureRegionDrawable
+        
+        
+        
 
         // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
         // zamków
@@ -427,6 +451,10 @@ public class MapScreen implements Screen {
                 stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
                 break;
         }
+        
+//        ImageButton ib = new ImageButton(new TextureRegionDrawable(new TextureRegion(a.moveIcon)));
+//        ib.setPosition(100, 100);
+//        stage01.addActor(ib);
     }
 
     // generuje zamki 2 dwóch podstawowych graczy

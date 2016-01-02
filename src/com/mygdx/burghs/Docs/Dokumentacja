@@ -75,6 +75,8 @@ SCHMAT RUCHU:
         - sprawdzPrzyciskAtcNorth/South/West ... itp ..()
     W każdej z tych metod wyołąne zostają odpowiednio metody ruchu lub ataku.
 
+RUCH (nowe wersja)
+
 PASEK ENERGII BOHATERA
     Kod odpowiedzialny za aktualizacja paska jest w Bohater.aktualizujTeksture().
     Metoda ta wywoływana jest w Bohater.draw() tylko raz (podczas tworzenia
