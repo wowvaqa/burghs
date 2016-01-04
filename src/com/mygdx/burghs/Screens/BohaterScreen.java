@@ -327,8 +327,8 @@ public class BohaterScreen implements Screen {
     // Jeżeli true zwraca referencje do zaznaczonego bohatera.
     private Bohater sprawdzBohatera() {
         Bohater bohater = null;
-        for (Gracz g : gs.getGracze()) {
-            for (Bohater b : g.getBohaterowie()) {
+        for (Gracz gracz : gs.getGracze()) {
+            for (Bohater b : gracz.getBohaterowie()) {
                 if (b.isZaznaczony()) {
                     return b;
                 }

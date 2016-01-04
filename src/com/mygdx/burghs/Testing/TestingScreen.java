@@ -21,6 +21,15 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
+import com.mygdx.burghs.Mapa;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,7 +45,10 @@ public class TestingScreen implements Screen {
 
     private final Stage stage01 = new Stage();
 
+    private TextButton btnMapEditor;
     private TextButton btnExit;
+    private TextButton btnSerylizacja;
+    private TextButton btnOdczytSerylizacji;
 
     private Table tabela = new Table();
     private final Assets a;
@@ -49,13 +61,9 @@ public class TestingScreen implements Screen {
 
     public TestingScreen(Game g, Assets a, GameStatus gs) {
         
-        //pm = new Pixmap(200, 200, Format.RGBA8888);
         pm = new Pixmap(Gdx.files.internal("mobElfTex.png"));
         
-        //pm.setColor(0, 1, 0, 0.75f);
         pm.setColor(Color.RED);
-        //pm.fillCircle(10, 10, 10);
-        //pm.drawRectangle(0, 0, 10, 20);        
         pm.fillRectangle(0, 0, 10, 100);
         pm.setColor(Color.WHITE);
         pm.fillRectangle(1, 1, 8, 90);
@@ -91,6 +99,14 @@ public class TestingScreen implements Screen {
     }
 
     private void makeButtons() {
+        btnMapEditor = new TextButton("MapEditor", a.skin);
+        btnMapEditor.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                g.setScreen(Assets.mapEditor);
+            }
+        });
+        
         btnExit = new TextButton("EXIT", a.skin);
         btnExit.setPosition(1, 1);
         btnExit.setSize(200, 100);
@@ -100,6 +116,48 @@ public class TestingScreen implements Screen {
                 g.setScreen(Assets.mainMenuScreen);
             }
         });
+        
+        btnSerylizacja = new TextButton("Serylizacja", a.skin);
+        btnSerylizacja.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Mapa mapa = new Mapa();
+                
+                try {
+                    ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("d:\\mapa.dat"));
+                    wy.writeObject(mapa);
+                    System.out.println("serylizacja obiektu");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        btnOdczytSerylizacji = new TextButton("Odczyt Serylizacji", a.skin);
+        btnOdczytSerylizacji.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Mapa mapa = null;
+                
+                try {
+                    ObjectInputStream we = new ObjectInputStream(new FileInputStream("d:\\mapa.dat"));
+                    mapa = (Mapa)we.readObject();
+                    System.out.println("odczyt obiektu");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                System.out.println(mapa.getIloscPolX() + " " + mapa.getIloscPolY());
+            }
+            
+        });
+        
     }
 
     private void formatujTabele() {
@@ -107,6 +165,11 @@ public class TestingScreen implements Screen {
         tabela.pad(10);
 
         tabela.add(new Label("Testowanie funkcji", a.skin)).expand().align(Align.top);
+        tabela.row();
+        tabela.add(btnSerylizacja);
+        tabela.add(btnOdczytSerylizacji);
+        tabela.row();
+        tabela.add(btnMapEditor);
         tabela.row();
         tabela.add(btnExit).width(200).height(50).space(300);
 

@@ -39,7 +39,7 @@ public class MapScreen implements Screen {
     private final GameStatus gs;
     private final Game g;
 
-    private Stage stage01 = new Stage();  // wyświetla mapę i playera
+    private final Stage stage01 = new Stage();  // wyświetla mapę i playera
     private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu            
 
     private final TextButton btnExit;
@@ -368,8 +368,6 @@ public class MapScreen implements Screen {
                 teren.add(new DefaultActor(a.trawaTex, x * 100, y * 100));
             } else if (a.mapa[i] == 3) {
                 teren.add(new DefaultActor(a.trawaTex, x * 100, y * 100));
-                // Stare wywołanie utworzenia zamku
-                //teren.add(new DefaultActor(a.trawaZamekTex, x * 100, y * 100));
             } else {
                 teren.add(new DefaultActor(a.trawaGoraTex, x * 100, y * 100));
             }
@@ -395,11 +393,6 @@ public class MapScreen implements Screen {
         Mob mob2 = new Mob(a.texSzkieletMob, gs, a, 0, 300);
         gs.getMapa().getPola()[0][3].setMob(mob2);
         stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
-        
-        //new TextureRegionDrawable
-        
-        
-        
 
         // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
         // zamków

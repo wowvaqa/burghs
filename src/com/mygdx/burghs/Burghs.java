@@ -7,6 +7,7 @@ import com.badlogic.gdx.Game;
 import com.mygdx.burghs.Screens.ItemScreen;
 import com.mygdx.burghs.Screens.NewBohaterScreen;
 import com.mygdx.burghs.Screens.NewGameScreen;
+import com.mygdx.burghs.Testing.MapEditor;
 import com.mygdx.burghs.Testing.TestingScreen;
 
 public class Burghs extends Game {
@@ -23,6 +24,7 @@ public class Burghs extends Game {
     private ItemScreen itemScreen;
     private TestingScreen testScreen;
     private NewBohaterScreen newBohaterScreen;
+    private MapEditor mapEditor;
     // zmienna informująca czy ma zostać uruchomione tworzenie nowej mapy
     private final boolean nieWywolujTworzeniaMapy = false;
 
@@ -36,6 +38,7 @@ public class Burghs extends Game {
         itemScreen = new ItemScreen(this.a, this.gs, this);
         testScreen = new TestingScreen(this, this.a, this.gs);
         newBohaterScreen = new NewBohaterScreen(this, this.gs, this.a, Assets.stage01MapScreen);
+        mapEditor = new MapEditor(this, this.a);
         
         Assets.testScreen = testScreen;
         Assets.mainMenuScreen = mainScreen;
@@ -44,6 +47,7 @@ public class Burghs extends Game {
         Assets.bohaterScreen = bohaterScreen;
         Assets.itemScreen = itemScreen;
         Assets.newBohaterScreen = newBohaterScreen;
+        Assets.mapEditor = mapEditor;
         
         this.setScreen(mainScreen);
     }

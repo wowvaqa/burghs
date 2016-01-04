@@ -1,17 +1,39 @@
 package com.mygdx.burghs;
 
 // Klasa Mapa przechowuje obiekty Klasy Pole
-public final class Mapa {
 
-    private int iloscPolX = 0;
-    private int iloscPolY = 0;
+import java.io.Serializable;
+
+public final class Mapa implements Serializable{
+
+    private int iloscPolX = 10;
+    private int iloscPolY = 10;
 
     public Pole[][] pola;
 
+    /**
+     * Tworzy mapę domyślną 10x10 pól
+     */
     public Mapa() {
-        this.generujMape(10, 10);
+        this.generujMape(iloscPolX, iloscPolY);        
+    }
+    
+    /**
+     * Tworzy mapę z zadeklarowanych wartości ilości pól.
+     * @param iloscPolX Ilość pól w osi X
+     * @param iloscPolY Ilość pól w osi Y
+     */
+    public Mapa(int iloscPolX, int iloscPolY) {
+        this.iloscPolX = iloscPolX;
+        this.iloscPolY = iloscPolY;
+        this.generujMape(this.iloscPolX, this.iloscPolY);
     }
 
+    /**
+     * Generuje mapę z zadanych ilości pól.
+     * @param iloscPolX
+     * @param iloscPolY 
+     */
     public void generujMape(int iloscPolX, int iloscPolY) {
         this.iloscPolX = iloscPolX;
         this.iloscPolY = iloscPolY;

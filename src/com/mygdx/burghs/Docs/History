@@ -20,11 +20,18 @@ version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
-version 0.0021 020122016 DONE
+version 0.0023
+        1. Przeprojektowanie tworzenia w grze mapy(Wykorzystanie mapy z pliku).
+
+version 0.0022 04012016 DONE
+DONE    1. Dodanie pdst. edytora map. 
+DONE    2. DOdanie zapisu wygenerowanej mapy do pliku.
+
+version 0.0021 02012016 DONE
 DONE    1. Usunięcie starych metod ruchu/ataku bohatera.
 
 version 0.0020 02012016 DONE
-DONE    1. Przeprojektowanie ruchu/ataku bohatera
+DONE    1. Przeprojektowanie ruchu/ataku bohatera.
 
 version 0.0019 01012016 DONE
 DONE    1. Po zmianie tury kamera przesuwa się nad bohatera następnego gracza.
