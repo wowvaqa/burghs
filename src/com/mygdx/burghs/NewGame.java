@@ -80,6 +80,8 @@ public class NewGame {
             case Lowca:
                 return KlasyPostaci.Twierdza;
             case Twierdza:
+                return KlasyPostaci.Czarodziej;
+            case Czarodziej:
                 return KlasyPostaci.Berserk;
         }
         return KlasyPostaci.Berserk;
@@ -94,13 +96,16 @@ public class NewGame {
     static public KlasyPostaci poprzedniaKlasaPostaci(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return KlasyPostaci.Twierdza;
+                return KlasyPostaci.Czarodziej;
             case Obronca:
                 return KlasyPostaci.Berserk;
             case Lowca:
                 return KlasyPostaci.Obronca;
             case Twierdza:
                 return KlasyPostaci.Lowca;
+            case Czarodziej:
+                return KlasyPostaci.Twierdza;
+
         }
         return KlasyPostaci.Berserk;
     }
@@ -121,6 +126,8 @@ public class NewGame {
                 return new DefaultActor(a.mobDwarfTex, 0, 0);
             case Twierdza:
                 return new DefaultActor(a.mobOrkTex, 0, 0);
+            case Czarodziej:
+                return new DefaultActor(a.mobWizardTex, 0, 0);
         }
         return null;
     }
@@ -141,6 +148,8 @@ public class NewGame {
                 return "Lowca";
             case Twierdza:
                 return "Twierdza";
+            case Czarodziej:
+                return "Czarodziej";
         }
         return "error";
     }
@@ -161,6 +170,8 @@ public class NewGame {
                 return 5;
             case Twierdza:
                 return 5;
+            case Czarodziej:
+                return 3;
         }
         return 0;
     }
@@ -180,6 +191,8 @@ public class NewGame {
             case Lowca:
                 return 5;
             case Twierdza:
+                return 5;
+            case Czarodziej:
                 return 5;
         }
         return 0;
@@ -201,6 +214,8 @@ public class NewGame {
                 return 6;
             case Twierdza:
                 return 5;
+            case Czarodziej:
+                return 5;
         }
         return 0;
     }
@@ -221,6 +236,29 @@ public class NewGame {
                 return 10;
             case Twierdza:
                 return 15;
+            case Czarodziej:
+                return 10;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param kP
+     * @return
+     */
+    static public int pobierzMane(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
+                return 5;
+            case Obronca:
+                return 5;
+            case Lowca:
+                return 5;
+            case Twierdza:
+                return 5;
+            case Czarodziej:
+                return 10;
         }
         return 0;
     }
@@ -239,10 +277,10 @@ public class NewGame {
         gs.czyUtworzonoMape = true;
 
         // Dodoaje nowych graczy wg. ilości zadeklarowanej
-        for (int i = 0; i < gs.iloscGraczy; i++) {            
+        for (int i = 0; i < gs.iloscGraczy; i++) {
             gs.gracze.add(new Gracz(i));
             gs.gracze.get(i).setNumerGracza(i);
-            
+
 //            
             //System.out.println(gs.gracze.size());
         }
@@ -250,6 +288,7 @@ public class NewGame {
         for (int i = 0; i < gs.gracze.size(); i++) {
             // tymczasowa tekstura przekazana do konstruktora nowego bohatera
             Texture tmpTex = null, tmpTexZazanaczony = null;
+            KlasyPostaci tmpKlasaPostaci = null;
             // tymczasowa tekstura do określenia lokacji początkowej gracza
             int lokPoczatkowaX = 0, lokPoczatkowaY = 0;
 
@@ -260,29 +299,35 @@ public class NewGame {
                     lokPoczatkowaY = 0;
                     tmpTex = getTeksturaBohatera(klasaPostaciGracz01);
                     tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz01);
+                    tmpKlasaPostaci = klasaPostaciGracz01;
                     break;
                 case 1:
                     lokPoczatkowaX = 900;
                     lokPoczatkowaY = 900;
                     tmpTex = getTeksturaBohatera(klasaPostaciGracz02);
                     tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz02);
+                    tmpKlasaPostaci = klasaPostaciGracz02;
                     break;
                 case 2:
                     lokPoczatkowaX = 0;
                     lokPoczatkowaY = 900;
                     tmpTex = getTeksturaBohatera(klasaPostaciGracz03);
                     tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz03);
+                    tmpKlasaPostaci = klasaPostaciGracz03;
                     break;
                 case 3:
                     lokPoczatkowaX = 900;
                     lokPoczatkowaY = 0;
                     tmpTex = getTeksturaBohatera(klasaPostaciGracz04);
                     tmpTexZazanaczony = getTeksturaBohateraZaznaczonego(klasaPostaciGracz04);
+                    tmpKlasaPostaci = klasaPostaciGracz04;
                     break;
             }
-            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs, g));
+            gs.gracze.get(i).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs, g, tmpKlasaPostaci));
             // Ustala do którego gracza z tablicy graczy należy bohater
             gs.gracze.get(i).getBohaterowie().get(0).setPrzynaleznoscDoGracza(i);
+            gs.gracze.get(i).getBohaterowie().get(0).setKlasyPostaci(tmpKlasaPostaci);
+            System.out.println(tmpKlasaPostaci.toString() + "Klasa postaci: ");
 
             ustawPozycjeNaMapie(gs, i);
         }
@@ -354,6 +399,8 @@ public class NewGame {
             gs.gracze.get(i).getBohaterowie().get(0).setActualHp(pobierzHp(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setSzybkosc(pobierzSzybkosc(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setPozostaloRuchow(pobierzSzybkosc(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setMana(pobierzMane(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setActualMana(pobierzMane(tmpKp));
 
             switch (i) {
                 case 0:
@@ -388,6 +435,8 @@ public class NewGame {
                 return a.mobDwarfTex;
             case Twierdza:
                 return a.mobOrkTex;
+            case Czarodziej:
+                return a.mobWizardTex;
         }
         return null;
     }
@@ -408,6 +457,8 @@ public class NewGame {
                 return a.mobDwarfTexZaznaczony;
             case Twierdza:
                 return a.mobOrkTexZaznaczony;
+            case Czarodziej:
+                return a.mobWizardTexZaznaczony;
         }
         return null;
     }

@@ -52,30 +52,16 @@ KONIEC GRY:
         - Gracz pomijany jest przy kolejnych turach.
 
 SCHMAT RUCHU:
-    1. Przyciski ruchu/ataku zdefiniowane są w klasie Assets. 
-    Ich instacncje są tworzone w konstruktorze klasy Assets.
-    Każdy przycisk ma dodany interfejs ClickListner. 
-    Niewidzialne przyciski dodawane są do Stage01 w obiekcie MapScreen w 
-    metodzie MapScreen.dodajDoStage01()
-
-    2. Po kliknięciu w przycisk atrybut BOOL setKlikniety przycisku jest 
-    ustawiany na TRUE.
-    
-    3. Po kliknięciu na bohatera wywołana zostaje metoda 
-    Bohater.definiujPrzyciski() która sprawdza sąsiadujące z obiektem Bohatera
-    pola na mapie i w zależności od sytuacji włącza przyciski ataku lub ruchu 
-    ustawiająci ich pozycję względem bohatera.
-    
-    4. Po włączeniu przycisków (status visible przycisku TRUE) gra oczekuje na
-    kliknięcie przycisku. Sprawdzenie czy przycisk został kliknięty odbywa się
-    w metodzie Bohater.draw().
-    Kiedy stwierdzone zostaje że atrybut setKlikniety przycisku jest TRUE
-    następuje wywołanie metody dla każdego przycisku:
-        - sprawdzPrzyciskNorth/South/West ... itp ...()
-        - sprawdzPrzyciskAtcNorth/South/West ... itp ..()
-    W każdej z tych metod wyołąne zostają odpowiednio metody ruchu lub ataku.
-
-RUCH (nowe wersja)
+    Zarządzaniem ruchu i ataku bohatera zajmuje się obiekt klasy RUCH.
+    DZIAŁANIE:
+        1. Po kliknięciu na ikonę bohatera utworzony zostaje nowy obiket klasy
+            RUCH.
+        2. Obiekt RUCH przeszukuje lokacje wokół bohatera i tworzy odpowiednie
+            obikety przycisków wg. zdefiniowanych klas.
+            Obiekty przycisków dodane zostają do stage.
+        3. Po kliknięciu w przycisk wykonana zostaje odpowiednia procedura
+            Ataku/Ruchu, po czym przyciski zostają usunięte.
+.
 
 PASEK ENERGII BOHATERA
     Kod odpowiedzialny za aktualizacja paska jest w Bohater.aktualizujTeksture().
@@ -115,3 +101,9 @@ NOWY BOHATER
 MOB
         Obiekt moba reprezentuje klasa Mob().
     Tymczasowe obiekty mobów tworzone są w moetodzie MapScreen.generujPlansze()
+
+    ATAK MOBA:
+        Po zaatakowaniu moba przez bohatera, zmienna BOOL czyZaatakowany 
+        przyjmuje wartość TRUE.
+        W metodzie ACT() obiketu klasy Mob() następuje wywołanie (po uprzednim
+        spełnieniu warunków) metody ataku Moba na agresora.

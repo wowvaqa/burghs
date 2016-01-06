@@ -5,5 +5,5 @@ package enums;
  * @author v
  */
 public enum TypyTerenu {
-    Trawa, Gory;
+    Trawa, Gory, Drzewo;
 }

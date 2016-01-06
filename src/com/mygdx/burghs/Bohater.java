@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.burghs.Screens.DialogScreen;
+import enums.KlasyPostaci;
 import java.util.ArrayList;
 
 /**
@@ -66,12 +67,16 @@ public class Bohater extends Actor {
     private int actualHp = 0;
     private int szybkosc = 0;
     private int pozostaloRuchow = 0;
+    private int mana = 0;
+    private int actualMana = 0;
     // aktualny poziom punktów doświadczenia
     private int exp = 0;
     // punkty potrzebne do uzyskania następnego poziomu
     private int expToNextLevel = 100;
     // pocziom doświadczenia
     private int levelOfExp = 1;
+    // klasa bohatera
+    public KlasyPostaci klasyPostaci;
 
     private int przynaleznoscDoGracza;
 
@@ -87,10 +92,11 @@ public class Bohater extends Actor {
      * @param pozycjaYnaMapie definiuje pozycje Y w obiekcie klasy Mapa
      * @param gs Referencja do obiektu klasy GameStatus
      * @param g Referencja do obiektu kalsy Game
+     * @param kp Klasa postaci
      */
     public Bohater(Texture textureIcon, Texture textureIconZaznaczona,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, Assets a,
-            int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs, Game g) {
+            int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs, Game g, KlasyPostaci kp) {
 
         this.equipment = new ArrayList<Item>();
         this.gs = gs;
@@ -102,6 +108,7 @@ public class Bohater extends Actor {
         this.g = g;
         this.pozX = lokaczjaPoczatkowaX;
         this.pozY = lokaczjaPoczatkowaY;
+        this.klasyPostaci = kp;
 
         sprite = new Sprite(this.bohaterTex);
         this.setSize(sprite.getWidth(), sprite.getHeight());
@@ -166,8 +173,8 @@ public class Bohater extends Actor {
                                 sprite.setTexture(bohaterCheckTex);
                                 zaznaczony = true;
                                 gs.setCzyZaznaczonoBohatera(true);
-                                
-                                Ruch ruch = new Ruch(gs.getBohaterZaznaczony(), a, gs);                                
+
+                                Ruch ruch = new Ruch(gs.getBohaterZaznaczony(), a, gs);
                             }
                         }
                     }
@@ -278,7 +285,31 @@ public class Bohater extends Actor {
         batch.draw(this.sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
 
-// SETTERS AND GETTERS
+    /**
+     * *************************************************************************
+     * Setters and Getters
+     **************************************************************************/
+     
+    /**
+     * Zwraca klasę postaci bohatera
+     * @return 
+     */
+    public KlasyPostaci getKlasyPostaci() {
+        return this.klasyPostaci;
+    }
+
+    /**
+     * Ustala klasę postaci dla bohatera
+     * @param klasyPostaci
+     */
+    public void setKlasyPostaci(KlasyPostaci klasyPostaci) {
+        this.klasyPostaci = klasyPostaci;
+    }
+
+    /**
+     *
+     * @return
+     */
     public Pixmap getPixMap() {
         return pixMap;
     }
@@ -471,6 +502,38 @@ public class Bohater extends Actor {
         this.szybkosc = szybkosc;
     }
 
+    /**
+     * Zwraca maksymalny poziom punktów many.
+     * @return 
+     */
+    public int getMana() {
+        return mana;
+    }
+
+    /**
+     * Ustala maksymalny poziom punktów many
+     * @param mana 
+     */
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    /**
+     * Zwraca ilość punktów many
+     * @return 
+     */
+    public int getActualMana() {
+        return actualMana;
+    }
+
+    /**
+     * Ustala ilość punktów many
+     * @param actualMana 
+     */
+    public void setActualMana(int actualMana) {
+        this.actualMana = actualMana;
+    }    
+    
     /**
      * Sprawdza czy bohater jest zaznaczony
      *

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -20,7 +19,6 @@ public class Castle extends Actor {
 
     private final Sprite sprite;
     private final Assets a;
-    private final Stage stage;
 
     private int maxHp = 5;
     private int actualHp = 5;
@@ -30,19 +28,17 @@ public class Castle extends Actor {
 
     /**
      *
-     * @param stage
      * @param a
      * @param x
      * @param y
      * @param wlascicielZamku
      */
-    public Castle(Stage stage, Assets a, int x, int y, int wlascicielZamku) {
+    public Castle(Assets a, int x, int y, int wlascicielZamku) {
         this.przynaleznoscDoGracza = wlascicielZamku;
         this.sprite = new Sprite(a.trawaZamekTex);
         this.setSize(sprite.getWidth(), sprite.getHeight());
         this.setPosition(x, y);
         this.a = a;
-        this.stage = stage;
 
         this.dodajListnera();
 
@@ -113,8 +109,7 @@ public class Castle extends Actor {
                             this.remove();
                         }
                     }
-
-                }.show(stage);
+                }.show(Assets.stage01MapScreen);
             }
         });
     }

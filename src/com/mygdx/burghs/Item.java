@@ -35,6 +35,7 @@ public class Item extends Actor {
     private int szybkosc = 0;
     private int gold = 0;
     private int zasieg = 0;
+    private int level = 0;
 
     public Item(Texture teksura, final Assets a, final GameStatus gs, final Game g) {
         this.g = g;
@@ -45,21 +46,45 @@ public class Item extends Actor {
         final Item qpa = this;
 
         this.addListener(new ClickListener(){
-            GameStatus tmpGs = gs;
-            //final tmpItem = this;
+            GameStatus tmpGs;
+            {
+                this.tmpGs = gs;
+            }
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //tmpGs.setLastScreen(5);
                 Assets.lastScreen = g.getScreen();
-                //tmpGs.setActualScreen(6);
                 tmpGs.setItem(qpa);
                 g.setScreen(Assets.itemScreen);                
             }            
         });
     }
 
-    // Setters and Getters
+
+    /***************************************************************************
+     * Setters and Getters
+     **************************************************************************/
+    
+    /**
+     * Zwracza poziom itemka
+     * @return 
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * Ustala poziom itemka
+     * @param level 
+     */
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    /**
+     * Zwraca nazwę itemka
+     * @return 
+     */
     public String getNazwa() {
         return nazwa;
     }

@@ -16,23 +16,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class Ruch {
 
-    private final Bohater bohater;    
+    private final Bohater bohater;
     private final Assets a;
     private final GameStatus gs;
 
     /**
-     * 
+     *
      * @param bohater Referencja do obiektu klasy Bohater, którego dot. ruch.
      * @param a Referencja do obiketu klasy Assets
      * @param gs Refernecja do obiektu klasy GameStatus
      */
     public Ruch(Bohater bohater, Assets a, GameStatus gs) {
-        this.bohater = bohater;        
+        this.bohater = bohater;
         this.a = a;
         this.gs = gs;
 
         int pozX = this.bohater.getPozXnaMapie();
-        int pozY = this.bohater.getPozYnaMapie();        
+        int pozY = this.bohater.getPozYnaMapie();
 
         for (int i = pozX - 1; i < pozX + 1 + 1; i++) {
             for (int j = pozY - 1; j < pozY + 1 + 1; j++) {
@@ -48,11 +48,30 @@ public class Ruch {
                             PrzyciskRuchu przyciskRuchu = new PrzyciskRuchu(new TextureRegionDrawable(new TextureRegion(a.moveIcon)), i, j, bohater, this);
                             przyciskRuchu.setPosition(i * 100, j * 100);
                             Assets.stage01MapScreen.addActor(przyciskRuchu);
-                        } else {
-                            przyciskAtaku przyciskAtaku = new przyciskAtaku(new TextureRegionDrawable(new TextureRegion(a.attackIcon)), i, j, bohater, this.a);
-                            przyciskAtaku.setPosition(i * 100, j * 100);
-                            Assets.stage01MapScreen.addActor(przyciskAtaku);
-                        }
+                        } 
+                    }
+                }
+            }
+        }
+        
+        int zasiegPrawy = this.bohater.getItemPrawaReka().getZasieg();
+        int zasiegLewy = this.bohater.getItemLewaReka().getZasieg();
+        int zasieg;
+        if (zasiegLewy >= zasiegPrawy){
+            zasieg = zasiegLewy;
+        } else {
+            zasieg = zasiegPrawy;
+        }
+        
+                
+        for (int i = pozX - 1 - zasieg; i < pozX + 1 + 1 + zasieg; i++) {
+            for (int j = pozY - 1 - zasieg; j < pozY + 1 + 1 + zasieg; j++) {
+                if (i >= 0 && j >= 0 && i < gs.getMapa().getIloscPolX() && j < gs.getMapa().getIloscPolY()) {
+
+                    if (sprawdzPrzeciwnika(i, j)) {
+                        przyciskAtaku przyciskAtaku = new przyciskAtaku(new TextureRegionDrawable(new TextureRegion(a.attackIcon)), i, j, bohater, this.a);
+                        przyciskAtaku.setPosition(i * 100, j * 100);
+                        Assets.stage01MapScreen.addActor(przyciskAtaku);
                     }
                 }
             }
@@ -60,11 +79,12 @@ public class Ruch {
     }
 
     /**
-     * Zwraca True jeżeli w zadanej lokalizacji znajduje się obiekt kalsy
-     * Mob, Bohater lub Castle
+     * Zwraca True jeżeli w zadanej lokalizacji znajduje się obiekt kalsy Mob,
+     * Bohater lub Castle
+     *
      * @param x Pozycja X obiektu do sprawdzenia na mapie
      * @param y Pozycja Y obiektu do sprawdzenia na mapie
-     * @return 
+     * @return
      */
     private boolean sprawdzPrzeciwnika(int x, int y) {
         if (gs.getMapa().getPola()[x][y].getBohater() != null
@@ -72,26 +92,26 @@ public class Ruch {
             return true;
         }
         /**
-         * Zwraca true jeżeli napotkany zamek nie należy do gracza i jego
-         * poziom HP > 0
+         * Zwraca true jeżeli napotkany zamek nie należy do gracza i jego poziom
+         * HP > 0
          */
         if (gs.getMapa().getPola()[x][y].getCastle() != null
                 && gs.getMapa().getPola()[x][y].getCastle().getPrzynaleznoscDoGracza() != gs.getTuraGracza()
-                && gs.getMapa().getPola()[x][y].getCastle().getActualHp() > 0 ) {
+                && gs.getMapa().getPola()[x][y].getCastle().getActualHp() > 0) {
             return true;
         }
         return gs.getMapa().getPola()[x][y].getMob() != null;
     }
 
     /**
-     * Wyłącza przycisku Ruchu, Ataku, Cancel na Stage01 
+     * Wyłącza przycisku Ruchu, Ataku, Cancel na Stage01
      */
     public static void wylaczPrzyciski() {
         int rozmiar = Assets.stage01MapScreen.getActors().size;
         // Infromuje czy wśród aktorów stage 01 są jeszcze przyciski
         boolean czySaPrzyciski;
 
-        do {            
+        do {
             czySaPrzyciski = false;
             for (int i = 0; i < rozmiar; i++) {
                 if (Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class) {
@@ -101,7 +121,7 @@ public class Ruch {
             }
             for (int i = 0; i < Assets.stage01MapScreen.getActors().size; i++) {
                 //czySaPrzyciski = Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class;
-                if ( Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class){
+                if (Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class) {
                     System.out.println("Przycisk " + i);
                     czySaPrzyciski = true;
                 }
@@ -220,7 +240,7 @@ public class Ruch {
             bohater.setZaznaczony(false);
             bohater.setPozostaloRuchow(bohater.getPozostaloRuchow() - 1);
 
-            Ruch.wylaczPrzyciski();            
+            Ruch.wylaczPrzyciski();
         }
     }
 
@@ -237,7 +257,8 @@ public class Ruch {
 
         /**
          * Tworzy przycisk ataku i umieszca go zadanej lokalizacji na stage
-         * @param imageUp Tekstura (drawable) 
+         *
+         * @param imageUp Tekstura (drawable)
          * @param locX lokacja X przycisku na Stage
          * @param locY lokacja Y przycisku na Stage
          * @param bohater bohater którego dotyczy przycisk
@@ -248,11 +269,11 @@ public class Ruch {
             this.locX = locX;
             this.locY = locY;
             this.bohater = bohater;
-            this.a = a;            
+            this.a = a;
         }
 
         /**
-         *  Wykonuje atak         
+         * Wykonuje atak
          */
         private void wykonajAtak() {
 
@@ -270,16 +291,17 @@ public class Ruch {
             this.bohater.getSprite().setTexture(bohater.getBohaterTex());
             this.bohater.setZaznaczony(false);
 
-            this.usunMartweMoby();
+            gs.usunMartweMoby();
             Ruch.wylaczPrzyciski();
         }
 
         /**
          * Zwraca Obiekt jeżeli w zadanym Polu znajduje się obiekt klasy Mob,
          * Bohater lub Castle
+         *
          * @param x Lokacja X obiektu do sprawdzenia.
          * @param y Lokacja Y obiektu do sprawdzenia.
-         * @return 
+         * @return
          */
         private Object sprawdzPrzeciwnika(int x, int y) {
             if (gs.getMapa().getPola()[x][y].getMob() != null) {
@@ -295,39 +317,6 @@ public class Ruch {
                 return gs.getMapa().getPola()[x][y].getCastle();
             }
             return null;
-        }
-
-        /**
-         * Usuwa Moby lub Bohaterów których HP < 0
-         */
-        private void usunMartweMoby() {
-            for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
-                for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
-                    if (gs.getMapa().pola[i][j].getMob() != null) {
-                        if (gs.getMapa().pola[i][j].getMob().getAktualneHp() <= 0) {
-                            gs.getMapa().pola[i][j].setMob(null);
-                        }
-                    }
-                }
-            }
-            for (int j = 0; j < Assets.stage01MapScreen.getActors().size; j++) {
-                if (Assets.stage01MapScreen.getActors().get(j).getClass() == Mob.class) {
-                    Mob tmpMob = (Mob) Assets.stage01MapScreen.getActors().get(j);
-                    if (tmpMob.getAktualneHp() < 1) {
-                        Assets.stage01MapScreen.getActors().removeIndex(j);
-                    }
-                }
-            }
-
-            for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
-                for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
-                    if (gs.getMapa().pola[i][j].getBohater() != null) {
-                        if (gs.getMapa().pola[i][j].getBohater().getActualHp() <= 0) {
-                            gs.getMapa().pola[i][j].setBohater(null);
-                        }
-                    }
-                }
-            }
         }
 
         @Override
@@ -351,7 +340,7 @@ public class Ruch {
         private final Bohater bohater;
 
         /**
-         * 
+         *
          * @param imageUp Obrazek przycisku
          * @param bohater Referencja do obiektu klasy Bohater którego dotyczy
          * przycisk

@@ -37,7 +37,6 @@ public class NewBohaterScreen implements Screen {
     private final Assets a;
     private final GameStatus gs;
     private final Game g;
-    private final Stage stage;
     private final Stage stage01;
 
     private final Table tabela01 = new Table();
@@ -57,7 +56,6 @@ public class NewBohaterScreen implements Screen {
         this.a = a;
         this.gs = gs;
         this.g = g;
-        this.stage = stage;
 
         c = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), c);
@@ -182,7 +180,7 @@ public class NewBohaterScreen implements Screen {
         tmpTex = NewGame.getTeksturaBohatera(klasaPostaciGracz01);
         tmpTexZazanaczony = NewGame.getTeksturaBohateraZaznaczonego(klasaPostaciGracz01);
         
-        gs.gracze.get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs, g));
+        gs.gracze.get(gs.getTuraGracza()).getBohaterowie().add(new Bohater(tmpTex, tmpTexZazanaczony, lokPoczatkowaX, lokPoczatkowaY, a, 0, 0, gs, g, klasaPostaciGracz01));
 
         int bohGracza = gs.getTuraGracza();
         int wymTabBoh = gs.gracze.get(gs.getTuraGracza()).getBohaterowie().size() - 1;

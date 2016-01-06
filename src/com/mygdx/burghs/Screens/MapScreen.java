@@ -25,13 +25,14 @@ import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Gracz;
 import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.TresureBox;
+import enums.TypyTerenu;
 import java.util.ArrayList;
 
 public class MapScreen implements Screen {
-    
+
     private DefaultActor gornaBelka;
     //private DefaultActor prawaBelka;
-    
+
     private final OrthographicCamera c;
     private final FitViewport viewPort;
 
@@ -53,7 +54,7 @@ public class MapScreen implements Screen {
     private final Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
-    
+
     // ikona gracza który aktualnie posiada swoją kolej 
     private final DefaultActor ikonaGracza;
     private final DefaultActor ikonaGold;
@@ -64,16 +65,16 @@ public class MapScreen implements Screen {
         this.a = a;
         this.gs = gs;
         this.g = g;
-        
+
         utworzInterfejs();
-        
-        ikonaGracza = new DefaultActor(a.btnAttackTex, 0, 0);        
-        ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());          
+
+        ikonaGracza = new DefaultActor(a.btnAttackTex, 0, 0);
+        ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());
         ikonaGracza.setPosition(110, Gdx.graphics.getHeight() - 23);
-        
+
         ikonaGold = new DefaultActor(a.texGold, 315, Gdx.graphics.getHeight() - 25);
         ikonaGold.setSize(25, 25);
-        
+
         Assets.stage01MapScreen = this.stage01;
         Assets.stage02MapScreen = this.stage02;
 
@@ -83,9 +84,9 @@ public class MapScreen implements Screen {
         btnKupBohatera.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Dodanie nowego bohatera.");                
+                System.out.println("Dodanie nowego bohatera.");
                 g.setScreen(Assets.newBohaterScreen);
-            }            
+            }
         });
 
         // Dodaje przycisk wyjścia do planszy 02.
@@ -145,12 +146,11 @@ public class MapScreen implements Screen {
 
         generujPlansze();
         generujGraczy();
-        
+
         dodajDoStage01();
 
         gs.czyUtworzonoMape = true;
 
-        
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
@@ -162,7 +162,7 @@ public class MapScreen implements Screen {
      * Przycisk Koniec Tury
      */
     private void koniecTuryClick() {
-        
+
         if (!sprawdzCzyGraczPosiadaZamek()) {
             System.out.println("Sprawdzanie czy gracz posiada zamek.");
             // Jeżeli gracz nie będzie posiadał zamku wtedy zmianie ulegnie jego
@@ -191,24 +191,24 @@ public class MapScreen implements Screen {
             i.setPozostaloRuchow(i.getSzybkosc());
         }
         usunBohaterowGraczyGO();
-        
+
         przesunKamereNadBohatera();
-        
+
         // zmiana ikony gracza na górnej belce
         this.ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());
     }
-    
+
     /**
      * Przesuwa kamerę nad bohatera
      */
-    public void przesunKamereNadBohatera(){
+    public void przesunKamereNadBohatera() {
         Camera cam = stage01.getCamera();
         System.out.println(cam.position);
         //cam.translate(100, 100, 0);
         float xCord = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(0).getX();
         float yCord = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(0).getY();
-        
-        cam.translate(xCord - cam.position.x + 200, yCord - cam.position.y + 100, 0);        
+
+        cam.translate(xCord - cam.position.x + 200, yCord - cam.position.y + 100, 0);
     }
 
     /**
@@ -305,11 +305,11 @@ public class MapScreen implements Screen {
             }
         }
     }
-    
+
     /**
      * Tworzy wygląd interfejsu
      */
-    private void utworzInterfejs(){
+    private void utworzInterfejs() {
         Pixmap pmGornaBelka = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         pmGornaBelka.setColor(Color.LIGHT_GRAY);
         pmGornaBelka.fillRectangle(0, 0, Gdx.graphics.getWidth(), 30);
@@ -322,9 +322,9 @@ public class MapScreen implements Screen {
         pmGornaBelka.fillRectangle(Gdx.graphics.getWidth() - 240, 30, 230, 200);
         pmGornaBelka.setColor(Color.WHITE);
         pmGornaBelka.drawRectangle(Gdx.graphics.getWidth() - 240, 30, 230, 200);
-        
+
         Texture texGornaBelka = new Texture(pmGornaBelka);
-        
+
         gornaBelka = new DefaultActor(texGornaBelka, 0, Gdx.graphics.getHeight() - texGornaBelka.getHeight());
     }
 
@@ -355,28 +355,33 @@ public class MapScreen implements Screen {
         for (int i = 0; i < gs.getGracze().size(); i++) {
             stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
         }
-        
+
     }
 
+    private Texture teksturaTerenu(TypyTerenu tT){
+        System.out.println(tT);
+        switch (tT){
+            case Gory:
+                return a.trawaGoraTex;                
+            case Trawa:
+                return a.trawaTex;
+            case Drzewo:
+                return a.trawaDrzewoTex;
+        }
+        return a.trawaTex;
+    }
+    
     // wypełnia stage01 aktorami planszy
     private void generujPlansze() {
-        int y = 0;  // zmienna pomocnicza - ilość kolumn
-        int x = 0;  // zmienna pomocnicza - ilość wierszy
-
-        for (int i = 0; i < 100; i++) {
-            if (a.mapa[i] == 1) {
-                teren.add(new DefaultActor(a.trawaTex, x * 100, y * 100));
-            } else if (a.mapa[i] == 3) {
-                teren.add(new DefaultActor(a.trawaTex, x * 100, y * 100));
-            } else {
-                teren.add(new DefaultActor(a.trawaGoraTex, x * 100, y * 100));
-            }
-            stage01.addActor(teren.get(i));
-            x += 1;
-            if (x > 9) {
-                x = 0;
-                y += 1;
-            }
+        
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {                
+                teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));                
+            }            
+        }
+        
+        for (DefaultActor teren1 : teren) {
+            stage01.addActor(teren1);
         }
 
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
@@ -384,13 +389,13 @@ public class MapScreen implements Screen {
         TresureBox tb = new TresureBox(this.a, this.gs, this.g);
         gs.getMapa().getPola()[2][2].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
-        
+
         // Tymczasowa obiekt moba
-        Mob mob = new Mob(a.texWilkMob, gs, a, 300, 0);
+        Mob mob = new Mob(a.texWilkMob, gs, a, 300, 0, 1);
         gs.getMapa().getPola()[3][0].setMob(mob);
         stage01.addActor(gs.getMapa().getPola()[3][0].getMob());
-        
-        Mob mob2 = new Mob(a.texSzkieletMob, gs, a, 0, 300);
+
+        Mob mob2 = new Mob(a.texSzkieletMob, gs, a, 0, 300, 1);
         gs.getMapa().getPola()[0][3].setMob(mob2);
         stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
 
@@ -404,31 +409,27 @@ public class MapScreen implements Screen {
             // generuje zamek dla 3 graczy
             case 3:
                 generujZamki();
-                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900, 2));
+                gs.getMapa().getPola()[0][9].setCastle(new Castle(a, 0, 900, 2));
                 stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
                 break;
             // generuje zamek dla 4 graczy
             case 4:
                 generujZamki();
-                gs.getMapa().getPola()[0][9].setCastle(new Castle(this.stage01, a, 0, 900, 2));
+                gs.getMapa().getPola()[0][9].setCastle(new Castle(a, 0, 900, 2));
                 stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
 
-                gs.getMapa().getPola()[9][0].setCastle(new Castle(this.stage01, a, 900, 0, 3));
+                gs.getMapa().getPola()[9][0].setCastle(new Castle(a, 900, 0, 3));
                 stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
                 break;
         }
-        
-//        ImageButton ib = new ImageButton(new TextureRegionDrawable(new TextureRegion(a.moveIcon)));
-//        ib.setPosition(100, 100);
-//        stage01.addActor(ib);
     }
 
     // generuje zamki 2 dwóch podstawowych graczy
     private void generujZamki() {
-        gs.getMapa().getPola()[0][0].setCastle(new Castle(this.stage01, a, 0, 0, 0));
+        gs.getMapa().getPola()[0][0].setCastle(new Castle(a, 0, 0, 0));
         stage01.addActor(gs.getMapa().getPola()[0][0].getCastle());
 
-        gs.getMapa().getPola()[9][9].setCastle(new Castle(this.stage01, a, 900, 900, 1));
+        gs.getMapa().getPola()[9][9].setCastle(new Castle(a, 900, 900, 1));
         stage01.addActor(gs.getMapa().getPola()[9][9].getCastle());
     }
 
@@ -502,46 +503,46 @@ public class MapScreen implements Screen {
             stage01.getCamera().viewportWidth -= predkoscZoom;
         }
     }
-    
+
     /**
      * Metoda sortuje Zindex aktorów z ArrayList Stage01 ustawiając przyciski
      * jako te na 'górze'.
      */
-    private void sortujZindex(){
+    private void sortujZindex() {
         // Pętla szukająca przycisków
-        for (int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i).getClass() == ButtonActor.class){
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == ButtonActor.class) {
                 stage01.getActors().get(i).toBack();
             }
         }
-        
+
         // Pętla szukająca bohaterowie
-        for (int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i).getClass() == Bohater.class){
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == Bohater.class) {
                 stage01.getActors().get(i).toBack();
             }
         }
-        
-        for (int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i).getClass() == TresureBox.class){
+
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == TresureBox.class) {
                 stage01.getActors().get(i).toBack();
             }
         }
-        
-        for (int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i).getClass() == Castle.class){
+
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == Castle.class) {
                 stage01.getActors().get(i).toBack();
             }
-        }        
-        
-        for (int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i).getClass() == Mob.class){
+        }
+
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == Mob.class) {
                 stage01.getActors().get(i).toBack();
             }
-        }        
-        
-        for (int i = 0; i < stage01.getActors().size; i ++){
-            if (stage01.getActors().get(i).getClass() == DefaultActor.class){
+        }
+
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == DefaultActor.class) {
                 stage01.getActors().get(i).toBack();
             }
         }
@@ -579,10 +580,10 @@ public class MapScreen implements Screen {
     public void show() {
         this.sortujZindex();
     }
-    
+
     // Setters and Getters
     public Stage getStage01() {
         return stage01;
     }
-    
+
 }

@@ -4,16 +4,20 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.burghs.Assets;
+import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.Mapa;
 import enums.TypyTerenu;
 import java.io.FileNotFoundException;
@@ -40,7 +44,9 @@ public class MapEditor implements Screen {
     private final Table tabela = new Table();
     private final Table tabela01 = new Table();
 
+    // Przechowuje dostępne typy terenów
     private final Array array = new Array();
+    // Przechowuje typy terenu
     private final ArrayList listaPol = new ArrayList();
 
     private int iloscPolX = 10;
@@ -58,6 +64,7 @@ public class MapEditor implements Screen {
 
         array.add(TypyTerenu.Trawa);
         array.add(TypyTerenu.Gory);
+        array.add(TypyTerenu.Drzewo);
 
         this.formatujTypyTerenu();
         this.makeButtons();
@@ -70,16 +77,18 @@ public class MapEditor implements Screen {
             for (int j = 0; j < iloscPolY; j++) {
                 SelectBox sb = new SelectBox(a.skin);
                 sb.setItems(array);
-                listaPol.add(sb);
+                //listaPol.add(sb);
+                listaPol.add(new poleEdytora(a.trawaTex, 1, 1, this.stage01));
             }
         }
     }
 
+    /**
+     * Tworzy Buttony
+     */
     private void makeButtons() {
 
         btnZapiszMape = new TextButton("Zapisz Mape", a.skin);
-        //btnZapiszMape.setPosition(1, 1);
-        //btnZapiszMape.setSize(200, 100);
         btnZapiszMape.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -92,8 +101,6 @@ public class MapEditor implements Screen {
         });
 
         btnExit = new TextButton("EXIT", a.skin);
-        //btnExit.setPosition(1, 1);
-        //btnExit.setSize(200, 100);
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -148,10 +155,10 @@ public class MapEditor implements Screen {
         tabela.add(new Label("Map Editor", a.skin)).expandX().colspan(100).align(Align.top);
         tabela.row();
         tabela.add(lblIloscPolX);
-        tabela.add(lblIloscPolY);
-        tabela.row();
         tabela.add(btnMinus);
+        tabela.add(lblIloscPolY);
         tabela.add(btnPlus);
+        tabela.row();
 
         tabela.row();
         tabela.add(tabela01).colspan(100).align(Align.center);
@@ -163,21 +170,29 @@ public class MapEditor implements Screen {
     }
 
     private void formatujTeabele02() {
-        //tabela01.setFillParent(true);
         tabela01.setDebug(true);
         tabela01.pad(5);
-        //tabela01.add(new Label("Screen", a.skin)).colspan(100).align(Align.center);
 
         int j = 0;
-
-        for (Object listaPol1 : listaPol) {
+        
+        for (int i = 0; i < listaPol.size(); i ++){
+            tabela01.add((poleEdytora)listaPol.get(i));
             j += 1;
-            tabela01.add((SelectBox) listaPol1);
-            if (j > iloscPolY - 1) {
+            if (j> iloscPolY - 1){
                 j = 0;
                 tabela01.row();
             }
         }
+        
+
+//        for (Object listaPol1 : listaPol) {
+//            j += 1;
+//            tabela01.add((SelectBox) listaPol1);
+//            if (j > iloscPolY - 1) {
+//                j = 0;
+//                tabela01.row();
+//            }
+//        }
 
         tabela01.row();
     }
@@ -194,7 +209,7 @@ public class MapEditor implements Screen {
                 index += 1;
             }
         }
-        ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("d:\\mapa.dat"));
+        ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("mapa.dat"));
         wy.writeObject(mapa);
     }
 
@@ -231,5 +246,70 @@ public class MapEditor implements Screen {
     @Override
     public void dispose() {
         stage01.dispose();
+    }
+
+    /**
+     * Klasa definiuje pole mapy do edycji
+     */
+    public class poleEdytora extends DefaultActor {
+
+        private final Stage stage;
+        
+        /**
+         * @param tekstura Tekstura pola
+         * @param x Współżędna X
+         * @param y Współżędna Y
+         * @param stage Stage na której wyświetli się okno
+         */
+        public poleEdytora(Texture tekstura, int x, int y, Stage stage) {
+            super(tekstura, x, y);
+            super.setSize(30, 30);
+            this.stage = stage;
+            
+            dodajListenera();
+        }
+
+        private void dodajListenera() {
+            this.addListener(new ClickListener() {
+
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("Pole edytora klikniete");
+                    
+                    new Dialog("Edycja Pola", a.skin) {
+                    {
+                        text("Obrona: ");
+                        this.row();
+                        text("HP: ");
+                        this.row();
+                        button("Zakoncz", "zakoncz");                        
+                    }
+
+                    @Override
+                    protected void result(Object object) {
+                        if (object.equals("zakoncz")) {
+                            this.remove();
+                        }
+                    }
+                }.show(stage);
+                    
+                }                
+            });
+        }
+    }
+    
+    /**
+     * Klasa definiująca okno edycyjne, służące do edycji pól
+     */
+    public class oknoEdycyjne extends Dialog {
+
+        /**
+         * 
+         * @param title
+         * @param skin 
+         */
+        public oknoEdycyjne(String title, Skin skin) {
+            super(title, skin);
+        }
     }
 }

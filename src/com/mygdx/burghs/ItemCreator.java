@@ -56,6 +56,7 @@ public class ItemCreator {
 // KORPUS ======================================================================                
             case LnianaKoszula:
                 item.setNazwa("Lniana Koszula");
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(1);
                 item.setSzybkosc(0);
@@ -75,6 +76,7 @@ public class ItemCreator {
                 break;
             case Kij:
                 item.setNazwa("Kij");
+                item.setLevel(1);
                 item.setAtak(1);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -84,6 +86,7 @@ public class ItemCreator {
                 break;
             case Miecz:
                 item.setNazwa("Miecz");
+                item.setLevel(2);
                 item.setAtak(2);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -93,12 +96,24 @@ public class ItemCreator {
                 break;
             case Tarcza:
                 item.setNazwa("Tarcza");
+                item.setLevel(1);
                 item.setAtak(0);
-                item.setObrona(2);
+                item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texShield);
+                break;
+            case Luk:
+                item.setNazwa("Luk");
+                item.setLevel(1);
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setZasieg(1);
+                item.setCzescCiala(CzesciCiala.rece);
+                item.getSprite().setTexture(a.texBow);
                 break;
 // NOGI ========================================================================
             case Nogi:
@@ -110,8 +125,9 @@ public class ItemCreator {
                 item.setCzescCiala(CzesciCiala.nogi);
                 item.getSprite().setTexture(a.texLegs);
                 break;
-            case LnianeSpodnie:
+            case LnianeSpodnie:                
                 item.setNazwa("Lniane Spodnie");
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(1);
                 item.setSzybkosc(0);
@@ -121,6 +137,7 @@ public class ItemCreator {
                 break;
             case SkorzaneSpodnie:
                 item.setNazwa("Skorzane Spodnie");
+                item.setLevel(2);
                 item.setAtak(0);
                 item.setObrona(2);
                 item.setSzybkosc(0);
@@ -140,6 +157,7 @@ public class ItemCreator {
                 break;
             case SkorzaneButy:
                 item.setNazwa("Skorzane Buty");
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(1);
@@ -150,6 +168,7 @@ public class ItemCreator {
 // INNE ========================================================================     
             case Gold:
                 item.setNazwa("Zloto");
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);

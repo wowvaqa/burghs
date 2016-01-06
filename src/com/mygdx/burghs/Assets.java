@@ -16,14 +16,20 @@ import enums.CzesciCiala;
 import java.util.ArrayList;
 
 public class Assets {
+    
+    // Tekstury terenu
+    public Texture trawaDrzewoTex;
+    public Texture trawaTex;
+    public Texture trawaGoraTex;
+    public Texture trawaZamekTex;
 
-    public Texture trawaTex, btnGoTex, btnAttackTex;
-    public Texture btnPlus, btnMinus, btnOK, btnRight, btnLeft;
-    public Texture trawaGoraTex, trawaZamekTex;
+    public Texture btnGoTex, btnAttackTex;
+    public Texture btnPlus, btnMinus, btnOK, btnRight, btnLeft;    
     public Texture mobElfTex, mobElfTexZaznaczony;
     public Texture mobOrkTex, mobOrkTexZaznaczony;
     public Texture mobDwarfTex, mobDwarfTexZaznaczony;
     public Texture mobHumanTex, mobHumanTexZaznaczony;
+    public Texture mobWizardTex, mobWizardTexZaznaczony;
     public Texture cancelTex;
     public Skin skin;
 
@@ -49,6 +55,7 @@ public class Assets {
     public Texture texLegs;
     public Texture texSword;
     public Texture texShield;
+    public Texture texBow;
     public Texture texGold;
 
     // interfejs
@@ -81,6 +88,7 @@ public class Assets {
     public static Screen mapEditor;
 
     public Assets() {
+        trawaDrzewoTex = new Texture("grassTree100x100.png");
         trawaTex = new Texture("grass100x100.png");
         trawaGoraTex = new Texture("grassMountain100x100.png");
         trawaZamekTex = new Texture("grassCastle100x100.png");
@@ -99,6 +107,9 @@ public class Assets {
         mobDwarfTexZaznaczony = new Texture("mobDwarfTexZaznaczony.png");
         mobHumanTex = new Texture("mobHumanTex.png");
         mobHumanTexZaznaczony = new Texture("mobHumanTexZaznaczony.png");
+        mobWizardTex = new Texture("mobWizardTex.png");
+        mobWizardTexZaznaczony = new Texture("mobWizardTexZaznaczony.png");
+
         cancelTex = new Texture("cancelBtt.png");
 
         texTresureBox = new Texture("texTresureBox2.png");
@@ -140,6 +151,16 @@ public class Assets {
     
     public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Castle castle) {
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(bohaterAtakujacy, castle)));
+        lblDmg.setPosition(pozX - 50, pozY - 25);
+        lblDmg.setFontScale(1.5f);
+        lblDmg.addAction(Actions.alpha(1));
+        lblDmg.addAction(Actions.fadeOut(2.0f));
+        lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
+        lblDmg.act(Gdx.graphics.getDeltaTime());
+    }
+    
+    public void animujLblDmg(float pozX, float pozY, Mob mob, Bohater bohaterBroniacy) {
+        lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(mob, bohaterBroniacy)));
         lblDmg.setPosition(pozX - 50, pozY - 25);
         lblDmg.setFontScale(1.5f);
         lblDmg.addAction(Actions.alpha(1));
@@ -294,6 +315,7 @@ public class Assets {
         texSword = new Texture("items/texSword.png");
         texShield = new Texture("items/texShield.png");
         texGold = new Texture("items/texGold.png");
+        texBow = new Texture("items/texBow.png");
     }  
 
     // wypełnia mapę 

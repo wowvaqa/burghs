@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class Pole implements Serializable{
     
-    private boolean movable;
+    private boolean movable = true;
     
     private Bohater bohater;
     
@@ -23,12 +23,9 @@ public class Pole implements Serializable{
 
     }
 
-//    public enum TypPola {
-//
-//        TRAWA, GORY;
-//    }
-    
-    // Setters and Getters
+    /***************************************************************************
+     * Setters and Getters
+     **************************************************************************/
 
     /**
      * Zwraca typ terenu pola

@@ -1,6 +1,11 @@
 package com.mygdx.burghs;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameStatus {
 
@@ -30,7 +35,24 @@ public class GameStatus {
     public ArrayList<Gracz> gracze = new ArrayList<Gracz>();                    // przechowuje graczy     
 
     // Przechowuje mape z obiektami graczy w celu wychwycenia kolizji
-    public Mapa mapa = new Mapa();
+    // public Mapa mapa = new Mapa();
+    public Mapa mapa;
+
+    public GameStatus() {
+        try {
+            wczytajMape();
+        } catch (IOException ex) {
+            Logger.getLogger(GameStatus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GameStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void wczytajMape() throws IOException, ClassNotFoundException {
+        ObjectInputStream we = new ObjectInputStream(new FileInputStream("mapa.dat"));
+        mapa = (Mapa) we.readObject();
+        System.out.println("odczyt obiektu");
+    }
 
     public int getIloscGraczy() {
         return iloscGraczy;
@@ -51,14 +73,46 @@ public class GameStatus {
         }
         return null;
     }
-    
+
     public void dodajDoZlotaAktualnegoGracza(int zloto) {
         this.gracze.get(this.turaGracza).setGold(zloto
                 + this.getZlotoAktualnegoGracza());
     }
-    
-    // GETTER AND SETTERS
 
+    /**
+     * Usuwa Moby lub Bohaterów których HP < 0
+     */
+    public void usunMartweMoby() {
+        for (int i = 0; i < this.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < this.getMapa().getIloscPolY(); j++) {
+                if (this.getMapa().pola[i][j].getMob() != null) {
+                    if (this.getMapa().pola[i][j].getMob().getAktualneHp() <= 0) {
+                        this.getMapa().pola[i][j].setMob(null);
+                    }
+                }
+            }
+        }
+        for (int j = 0; j < Assets.stage01MapScreen.getActors().size; j++) {
+            if (Assets.stage01MapScreen.getActors().get(j).getClass() == Mob.class) {
+                Mob tmpMob = (Mob) Assets.stage01MapScreen.getActors().get(j);
+                if (tmpMob.getAktualneHp() < 1) {
+                    Assets.stage01MapScreen.getActors().removeIndex(j);
+                }
+            }
+        }
+
+        for (int i = 0; i < this.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < this.getMapa().getIloscPolY(); j++) {
+                if (this.getMapa().pola[i][j].getBohater() != null) {
+                    if (this.getMapa().pola[i][j].getBohater().getActualHp() <= 0) {
+                        this.getMapa().pola[i][j].setBohater(null);
+                    }
+                }
+            }
+        }
+    }
+
+    // GETTER AND SETTERS
     /**
      * Zwraca ilość złota gracza który aktualnie ma turę
      *

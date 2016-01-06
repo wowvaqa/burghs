@@ -76,7 +76,7 @@ public class ItemScreen implements Screen {
         tabela.add(label).colspan(2);
         tabela.row();
         tabela.add(new Label("Atak:", a.skin)).expandX();
-        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getAtak()), a.skin)).expandX();        
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getAtak()), a.skin)).expandX();
         tabela.row();
         tabela.add(new Label("Obrona:", a.skin)).expandX();
         tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getObrona()), a.skin)).expandX();
@@ -87,6 +87,13 @@ public class ItemScreen implements Screen {
         tabela.add(new Label("HP:", a.skin)).expandX();
         tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getHp()), a.skin)).expandX();
         tabela.row();
+
+        if (gs.getItem().getZasieg() > 0) {
+            tabela.add(new Label("Zasieg:", a.skin)).expandX();
+            tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getZasieg()), a.skin)).expandX();
+            tabela.row();
+        }
+
         tabela.add(btnExit).colspan(2);
     }
 

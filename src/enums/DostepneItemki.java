@@ -17,6 +17,7 @@ public enum DostepneItemki {
     Miecz,
     Tarcza,
     LnianeRekawice,
+    Luk,
     // Nogi
     Nogi,
     LnianeSpodnie,

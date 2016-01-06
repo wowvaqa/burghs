@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * @author wow
  */
 public class BohaterScreen implements Screen {
-    
+
     private final OrthographicCamera c;
     private final FitViewport viewPort;
 
@@ -47,12 +47,9 @@ public class BohaterScreen implements Screen {
     // Przyciski
     private TextButton btnExit;
 
-    // Inne
-    // Referencje do itemków
-    //private Item itemGlowa;
     // Labele
     private Label lblBohater;
-    private Label lblAtak, lblObrona, lblHp, lblSzybkosc;
+    private Label lblAtak, lblObrona, lblHp, lblSzybkosc, lblMana, lblKlasaPostaci;
     private Label lblExp, lblExpToNextLevel, lblLevel;
     private Label lblStopy, lblNogi, lblLewaReka, lblPrawaReka, lblKorpus, lblGlowa;
 
@@ -68,7 +65,7 @@ public class BohaterScreen implements Screen {
         utworzPrzyciski();
         utworzLabele();
         dodajDoStage01();
-        
+
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
@@ -94,12 +91,14 @@ public class BohaterScreen implements Screen {
         tabela.add(lblAtak).align(Align.topLeft);
         tabela.add(lblObrona).align(Align.topLeft);
         tabela.add(lblHp).align(Align.topLeft);
-        tabela.add(lblSzybkosc).align(Align.topLeft);
+        tabela.add(lblSzybkosc).align(Align.topLeft);             
+        tabela.add(lblMana).align(Align.topLeft);    
         tabela.row();
 
         tabela.add(lblLevel).align(Align.left);
         tabela.add(lblExp).align(Align.left);
         tabela.add(lblExpToNextLevel).align(Align.left);
+        tabela.add(lblKlasaPostaci).align(Align.topLeft);
         tabela.row();
 
         tabela.add(lblGlowa).align(Align.left);
@@ -252,7 +251,7 @@ public class BohaterScreen implements Screen {
                         sprawdzBohatera().getEquipment().remove(i);
                         if (!"Gole Piesci".equals(tmpItem2.getNazwa())) {
                             sprawdzBohatera().getEquipment().add(tmpItem2);
-                        }                        
+                        }
                         tabela.clear();
                         tabela2.clear();
                         tabelaZaktualizowana = false;
@@ -285,6 +284,7 @@ public class BohaterScreen implements Screen {
         lblObrona = new Label("Obrona: ", a.skin);
         lblHp = new Label("HP: ", a.skin);
         lblSzybkosc = new Label("Szybkosc: ", a.skin);
+        lblMana = new Label("Mana: ", a.skin);
         lblLevel = new Label("Poziom: ", a.skin);
         lblExp = new Label("Doswiadczenie: ", a.skin);
         lblExpToNextLevel = new Label("Pozostalo nast. poz.: ", a.skin);
@@ -294,6 +294,7 @@ public class BohaterScreen implements Screen {
         lblKorpus = new Label("", a.skin);
         lblGlowa = new Label("", a.skin);
         lblStopy = new Label("", a.skin);
+        lblKlasaPostaci = new Label("", a.skin);
 
     }
 
@@ -343,13 +344,17 @@ public class BohaterScreen implements Screen {
         formatujTabele();
         formatujTabele2();
 
-        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak() + 
-                " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")");
-        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona() +
-                " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")");
-        lblHp.setText("HP: " + sprawdzBohatera().getActualHp() + 
-                " (" + sprawdzBohatera().getHp() + ")");
+        lblAtak.setText("Atak: " + sprawdzBohatera().getAtak()
+                + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")");
+        lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona()
+                + " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")");
+        lblHp.setText("HP: " + sprawdzBohatera().getActualHp()
+                + " (" + sprawdzBohatera().getHp() + ")");
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
+        lblMana.setText("Mana: " + sprawdzBohatera().getActualMana()
+                + " (" + sprawdzBohatera().getMana() + ")");
+        
+        lblKlasaPostaci.setText(gs.getBohaterZaznaczony().getKlasyPostaci().toString());
 
         lblLevel.setText("Poziom: " + sprawdzBohatera().getLevelOfExp());
         lblExp.setText("Punkty doswiadczenia: " + sprawdzBohatera().getExp());

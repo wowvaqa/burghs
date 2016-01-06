@@ -20,8 +20,20 @@ version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
+version 0.0025
+        1. Dokończy MapEditora 
+
+version 0.0024 06012016 DONE
+DONE    1. Dodano funkcje ataku Moba, który został zaatakowany przez bohatera.
+DONE    2. Mapa wczytuje się z uprzednio wcześniej przygotowanego pliku.
+DONE    3. Dodano możliwość użycia broni dystansowej.
+DONE    4. Dodano pole w BohaterScreen z info. dot klasy postaci bohatera.
+DONE    5. Dodano okno informacyjne ze statystykami Moba.
+DONE    6. Dodano nową klasę bohatera - Czarodzieja.
+DONE    7. Dodano nowy atrybut dla każdej kalsy bohatera: MANA.
+
 version 0.0023
-        1. Przeprojektowanie tworzenia w grze mapy(Wykorzystanie mapy z pliku).
+DONE    1. Przeprojektowanie tworzenia w grze mapy(Wykorzystanie mapy z pliku).
 
 version 0.0022 04012016 DONE
 DONE    1. Dodanie pdst. edytora map. 

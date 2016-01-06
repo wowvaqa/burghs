@@ -5,7 +5,6 @@
  */
 package com.mygdx.burghs;
 
-import com.badlogic.gdx.Gdx;
 import java.util.Random;
 
 /**
@@ -94,7 +93,7 @@ public class Fight {
      */
     static public int getObrazenia(Bohater bohaterAtakujacy, Mob mob) {
 
-        System.out.println("Funkacja Fight.getObrazenia");
+        mob.mobZaatakowany(bohaterAtakujacy.getPozXnaMapie(), bohaterAtakujacy.getPozYnaMapie());
 
         Random rnd = new Random();
         System.out.println("Nastąpił atak na zamek");
@@ -111,12 +110,47 @@ public class Fight {
             mob.setAktualneHp(mob.getAktualneHp() - dmg);
         }
         if (mob.getAktualneHp() <= 0) {
-            System.out.println("Zamek nie posiada już obrońców - można go zająć");
+            System.out.println("Śmierć moba.");
             mob.setAktualneHp(0);
             bohaterAtakujacy.setExp(bohaterAtakujacy.getExp() + mob.getExpReward());
         }
 
         bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
+
+        return dmg;
+    }
+
+    /**
+     * Zwraca ilość obrażeń po ataku Moba
+     *
+     * @param mob Referencja do obektu Moba
+     * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
+     * @return Zwraca ilość obrażeń
+     */
+    static public int getObrazenia(Mob mob, Bohater bohaterBroniacy) {
+
+        System.out.println("Funkacja Fight.getObrazenia");
+
+        Random rnd = new Random();
+        System.out.println("Nastąpił atak mf");
+        int atak = rnd.nextInt(mob.getAtak() + 1);
+        int obrona = rnd.nextInt(bohaterBroniacy.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohaterBroniacy) + 1);
+        System.out.println("Siła ataku:  " + atak);
+        System.out.println("siła obrony: " + obrona);
+        int dmg = atak - obrona;
+        if (dmg < 0) {
+            dmg = 0;
+        }
+        System.out.println("damage: " + dmg);
+        if (dmg > 0) {
+            bohaterBroniacy.setActualHp(bohaterBroniacy.getActualHp() - dmg);
+        }
+        if (bohaterBroniacy.getActualHp() <= 0) {
+            bohaterBroniacy.remove();
+            System.out.println("Smierc Bohatera broniacego się");
+        }
+
+        bohaterBroniacy.aktualizujTeksture();
 
         return dmg;
     }
