@@ -24,6 +24,7 @@ import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Gracz;
 import com.mygdx.burghs.Mob;
+import com.mygdx.burghs.Ruch;
 import com.mygdx.burghs.TresureBox;
 import enums.TypyTerenu;
 import java.util.ArrayList;
@@ -266,9 +267,12 @@ public class MapScreen implements Screen {
                 if (gs.getMapa().getPola()[i][j].getBohater() != null) {
                     //gs.getMapa().getPola()[i][j].getBohater().wylaczPrzyciski();
                     gs.getMapa().getPola()[i][j].getBohater().setZaznaczony(false);
+                    gs.getMapa().getPola()[i][j].getBohater().getSprite().setTexture(gs.getMapa().getPola()[i][j].getBohater().getBohaterTex());
+                    Ruch.wylaczPrzyciski();
                 }
             }
         }
+        gs.setCzyZaznaczonoBohatera(false);
     }
 
     // Działania wywołane po naciśnięciu przycisku Exit

@@ -146,7 +146,10 @@ public class Bohater extends Actor {
                 for (Gracz i : gs.getGracze()) {
                     for (Bohater j : i.getBohaterowie()) {
                         if (j.zaznaczony) {
-                            bohaterZaznaczony = true;
+                            j.setZaznaczony(false);
+                            j.getSprite().setTexture(j.bohaterTex);
+                            Ruch.wylaczPrzyciski();
+                            //bohaterZaznaczony = true;
                         }
                     }
                 }
@@ -163,6 +166,9 @@ public class Bohater extends Actor {
                         // Sprawdza czy bohater posiada jeszcze punkty ruchu.
                         if (pozostaloRuchow < 1) {
                             System.out.println("Bohater nie posiada już ruchu!");
+                            sprite.setTexture(bohaterCheckTex);
+                            zaznaczony = true;
+                            gs.setCzyZaznaczonoBohatera(true);
                             // jeżeli posiada punkty ruchu.
                         } else {
                             if (otwartaSkrzyniaZeSkarbem) {

@@ -23,6 +23,12 @@ version 0.0099
 version 0.0025
         1. Dokończy MapEditora 
 
+version 0.0025 07012016 DONE
+DONE    1. Dodanie opcji zaznaczenia innego Bohatera podczas gdy jeden z 
+        bohaterów gracza jest zaznaczony.
+DONE    2. Poprawiono błąd z dekatywacją zaznaczonych bohaterów po zakończeniu
+        tury.
+
 version 0.0024 06012016 DONE
 DONE    1. Dodano funkcje ataku Moba, który został zaatakowany przez bohatera.
 DONE    2. Mapa wczytuje się z uprzednio wcześniej przygotowanego pliku.

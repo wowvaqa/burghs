@@ -45,25 +45,28 @@ public class Ruch {
                     } else {
 
                         if (sprawdzPrzeciwnika(i, j) == false) {
-                            PrzyciskRuchu przyciskRuchu = new PrzyciskRuchu(new TextureRegionDrawable(new TextureRegion(a.moveIcon)), i, j, bohater, this);
-                            przyciskRuchu.setPosition(i * 100, j * 100);
-                            Assets.stage01MapScreen.addActor(przyciskRuchu);
-                        } 
+                            // Warunek sprawdza czy na polu znajduje się inny bohater gracza. Jeżeli TRUE wtedy na tym polu nie zostanie utworzony przycisk ruchu.
+                            if (!(gs.getMapa().getPola()[i][j].getBohater() != null && gs.getMapa().getPola()[i][j].getBohater().getPrzynaleznoscDoGracza() == gs.getTuraGracza())) {
+                                PrzyciskRuchu przyciskRuchu = new PrzyciskRuchu(new TextureRegionDrawable(new TextureRegion(a.moveIcon)), i, j, bohater, this);
+                                przyciskRuchu.setPosition(i * 100, j * 100);
+                                Assets.stage01MapScreen.addActor(przyciskRuchu);
+
+                            }
+                        }
                     }
                 }
             }
         }
-        
+
         int zasiegPrawy = this.bohater.getItemPrawaReka().getZasieg();
         int zasiegLewy = this.bohater.getItemLewaReka().getZasieg();
         int zasieg;
-        if (zasiegLewy >= zasiegPrawy){
+        if (zasiegLewy >= zasiegPrawy) {
             zasieg = zasiegLewy;
         } else {
             zasieg = zasiegPrawy;
         }
-        
-                
+
         for (int i = pozX - 1 - zasieg; i < pozX + 1 + 1 + zasieg; i++) {
             for (int j = pozY - 1 - zasieg; j < pozY + 1 + 1 + zasieg; j++) {
                 if (i >= 0 && j >= 0 && i < gs.getMapa().getIloscPolX() && j < gs.getMapa().getIloscPolY()) {
@@ -121,8 +124,7 @@ public class Ruch {
             }
             for (int i = 0; i < Assets.stage01MapScreen.getActors().size; i++) {
                 //czySaPrzyciski = Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class;
-                if (Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class) {
-                    System.out.println("Przycisk " + i);
+                if (Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class) {                    
                     czySaPrzyciski = true;
                 }
             }
@@ -239,6 +241,8 @@ public class Ruch {
             bohater.getSprite().setTexture(bohater.getBohaterTex());
             bohater.setZaznaczony(false);
             bohater.setPozostaloRuchow(bohater.getPozostaloRuchow() - 1);
+            
+            gs.setCzyZaznaczonoBohatera(false);
 
             Ruch.wylaczPrzyciski();
         }
@@ -290,6 +294,8 @@ public class Ruch {
 
             this.bohater.getSprite().setTexture(bohater.getBohaterTex());
             this.bohater.setZaznaczony(false);
+            
+            gs.setCzyZaznaczonoBohatera(false);
 
             gs.usunMartweMoby();
             Ruch.wylaczPrzyciski();
