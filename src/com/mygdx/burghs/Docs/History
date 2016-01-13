@@ -23,6 +23,10 @@ version 0.0099
 version 0.0025
         1. Dokończy MapEditora 
 
+version 0.0026 13012016
+DONE    1. Dodanie prototypu itema który po użyciu wykonuje działanie ( mikstura
+        lecząca).
+
 version 0.0025 07012016 DONE
 DONE    1. Dodanie opcji zaznaczenia innego Bohatera podczas gdy jeden z 
         bohaterów gracza jest zaznaczony.

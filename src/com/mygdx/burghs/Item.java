@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import enums.DostepneItemki;
+import enums.TypItemu;
+import java.util.ArrayList;
 
 /**
  * Klasa definiuje Item: Modyfikatory do statystyk oraz wygląd
@@ -15,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * @author v
  */
 public class Item extends Actor {
-
+    
     private String nazwa;
 
     private final Assets a;
@@ -27,6 +30,9 @@ public class Item extends Actor {
 
     // na której części ciała można nośić item
     private CzesciCiala czescCiala;
+    
+    // okresla jakiego rodzaju jetem
+    private TypItemu typItemu;
 
     // statystyka itemka
     private int atak = 0;
@@ -36,6 +42,12 @@ public class Item extends Actor {
     private int gold = 0;
     private int zasieg = 0;
     private int level = 0;
+    private int czasDzialania = 0;
+    
+    private String opis;
+    private DostepneItemki itemNazwa;
+    
+    public ArrayList<DzialanieItema> dzialania;
 
     public Item(Texture teksura, final Assets a, final GameStatus gs, final Game g) {
         this.g = g;
@@ -61,9 +73,91 @@ public class Item extends Actor {
     }
 
 
+
     /***************************************************************************
      * Setters and Getters
      **************************************************************************/
+    
+    /**
+     * zwraca itema
+     * @return 
+     */
+    public DostepneItemki getItemNazwa() {
+        return itemNazwa;
+    }
+
+    /**
+     * Ustala itema
+     * @param itemNazwa 
+     */
+    public void setItemNazwa(DostepneItemki itemNazwa) {
+        this.itemNazwa = itemNazwa;
+    }
+
+
+    /**
+     * Zwraca działania dostępne dla itemka.
+     * @return 
+     */
+    public ArrayList<DzialanieItema> getDzialania() {
+        return dzialania;
+    }
+
+    /**
+     * Ustala działania dostępne dla itemka.
+     * @param dzialania 
+     */
+    public void setDzialania(ArrayList<DzialanieItema> dzialania) {
+        this.dzialania = dzialania;
+    }
+    
+    /**
+     * Zwraca opis dla itema.
+     * @return 
+     */
+    public String getOpis() {
+        return opis;
+    }
+
+    /**
+     * Ustala opis dla itema
+     * @param opis 
+     */
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+    
+    /**
+     * Zwraca czas działania itemka w turach
+     * @return 
+     */
+    public int getCzasDzialania() {
+        return czasDzialania;
+    }
+    
+    /**
+     * Ustala czas działania dla itemka w turach.
+     * @param czasDzialania 
+     */
+    public void setCzasDzialania(int czasDzialania) {
+        this.czasDzialania = czasDzialania;
+    }
+
+    /**
+     * Zwraca typ Itemu
+     * @return 
+     */
+    public TypItemu getTypItemu() {
+        return typItemu;
+    }
+
+    /**
+     * Ustala typ dla Itemu
+     * @param typItemu 
+     */
+    public void setTypItemu(TypItemu typItemu) {
+        this.typItemu = typItemu;
+    }
     
     /**
      * Zwracza poziom itemka

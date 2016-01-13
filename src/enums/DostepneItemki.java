@@ -26,5 +26,8 @@ public enum DostepneItemki {
     LnianeButy,  
     SkorzaneButy,
     // Inne
-    Gold;
+    Gold,
+    // Mikstury
+    PotionZdrowie,
+    PotionSzybkosc;
 }

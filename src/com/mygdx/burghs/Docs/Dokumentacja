@@ -107,3 +107,16 @@ MOB
         przyjmuje wartość TRUE.
         W metodzie ACT() obiketu klasy Mob() następuje wywołanie (po uprzednim
         spełnieniu warunków) metody ataku Moba na agresora.
+
+MIKSTURA
+    Mikstura leczenia zdefiniowana jest jako typ: mikstura
+    W obiekcie klasy ItemCreator() podaczas tworzenia nowej mikstury leczenia
+    zdefiniowana zostajae ArrayLista z dostępnymi dla itema działaniami.
+    Dla mikstury leczenia zostaje dodane nowy obiekt klasy DzialanieItema() do
+    ArrayListy.
+
+    W Screenie Bohatera po kliknięciu przycisku załóż przy itemie miktury 
+    leczenia w metodzie podmianaItemkow() następuje sprawdzenie czy zadany
+    item nie ma typu 'mikstury'.
+    Jeżeli warunek okaże się prawdziwy wtedy wywołane zostaną każde kolejne
+    dziłania z ArrayListy dla itemka.

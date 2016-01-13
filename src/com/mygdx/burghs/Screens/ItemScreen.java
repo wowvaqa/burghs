@@ -93,6 +93,10 @@ public class ItemScreen implements Screen {
             tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getZasieg()), a.skin)).expandX();
             tabela.row();
         }
+        
+        tabela.add(new Label("Opis:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) gs.getItem().getOpis(), a.skin)).expandX();
+        tabela.row();
 
         tabela.add(btnExit).colspan(2);
     }

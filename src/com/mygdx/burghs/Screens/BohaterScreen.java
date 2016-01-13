@@ -16,11 +16,14 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.Bohater;
+import com.mygdx.burghs.DzialanieItema;
 import com.mygdx.burghs.Fight;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Gracz;
 import com.mygdx.burghs.Item;
 import enums.CzesciCiala;
+import enums.DostepneItemki;
+import enums.TypItemu;
 import java.util.ArrayList;
 
 /**
@@ -91,8 +94,8 @@ public class BohaterScreen implements Screen {
         tabela.add(lblAtak).align(Align.topLeft);
         tabela.add(lblObrona).align(Align.topLeft);
         tabela.add(lblHp).align(Align.topLeft);
-        tabela.add(lblSzybkosc).align(Align.topLeft);             
-        tabela.add(lblMana).align(Align.topLeft);    
+        tabela.add(lblSzybkosc).align(Align.topLeft);
+        tabela.add(lblMana).align(Align.topLeft);
         tabela.row();
 
         tabela.add(lblLevel).align(Align.left);
@@ -214,7 +217,15 @@ public class BohaterScreen implements Screen {
      */
     private void podmianaItemkow(final int i) {
         Item tmpItem;
-        if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)) {
+
+        if (sprawdzBohatera().getEquipment().get(i).getTypItemu().equals(TypItemu.Mikstura)) {
+
+            for (DzialanieItema dzialanieItema : sprawdzBohatera().getEquipment().get(i).dzialania) {
+                dzialanieItema.dzialanie(sprawdzBohatera().getEquipment().get(i).getItemNazwa(), gs.getBohaterZaznaczony());
+            }
+            sprawdzBohatera().getEquipment().remove(i);
+
+        } else if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)) {
             tmpItem = sprawdzBohatera().getItemGlowa();
             sprawdzBohatera().setItemGlowa(sprawdzBohatera().getEquipment().get(i));
             sprawdzBohatera().getEquipment().remove(i);
@@ -353,7 +364,7 @@ public class BohaterScreen implements Screen {
         lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
         lblMana.setText("Mana: " + sprawdzBohatera().getActualMana()
                 + " (" + sprawdzBohatera().getMana() + ")");
-        
+
         lblKlasaPostaci.setText(gs.getBohaterZaznaczony().getKlasyPostaci().toString());
 
         lblLevel.setText("Poziom: " + sprawdzBohatera().getLevelOfExp());

@@ -66,13 +66,15 @@ public class TresureBox extends Actor{
     private void losujItemy(){
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaCzapka, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzanaCzapka, a, g));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a, g));
+        //dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.LnianaKoszula, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneSpodnie, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.SkorzaneButy, a, g));
-        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Kij, a, g));
+        //dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Kij, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Miecz, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Tarcza, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Gold, a, g));
         dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.Luk, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.PotionZdrowie, a, g));
+        dostepneItemy.add(itemCreator.utworzItem(DostepneItemki.PotionSzybkosc, a, g));
     }
 }

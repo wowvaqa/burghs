@@ -57,6 +57,8 @@ public class Assets {
     public Texture texShield;
     public Texture texBow;
     public Texture texGold;
+    public Texture texHelthPotion;
+    public Texture texSpeedPotion;
 
     // interfejs
     public Texture moveIcon;
@@ -316,6 +318,8 @@ public class Assets {
         texShield = new Texture("items/texShield.png");
         texGold = new Texture("items/texGold.png");
         texBow = new Texture("items/texBow.png");
+        texHelthPotion = new Texture("items/texHealthPotion.png");
+        texSpeedPotion = new Texture("items/texSpeedPotion.png");
     }  
 
     // wypełnia mapę 
