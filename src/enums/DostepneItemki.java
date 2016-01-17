@@ -29,5 +29,7 @@ public enum DostepneItemki {
     Gold,
     // Mikstury
     PotionZdrowie,
-    PotionSzybkosc;
+    PotionSzybkosc,
+    PotionAttack,
+    PotionDefence;
 }

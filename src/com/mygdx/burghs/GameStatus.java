@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import enums.DostepneItemki;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,7 +39,18 @@ public class GameStatus {
     // public Mapa mapa = new Mapa();
     public Mapa mapa;
 
+    /**
+     * Określa wspóżędne TresureBoxa po zabiciu Moba
+     */
+    public static int wspolzedneXtresureBox = 999;
+    public static int wspolzedneYtresureBox = 999;
+
+    // Listy zawierają wszystkie dostępne itemy danych poziomów.
+    public static ArrayList<DostepneItemki> itemyPoziom1 = new ArrayList<DostepneItemki>();
+    public static ArrayList<DostepneItemki> itemyPoziom2 = new ArrayList<DostepneItemki>();
+
     public GameStatus() {
+        wczytajItemy();
         try {
             wczytajMape();
         } catch (IOException ex) {
@@ -88,6 +100,9 @@ public class GameStatus {
                 if (this.getMapa().pola[i][j].getMob() != null) {
                     if (this.getMapa().pola[i][j].getMob().getAktualneHp() <= 0) {
                         this.getMapa().pola[i][j].setMob(null);
+
+                        wspolzedneXtresureBox = i;
+                        wspolzedneYtresureBox = j;
                     }
                 }
             }
@@ -110,6 +125,25 @@ public class GameStatus {
                 }
             }
         }
+    }
+
+    private void wczytajItemy() {
+        //Poziom 1
+        itemyPoziom1.add(DostepneItemki.Kij);
+        itemyPoziom1.add(DostepneItemki.LnianaCzapka);
+        itemyPoziom1.add(DostepneItemki.Tarcza);
+        itemyPoziom1.add(DostepneItemki.Luk);
+        itemyPoziom1.add(DostepneItemki.LnianeSpodnie);
+        itemyPoziom1.add(DostepneItemki.SkorzaneButy);
+        itemyPoziom1.add(DostepneItemki.PotionZdrowie);
+        itemyPoziom1.add(DostepneItemki.PotionSzybkosc);
+        itemyPoziom1.add(DostepneItemki.PotionAttack);
+        itemyPoziom1.add(DostepneItemki.PotionDefence);
+
+        //Poziom 2
+        itemyPoziom2.add(DostepneItemki.SkorzanaCzapka);
+        itemyPoziom2.add(DostepneItemki.Miecz);
+        itemyPoziom2.add(DostepneItemki.SkorzaneSpodnie);
     }
 
     // GETTER AND SETTERS

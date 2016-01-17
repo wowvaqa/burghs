@@ -17,12 +17,22 @@ ZAMEK:
 SRZYNIA ZE SKARBEM:
     Klasa: TresureBox.java
 
-    Przykładowa skrzynia ze skarbem dodana w:
-    MapScreen.generujPlansze()
-    Nadepnięcie na skrzynie zostaje sprawdzone w metodzie
-        Bohater.checkTresureBox();
+    Skrzynie generowane są w MapScreen().generujPlansze().
+    Zawartosć skrzyc generowana jest losowo na pdst. predefiniowanych 
+    statycznych ArrayList utworzonych w obiekcie klasy GameStatus.
+    Z ww. ArrayList losowo wybiera sie Item i dodaje do zawartosci skrzyni.
+    Losowanie następuje poprzez podanie odpowiednich danych do konstruktora
+    klasy TresureBox.
+
 
 MAPA:
+    Na chwilę obecną następuje wczytanie z pliku uprzednio wygeneroweanej mapy w 
+    MapEditorze.
+    Metoda GameStatus().wczytajMape()
+    W metodzie MapScreen.generujPlansze() następuje sprawdzenie każdego z pól
+    mapy i w przypadku natrafienia na TypTerenu.Gory takiemu polu nadaje się
+    status pola po którym nie można się poruszać.
+TODOPodczas Ruchu polas z bool Movable.equals(false) pomijane są.
     
 
 BOHATER:
@@ -108,6 +118,13 @@ MOB
         W metodzie ACT() obiketu klasy Mob() następuje wywołanie (po uprzednim
         spełnieniu warunków) metody ataku Moba na agresora.
 
+    ŚMIERĆ MOBA
+        Po śmierci moba na jego miejscu zostaje wygenerowana TRESUREBOX.
+        Metoda: MapScreen().utworzTresureBoxPoSmierciMoba()
+        Metoda ta wywołana jest w MapScreen().Render() po spełnieniu warunku.
+        Warunek kożysta z 2 zmiennych statycznych, które modyfikuje metoda:
+        GameStatus().UsunMartweMoby().
+
 MIKSTURA
     Mikstura leczenia zdefiniowana jest jako typ: mikstura
     W obiekcie klasy ItemCreator() podaczas tworzenia nowej mikstury leczenia
@@ -120,3 +137,9 @@ MIKSTURA
     item nie ma typu 'mikstury'.
     Jeżeli warunek okaże się prawdziwy wtedy wywołane zostaną każde kolejne
     dziłania z ArrayListy dla itemka.
+
+    Dla mikstur których czas działania efektu jest liczony w kilku turach,
+    efekt działania dodawany jest do ArrayListy klasy DzialanieItema w obiekcie
+    bohatera.
+    Po kliknieciu przycisku koniec tury dla każdego bohatera sprawdzane są
+    efekty, które na nich oddziaływują.

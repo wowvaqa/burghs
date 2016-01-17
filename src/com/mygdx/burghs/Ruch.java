@@ -43,14 +43,15 @@ public class Ruch {
                         przyciskCancel.setPosition(i * 100, j * 100);
                         Assets.stage01MapScreen.addActor(przyciskCancel);
                     } else {
+                        if (gs.getMapa().getPola()[i][j].isMovable()) {
+                            if (sprawdzPrzeciwnika(i, j) == false) {
+                                // Warunek sprawdza czy na polu znajduje się inny bohater gracza. Jeżeli TRUE wtedy na tym polu nie zostanie utworzony przycisk ruchu.
+                                if (!(gs.getMapa().getPola()[i][j].getBohater() != null && gs.getMapa().getPola()[i][j].getBohater().getPrzynaleznoscDoGracza() == gs.getTuraGracza())) {
+                                    PrzyciskRuchu przyciskRuchu = new PrzyciskRuchu(new TextureRegionDrawable(new TextureRegion(a.moveIcon)), i, j, bohater, this);
+                                    przyciskRuchu.setPosition(i * 100, j * 100);
+                                    Assets.stage01MapScreen.addActor(przyciskRuchu);
 
-                        if (sprawdzPrzeciwnika(i, j) == false) {
-                            // Warunek sprawdza czy na polu znajduje się inny bohater gracza. Jeżeli TRUE wtedy na tym polu nie zostanie utworzony przycisk ruchu.
-                            if (!(gs.getMapa().getPola()[i][j].getBohater() != null && gs.getMapa().getPola()[i][j].getBohater().getPrzynaleznoscDoGracza() == gs.getTuraGracza())) {
-                                PrzyciskRuchu przyciskRuchu = new PrzyciskRuchu(new TextureRegionDrawable(new TextureRegion(a.moveIcon)), i, j, bohater, this);
-                                przyciskRuchu.setPosition(i * 100, j * 100);
-                                Assets.stage01MapScreen.addActor(przyciskRuchu);
-
+                                }
                             }
                         }
                     }
@@ -124,7 +125,7 @@ public class Ruch {
             }
             for (int i = 0; i < Assets.stage01MapScreen.getActors().size; i++) {
                 //czySaPrzyciski = Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class;
-                if (Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class) {                    
+                if (Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class) {
                     czySaPrzyciski = true;
                 }
             }
@@ -155,6 +156,24 @@ public class Ruch {
                 czySaPrzyciski = Assets.stage01MapScreen.getActors().get(i).getClass() == przyciskAtaku.class;
             }
         } while (czySaPrzyciski);
+    }
+
+    /**
+     * Wyłącza ikony efektów w stage 02.
+     */
+    public static void wylaczIkonyEfektow() {
+        int indeksEfektu = 999;
+
+        for (int j = 0; j < Assets.stage02MapScreen.getActors().size; j++) {
+            if (Assets.stage02MapScreen.getActors().get(j).getClass() == EffectActor.class) {
+                indeksEfektu = j;
+            }
+        }
+
+        if (indeksEfektu != 999) {
+            Assets.stage02MapScreen.getActors().removeIndex(indeksEfektu);
+            Ruch.wylaczIkonyEfektow();
+        }
     }
 
     /**
@@ -241,9 +260,10 @@ public class Ruch {
             bohater.getSprite().setTexture(bohater.getBohaterTex());
             bohater.setZaznaczony(false);
             bohater.setPozostaloRuchow(bohater.getPozostaloRuchow() - 1);
-            
+
             gs.setCzyZaznaczonoBohatera(false);
 
+            Ruch.wylaczIkonyEfektow();
             Ruch.wylaczPrzyciski();
         }
     }
@@ -294,10 +314,11 @@ public class Ruch {
 
             this.bohater.getSprite().setTexture(bohater.getBohaterTex());
             this.bohater.setZaznaczony(false);
-            
+
             gs.setCzyZaznaczonoBohatera(false);
 
             gs.usunMartweMoby();
+            Ruch.wylaczIkonyEfektow();
             Ruch.wylaczPrzyciski();
         }
 
@@ -375,6 +396,7 @@ public class Ruch {
             this.bohater.getSprite().setTexture(bohater.getBohaterTex());
             this.bohater.setZaznaczony(false);
 
+            Ruch.wylaczIkonyEfektow();
             Ruch.wylaczPrzyciski();
         }
     }

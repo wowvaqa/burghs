@@ -20,6 +20,8 @@ public class DzialanieItema {
     private int zmianaHp;
     private String opis;
 
+    private DefaultActor ikona;
+
     public void dzialanieItema() {
 
     }
@@ -42,7 +44,7 @@ public class DzialanieItema {
     public void dzialanie(DostepneItemki dt, Bohater bohater) {
         switch (dt) {
             case PotionZdrowie:
-                System.out.println("Leczenie bohatera na +5");
+                //System.out.println("Leczenie bohatera na +5");
                 bohater.setActualHp(bohater.getActualHp() + 5);
                 if (bohater.getActualHp() > bohater.getHp()) {
                     bohater.setActualHp(bohater.getHp());
@@ -50,11 +52,21 @@ public class DzialanieItema {
                 bohater.aktualizujTeksture();
                 break;
             case PotionSzybkosc:
-                System.out.println("Dodaje +2 do szybkości");
+                //System.out.println("Dodaje +2 do szybkości");
                 bohater.setPozostaloRuchow(bohater.getPozostaloRuchow() + 2);
                 if (bohater.getPozostaloRuchow() > bohater.getSzybkosc()) {
                     bohater.setPozostaloRuchow(bohater.getSzybkosc());
                 }
+                break;
+            case PotionAttack:
+                this.efektAtak += 2;
+                this.dlugoscTrwaniaEfektu += 2;
+                bohater.getEfekty().add(this);
+                break;
+            case PotionDefence:
+                this.efektObrona += 2;
+                this.dlugoscTrwaniaEfektu += 2;
+                bohater.getEfekty().add(this);
                 break;
         }
     }
@@ -190,4 +202,21 @@ public class DzialanieItema {
         this.efektMana = efektMana;
     }
 
+    /**
+     * Zwraca Ikone
+     *
+     * @return
+     */
+    public DefaultActor getIkona() {
+        return ikona;
+    }
+
+    /**
+     * Ustala ikone
+     *
+     * @param ikona
+     */
+    public void setIkona(DefaultActor ikona) {
+        this.ikona = ikona;
+    }
 }

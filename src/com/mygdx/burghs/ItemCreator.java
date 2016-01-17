@@ -16,7 +16,7 @@ public class ItemCreator {
     private final GameStatus gs;
     private Game g;
     private Assets a;
-
+    
     public ItemCreator(GameStatus gs) {
         this.gs = gs;
     }
@@ -30,6 +30,7 @@ public class ItemCreator {
 // GŁOWA ======================================================================         
             case Glowa:
                 item.setNazwa("Gola Glowa");
+                item.setLevel(0);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -40,6 +41,7 @@ public class ItemCreator {
                 break;
             case LnianaCzapka:
                 item.setNazwa("Lniana Czapka");
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(1);
                 item.setSzybkosc(0);
@@ -50,6 +52,7 @@ public class ItemCreator {
                 break;
             case SkorzanaCzapka:
                 item.setNazwa("Skorzana czapka");
+                item.setLevel(2);
                 item.setAtak(0);
                 item.setObrona(2);
                 item.setSzybkosc(0);
@@ -61,9 +64,9 @@ public class ItemCreator {
 // KORPUS ======================================================================                
             case LnianaKoszula:
                 item.setNazwa("Lniana Koszula");
-                item.setLevel(1);
+                item.setLevel(0);
                 item.setAtak(0);
-                item.setObrona(1);
+                item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.praweRamie);
@@ -73,6 +76,7 @@ public class ItemCreator {
 // BROŃ RĘCE ===================================================================
             case Piesci:
                 item.setNazwa("Gole Piesci");
+                item.setLevel(0);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -129,6 +133,7 @@ public class ItemCreator {
 // NOGI ========================================================================
             case Nogi:
                 item.setNazwa("Gole Nogi");
+                item.setLevel(0);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -162,6 +167,7 @@ public class ItemCreator {
 // OBUWIE ======================================================================
             case LnianeButy:
                 item.setNazwa("Lniane Obuwie");
+                item.setLevel(0);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -184,7 +190,7 @@ public class ItemCreator {
 // INNE ========================================================================     
             case Gold:
                 item.setNazwa("Zloto");
-                item.setLevel(1);
+                item.setLevel(99);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
@@ -192,39 +198,70 @@ public class ItemCreator {
                 item.setCzescCiala(CzesciCiala.gold);
                 item.getSprite().setTexture(a.texGold);
                 item.setTypItemu(TypItemu.Other);
-                item.setGold(100);
+                item.setGold(10);
                 break;
 // MIKSTURY ====================================================================
             case PotionZdrowie:
                 item.setNazwa("Potion + 5");
-                item.setLevel(0);
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.other);
                 item.getSprite().setTexture(a.texHelthPotion);
-                item.setTypItemu(TypItemu.Mikstura);                
+                item.setTypItemu(TypItemu.Mikstura);
                 item.setOpis("Mikstura leczaca +5 HP.");
                 item.setItemNazwa(DostepneItemki.PotionZdrowie);
                 item.dzialania = new ArrayList<DzialanieItema>();
                 item.dzialania.add(new DzialanieItema());
                 break;
-                
-                case PotionSzybkosc:
+            case PotionSzybkosc:
                 item.setNazwa("Szybkosc + 2");
-                item.setLevel(0);
+                item.setLevel(1);
                 item.setAtak(0);
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
                 item.setCzescCiala(CzesciCiala.other);
                 item.getSprite().setTexture(a.texSpeedPotion);
-                item.setTypItemu(TypItemu.Mikstura);                
+                item.setTypItemu(TypItemu.Mikstura);
                 item.setOpis("Mikstura odnawia 2 punkty akcji.");
                 item.setItemNazwa(DostepneItemki.PotionSzybkosc);
                 item.dzialania = new ArrayList<DzialanieItema>();
                 item.dzialania.add(new DzialanieItema());
+                break;
+            case PotionAttack:
+                item.setNazwa("Atak + 2 przez 2 tury");
+                item.setLevel(1);
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.other);
+                item.getSprite().setTexture(a.texAttackPotion);
+                item.setTypItemu(TypItemu.Mikstura);
+                item.setOpis("Mikstura dodaje +2 do ataku na 2 tury.");
+                item.setItemNazwa(DostepneItemki.PotionAttack);
+                item.dzialania = new ArrayList<DzialanieItema>();
+                item.dzialania.add(new DzialanieItema());
+                item.dzialania.get(0).setIkona(new EffectActor(a.texAttackPotion, 0, 0));
+                break;
+            case PotionDefence:
+                item.setNazwa("Obrona + 2 przez 2 tury");
+                item.setLevel(1);
+                item.setAtak(0);
+                item.setObrona(0);
+                item.setSzybkosc(0);
+                item.setHp(0);
+                item.setCzescCiala(CzesciCiala.other);
+                item.getSprite().setTexture(a.texDefencePotion);
+                item.setTypItemu(TypItemu.Mikstura);
+                item.setOpis("Mikstura dodaje +2 do obrony na 2 tury.");
+                item.setItemNazwa(DostepneItemki.PotionDefence);
+                item.dzialania = new ArrayList<DzialanieItema>();
+                item.dzialania.add(new DzialanieItema());
+                item.dzialania.get(0).setIkona(new EffectActor(a.texDefencePotion, 0, 0));
                 break;
         }
 

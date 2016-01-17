@@ -1,6 +1,7 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import enums.DostepneItemki;
@@ -80,6 +81,9 @@ public class Bohater extends Actor {
 
     private int przynaleznoscDoGracza;
 
+    // efekty które oddziaływują na bohatera
+    private ArrayList<DzialanieItema> efekty;
+
     /**
      *
      * @param textureIcon Tekstura bohatera wyświetlająca się na mapie
@@ -98,6 +102,7 @@ public class Bohater extends Actor {
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, Assets a,
             int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs, Game g, KlasyPostaci kp) {
 
+        this.efekty = new ArrayList<DzialanieItema>();
         this.equipment = new ArrayList<Item>();
         this.gs = gs;
         this.pozXnaMapie = pozycjaXnaMapie;
@@ -170,10 +175,12 @@ public class Bohater extends Actor {
                             zaznaczony = true;
                             gs.setCzyZaznaczonoBohatera(true);
                             // jeżeli posiada punkty ruchu.
+                            aktualizujEfektyBohatera();
                         } else {
                             if (otwartaSkrzyniaZeSkarbem) {
                                 System.out.println("Nie mogę zaznaczyć - otwarta skrzynia ze skarbem");
                             } else {
+                                aktualizujEfektyBohatera();
                                 moveable = true;
                                 //definiujPrzyciski();
                                 sprite.setTexture(bohaterCheckTex);
@@ -187,6 +194,24 @@ public class Bohater extends Actor {
                 }
             }
         });
+    }
+
+    /**
+     * Aktualizuje ikony w stage02 na MapScreen efektów, które działają.
+     */
+    public void aktualizujEfektyBohatera() {        
+        Ruch.wylaczIkonyEfektow();
+
+        if (!this.efekty.isEmpty()) {
+            int pozycjaX = Gdx.graphics.getWidth() - 180;
+            
+            for (DzialanieItema dI : this.efekty) {
+                dI.getIkona().setSize(25, 25);
+                dI.getIkona().setPosition(pozycjaX, 500);
+                Assets.stage02MapScreen.addActor(dI.getIkona());
+                pozycjaX += 30;
+            }
+        }
     }
 
     public void aktualizujKolorTeksturyBohatera() {
@@ -292,13 +317,54 @@ public class Bohater extends Actor {
     }
 
     /**
+     * Aktualizuje czas trawania efektów
+     */
+    public void aktualizujDzialanieEfektow() {
+        System.out.println("Aktualizacja czasu działania efektów");
+
+        int indeksEfektuDoUsuniecia = 99;
+
+        for (int i = 0; i < this.efekty.size(); i++) {
+            System.out.println("Wykonuje petle w efektach");
+            efekty.get(i).setDlugoscTrwaniaEfektu(efekty.get(i).getDlugoscTrwaniaEfektu() - 1);
+            System.out.println(i + ": " + efekty.get(i).getDlugoscTrwaniaEfektu());
+            if (efekty.get(i).getDlugoscTrwaniaEfektu() < 1) {
+                System.out.println("Warunek usuniecia efektu został spełniony");
+                indeksEfektuDoUsuniecia = i;
+            }
+        }
+
+        if (indeksEfektuDoUsuniecia != 99) {
+            System.out.println("Usuwam efekt: ");
+            this.efekty.remove(indeksEfektuDoUsuniecia);
+            this.aktualizujDzialanieEfektow();
+        }
+
+    }
+
+    /**
+     * Zwraca wartość współczynnika ataku efektów które oddziaływują na
+     * bohatera.
+     *
+     * @return
+     */
+    public int getAtakEfekt() {
+        int sumaAtaku = 0;
+        for (DzialanieItema dItema : this.efekty) {
+            sumaAtaku += dItema.getEfektAtak();
+        }
+        return sumaAtaku;
+    }
+
+    /**
      * *************************************************************************
      * Setters and Getters
-     **************************************************************************/
-     
+     * ************************************************************************
+     */
     /**
      * Zwraca klasę postaci bohatera
-     * @return 
+     *
+     * @return
      */
     public KlasyPostaci getKlasyPostaci() {
         return this.klasyPostaci;
@@ -306,6 +372,7 @@ public class Bohater extends Actor {
 
     /**
      * Ustala klasę postaci dla bohatera
+     *
      * @param klasyPostaci
      */
     public void setKlasyPostaci(KlasyPostaci klasyPostaci) {
@@ -510,7 +577,8 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca maksymalny poziom punktów many.
-     * @return 
+     *
+     * @return
      */
     public int getMana() {
         return mana;
@@ -518,7 +586,8 @@ public class Bohater extends Actor {
 
     /**
      * Ustala maksymalny poziom punktów many
-     * @param mana 
+     *
+     * @param mana
      */
     public void setMana(int mana) {
         this.mana = mana;
@@ -526,7 +595,8 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca ilość punktów many
-     * @return 
+     *
+     * @return
      */
     public int getActualMana() {
         return actualMana;
@@ -534,12 +604,13 @@ public class Bohater extends Actor {
 
     /**
      * Ustala ilość punktów many
-     * @param actualMana 
+     *
+     * @param actualMana
      */
     public void setActualMana(int actualMana) {
         this.actualMana = actualMana;
-    }    
-    
+    }
+
     /**
      * Sprawdza czy bohater jest zaznaczony
      *
@@ -637,4 +708,23 @@ public class Bohater extends Actor {
     public void setOtwartaSkrzyniaZeSkarbem(boolean otwartaSkrzyniaZeSkarbem) {
         this.otwartaSkrzyniaZeSkarbem = otwartaSkrzyniaZeSkarbem;
     }
+
+    /**
+     * Zwraca referencje do obiektu klasy DzialanieItema()
+     *
+     * @return
+     */
+    public ArrayList<DzialanieItema> getEfekty() {
+        return efekty;
+    }
+
+    /**
+     * Ustala referencje do obiektu klasy DzialanieItema()
+     *
+     * @param efekty
+     */
+    public void setEfekty(ArrayList<DzialanieItema> efekty) {
+        this.efekty = efekty;
+    }
+
 }

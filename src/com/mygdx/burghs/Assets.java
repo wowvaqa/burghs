@@ -16,7 +16,7 @@ import enums.CzesciCiala;
 import java.util.ArrayList;
 
 public class Assets {
-    
+
     // Tekstury terenu
     public Texture trawaDrzewoTex;
     public Texture trawaTex;
@@ -24,7 +24,7 @@ public class Assets {
     public Texture trawaZamekTex;
 
     public Texture btnGoTex, btnAttackTex;
-    public Texture btnPlus, btnMinus, btnOK, btnRight, btnLeft;    
+    public Texture btnPlus, btnMinus, btnOK, btnRight, btnLeft;
     public Texture mobElfTex, mobElfTexZaznaczony;
     public Texture mobOrkTex, mobOrkTexZaznaczony;
     public Texture mobDwarfTex, mobDwarfTexZaznaczony;
@@ -39,7 +39,7 @@ public class Assets {
     // tekstury mobów
     public Texture texSzkieletMob;
     public Texture texWilkMob;
-    
+
     // tekstury itemków
     public Texture texHead;
     public Texture texLinenTousers;
@@ -57,8 +57,12 @@ public class Assets {
     public Texture texShield;
     public Texture texBow;
     public Texture texGold;
+
+    // Potions
     public Texture texHelthPotion;
     public Texture texSpeedPotion;
+    public Texture texAttackPotion;
+    public Texture texDefencePotion;
 
     // interfejs
     public Texture moveIcon;
@@ -68,17 +72,16 @@ public class Assets {
     public AssetManager am;
 
 //    public ButtonActor btnCancel;
-
     public Label lblDmg;
 
     // predefiniowane okno ifnoramcyjne
     private Window infoWindow;
 
     public int[] mapa = new int[100];
-    
+
     public static Stage stage01MapScreen;
     public static Stage stage02MapScreen;
-    
+
     public static Screen testScreen;
     public static Screen mainMenuScreen;
     public static Screen newGameScreen;
@@ -125,7 +128,7 @@ public class Assets {
         attackIcon = new Texture("interface/texAtakIcon.png");
 
         utworzItemki();
-        
+
         utworzMoby();
 
         wypelnijMape();
@@ -150,7 +153,7 @@ public class Assets {
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
     }
-    
+
     public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Castle castle) {
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(bohaterAtakujacy, castle)));
         lblDmg.setPosition(pozX - 50, pozY - 25);
@@ -160,7 +163,7 @@ public class Assets {
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
     }
-    
+
     public void animujLblDmg(float pozX, float pozY, Mob mob, Bohater bohaterBroniacy) {
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(mob, bohaterBroniacy)));
         lblDmg.setPosition(pozX - 50, pozY - 25);
@@ -170,13 +173,13 @@ public class Assets {
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
     }
-    
+
     /**
-     * 
+     *
      * @param pozX
      * @param pozY
      * @param bohaterAtakujacy
-     * @param mob 
+     * @param mob
      */
     public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Mob mob) {
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getObrazenia(bohaterAtakujacy, mob)));
@@ -260,7 +263,7 @@ public class Assets {
                                 tmpButtons.get(i).remove();
                                 ukryjInfoWindow();
                                 pokazInfoWindow(tresureBox, bohater, gs);
-                            // Jeżeli nie jest złotem
+                                // Jeżeli nie jest złotem
                             } else {
                                 tmpButtons.get(i).remove();
                                 // dodanie itemka z tresureboxa do ekwipunku
@@ -284,6 +287,20 @@ public class Assets {
         tmpExitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // Usuwa Tresure Boxa z Stage01
+                tresureBox.remove();
+
+                // Usuwa TresureBoxa z mapy
+                for (int i = 0; i < gs.getMapa().getIloscPolX(); i ++){
+                    for (int j = 0; j < gs.getMapa().getIloscPolY(); j ++){
+                        if (gs.getMapa().getPola()[i][j].getTresureBox() != null){
+                            if (gs.getMapa().getPola()[i][j].getTresureBox().equals(tresureBox)){
+                                gs.getMapa().getPola()[i][j].setTresureBox(null);
+                            }
+                        }
+                    }
+                }
+                
                 bohater.setOtwartaSkrzyniaZeSkarbem(false);
                 ukryjInfoWindow();
 
@@ -320,7 +337,9 @@ public class Assets {
         texBow = new Texture("items/texBow.png");
         texHelthPotion = new Texture("items/texHealthPotion.png");
         texSpeedPotion = new Texture("items/texSpeedPotion.png");
-    }  
+        texAttackPotion = new Texture("items/texAttackPotion.png");
+        texDefencePotion = new Texture("items/texDefencePotion.png");
+    }
 
     // wypełnia mapę 
     private void wypelnijMape() {

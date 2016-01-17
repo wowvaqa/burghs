@@ -55,13 +55,20 @@ public class MapScreen implements Screen {
     private final Label lblGold;
     private final Label lblTuraGracza;
     private final Label lblPozostaloRuchow;
+    private final Label lblEfekty;
 
     // ikona gracza który aktualnie posiada swoją kolej 
     private final DefaultActor ikonaGracza;
     private final DefaultActor ikonaGold;
 
-    // przechowuje referencje do obiektu bohatera który będzie atakowany
-    //private Player atakowanyBohater;
+    //public ArrayList<DefaultActor> ikonyEfekty = new ArrayList<DefaultActor>();
+    /**
+     * Przechowuje efekty które oddziaływują na bohatera
+     *
+     * @param g
+     * @param a
+     * @param gs
+     */
     public MapScreen(final Game g, final Assets a, final GameStatus gs) {
         this.a = a;
         this.gs = gs;
@@ -86,7 +93,12 @@ public class MapScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Dodanie nowego bohatera.");
-                g.setScreen(Assets.newBohaterScreen);
+                if (gs.getGracze().get(gs.getTuraGracza()).getGold() < 30) {
+                    System.out.println("Za mało złota!");
+                    DialogScreen dialogScreen = new DialogScreen("ERROR", a.skin, "Za malo zlota", stage01);
+                } else {
+                    g.setScreen(Assets.newBohaterScreen);
+                }
             }
         });
 
@@ -135,10 +147,11 @@ public class MapScreen implements Screen {
         // Dodanie etykiet prezentujących statsy graczy
         lblTuraGracza = new Label("Tura gracz: " + gs.getTuraGracza(), a.skin);
         lblTuraGracza.setPosition(10, Gdx.graphics.getHeight() - 25);
-        //lblTuraGracza.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 25);
         lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
-        //lblPozostaloRuchow.setPosition(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 150);
         lblPozostaloRuchow.setPosition(150, Gdx.graphics.getHeight() - 25);
+
+        lblEfekty = new Label("Efekty: ", a.skin);
+        lblEfekty.setPosition(Gdx.graphics.getWidth() - lblEfekty.getWidth() - 180, 500);
 
         lblGold = new Label("" + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
         lblGold.setPosition(350, Gdx.graphics.getHeight() - 25);
@@ -157,6 +170,15 @@ public class MapScreen implements Screen {
 
         c = new OrthographicCamera(w, h);
         viewPort = new FitViewport(w, h, c);
+    }
+
+    /**
+     * Aktualizuje ikony efektów które działają na zaznaczonego bohatera.
+     */
+    public void aktualizujEfektyBohatera() {
+        if (gs.getBohaterZaznaczony() != null) {
+            stage02.addActor(gs.getBohaterZaznaczony().getEfekty().get(0).getIkona());
+        }
     }
 
     /**
@@ -187,9 +209,10 @@ public class MapScreen implements Screen {
         }
         lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
 
-        // Przywrócenie wszystkich punktów ruchu dla bohaterów
+        // Przywrócenie wszystkich punktów ruchu dla bohaterów oraz aktualizacja czasu działania efektów
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
             i.setPozostaloRuchow(i.getSzybkosc());
+            i.aktualizujDzialanieEfektow();
         }
         usunBohaterowGraczyGO();
 
@@ -197,6 +220,8 @@ public class MapScreen implements Screen {
 
         // zmiana ikony gracza na górnej belce
         this.ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());
+
+        Ruch.wylaczIkonyEfektow();
     }
 
     /**
@@ -205,7 +230,6 @@ public class MapScreen implements Screen {
     public void przesunKamereNadBohatera() {
         Camera cam = stage01.getCamera();
         System.out.println(cam.position);
-        //cam.translate(100, 100, 0);
         float xCord = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(0).getX();
         float yCord = gs.getGracze().get(gs.getTuraGracza()).getBohaterowie().get(0).getY();
 
@@ -265,7 +289,6 @@ public class MapScreen implements Screen {
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
                 if (gs.getMapa().getPola()[i][j].getBohater() != null) {
-                    //gs.getMapa().getPola()[i][j].getBohater().wylaczPrzyciski();
                     gs.getMapa().getPola()[i][j].getBohater().setZaznaczony(false);
                     gs.getMapa().getPola()[i][j].getBohater().getSprite().setTexture(gs.getMapa().getPola()[i][j].getBohater().getBohaterTex());
                     Ruch.wylaczPrzyciski();
@@ -290,9 +313,28 @@ public class MapScreen implements Screen {
             System.out.println("Koniec tury ogólnej");
             gs.setTuraGry(gs.getTuraGry() + 1);
             odnowZdrowieZamkow();
+            odnowZdrowieBohaterow();
         }
     }
 
+    /**
+     * Odnawia co turę gry HP bohaterów + 1
+     */
+    private void odnowZdrowieBohaterow(){
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().getPola()[i][j].getBohater()!= null
+                        && gs.getMapa().getPola()[i][j].getBohater().getActualHp()
+                        < gs.getMapa().getPola()[i][j].getBohater().getHp()) {
+                    System.out.println("Bohater odnawia życie");
+                    gs.getMapa().getPola()[i][j].getBohater().setActualHp(
+                            gs.getMapa().getPola()[i][j].getBohater().getActualHp() + 1);
+                    gs.getMapa().getPola()[i][j].getBohater().aktualizujTeksture();
+                }
+            }
+        }
+    }
+    
     /**
      * Odnawia co turę gry HP zamków +1
      */
@@ -337,6 +379,7 @@ public class MapScreen implements Screen {
         stage02.addActor(gornaBelka);
         stage02.addActor(lblTuraGracza);
         stage02.addActor(lblPozostaloRuchow);
+        stage02.addActor(lblEfekty);
         stage02.addActor(btnBohaterScreen);
         stage02.addActor(btnExit);
         stage02.addActor(btnKoniecTury);
@@ -362,11 +405,11 @@ public class MapScreen implements Screen {
 
     }
 
-    private Texture teksturaTerenu(TypyTerenu tT){
+    private Texture teksturaTerenu(TypyTerenu tT) {
         System.out.println(tT);
-        switch (tT){
+        switch (tT) {
             case Gory:
-                return a.trawaGoraTex;                
+                return a.trawaGoraTex;
             case Trawa:
                 return a.trawaTex;
             case Drzewo:
@@ -374,35 +417,89 @@ public class MapScreen implements Screen {
         }
         return a.trawaTex;
     }
-    
+
+    /**
+     * Generuje Skrzynię ze skarbem i dodaje do stage 01
+     *
+     * @param poziom
+     * @param iloscItemow
+     * @param pozXstage
+     * @param pozYstage
+     */
+    public void generujSkrzynieZeSkarbem(int poziom, int iloscItemow, int pozXstage, int pozYstage) {
+        TresureBox tb = new TresureBox(poziom, iloscItemow, this.a, this.gs, this.g, pozXstage, pozYstage);
+        gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].setTresureBox(tb);
+        stage01.addActor(gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].getTresureBox());
+    }
+
     // wypełnia stage01 aktorami planszy
     private void generujPlansze() {
-        
+
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
-            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {                
-                teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));                
-            }            
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory){
+                    gs.getMapa().getPola()[i][j].setMovable(false);
+                }
+                teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
+            }
         }
-        
+
         for (DefaultActor teren1 : teren) {
             stage01.addActor(teren1);
         }
 
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
-        TresureBox tb = new TresureBox(this.a, this.gs, this.g);
+        TresureBox tb = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 200);
         gs.getMapa().getPola()[2][2].setTresureBox(tb);
         stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
 
+        TresureBox tb2 = new TresureBox(1, 2, this.a, this.gs, this.g, 700, 700);
+        gs.getMapa().getPola()[7][7].setTresureBox(tb2);
+        stage01.addActor(gs.getMapa().getPola()[7][7].getTresureBox());
+
+        TresureBox tb3 = new TresureBox(1, 2, this.a, this.gs, this.g, 700, 200);
+        gs.getMapa().getPola()[7][2].setTresureBox(tb3);
+        stage01.addActor(gs.getMapa().getPola()[7][2].getTresureBox());
+
+        TresureBox tb4 = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 700);
+        gs.getMapa().getPola()[2][7].setTresureBox(tb4);
+        stage01.addActor(gs.getMapa().getPola()[2][7].getTresureBox());
+
         // Tymczasowa obiekt moba
-        Mob mob = new Mob(a.texWilkMob, gs, a, 300, 0, 1);
+        Mob mob = new Mob(a.texWilkMob, g, gs, a, 300, 0, 1);
         gs.getMapa().getPola()[3][0].setMob(mob);
         stage01.addActor(gs.getMapa().getPola()[3][0].getMob());
 
-        Mob mob2 = new Mob(a.texSzkieletMob, gs, a, 0, 300, 1);
+        Mob mob2 = new Mob(a.texSzkieletMob, g, gs, a, 0, 300, 1);
         gs.getMapa().getPola()[0][3].setMob(mob2);
         stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
 
+        // Tymczasowa obiekt moba
+        Mob mob3 = new Mob(a.texWilkMob, g, gs, a, 600, 900, 1);
+        gs.getMapa().getPola()[6][9].setMob(mob3);
+        stage01.addActor(gs.getMapa().getPola()[6][9].getMob());
+
+        Mob mob4 = new Mob(a.texSzkieletMob, g, gs, a, 900, 600, 1);
+        gs.getMapa().getPola()[9][6].setMob(mob4);
+        stage01.addActor(gs.getMapa().getPola()[9][6].getMob());
+
+        Mob mob5 = new Mob(a.texWilkMob, g, gs, a, 300, 900, 1);
+        gs.getMapa().getPola()[3][9].setMob(mob5);
+        stage01.addActor(gs.getMapa().getPola()[3][9].getMob());
+
+        Mob mob6 = new Mob(a.texSzkieletMob, g, gs, a, 0, 600, 1);
+        gs.getMapa().getPola()[0][6].setMob(mob6);
+        stage01.addActor(gs.getMapa().getPola()[0][6].getMob());
+        
+        Mob mob7 = new Mob(a.texWilkMob, g, gs, a, 600, 0, 1);
+        gs.getMapa().getPola()[6][0].setMob(mob7);
+        stage01.addActor(gs.getMapa().getPola()[6][0].getMob());
+
+        Mob mob8 = new Mob(a.texSzkieletMob, g, gs, a, 900, 300, 1);
+        gs.getMapa().getPola()[9][3].setMob(mob8);
+        stage01.addActor(gs.getMapa().getPola()[9][3].getMob());
+        
         // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
         // zamków
         switch (gs.iloscGraczy) {
@@ -440,6 +537,10 @@ public class MapScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        if (GameStatus.wspolzedneXtresureBox != 999) {
+            this.utworzTresureBoxPoSmierciMoba();
+        }
+
         sprawdzPolozenieKursora();
         ruchKamery();
         wyswietlStatystykiBohatera();
@@ -453,6 +554,17 @@ public class MapScreen implements Screen {
 
         stage02.act();
         stage02.draw();
+    }
+
+    /**
+     * Tworzy tresure box po smierci Moba
+     */
+    private void utworzTresureBoxPoSmierciMoba() {
+        TresureBox tb = new TresureBox(1, 2, this.a, this.gs, this.g, GameStatus.wspolzedneXtresureBox * 100, GameStatus.wspolzedneYtresureBox * 100);
+        gs.getMapa().getPola()[GameStatus.wspolzedneXtresureBox][GameStatus.wspolzedneYtresureBox].setTresureBox(tb);
+        stage01.addActor(gs.getMapa().getPola()[GameStatus.wspolzedneXtresureBox][GameStatus.wspolzedneYtresureBox].getTresureBox());
+        GameStatus.wspolzedneXtresureBox = 999;
+        GameStatus.wspolzedneYtresureBox = 999;
     }
 
     // Sprawdza położenie kursora 

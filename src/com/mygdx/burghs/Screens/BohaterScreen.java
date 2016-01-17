@@ -137,11 +137,12 @@ public class BohaterScreen implements Screen {
      * Formatuje tabele ekwipunku
      */
     private void formatujTabele2() {
+        int iloscPozycjiwWierszu = 0;
         //tabela2.setFillParent(true);
         // ustawia odstęp od krawędzi tabeli
         tabela2.pad(10);
         // włacza linie debugujące tabelę
-        tabela2.setDebug(true);
+        tabela2.setDebug(false);
 
         tabela2.add(new Label("Ekwipunek:", a.skin)).align(Align.topLeft);
         tabela2.row();
@@ -206,7 +207,11 @@ public class BohaterScreen implements Screen {
 
             tabela2.add(tmpButtonsUsun.get(i)).pad(5);
             tabela2.add(tmpButtonsZaloz.get(i)).pad(5);
-            tabela2.row();
+            iloscPozycjiwWierszu += 1;
+            if (iloscPozycjiwWierszu > 3) {
+                tabela2.row();
+                iloscPozycjiwWierszu = 0;
+            }
         }
     }
 
@@ -223,6 +228,7 @@ public class BohaterScreen implements Screen {
             for (DzialanieItema dzialanieItema : sprawdzBohatera().getEquipment().get(i).dzialania) {
                 dzialanieItema.dzialanie(sprawdzBohatera().getEquipment().get(i).getItemNazwa(), gs.getBohaterZaznaczony());
             }
+            sprawdzBohatera().aktualizujEfektyBohatera();
             sprawdzBohatera().getEquipment().remove(i);
 
         } else if (sprawdzBohatera().getEquipment().get(i).getCzescCiala().equals(CzesciCiala.glowa)) {
@@ -356,7 +362,9 @@ public class BohaterScreen implements Screen {
         formatujTabele2();
 
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak()
-                + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")");
+                + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")" 
+                + " (" + sprawdzBohatera().getAtakEfekt()+ ")" 
+                );
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona()
                 + " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")");
         lblHp.setText("HP: " + sprawdzBohatera().getActualHp()

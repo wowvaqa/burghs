@@ -20,10 +20,19 @@ version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
-version 0.0025
+version 0.0098
         1. Dokończy MapEditora 
 
-version 0.0026 13012016
+version 0.0027 17012016 DONE
+DONE    1. Dodanie mikstur działających długotrawale.
+DONE    2. Dodanie ikon informujących o działających efektach na bohatera.
+DONE    3. Itemy w TresureBox losują się z zadanego przedziału poziomu itemów.
+DONE    4. Po naciśnięciu przycisku Exit TresureBoxa obiekt zostaje usunięty.
+DONE    5. Dodano generowanie TresureBoxa po zabiciu Moba
+DONE    6. Typ Terenu z statusem Movable = false uniemożliwia ruch.
+DONE    7. Po każdej turze ogólnej bohater leczy się o 1 punkt.
+
+version 0.0026 13012016 DONE
 DONE    1. Dodanie prototypu itema który po użyciu wykonuje działanie ( mikstura
         lecząca).
 

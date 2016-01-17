@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,6 +26,7 @@ public class Mob extends Actor {
 
     private final GameStatus gs;
     private final Assets a;
+    private final Game g;
 
     private boolean czyZaatakowany = false;
 
@@ -45,16 +47,18 @@ public class Mob extends Actor {
     /**
      *
      * @param textureIcon Tekstura moba
+     * @param g
      * @param gs Referencja do obiketu Game Status
      * @param a Referencja do obiektu Assets
      * @param lokaczjaPoczatkowaX Lokacja początkowa X w Stage
      * @param lokaczjaPoczatkowaY Lokacja początkowa Y w Stage
      * @param mobLevel Poziom moba.
      */
-    public Mob(Texture textureIcon, GameStatus gs, Assets a,
+    public Mob(Texture textureIcon, Game g, GameStatus gs, Assets a,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, int mobLevel) {
         this.gs = gs;
         this.a = a;
+        this.g = g;
         this.icon = textureIcon;
         this.mobLevel = mobLevel;
         sprite = new Sprite(this.icon);
@@ -147,14 +151,23 @@ public class Mob extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        
         if (czyZaatakowany) {
             this.atakMoba();
         }
+        
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        if (this.getAktualneHp() < 1){
+            System.out.println("Dodaje skrzynie po zabiciu  przeciwnika");
+            TresureBox tb = new TresureBox(1, 1, this.a, this.gs, this.g, this.pozX, this.pozY);
+            gs.getMapa().getPola()[this.pozX / 100][this.pozY / 100].setTresureBox(tb);
+            Assets.stage01MapScreen.addActor(gs.getMapa().getPola()[this.pozX / 100][this.pozY / 100].getTresureBox());
+        }
+        
     }
 
     /**
