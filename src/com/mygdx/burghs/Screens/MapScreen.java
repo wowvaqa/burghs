@@ -21,8 +21,8 @@ import com.mygdx.burghs.Bohater;
 import com.mygdx.burghs.ButtonActor;
 import com.mygdx.burghs.Castle;
 import com.mygdx.burghs.DefaultActor;
+import com.mygdx.burghs.Fight;
 import com.mygdx.burghs.GameStatus;
-import com.mygdx.burghs.Gracz;
 import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.Ruch;
 import com.mygdx.burghs.TresureBox;
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class MapScreen implements Screen {
 
     private DefaultActor gornaBelka;
-    //private DefaultActor prawaBelka;
 
     private final OrthographicCamera c;
     private final FitViewport viewPort;
@@ -46,7 +45,6 @@ public class MapScreen implements Screen {
 
     private final TextButton btnExit;
     private final TextButton btnKoniecTury;
-    private final TextButton btnBohaterScreen;
     private final TextButton btnKupBohatera;
 
     private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
@@ -54,14 +52,28 @@ public class MapScreen implements Screen {
     // labele informujące o statystykach klikniętego bohatera
     private final Label lblGold;
     private final Label lblTuraGracza;
-    private final Label lblPozostaloRuchow;
-    private final Label lblEfekty;
+    //private final Label lblPozostaloRuchow;
+    //private final Label lblEfekty;
 
     // ikona gracza który aktualnie posiada swoją kolej 
     private final DefaultActor ikonaGracza;
     private final DefaultActor ikonaGold;
 
-    //public ArrayList<DefaultActor> ikonyEfekty = new ArrayList<DefaultActor>();
+    /**
+     * * PANEL BOHATERA
+     */
+    private Label pbLblHp;
+    private Label pbLblMove;
+    private Label pbLblMana;
+    private Label pbLblExp;
+    private Label pbLblEfekty;
+    private TextButton pbBtnBohaterScreen;
+    private TextButton pbBtnAwansujBohatera;
+    private TextButton pbBtnSpellBook;
+    /**
+     * KONIECE PANELU BOHATERA
+     */
+    
     /**
      * Przechowuje efekty które oddziaływują na bohatera
      *
@@ -74,13 +86,14 @@ public class MapScreen implements Screen {
         this.gs = gs;
         this.g = g;
 
+        utworzPanelBohatera();
         utworzInterfejs();
 
         ikonaGracza = new DefaultActor(a.btnAttackTex, 0, 0);
         ikonaGracza.getSprite().setTexture(gs.gracze.get(gs.getTuraGracza()).getTeksturaIkonyGracza());
         ikonaGracza.setPosition(110, Gdx.graphics.getHeight() - 23);
 
-        ikonaGold = new DefaultActor(a.texGold, 315, Gdx.graphics.getHeight() - 25);
+        ikonaGold = new DefaultActor(a.texGold, 165, Gdx.graphics.getHeight() - 25);
         ikonaGold.setSize(25, 25);
 
         Assets.stage01MapScreen = this.stage01;
@@ -98,22 +111,6 @@ public class MapScreen implements Screen {
                     DialogScreen dialogScreen = new DialogScreen("ERROR", a.skin, "Za malo zlota", stage01);
                 } else {
                     g.setScreen(Assets.newBohaterScreen);
-                }
-            }
-        });
-
-        // Dodaje przycisk wyjścia do planszy 02.
-        btnBohaterScreen = new TextButton("Bohater", a.skin);
-        btnBohaterScreen.setSize(100, 50);
-        btnBohaterScreen.setPosition(Gdx.graphics.getWidth() - btnBohaterScreen.getWidth() - 25, 75);
-        btnBohaterScreen.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (gs.isCzyZaznaczonoBohatera()) {
-                    //gs.setActualScreen(5);
-                    g.setScreen(Assets.bohaterScreen);
-                } else {
-                    System.out.println("Nie zaznaczono bohatera");
                 }
             }
         });
@@ -147,14 +144,11 @@ public class MapScreen implements Screen {
         // Dodanie etykiet prezentujących statsy graczy
         lblTuraGracza = new Label("Tura gracz: " + gs.getTuraGracza(), a.skin);
         lblTuraGracza.setPosition(10, Gdx.graphics.getHeight() - 25);
-        lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
-        lblPozostaloRuchow.setPosition(150, Gdx.graphics.getHeight() - 25);
-
-        lblEfekty = new Label("Efekty: ", a.skin);
-        lblEfekty.setPosition(Gdx.graphics.getWidth() - lblEfekty.getWidth() - 180, 500);
+//        lblPozostaloRuchow = new Label("Pozostalo ruchow: ", a.skin);
+//        lblPozostaloRuchow.setPosition(150, Gdx.graphics.getHeight() - 25);
 
         lblGold = new Label("" + gs.getGracze().get(gs.getTuraGracza()).getGold(), a.skin);
-        lblGold.setPosition(350, Gdx.graphics.getHeight() - 25);
+        lblGold.setPosition(200, Gdx.graphics.getHeight() - 25);
 
         dodajDoStage02();
 
@@ -211,7 +205,7 @@ public class MapScreen implements Screen {
 
         // Przywrócenie wszystkich punktów ruchu dla bohaterów oraz aktualizacja czasu działania efektów
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
-            i.setPozostaloRuchow(i.getSzybkosc());
+            i.setPozostaloRuchow(i.getSzybkosc() + Fight.getSzybkoscEkwipunkuBohatera(i));
             i.aktualizujDzialanieEfektow();
         }
         usunBohaterowGraczyGO();
@@ -320,10 +314,10 @@ public class MapScreen implements Screen {
     /**
      * Odnawia co turę gry HP bohaterów + 1
      */
-    private void odnowZdrowieBohaterow(){
+    private void odnowZdrowieBohaterow() {
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
-                if (gs.getMapa().getPola()[i][j].getBohater()!= null
+                if (gs.getMapa().getPola()[i][j].getBohater() != null
                         && gs.getMapa().getPola()[i][j].getBohater().getActualHp()
                         < gs.getMapa().getPola()[i][j].getBohater().getHp()) {
                     System.out.println("Bohater odnawia życie");
@@ -334,7 +328,7 @@ public class MapScreen implements Screen {
             }
         }
     }
-    
+
     /**
      * Odnawia co turę gry HP zamków +1
      */
@@ -350,6 +344,72 @@ public class MapScreen implements Screen {
                 }
             }
         }
+    }
+
+    /**
+     * Tworzy panel bohatera.
+     */
+    private void utworzPanelBohatera() {
+        pbLblHp = new Label("HP: X/X", a.skin);
+        pbLblMove = new Label("MV: X/X", a.skin);
+        pbLblMana = new Label("MN: X/X", a.skin);
+        pbLblExp = new Label("EX: X/X", a.skin);
+        pbLblEfekty = new Label("EFEKTY:", a.skin);
+
+        pbLblHp.setPosition(Gdx.graphics.getWidth() - 220, 500);
+        pbLblMove.setPosition(Gdx.graphics.getWidth() - 110, 500);
+        pbLblMana.setPosition(Gdx.graphics.getWidth() - 220, 475);
+        pbLblExp.setPosition(Gdx.graphics.getWidth() - 110, 475);
+
+        pbLblEfekty.setPosition(Gdx.graphics.getWidth() - pbLblEfekty.getWidth() - 100, 450);
+
+        pbBtnSpellBook = new TextButton("Spell Book", a.skin);
+        pbBtnSpellBook.setSize(100, 50);
+        pbBtnSpellBook.setPosition(Gdx.graphics.getWidth() - 220, 360);
+        
+
+        // Dodaje przycisk wyjścia do planszy 02.
+        pbBtnBohaterScreen = new TextButton("Bohater", a.skin);
+        pbBtnBohaterScreen.setSize(100, 50);
+        pbBtnBohaterScreen.setPosition(Gdx.graphics.getWidth() - 110, 360);
+        pbBtnBohaterScreen.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (gs.isCzyZaznaczonoBohatera()) {
+                    //gs.setActualScreen(5);
+                    g.setScreen(Assets.bohaterScreen);
+                } else {
+                    System.out.println("Nie zaznaczono bohatera");
+                }
+            }
+        });
+
+        pbBtnAwansujBohatera = new TextButton("Awans", a.skin);
+        pbBtnAwansujBohatera.setSize(210, 50);
+        pbBtnAwansujBohatera.setPosition(Gdx.graphics.getWidth() - 220, 300);
+        pbBtnAwansujBohatera.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pbBtnAwansujBohatera.setVisible(false);
+                g.setScreen(Assets.awansScreen);
+            }
+        });
+    }
+
+    private void aktualizujPanelBohatera() {
+        Bohater b = gs.getBohaterZaznaczony();
+        pbLblHp.setVisible(true);
+        pbLblHp.setText("HP:"+ b.getActualHp() + "/" + b.getHp());
+        pbLblMove.setVisible(true);
+        pbLblMove.setText("MV:"+ b.getPozostaloRuchow()+ "/" + b.getSzybkosc());
+        pbLblExp.setVisible(true);
+        pbLblExp.setText("EX:"+ b.getExp()+ "/" + b.getExpToNextLevel());
+        pbLblMana.setVisible(true);
+        pbLblMana.setText("MN:"+ b.getActualMana()+ "/" + b.getMana());
+        
+        pbLblEfekty.setVisible(true);
+        pbBtnBohaterScreen.setVisible(true);
+        pbBtnSpellBook.setVisible(true);
     }
 
     /**
@@ -378,15 +438,23 @@ public class MapScreen implements Screen {
     private void dodajDoStage02() {
         stage02.addActor(gornaBelka);
         stage02.addActor(lblTuraGracza);
-        stage02.addActor(lblPozostaloRuchow);
-        stage02.addActor(lblEfekty);
-        stage02.addActor(btnBohaterScreen);
+        //stage02.addActor(lblPozostaloRuchow);
         stage02.addActor(btnExit);
         stage02.addActor(btnKoniecTury);
         stage02.addActor(btnKupBohatera);
         stage02.addActor(lblGold);
         stage02.addActor(ikonaGracza);
         stage02.addActor(ikonaGold);
+
+        //Panel Bohatera
+        stage02.addActor(pbLblHp);
+        stage02.addActor(pbLblMove);
+        stage02.addActor(pbLblMana);
+        stage02.addActor(pbLblExp);
+        stage02.addActor(pbLblEfekty);
+        stage02.addActor(pbBtnBohaterScreen);
+        stage02.addActor(pbBtnAwansujBohatera);
+        stage02.addActor(pbBtnSpellBook);
     }
 
     // Dodaj do stage 01 predefiniowane przyciski ruchu i ataku oraz przycisk cancel
@@ -437,7 +505,7 @@ public class MapScreen implements Screen {
 
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
-                if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory){
+                if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory) {
                     gs.getMapa().getPola()[i][j].setMovable(false);
                 }
                 teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
@@ -491,7 +559,7 @@ public class MapScreen implements Screen {
         Mob mob6 = new Mob(a.texSzkieletMob, g, gs, a, 0, 600, 1);
         gs.getMapa().getPola()[0][6].setMob(mob6);
         stage01.addActor(gs.getMapa().getPola()[0][6].getMob());
-        
+
         Mob mob7 = new Mob(a.texWilkMob, g, gs, a, 600, 0, 1);
         gs.getMapa().getPola()[6][0].setMob(mob7);
         stage01.addActor(gs.getMapa().getPola()[6][0].getMob());
@@ -499,7 +567,7 @@ public class MapScreen implements Screen {
         Mob mob8 = new Mob(a.texSzkieletMob, g, gs, a, 900, 300, 1);
         gs.getMapa().getPola()[9][3].setMob(mob8);
         stage01.addActor(gs.getMapa().getPola()[9][3].getMob());
-        
+
         // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
         // zamków
         switch (gs.iloscGraczy) {
@@ -537,13 +605,30 @@ public class MapScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        if (gs.getBohaterZaznaczony() != null) {           
+            aktualizujPanelBohatera();
+            if (gs.getBohaterZaznaczony().getExp() >= gs.getBohaterZaznaczony().getExpToNextLevel()) {
+                pbBtnAwansujBohatera.setVisible(true);
+            }
+        } else {
+            pbLblHp.setVisible(false);
+            pbLblMove.setVisible(false);
+            pbLblExp.setVisible(false);
+            pbLblMana.setVisible(false);
+            pbLblEfekty.setVisible(false);
+            pbBtnAwansujBohatera.setVisible(false);
+            pbBtnBohaterScreen.setVisible(false);
+            pbBtnSpellBook.setVisible(false);            
+        }
+
         if (GameStatus.wspolzedneXtresureBox != 999) {
             this.utworzTresureBoxPoSmierciMoba();
+            sortujZindex();
         }
 
         sprawdzPolozenieKursora();
         ruchKamery();
-        wyswietlStatystykiBohatera();
+        //wyswietlStatystykiBohatera();
         this.lblGold.setText(Integer.toString(gs.getZlotoAktualnegoGracza()));
 
         Gdx.gl.glClearColor(255, 255, 255, 1);
@@ -582,15 +667,15 @@ public class MapScreen implements Screen {
      * 1. Sprawdza każdego bohatera z Graczy pod względem zaznaczenia. 2. Jeżeli
      * TRUE wtedy ładuje statsy bohatera do labeli z MapScreena
      */
-    private void wyswietlStatystykiBohatera() {
-        for (Gracz i : gs.getGracze()) {
-            for (Bohater j : i.getBohaterowie()) {
-                if (j.isZaznaczony()) {
-                    lblPozostaloRuchow.setText("Pozostalo ruchow: " + Integer.toString(j.getPozostaloRuchow()));
-                }
-            }
-        }
-    }
+//    private void wyswietlStatystykiBohatera() {
+//        for (Gracz i : gs.getGracze()) {
+//            for (Bohater j : i.getBohaterowie()) {
+//                if (j.isZaznaczony()) {
+//                    lblPozostaloRuchow.setText("Pozostalo ruchow: " + Integer.toString(j.getPozostaloRuchow()));
+//                }
+//            }
+//        }
+//    }
 
     // Steruje ruchem kamery
     private void ruchKamery() {

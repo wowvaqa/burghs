@@ -23,6 +23,14 @@ version 0.0099
 version 0.0098
         1. Dokończy MapEditora 
 
+version 0.0028 18012016 DONE
+DONE    1. Dodano Ekran awansu bohatera.
+DONE    2. Poprawiono błąd z brakiem reakcji przycisku Załóż w BohaterScreen
+DONE    3. Poprawiono błąd z nieprawidłowym liczeniem szybkości jeżeli
+        bohater posiadał item zwiększający szybkość.
+DONE    5. Poprawiono błąd z niepoprawnym losowaniem itemków dla TresureBoxa.
+DONE    6. Dodanie panelu z info dot. bohatera.
+
 version 0.0027 17012016 DONE
 DONE    1. Dodanie mikstur działających długotrawale.
 DONE    2. Dodanie ikon informujących o działających efektach na bohatera.

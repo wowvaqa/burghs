@@ -91,6 +91,7 @@ public class Assets {
     public static Screen lastScreen;
     public static Screen newBohaterScreen;
     public static Screen mapEditor;
+    public static Screen awansScreen;
 
     public Assets() {
         trawaDrzewoTex = new Texture("grassTree100x100.png");

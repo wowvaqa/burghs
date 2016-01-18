@@ -22,7 +22,6 @@ import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Gracz;
 import com.mygdx.burghs.Item;
 import enums.CzesciCiala;
-import enums.DostepneItemki;
 import enums.TypItemu;
 import java.util.ArrayList;
 
@@ -79,16 +78,11 @@ public class BohaterScreen implements Screen {
     // Formatuje tabele dodaje do niej elementy
     private void formatujTabele() {
 
-        // ustawia rozmiar tebeli na cały ekran
         tabela.setFillParent(true);
-        // ustawia odstęp od krawędzi tabeli
         tabela.pad(10);
-        // włacza linie debugujące tabelę
         tabela.setDebug(true);
 
-        // dodaje label do tabeli        
         tabela.add(lblBohater).align(Align.top).expandX().colspan(tabela.getColumns());
-
         tabela.row();
 
         tabela.add(lblAtak).align(Align.topLeft);
@@ -138,10 +132,7 @@ public class BohaterScreen implements Screen {
      */
     private void formatujTabele2() {
         int iloscPozycjiwWierszu = 0;
-        //tabela2.setFillParent(true);
-        // ustawia odstęp od krawędzi tabeli
         tabela2.pad(10);
-        // włacza linie debugujące tabelę
         tabela2.setDebug(false);
 
         tabela2.add(new Label("Ekwipunek:", a.skin)).align(Align.topLeft);
@@ -158,7 +149,7 @@ public class BohaterScreen implements Screen {
 
             tmpButtonsUsun.get(i).addListener(new ClickListener() {
                 @Override
-                public void clicked(InputEvent event, float x, float y) {
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     System.out.println("przycisk Unus klikniety");
                     for (int i = 0; i < tmpButtonsUsun.size(); i++) {
                         if (tmpButtonsUsun.get(i).isPressed()) {
@@ -174,12 +165,14 @@ public class BohaterScreen implements Screen {
                             break;
                         }
                     }
+                    return false;
                 }
             });
 
             tmpButtonsZaloz.get(i).addListener(new ClickListener() {
+
                 @Override
-                public void clicked(InputEvent event, float x, float y) {
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     System.out.println("przycisk zaloz klikniety");
                     for (int i = 0; i < tmpButtonsZaloz.size(); i++) {
                         if (tmpButtonsZaloz.get(i).isPressed()) {
@@ -202,6 +195,7 @@ public class BohaterScreen implements Screen {
                             tmpButtonsZaloz.clear();
                         }
                     }
+                    return false;
                 }
             });
 
@@ -362,14 +356,19 @@ public class BohaterScreen implements Screen {
         formatujTabele2();
 
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak()
-                + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")" 
-                + " (" + sprawdzBohatera().getAtakEfekt()+ ")" 
-                );
+                + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")"
+                + " (" + sprawdzBohatera().getAtakEfekt() + ")");
+        
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona()
-                + " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")");
+                + " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")"
+                + " (" + sprawdzBohatera().getObronaEfekt() + ")");
+
         lblHp.setText("HP: " + sprawdzBohatera().getActualHp()
-                + " (" + sprawdzBohatera().getHp() + ")");
-        lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc());
+                + " (" + sprawdzBohatera().getHp() + ")"
+        );
+        lblSzybkosc.setText("Szybkosc: " + sprawdzBohatera().getSzybkosc()
+                + " (" + Fight.getSzybkoscEkwipunkuBohatera(gs.getBohaterZaznaczony()) + ")");
+
         lblMana.setText("Mana: " + sprawdzBohatera().getActualMana()
                 + " (" + sprawdzBohatera().getMana() + ")");
 

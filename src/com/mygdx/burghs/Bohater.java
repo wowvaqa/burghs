@@ -203,11 +203,11 @@ public class Bohater extends Actor {
         Ruch.wylaczIkonyEfektow();
 
         if (!this.efekty.isEmpty()) {
-            int pozycjaX = Gdx.graphics.getWidth() - 180;
+            int pozycjaX = Gdx.graphics.getWidth() - 220;
             
             for (DzialanieItema dI : this.efekty) {
                 dI.getIkona().setSize(25, 25);
-                dI.getIkona().setPosition(pozycjaX, 500);
+                dI.getIkona().setPosition(pozycjaX, 425);
                 Assets.stage02MapScreen.addActor(dI.getIkona());
                 pozycjaX += 30;
             }
@@ -354,6 +354,20 @@ public class Bohater extends Actor {
             sumaAtaku += dItema.getEfektAtak();
         }
         return sumaAtaku;
+    }
+    
+    /**
+     * Zwraca wartość współczynnika obrony efektów które oddziaływują na
+     * bohatera.
+     *
+     * @return
+     */
+    public int getObronaEfekt() {
+        int sumaObrona = 0;
+        for (DzialanieItema dItema : this.efekty) {
+            sumaObrona += dItema.getEfektObrona();
+        }
+        return sumaObrona;
     }
 
     /**

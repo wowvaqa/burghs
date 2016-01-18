@@ -139,7 +139,7 @@ public class Fight {
         System.out.println("Nastąpił atak mf");
         int atak = rnd.nextInt(mob.getAtak() + 1);
         int obrona = rnd.nextInt(bohaterBroniacy.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohaterBroniacy)
-                + getObronaEkwipunkuBohaterBroniacego(bohaterBroniacy)  + 1);
+                + getObronaEfektyBohatera(bohaterBroniacy) + 1);
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
         int dmg = atak - obrona;
