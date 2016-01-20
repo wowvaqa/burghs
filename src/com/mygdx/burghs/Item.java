@@ -47,7 +47,7 @@ public class Item extends Actor {
     private String opis;
     private DostepneItemki itemNazwa;
     
-    public ArrayList<DzialanieItema> dzialania;
+    public ArrayList<Effect> dzialania;
 
     public Item(Texture teksura, final Assets a, final GameStatus gs, final Game g) {
         this.g = g;
@@ -99,7 +99,7 @@ public class Item extends Actor {
      * Zwraca działania dostępne dla itemka.
      * @return 
      */
-    public ArrayList<DzialanieItema> getDzialania() {
+    public ArrayList<Effect> getDzialania() {
         return dzialania;
     }
 
@@ -107,7 +107,7 @@ public class Item extends Actor {
      * Ustala działania dostępne dla itemka.
      * @param dzialania 
      */
-    public void setDzialania(ArrayList<DzialanieItema> dzialania) {
+    public void setDzialania(ArrayList<Effect> dzialania) {
         this.dzialania = dzialania;
     }
     

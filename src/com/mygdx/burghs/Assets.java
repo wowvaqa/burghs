@@ -3,6 +3,8 @@ package com.mygdx.burghs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -57,6 +59,10 @@ public class Assets {
     public Texture texShield;
     public Texture texBow;
     public Texture texGold;
+    
+    // Spell Textures
+    public Texture texSpellFireBall;
+    public Texture texSpellFreez;
 
     // Potions
     public Texture texHelthPotion;
@@ -128,11 +134,12 @@ public class Assets {
         cancelIcon = new Texture("interface/texCancelIcon.png");
         attackIcon = new Texture("interface/texAtakIcon.png");
 
-        utworzItemki();
+        makeItems();
+        makeSpellTextures();
 
-        utworzMoby();
+        makeMobs();
 
-        wypelnijMape();
+        fillMap();
         utworzInfoWindow();
 
     }
@@ -319,7 +326,7 @@ public class Assets {
         infoWindow.reset();
     }
 
-    private void utworzItemki() {
+    private void makeItems() {
         texHead = new Texture("items/texHead.png");
         texLinenGloves = new Texture("items/texLinenGloves.png");
         texLinenCap = new Texture("items/texLinenCap.png");
@@ -341,9 +348,35 @@ public class Assets {
         texAttackPotion = new Texture("items/texAttackPotion.png");
         texDefencePotion = new Texture("items/texDefencePotion.png");
     }
+    
+    private void makeSpellTextures(){
+        texSpellFireBall = new Texture("spells/texFireball.png");
+        texSpellFreez = new Texture("spells/texFreez.png");
+    }
+    
+    /**
+     * Zwraca Spell Actor z panelem czarów
+     * @return 
+     */
+    public SpellActor getSpellPanel(){
+        Pixmap pmSpellPanel = new Pixmap(Gdx.graphics.getWidth(), 100, Pixmap.Format.RGBA8888);
+        pmSpellPanel.setColor(Color.LIGHT_GRAY);
+        pmSpellPanel.fillRectangle(0, 0, 500, 60);
+        //pmGornaBelka.fillRectangle(Gdx.graphics.getWidth() - 250, 0, 250, Gdx.graphics.getHeight());
+        //pmGornaBelka.setColor(Color.BLACK);
+        // czarna ramka wokół mapy 
+        //pmGornaBelka.drawRectangle(0, 30, Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 30);
+        //pmGornaBelka.drawRectangle(1, 31, Gdx.graphics.getWidth() - 252, Gdx.graphics.getHeight() - 2 - 30);
+
+        Texture texSpellPanel = new Texture(pmSpellPanel);
+
+        SpellActor spellPanel = new SpellActor(texSpellPanel, 250, 10);
+        
+        return spellPanel;
+    }
 
     // wypełnia mapę 
-    private void wypelnijMape() {
+    private void fillMap() {
         // wypełnienie mapy trawą
         for (int i = 0; i < 100; i++) {
             mapa[i] = 1;
@@ -369,7 +402,7 @@ public class Assets {
         this.infoWindow = infoWindow;
     }
 
-    private void utworzMoby() {
+    private void makeMobs() {
         this.texWilkMob = new Texture("moby/mobWolfTex.png");
         this.texSzkieletMob = new Texture("moby/mobSzkieletfTex.png");
     }

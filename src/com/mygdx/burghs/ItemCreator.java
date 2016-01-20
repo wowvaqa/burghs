@@ -213,8 +213,8 @@ public class ItemCreator {
                 item.setTypItemu(TypItemu.Mikstura);
                 item.setOpis("Mikstura leczaca +5 HP.");
                 item.setItemNazwa(DostepneItemki.PotionZdrowie);
-                item.dzialania = new ArrayList<DzialanieItema>();
-                item.dzialania.add(new DzialanieItema());
+                item.dzialania = new ArrayList<Effect>();
+                item.dzialania.add(new Effect());
                 break;
             case PotionSzybkosc:
                 item.setNazwa("Szybkosc + 2");
@@ -228,8 +228,8 @@ public class ItemCreator {
                 item.setTypItemu(TypItemu.Mikstura);
                 item.setOpis("Mikstura odnawia 2 punkty akcji.");
                 item.setItemNazwa(DostepneItemki.PotionSzybkosc);
-                item.dzialania = new ArrayList<DzialanieItema>();
-                item.dzialania.add(new DzialanieItema());
+                item.dzialania = new ArrayList<Effect>();
+                item.dzialania.add(new Effect());
                 break;
             case PotionAttack:
                 item.setNazwa("Atak + 2 przez 2 tury");
@@ -243,8 +243,8 @@ public class ItemCreator {
                 item.setTypItemu(TypItemu.Mikstura);
                 item.setOpis("Mikstura dodaje +2 do ataku na 2 tury.");
                 item.setItemNazwa(DostepneItemki.PotionAttack);
-                item.dzialania = new ArrayList<DzialanieItema>();
-                item.dzialania.add(new DzialanieItema());
+                item.dzialania = new ArrayList<Effect>();
+                item.dzialania.add(new Effect());
                 item.dzialania.get(0).setIkona(new EffectActor(a.texAttackPotion, 0, 0));
                 break;
             case PotionDefence:
@@ -259,8 +259,8 @@ public class ItemCreator {
                 item.setTypItemu(TypItemu.Mikstura);
                 item.setOpis("Mikstura dodaje +2 do obrony na 2 tury.");
                 item.setItemNazwa(DostepneItemki.PotionDefence);
-                item.dzialania = new ArrayList<DzialanieItema>();
-                item.dzialania.add(new DzialanieItema());
+                item.dzialania = new ArrayList<Effect>();
+                item.dzialania.add(new Effect());
                 item.dzialania.get(0).setIkona(new EffectActor(a.texDefencePotion, 0, 0));
                 break;
         }

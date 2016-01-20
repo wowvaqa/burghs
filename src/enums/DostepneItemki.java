@@ -31,5 +31,8 @@ public enum DostepneItemki {
     PotionZdrowie,
     PotionSzybkosc,
     PotionAttack,
-    PotionDefence;
+    PotionDefence,
+    // Czary
+    SpellFireball,
+    SpellFrez;
 }

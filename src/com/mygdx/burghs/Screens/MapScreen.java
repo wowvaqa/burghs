@@ -25,6 +25,7 @@ import com.mygdx.burghs.Fight;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.Ruch;
+import com.mygdx.burghs.SpellActor;
 import com.mygdx.burghs.TresureBox;
 import enums.TypyTerenu;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class MapScreen implements Screen {
     private final Game g;
 
     private final Stage stage01 = new Stage();  // wyświetla mapę i playera
-    private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu            
+    private final Stage stage02 = new Stage();  // zarządza przyciskami interfejsu           
+    private final Stage stage03 = new Stage();  // zarządza czarami
 
     private final TextButton btnExit;
     private final TextButton btnKoniecTury;
@@ -52,16 +54,16 @@ public class MapScreen implements Screen {
     // labele informujące o statystykach klikniętego bohatera
     private final Label lblGold;
     private final Label lblTuraGracza;
-    //private final Label lblPozostaloRuchow;
-    //private final Label lblEfekty;
 
     // ikona gracza który aktualnie posiada swoją kolej 
     private final DefaultActor ikonaGracza;
     private final DefaultActor ikonaGold;
 
-    /**
-     * * PANEL BOHATERA
-     */
+    // *** PANEL ZAKLĘĆ
+    private boolean isSpellPanelActive = false;
+    // *** KONIEC PANEL ZAKLĘĆ
+
+    // *** PANEL BOHATERA
     private Label pbLblHp;
     private Label pbLblMove;
     private Label pbLblMana;
@@ -70,10 +72,8 @@ public class MapScreen implements Screen {
     private TextButton pbBtnBohaterScreen;
     private TextButton pbBtnAwansujBohatera;
     private TextButton pbBtnSpellBook;
-    /**
-     * KONIECE PANELU BOHATERA
-     */
-    
+    // *** KONIEC PANELU BOHATERA
+
     /**
      * Przechowuje efekty które oddziaływują na bohatera
      *
@@ -165,15 +165,15 @@ public class MapScreen implements Screen {
         c = new OrthographicCamera(w, h);
         viewPort = new FitViewport(w, h, c);
     }
-
-    /**
-     * Aktualizuje ikony efektów które działają na zaznaczonego bohatera.
-     */
-    public void aktualizujEfektyBohatera() {
-        if (gs.getBohaterZaznaczony() != null) {
-            stage02.addActor(gs.getBohaterZaznaczony().getEfekty().get(0).getIkona());
-        }
-    }
+//
+//    /**
+//     * Aktualizuje ikony efektów które działają na zaznaczonego bohatera.
+//     */
+//    public void aktualizujEfektyBohatera() {
+//        if (gs.getBohaterZaznaczony() != null) {
+//            stage02.addActor(gs.getBohaterZaznaczony().getEfekty().get(0).getIkona());
+//        }
+//    }
 
     /**
      * Przycisk Koniec Tury
@@ -366,7 +366,36 @@ public class MapScreen implements Screen {
         pbBtnSpellBook = new TextButton("Spell Book", a.skin);
         pbBtnSpellBook.setSize(100, 50);
         pbBtnSpellBook.setPosition(Gdx.graphics.getWidth() - 220, 360);
-        
+        pbBtnSpellBook.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage03.addActor(a.getSpellPanel());
+                isSpellPanelActive = true;
+                Gdx.input.setInputProcessor(stage03);
+
+                TextButton btnSpellPanelExit = new TextButton("EXIT", a.skin);
+                btnSpellPanelExit.setPosition(695, 54);
+                btnSpellPanelExit.setSize(50, 50);
+
+                btnSpellPanelExit.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        stage03.clear();
+                        isSpellPanelActive = false;
+                        Gdx.input.setInputProcessor(stage01);
+                    }
+                });
+                stage03.addActor(btnSpellPanelExit);
+
+                int spellXpos = 254;
+                int spellYpos = 54;
+                for (SpellActor sA : gs.getBohaterZaznaczony().getSpells()) {
+                    sA.setPosition(spellXpos, spellYpos);
+                    stage03.addActor(sA);
+                    spellXpos += 52;
+                }
+            }
+        });
 
         // Dodaje przycisk wyjścia do planszy 02.
         pbBtnBohaterScreen = new TextButton("Bohater", a.skin);
@@ -396,17 +425,21 @@ public class MapScreen implements Screen {
         });
     }
 
+    private void addSpellsToSpellPanel() {
+
+    }
+
     private void aktualizujPanelBohatera() {
         Bohater b = gs.getBohaterZaznaczony();
         pbLblHp.setVisible(true);
-        pbLblHp.setText("HP:"+ b.getActualHp() + "/" + b.getHp());
+        pbLblHp.setText("HP:" + b.getActualHp() + "/" + b.getHp());
         pbLblMove.setVisible(true);
-        pbLblMove.setText("MV:"+ b.getPozostaloRuchow()+ "/" + b.getSzybkosc());
+        pbLblMove.setText("MV:" + b.getPozostaloRuchow() + "/" + b.getSzybkosc());
         pbLblExp.setVisible(true);
-        pbLblExp.setText("EX:"+ b.getExp()+ "/" + b.getExpToNextLevel());
+        pbLblExp.setText("EX:" + b.getExp() + "/" + b.getExpToNextLevel());
         pbLblMana.setVisible(true);
-        pbLblMana.setText("MN:"+ b.getActualMana()+ "/" + b.getMana());
-        
+        pbLblMana.setText("MN:" + b.getActualMana() + "/" + b.getMana());
+
         pbLblEfekty.setVisible(true);
         pbBtnBohaterScreen.setVisible(true);
         pbBtnSpellBook.setVisible(true);
@@ -605,7 +638,7 @@ public class MapScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        if (gs.getBohaterZaznaczony() != null) {           
+        if (gs.getBohaterZaznaczony() != null) {
             aktualizujPanelBohatera();
             if (gs.getBohaterZaznaczony().getExp() >= gs.getBohaterZaznaczony().getExpToNextLevel()) {
                 pbBtnAwansujBohatera.setVisible(true);
@@ -618,7 +651,7 @@ public class MapScreen implements Screen {
             pbLblEfekty.setVisible(false);
             pbBtnAwansujBohatera.setVisible(false);
             pbBtnBohaterScreen.setVisible(false);
-            pbBtnSpellBook.setVisible(false);            
+            pbBtnSpellBook.setVisible(false);
         }
 
         if (GameStatus.wspolzedneXtresureBox != 999) {
@@ -639,6 +672,9 @@ public class MapScreen implements Screen {
 
         stage02.act();
         stage02.draw();
+
+        stage03.act();
+        stage03.draw();
     }
 
     /**
@@ -656,10 +692,12 @@ public class MapScreen implements Screen {
     // w zależności od lokalizacji ustawia sterowanie na odpowiedni stage
     private void sprawdzPolozenieKursora() {
         //Ustawia stage 02 na 1/6 ekranu z prawej strony
-        if (Gdx.input.getX() < Gdx.graphics.getWidth() / 6 * 5) {
-            Gdx.input.setInputProcessor(stage01);
-        } else {
-            Gdx.input.setInputProcessor(stage02);
+        if (!isSpellPanelActive) {
+            if (Gdx.input.getX() < Gdx.graphics.getWidth() / 6 * 5) {
+                Gdx.input.setInputProcessor(stage01);
+            } else {
+                Gdx.input.setInputProcessor(stage02);
+            }
         }
     }
 
@@ -676,7 +714,6 @@ public class MapScreen implements Screen {
 //            }
 //        }
 //    }
-
     // Steruje ruchem kamery
     private void ruchKamery() {
 

@@ -188,7 +188,7 @@ public class Fight {
      */
     static public int getAtakEfektyBohatera(Bohater bohater) {
         int sumaEfektAtak = 0;
-        for (DzialanieItema efekty : bohater.getEfekty()) {
+        for (Effect efekty : bohater.getEfekty()) {
             sumaEfektAtak += efekty.getEfektAtak();
         }
         return sumaEfektAtak;
@@ -202,7 +202,7 @@ public class Fight {
      */
     static public int getObronaEfektyBohatera(Bohater bohater) {
         int sumaEfektObrona = 0;
-        for (DzialanieItema efekty : bohater.getEfekty()) {
+        for (Effect efekty : bohater.getEfekty()) {
             sumaEfektObrona += efekty.getEfektObrona();
         }
         return sumaEfektObrona;

@@ -39,6 +39,7 @@ public class Bohater extends Actor {
     private Item itemLewaReka = null;
     private Item itemStopy = null;
 
+    private ArrayList<SpellActor> spells;
     private ArrayList<Item> equipment;
 
     private final Assets a;
@@ -82,7 +83,7 @@ public class Bohater extends Actor {
     private int przynaleznoscDoGracza;
 
     // efekty które oddziaływują na bohatera
-    private ArrayList<DzialanieItema> efekty;
+    private ArrayList<Effect> efekty;
 
     /**
      *
@@ -102,8 +103,9 @@ public class Bohater extends Actor {
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, Assets a,
             int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs, Game g, KlasyPostaci kp) {
 
-        this.efekty = new ArrayList<DzialanieItema>();
+        this.efekty = new ArrayList<Effect>();
         this.equipment = new ArrayList<Item>();
+        this.spells = new ArrayList<SpellActor>();        
         this.gs = gs;
         this.pozXnaMapie = pozycjaXnaMapie;
         this.pozYnaMapie = pozycjaYnaMapie;
@@ -130,6 +132,14 @@ public class Bohater extends Actor {
         itemStopy = ic.utworzItem(DostepneItemki.LnianeButy, this.a, this.g);
         itemGlowa = ic.utworzItem(DostepneItemki.Glowa, this.a, this.g);
         itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a, this.g);
+        
+        // tymczasowe zaklęcia
+        SpellActor spellFireball = new SpellActor(a.texSpellFireBall, 0, 0);
+        this.spells.add(spellFireball);
+        
+        SpellActor spellFreez = new SpellActor(a.texSpellFreez, 0, 0);
+        this.spells.add(spellFreez);
+        
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater
@@ -205,7 +215,7 @@ public class Bohater extends Actor {
         if (!this.efekty.isEmpty()) {
             int pozycjaX = Gdx.graphics.getWidth() - 220;
             
-            for (DzialanieItema dI : this.efekty) {
+            for (Effect dI : this.efekty) {
                 dI.getIkona().setSize(25, 25);
                 dI.getIkona().setPosition(pozycjaX, 425);
                 Assets.stage02MapScreen.addActor(dI.getIkona());
@@ -350,7 +360,7 @@ public class Bohater extends Actor {
      */
     public int getAtakEfekt() {
         int sumaAtaku = 0;
-        for (DzialanieItema dItema : this.efekty) {
+        for (Effect dItema : this.efekty) {
             sumaAtaku += dItema.getEfektAtak();
         }
         return sumaAtaku;
@@ -364,7 +374,7 @@ public class Bohater extends Actor {
      */
     public int getObronaEfekt() {
         int sumaObrona = 0;
-        for (DzialanieItema dItema : this.efekty) {
+        for (Effect dItema : this.efekty) {
             sumaObrona += dItema.getEfektObrona();
         }
         return sumaObrona;
@@ -724,21 +734,39 @@ public class Bohater extends Actor {
     }
 
     /**
-     * Zwraca referencje do obiektu klasy DzialanieItema()
+     * Zwraca referencje do obiektu klasy Effect()
      *
      * @return
      */
-    public ArrayList<DzialanieItema> getEfekty() {
+    public ArrayList<Effect> getEfekty() {
         return efekty;
     }
 
     /**
-     * Ustala referencje do obiektu klasy DzialanieItema()
+     * Ustala referencje do obiektu klasy Effect()
      *
      * @param efekty
      */
-    public void setEfekty(ArrayList<DzialanieItema> efekty) {
+    public void setEfekty(ArrayList<Effect> efekty) {
         this.efekty = efekty;
     }
+
+    /**
+     * Zwraca arrayList czaró
+     * @return 
+     */
+    public ArrayList<SpellActor> getSpells() {
+        return spells;
+    }
+
+    /**
+     * Ustala arrayList czarów
+     * @param spells 
+     */
+    public void setSpells(ArrayList<SpellActor> spells) {
+        this.spells = spells;
+    }
+    
+    
 
 }

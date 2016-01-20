@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.Bohater;
-import com.mygdx.burghs.DzialanieItema;
+import com.mygdx.burghs.Effect;
 import com.mygdx.burghs.Fight;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Gracz;
@@ -219,7 +219,7 @@ public class BohaterScreen implements Screen {
 
         if (sprawdzBohatera().getEquipment().get(i).getTypItemu().equals(TypItemu.Mikstura)) {
 
-            for (DzialanieItema dzialanieItema : sprawdzBohatera().getEquipment().get(i).dzialania) {
+            for (Effect dzialanieItema : sprawdzBohatera().getEquipment().get(i).dzialania) {
                 dzialanieItema.dzialanie(sprawdzBohatera().getEquipment().get(i).getItemNazwa(), gs.getBohaterZaznaczony());
             }
             sprawdzBohatera().aktualizujEfektyBohatera();

@@ -7,7 +7,7 @@ import enums.DostepneItemki;
  *
  * @author v
  */
-public class DzialanieItema {
+public class Effect {
 
     private int dlugoscTrwaniaEfektu = 0;
 
@@ -21,10 +21,6 @@ public class DzialanieItema {
     private String opis;
 
     private DefaultActor ikona;
-
-    public void dzialanieItema() {
-
-    }
 
     /**
      * Zmniejsza czas trwania efektu o zadaną ilość tur.
@@ -67,6 +63,10 @@ public class DzialanieItema {
                 this.efektObrona += 2;
                 this.dlugoscTrwaniaEfektu += 2;
                 bohater.getEfekty().add(this);
+                break;
+            case SpellFireball:
+                break;
+            case SpellFrez:
                 break;
         }
     }

@@ -161,3 +161,6 @@ PANEL BOCZNY BOHATERA
     Metoda ta wywoływana jest w MapScreen.Render() jesżeli zostanie wypełniony
     zawarty tam warubnek.
   
+CZARY
+    Spelle wyświetlane są na MapScreen.Stage03
+    Obsługa wyglądu Spelli: klasa SpellActor

@@ -12,16 +12,16 @@ version 0.0200
         2. Zaprojektować klasę dialog służącą do wyświetlania prostych 
         komunikatów.
 
-version 0.0100
-        Zaprojektować okno/screen kupna nowego bohatera wraz z implementacja
-        zakupu nowego bohatera i dodania go do mapy w formie grywalnej.      
-
 version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
 
 version 0.0098
         1. Dokończy MapEditora 
+
+version 0.0029 20012016
+        1. Dodanie prototypu panelu czarów.
+        2. Dodanie prototypów czarów.
 
 version 0.0028 18012016 DONE
 DONE    1. Dodano Ekran awansu bohatera.
