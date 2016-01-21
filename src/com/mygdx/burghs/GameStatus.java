@@ -25,6 +25,9 @@ public class GameStatus {
     // Zwraca nr gracza z tablicy graczy który posiada swoją turę
     private int turaGracza = 0;
 
+    // Określa czy panel rzucania czarów jest aktywny.
+    public boolean isSpellPanelActive = false;
+    
     // Określa ogólną turę gry.
     private int turaGry = 0;
 

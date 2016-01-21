@@ -105,7 +105,7 @@ public class Bohater extends Actor {
 
         this.efekty = new ArrayList<Effect>();
         this.equipment = new ArrayList<Item>();
-        this.spells = new ArrayList<SpellActor>();        
+        this.spells = new ArrayList<SpellActor>();
         this.gs = gs;
         this.pozXnaMapie = pozycjaXnaMapie;
         this.pozYnaMapie = pozycjaYnaMapie;
@@ -132,14 +132,14 @@ public class Bohater extends Actor {
         itemStopy = ic.utworzItem(DostepneItemki.LnianeButy, this.a, this.g);
         itemGlowa = ic.utworzItem(DostepneItemki.Glowa, this.a, this.g);
         itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a, this.g);
-        
+
         // tymczasowe zaklęcia
-        SpellActor spellFireball = new SpellActor(a.texSpellFireBall, 0, 0);
+        SpellActor spellFireball = new SpellActor(a.texSpellFireBall, 0, 0, this, DostepneItemki.SpellFireball, a, gs);
         this.spells.add(spellFireball);
-        
-        SpellActor spellFreez = new SpellActor(a.texSpellFreez, 0, 0);
+
+        SpellActor spellFreez = new SpellActor(a.texSpellFreez, 0, 0, this, DostepneItemki.SpellFrez, a, gs);
         this.spells.add(spellFreez);
-        
+
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater
@@ -209,12 +209,12 @@ public class Bohater extends Actor {
     /**
      * Aktualizuje ikony w stage02 na MapScreen efektów, które działają.
      */
-    public void aktualizujEfektyBohatera() {        
+    public void aktualizujEfektyBohatera() {
         Ruch.wylaczIkonyEfektow();
 
         if (!this.efekty.isEmpty()) {
             int pozycjaX = Gdx.graphics.getWidth() - 220;
-            
+
             for (Effect dI : this.efekty) {
                 dI.getIkona().setSize(25, 25);
                 dI.getIkona().setPosition(pozycjaX, 425);
@@ -365,7 +365,7 @@ public class Bohater extends Actor {
         }
         return sumaAtaku;
     }
-    
+
     /**
      * Zwraca wartość współczynnika obrony efektów które oddziaływują na
      * bohatera.
@@ -753,7 +753,8 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca arrayList czaró
-     * @return 
+     *
+     * @return
      */
     public ArrayList<SpellActor> getSpells() {
         return spells;
@@ -761,12 +762,11 @@ public class Bohater extends Actor {
 
     /**
      * Ustala arrayList czarów
-     * @param spells 
+     *
+     * @param spells
      */
     public void setSpells(ArrayList<SpellActor> spells) {
         this.spells = spells;
     }
-    
-    
 
 }

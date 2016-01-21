@@ -74,10 +74,10 @@ public class Assets {
     public Texture moveIcon;
     public Texture cancelIcon;
     public Texture attackIcon;
+    public Texture spellIcon;
 
     public AssetManager am;
 
-//    public ButtonActor btnCancel;
     public Label lblDmg;
 
     // predefiniowane okno ifnoramcyjne
@@ -87,6 +87,7 @@ public class Assets {
 
     public static Stage stage01MapScreen;
     public static Stage stage02MapScreen;
+    public static Stage stage03MapScreen;
 
     public static Screen testScreen;
     public static Screen mainMenuScreen;
@@ -133,6 +134,7 @@ public class Assets {
         moveIcon = new Texture("interface/texMoveIcon.png");
         cancelIcon = new Texture("interface/texCancelIcon.png");
         attackIcon = new Texture("interface/texAtakIcon.png");
+        spellIcon = new Texture("interface/texSpellIcon.png");
 
         makeItems();
         makeSpellTextures();

@@ -159,8 +159,10 @@ PANEL BOCZNY BOHATERA
     MapScreen.utworzPanelBohatera()
     Aktualizacja panelu odbywa się poprzez metodę MapScreen.AktualizujPan..().
     Metoda ta wywoływana jest w MapScreen.Render() jesżeli zostanie wypełniony
-    zawarty tam warubnek.
+    zawarty tam warunek.
   
 CZARY
     Spelle wyświetlane są na MapScreen.Stage03
-    Obsługa wyglądu Spelli: klasa SpellActor
+    Obsługa wyglądu Spelli: klasa SpellActor.
+    Zarządzanie interfejsem rzucania czarów: SpellCaster
+    

@@ -60,7 +60,7 @@ public class MapScreen implements Screen {
     private final DefaultActor ikonaGold;
 
     // *** PANEL ZAKLĘĆ
-    private boolean isSpellPanelActive = false;
+    //private boolean isSpellPanelActive = false;
     // *** KONIEC PANEL ZAKLĘĆ
 
     // *** PANEL BOHATERA
@@ -98,6 +98,7 @@ public class MapScreen implements Screen {
 
         Assets.stage01MapScreen = this.stage01;
         Assets.stage02MapScreen = this.stage02;
+        Assets.stage03MapScreen = this.stage03;
 
         btnKupBohatera = new TextButton("Kup bohatera", a.skin);
         btnKupBohatera.setSize(100, 50);
@@ -370,7 +371,7 @@ public class MapScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 stage03.addActor(a.getSpellPanel());
-                isSpellPanelActive = true;
+                gs.isSpellPanelActive = true;
                 Gdx.input.setInputProcessor(stage03);
 
                 TextButton btnSpellPanelExit = new TextButton("EXIT", a.skin);
@@ -381,7 +382,7 @@ public class MapScreen implements Screen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         stage03.clear();
-                        isSpellPanelActive = false;
+                        gs.isSpellPanelActive = false;
                         Gdx.input.setInputProcessor(stage01);
                     }
                 });
@@ -692,7 +693,7 @@ public class MapScreen implements Screen {
     // w zależności od lokalizacji ustawia sterowanie na odpowiedni stage
     private void sprawdzPolozenieKursora() {
         //Ustawia stage 02 na 1/6 ekranu z prawej strony
-        if (!isSpellPanelActive) {
+        if (!gs.isSpellPanelActive) {
             if (Gdx.input.getX() < Gdx.graphics.getWidth() / 6 * 5) {
                 Gdx.input.setInputProcessor(stage01);
             } else {

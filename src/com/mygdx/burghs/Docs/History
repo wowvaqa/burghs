@@ -19,9 +19,12 @@ version 0.0099
 version 0.0098
         1. Dokończy MapEditora 
 
-version 0.0029 20012016
-        1. Dodanie prototypu panelu czarów.
-        2. Dodanie prototypów czarów.
+version 0.0030 21012016 DONE
+DONE    1. Dodanie interfejsu rzucania czarów.        
+
+version 0.0029 20012016 DONE
+DONE    1. Dodanie prototypu panelu czarów.
+DONE    2. Dodanie prototypów czarów.
 
 version 0.0028 18012016 DONE
 DONE    1. Dodano Ekran awansu bohatera.
