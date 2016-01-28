@@ -64,10 +64,6 @@ public class Effect {
                 this.dlugoscTrwaniaEfektu += 2;
                 bohater.getEfekty().add(this);
                 break;
-            case SpellFireball:
-                break;
-            case SpellFrez:
-                break;
         }
     }
 

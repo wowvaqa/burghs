@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.burghs.Screens.DialogScreen;
 import enums.KlasyPostaci;
+import enums.Spells;
 import java.util.ArrayList;
 
 /**
@@ -69,6 +70,8 @@ public class Bohater extends Actor {
     private int actualHp = 0;
     private int szybkosc = 0;
     private int pozostaloRuchow = 0;
+    private int moc = 0;
+    private int wiedza = 0;
     private int mana = 0;
     private int actualMana = 0;
     // aktualny poziom punktów doświadczenia
@@ -134,12 +137,11 @@ public class Bohater extends Actor {
         itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a, this.g);
 
         // tymczasowe zaklęcia
-        SpellActor spellFireball = new SpellActor(a.texSpellFireBall, 0, 0, this, DostepneItemki.SpellFireball, a, gs);
-        this.spells.add(spellFireball);
-
-        SpellActor spellFreez = new SpellActor(a.texSpellFreez, 0, 0, this, DostepneItemki.SpellFrez, a, gs);
-        this.spells.add(spellFreez);
-
+        //SpellActor spellFireball = new SpellActor(a.texSpellFireBall, 0, 0, this, Spells.FireBall, a, gs);
+        
+        SpellCreator spellCreator = new SpellCreator(a, gs);
+        this.spells.add(spellCreator.utworzSpell(Spells.FireBall, this));
+        this.spells.add(spellCreator.utworzSpell(Spells.Frozen, this));
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater
@@ -752,7 +754,7 @@ public class Bohater extends Actor {
     }
 
     /**
-     * Zwraca arrayList czaró
+     * Zwraca arrayList czarów
      *
      * @return
      */
@@ -768,5 +770,39 @@ public class Bohater extends Actor {
     public void setSpells(ArrayList<SpellActor> spells) {
         this.spells = spells;
     }
+
+    /**
+     * Zwraca wartość mocy
+     * @return 
+     */
+    public int getMoc() {
+        return moc;
+    }
+
+    /**
+     * Ustala wartość mocy
+     * @param moc 
+     */
+    public void setMoc(int moc) {
+        this.moc = moc;
+    }
+
+    /**
+     * Zwraca poziom wiedzy
+     * @return 
+     */
+    public int getWiedza() {
+        return wiedza;
+    }
+
+    /**
+     * Ustala poziom wiedzy.
+     * @param wiedza 
+     */
+    public void setWiedza(int wiedza) {
+        this.wiedza = wiedza;
+    }
+    
+    
 
 }

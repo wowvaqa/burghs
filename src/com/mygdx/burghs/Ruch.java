@@ -168,11 +168,11 @@ public class Ruch {
             if (Assets.stage02MapScreen.getActors().get(j).getClass() == EffectActor.class) {
                 indeksEfektu = j;
             }
-        }
 
-        if (indeksEfektu != 999) {
-            Assets.stage02MapScreen.getActors().removeIndex(indeksEfektu);
-            Ruch.wylaczIkonyEfektow();
+            if (indeksEfektu != 999) {
+                Assets.stage02MapScreen.getActors().removeIndex(indeksEfektu);
+                Ruch.wylaczIkonyEfektow();
+            }
         }
     }
 

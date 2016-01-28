@@ -19,17 +19,19 @@ public class SpellCaster {
     Bohater bohater;
     Assets a;
     GameStatus gs;
+    SpellActor spell;
 
-    public SpellCaster(Bohater bohater, Assets a, GameStatus gs, int zasieg) {
+    public SpellCaster(Bohater bohater, Assets a, GameStatus gs, SpellActor spell) {
         this.bohater = bohater;
         this.a = a;
         this.gs = gs;
+        this.spell = spell;
 
         int pozX = this.bohater.getPozXnaMapie();
         int pozY = this.bohater.getPozYnaMapie();
 
-        for (int i = pozX - 1 - zasieg; i < pozX + 1 + 1 + zasieg; i++) {
-            for (int j = pozY - 1 - zasieg; j < pozY + 1 + 1 + zasieg; j++) {
+        for (int i = pozX - 1 - spell.getZasieg(); i < pozX + 1 + 1 + spell.getZasieg(); i++) {
+            for (int j = pozY - 1 - spell.getZasieg(); j < pozY + 1 + 1 + spell.getZasieg(); j++) {
                 if (i >= 0 && j >= 0 && i < gs.getMapa().getIloscPolX() && j < gs.getMapa().getIloscPolY()) {
 
                     if (bohater.getPozXnaMapie() == i && bohater.getPozYnaMapie() == j) {
@@ -49,7 +51,6 @@ public class SpellCaster {
                             Gdx.input.setInputProcessor(Assets.stage01MapScreen);
                         }
                     }
-
                 }
             }
         }

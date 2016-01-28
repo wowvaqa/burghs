@@ -129,7 +129,7 @@ public class Assets {
 
         skin = new Skin(Gdx.files.internal("styles/uiskin.json"));
 
-        lblDmg = new Label("null", skin);
+        lblDmg = new Label("", skin);
 
         moveIcon = new Texture("interface/texMoveIcon.png");
         cancelIcon = new Texture("interface/texCancelIcon.png");
