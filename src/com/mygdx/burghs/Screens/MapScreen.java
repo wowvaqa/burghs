@@ -205,9 +205,15 @@ public class MapScreen implements Screen {
         lblTuraGracza.setText("Tura gracz: " + Integer.toString(gs.getTuraGracza()));
 
         // Przywrócenie wszystkich punktów ruchu dla bohaterów oraz aktualizacja czasu działania efektów
+        // Regenereacja many
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
-            i.setPozostaloRuchow(i.getSzybkosc() + Fight.getSzybkoscEkwipunkuBohatera(i));
+            i.setPozostaloRuchow(i.getSzybkosc() + /**Fight.getSzybkoscEkwipunkuBohatera(i) + **/i.getSzybkoscEfekt());
             i.aktualizujDzialanieEfektow();
+            
+            i.setActualMana(i.getActualMana() + i.getManaRegeneration());
+            if (i.getActualMana() > i.getMana()){
+                i.setActualMana(i.getMana());
+            }
         }
         usunBohaterowGraczyGO();
 

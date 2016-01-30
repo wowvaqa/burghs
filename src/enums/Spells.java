@@ -6,5 +6,6 @@ package enums;
  */
 public enum Spells {
     FireBall,
-    Frozen;
+    Frozen,
+    Rage;
 }

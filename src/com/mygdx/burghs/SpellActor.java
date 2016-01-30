@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import enums.Spells;
+import java.util.ArrayList;
 
 /**
  * Zaklecia
@@ -15,10 +16,13 @@ public class SpellActor extends DefaultActor {
     private Assets a;
     private GameStatus gs;
     private Bohater bohater;
-    private Spells spell;
+    private Spells rodzajCzaru;
+    private ArrayList<SpellEffects> spellEffects;
+    private boolean spellWorksOnlyForCaster = false;
 
     private int zasieg = 0;
     private int dmg = 0;
+    private int koszt = 0;
 
     /**
      * Konstruktor do tworzenia panelu czarów.
@@ -47,6 +51,7 @@ public class SpellActor extends DefaultActor {
         this.dodajListnera();
         this.a = a;
         this.gs = gs;
+        this.spellEffects = new ArrayList<SpellEffects>();
     }
 
     private void dodajListnera() {
@@ -106,4 +111,75 @@ public class SpellActor extends DefaultActor {
         this.dmg = dmg;
     }
 
+    /**
+     * Zwraca rodzaj czaru z Enum Spells
+     *
+     * @return
+     */
+    public Spells getRodzajCzaru() {
+        return rodzajCzaru;
+    }
+
+    /**
+     * Ustala rodzaj zaklęcia z ENUM Spells
+     *
+     * @param rodzajCzaru
+     */
+    public void setRodzajCzaru(Spells rodzajCzaru) {
+        this.rodzajCzaru = rodzajCzaru;
+    }
+
+    /**
+     * Zwraca tablice efektów zaklęcia
+     *
+     * @return
+     */
+    public ArrayList<SpellEffects> getSpellEffects() {
+        return spellEffects;
+    }
+
+    /**
+     * Ustala Tablicę efektów zaklęcia
+     *
+     * @param spellEffects
+     */
+    public void setSpellEffects(ArrayList<SpellEffects> spellEffects) {
+        this.spellEffects = spellEffects;
+    }
+
+    /**
+     * Zwraca koszt zaklęcia w manie.
+     *
+     * @return
+     */
+    public int getKoszt() {
+        return koszt;
+    }
+
+    /**
+     * Ustala koszt w manie zaklęcia.
+     *
+     * @param koszt
+     */
+    public void setKoszt(int koszt) {
+        this.koszt = koszt;
+    }
+
+    /**
+     * Zwraca info czy czar działa tylko na rzucającego
+     *
+     * @return
+     */
+    public boolean isSpellWorksOnlyForCaster() {
+        return spellWorksOnlyForCaster;
+    }
+
+    /**
+     * Ustala czy czar działa tylko na rzucającego.
+     *
+     * @param spellWorksOnlyForCaster
+     */
+    public void setSpellWorksOnlyForCaster(boolean spellWorksOnlyForCaster) {
+        this.spellWorksOnlyForCaster = spellWorksOnlyForCaster;
+    }
 }

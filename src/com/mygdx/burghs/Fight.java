@@ -99,9 +99,9 @@ public class Fight {
         mob.mobZaatakowany(bohaterAtakujacy.getPozXnaMapie(), bohaterAtakujacy.getPozYnaMapie());
 
         Random rnd = new Random();
-        System.out.println("Nastąpił atak na zamek");
-        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy) 
-                + getAtakEfektyBohatera(bohaterAtakujacy) +1);
+        System.out.println("Nastąpił atak na moba");
+        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy)
+                + getAtakEfektyBohatera(bohaterAtakujacy) + 1);
         int obrona = rnd.nextInt(mob.getObrona() + 1);
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
@@ -161,6 +161,72 @@ public class Fight {
     }
 
     /**
+     * Liczy obrażenia dla rzucenia czaru przez bohatera na moba.
+     * @param bohaterAtakujacy
+     * @param mob
+     * @param spell
+     * @return 
+     */
+    static public int getSpellObrazenia(Bohater bohaterAtakujacy, Mob mob, SpellActor spell) {
+        mob.mobZaatakowany(bohaterAtakujacy.getPozXnaMapie(), bohaterAtakujacy.getPozYnaMapie());
+
+        Random rnd = new Random();
+        System.out.println("Nastąpił sepll na moba");
+        int damage = rnd.nextInt(bohaterAtakujacy.getMoc() + 1) + spell.getDmg();
+        int obrona = rnd.nextInt(mob.getObrona() + 1);
+        System.out.println("Siła ataku:  " + damage);
+        System.out.println("siła obrony: " + obrona);
+        int dmg = damage - obrona;
+        if (dmg < 0) {
+            dmg = 0;
+        }
+        System.out.println("damage: " + dmg);
+        if (dmg > 0) {
+            mob.setAktualneHp(mob.getAktualneHp() - dmg);
+        }
+        if (mob.getAktualneHp() <= 0) {
+            System.out.println("Śmierć moba.");
+            mob.setAktualneHp(0);
+            bohaterAtakujacy.setExp(bohaterAtakujacy.getExp() + mob.getExpReward());
+        }
+
+        bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
+        bohaterAtakujacy.setActualMana(bohaterAtakujacy.getActualMana() - spell.getKoszt());
+
+        return dmg;
+    }
+
+    static public int getSpellObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy, SpellActor spell) {
+        System.out.println("Funkacja Fight.getObrazenia");
+
+        Random rnd = new Random();
+        int damage = rnd.nextInt(bohaterAtakujacy.getMoc() + 1) + spell.getDmg();
+        int obrona = rnd.nextInt(bohaterBroniacy.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohaterBroniacy)
+                + getObronaEfektyBohatera(bohaterBroniacy) + 1);
+        System.out.println("Siła ataku:  " + damage);
+        System.out.println("siła obrony: " + obrona);
+        int dmg = damage - obrona;
+        if (dmg < 0) {
+            dmg = 0;
+        }
+        System.out.println("damage: " + dmg);
+        if (dmg > 0) {
+            bohaterBroniacy.setActualHp(bohaterBroniacy.getActualHp() - dmg);
+        }
+        if (bohaterBroniacy.getActualHp() <= 0) {
+            bohaterBroniacy.remove();
+            System.out.println("Smierc Bohatera broniacego się");
+        }
+
+        bohaterAtakujacy.setPozostaloRuchow(bohaterAtakujacy.getPozostaloRuchow() - 1);
+        bohaterAtakujacy.setActualMana(bohaterAtakujacy.getActualMana() - spell.getKoszt());
+
+        bohaterBroniacy.aktualizujTeksture();
+
+        return dmg;
+    }
+
+    /**
      *
      * @param bohaterBroniacy referencja do obiketu bohatera broniącego się
      * @return zwraca wartość obrony dla wszystkich itemków bohatera broniącego
@@ -191,9 +257,12 @@ public class Fight {
         for (Effect efekty : bohater.getEfekty()) {
             sumaEfektAtak += efekty.getEfektAtak();
         }
+        for (SpellEffects sE : bohater.getSpellEffects()) {
+            sumaEfektAtak += sE.getEfektAtak();
+        }   
         return sumaEfektAtak;
     }
-    
+
     /**
      * Zwraca wartosć obrony efektów zadanego bohatera
      *
@@ -205,6 +274,9 @@ public class Fight {
         for (Effect efekty : bohater.getEfekty()) {
             sumaEfektObrona += efekty.getEfektObrona();
         }
+        for (SpellEffects sE : bohater.getSpellEffects()) {
+            sumaEfektObrona += sE.getEfektObrona();
+        }  
         return sumaEfektObrona;
     }
 

@@ -52,6 +52,7 @@ public class BohaterScreen implements Screen {
     // Labele
     private Label lblBohater;
     private Label lblAtak, lblObrona, lblHp, lblSzybkosc, lblMana, lblKlasaPostaci;
+    private Label lblMoc, lblWiedza;
     private Label lblExp, lblExpToNextLevel, lblLevel;
     private Label lblStopy, lblNogi, lblLewaReka, lblPrawaReka, lblKorpus, lblGlowa;
 
@@ -90,6 +91,8 @@ public class BohaterScreen implements Screen {
         tabela.add(lblHp).align(Align.topLeft);
         tabela.add(lblSzybkosc).align(Align.topLeft);
         tabela.add(lblMana).align(Align.topLeft);
+        tabela.add(lblMoc).align(Align.topLeft);
+        tabela.add(lblWiedza).align(Align.topLeft);
         tabela.row();
 
         tabela.add(lblLevel).align(Align.left);
@@ -296,6 +299,8 @@ public class BohaterScreen implements Screen {
         lblHp = new Label("HP: ", a.skin);
         lblSzybkosc = new Label("Szybkosc: ", a.skin);
         lblMana = new Label("Mana: ", a.skin);
+        lblMoc = new Label("Moc:", a.skin);
+        lblWiedza = new Label("Wiedza", a.skin);
         lblLevel = new Label("Poziom: ", a.skin);
         lblExp = new Label("Doswiadczenie: ", a.skin);
         lblExpToNextLevel = new Label("Pozostalo nast. poz.: ", a.skin);
@@ -357,7 +362,8 @@ public class BohaterScreen implements Screen {
 
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak()
                 + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")"
-                + " (" + sprawdzBohatera().getAtakEfekt() + ")");
+                + " (" + sprawdzBohatera().getAtakEfekt() + ")"
+        );
         
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona()
                 + " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")"
@@ -371,6 +377,10 @@ public class BohaterScreen implements Screen {
 
         lblMana.setText("Mana: " + sprawdzBohatera().getActualMana()
                 + " (" + sprawdzBohatera().getMana() + ")");
+        
+        lblMoc.setText("Moc: " + sprawdzBohatera().getMoc());
+        
+        lblWiedza.setText("Wiedza: " + sprawdzBohatera().getWiedza());
 
         lblKlasaPostaci.setText(gs.getBohaterZaznaczony().getKlasyPostaci().toString());
 

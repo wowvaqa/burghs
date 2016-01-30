@@ -26,7 +26,7 @@ import com.mygdx.burghs.NewGame;
  * @author v
  */
 public class NewGameScreen implements Screen {
-    
+
     private final OrthographicCamera c;
     private final FitViewport viewPort;
 
@@ -35,7 +35,7 @@ public class NewGameScreen implements Screen {
     private final Game g;
 
     private final Table tabela01 = new Table();
-    
+
     private final Table tabelaIlosciGraczy = new Table();
 
     private final Table tabelaGracz01 = new Table();
@@ -48,7 +48,6 @@ public class NewGameScreen implements Screen {
     private final Label lblIloscGraczy;
 
     //private int iloscGraczy = 2;
-
     private boolean tabelaUtworzona = false;
 
     public NewGameScreen(Game g, Assets a, GameStatus gs) {
@@ -61,22 +60,22 @@ public class NewGameScreen implements Screen {
         stage01 = new Stage();
 
         lblIloscGraczy = new Label(Integer.toString(NewGame.iloscGraczy), a.skin);
-        
+
         c = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), c);
-        
-        NewGame.pixmapRed.setColor(Color.RED);        
+
+        NewGame.pixmapRed.setColor(Color.RED);
         NewGame.pixmapRed.fillRectangle(0, 0, 50, 25);
-        NewGame.pixmapBlue.setColor(Color.BLUE);        
+        NewGame.pixmapBlue.setColor(Color.BLUE);
         NewGame.pixmapBlue.fillRectangle(0, 0, 50, 25);
-        NewGame.pixmapYellow.setColor(Color.YELLOW);        
+        NewGame.pixmapYellow.setColor(Color.YELLOW);
         NewGame.pixmapYellow.fillRectangle(0, 0, 50, 25);
-        NewGame.pixmapGreen.setColor(Color.GREEN);        
+        NewGame.pixmapGreen.setColor(Color.GREEN);
         NewGame.pixmapGreen.fillRectangle(0, 0, 50, 25);
     }
 
     private void dodajDoStage01() {
-        stage01.addActor(tabela01);        
+        stage01.addActor(tabela01);
     }
 
     /**
@@ -89,7 +88,7 @@ public class NewGameScreen implements Screen {
         tabela01.pad(10);
         // włacza linie debugujące tabelę
         tabela01.setDebug(true);
-        
+
         tabela01.add(new Label("Nowa Gra", a.skin)).align(Align.center).align(Align.top).expandX().colspan(tabela01.getColumns());
         tabela01.row();
 
@@ -112,7 +111,7 @@ public class NewGameScreen implements Screen {
             tabela01.add(tabelaGracz04).align(Align.topLeft).expand().align(Align.center);
             tabela01.row();
         }
-        
+
         // Przycisk Anuluj
         TextButton btnAnuluj = new TextButton("ANULUJ", a.skin);
         btnAnuluj.addListener(new ClickListener() {
@@ -140,11 +139,11 @@ public class NewGameScreen implements Screen {
 
         tabelaUtworzona = true;
     }
-    
+
     /**
      * Formatuje tabelę wewnetrzną służącą do wyboru ilości graczy
      */
-    private void formatujTabeleIlosciGraczy(){   
+    private void formatujTabeleIlosciGraczy() {
         //tabelaIlosciGraczy.setFillParent(true);
         tabelaIlosciGraczy.pad(10);
         tabelaIlosciGraczy.add(new Label("Ilosc graczy: ", a.skin)).expandX();
@@ -228,7 +227,11 @@ public class NewGameScreen implements Screen {
         tabelaGracz01.row();
         tabelaGracz01.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
         tabelaGracz01.row();
-        tabelaGracz01.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz01.add(new Label("Moc: " + NewGame.pobierzMoc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Wiedza: " + NewGame.pobierzWiedze(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaGracz01.getColumns());
+        tabelaGracz01.row();
+        tabelaGracz01.add(new Label("Kolor: ", a.skin));
         tabelaGracz01.add(new DefaultActor(new Texture(NewGame.pixmapRed), 0, 0)).colspan(tabelaGracz01.getColumns());
     }
 
@@ -279,7 +282,11 @@ public class NewGameScreen implements Screen {
         tabelaGracz02.row();
         tabelaGracz02.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
         tabelaGracz02.row();
-        tabelaGracz02.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz02.add(new Label("Moc: " + NewGame.pobierzMoc(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Wiedza: " + NewGame.pobierzWiedze(NewGame.klasaPostaciGracz02), a.skin)).colspan(tabelaGracz02.getColumns());
+        tabelaGracz02.row();
+        tabelaGracz02.add(new Label("Kolor: ", a.skin));
         tabelaGracz02.add(new DefaultActor(new Texture(NewGame.pixmapBlue), 0, 0)).colspan(tabelaGracz02.getColumns());
     }
 
@@ -330,7 +337,12 @@ public class NewGameScreen implements Screen {
         tabelaGracz03.row();
         tabelaGracz03.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
         tabelaGracz03.row();
-        tabelaGracz03.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz03.add(new Label("Moc: " + NewGame.pobierzMoc(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
+        tabelaGracz03.row();
+        tabelaGracz03.add(new Label("Wiedza: " + NewGame.pobierzWiedze(NewGame.klasaPostaciGracz03), a.skin)).colspan(tabelaGracz03.getColumns());
+        tabelaGracz03.row();
+
+        tabelaGracz03.add(new Label("Kolor: ", a.skin));
         tabelaGracz03.add(new DefaultActor(new Texture(NewGame.pixmapYellow), 0, 0)).colspan(tabelaGracz03.getColumns());
     }
 
@@ -381,7 +393,11 @@ public class NewGameScreen implements Screen {
         tabelaGracz04.row();
         tabelaGracz04.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
         tabelaGracz04.row();
-        tabelaGracz04.add(new Label("Kolor: ", a.skin));        
+        tabelaGracz04.add(new Label("Moc: " + NewGame.pobierzMoc(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Wiedza: " + NewGame.pobierzWiedze(NewGame.klasaPostaciGracz04), a.skin)).colspan(tabelaGracz04.getColumns());
+        tabelaGracz04.row();
+        tabelaGracz04.add(new Label("Kolor: ", a.skin));
         tabelaGracz04.add(new DefaultActor(new Texture(NewGame.pixmapGreen), 0, 0)).colspan(tabelaGracz04.getColumns());
     }
 

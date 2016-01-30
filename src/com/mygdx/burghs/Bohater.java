@@ -74,6 +74,7 @@ public class Bohater extends Actor {
     private int wiedza = 0;
     private int mana = 0;
     private int actualMana = 0;
+    private int manaRegeneration = 0;
     // aktualny poziom punktów doświadczenia
     private int exp = 0;
     // punkty potrzebne do uzyskania następnego poziomu
@@ -87,6 +88,8 @@ public class Bohater extends Actor {
 
     // efekty które oddziaływują na bohatera
     private ArrayList<Effect> efekty;
+    // efekty czarów które oddziaływują na bohatera
+    private ArrayList<SpellEffects> spellEffects;
 
     /**
      *
@@ -107,6 +110,7 @@ public class Bohater extends Actor {
             int pozycjaXnaMapie, int pozycjaYnaMapie, GameStatus gs, Game g, KlasyPostaci kp) {
 
         this.efekty = new ArrayList<Effect>();
+        this.spellEffects = new ArrayList<SpellEffects>();
         this.equipment = new ArrayList<Item>();
         this.spells = new ArrayList<SpellActor>();
         this.gs = gs;
@@ -136,12 +140,16 @@ public class Bohater extends Actor {
         itemGlowa = ic.utworzItem(DostepneItemki.Glowa, this.a, this.g);
         itemKorpus = ic.utworzItem(DostepneItemki.LnianaKoszula, this.a, this.g);
 
-        // tymczasowe zaklęcia
-        //SpellActor spellFireball = new SpellActor(a.texSpellFireBall, 0, 0, this, Spells.FireBall, a, gs);
-        
+        // Tymczasowa regeneracja many
+        this.manaRegeneration = 1;
+        if (this.getKlasyPostaci() == KlasyPostaci.Czarodziej) {
+            manaRegeneration = 2;
+        }
+
         SpellCreator spellCreator = new SpellCreator(a, gs);
         this.spells.add(spellCreator.utworzSpell(Spells.FireBall, this));
         this.spells.add(spellCreator.utworzSpell(Spells.Frozen, this));
+        this.spells.add(spellCreator.utworzSpell(Spells.Rage, this));
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater
@@ -214,13 +222,22 @@ public class Bohater extends Actor {
     public void aktualizujEfektyBohatera() {
         Ruch.wylaczIkonyEfektow();
 
-        if (!this.efekty.isEmpty()) {
-            int pozycjaX = Gdx.graphics.getWidth() - 220;
+        int pozycjaX = Gdx.graphics.getWidth() - 220;
 
+        if (!this.efekty.isEmpty()) {
             for (Effect dI : this.efekty) {
                 dI.getIkona().setSize(25, 25);
                 dI.getIkona().setPosition(pozycjaX, 425);
                 Assets.stage02MapScreen.addActor(dI.getIkona());
+                pozycjaX += 30;
+            }
+        }
+
+        if (!this.spellEffects.isEmpty()) {
+            for (SpellEffects sE : this.spellEffects) {
+                sE.getIkona().setSize(25, 25);
+                sE.getIkona().setPosition(pozycjaX, 425);
+                Assets.stage02MapScreen.addActor(sE.getIkona());
                 pozycjaX += 30;
             }
         }
@@ -334,6 +351,7 @@ public class Bohater extends Actor {
     public void aktualizujDzialanieEfektow() {
         System.out.println("Aktualizacja czasu działania efektów");
 
+        // Aktualizacja efektów itemków
         int indeksEfektuDoUsuniecia = 99;
 
         for (int i = 0; i < this.efekty.size(); i++) {
@@ -352,6 +370,35 @@ public class Bohater extends Actor {
             this.aktualizujDzialanieEfektow();
         }
 
+        // Aktualizacja efektów czarów
+        int indeksSpellEfektuDoUsuniecia = 99;
+
+        for (int i = 0; i < this.spellEffects.size(); i++) {
+            System.out.println("Wykonuje petle w Spell efektach");
+            spellEffects.get(i).setDlugoscTrwaniaEfektu(spellEffects.get(i).getDlugoscTrwaniaEfektu() - 1);
+            System.out.println(i + ": " + spellEffects.get(i).getDlugoscTrwaniaEfektu());
+            if (spellEffects.get(i).getDlugoscTrwaniaEfektu() < 1) {
+                System.out.println("Warunek usuniecia Spell efektu został spełniony");
+                indeksSpellEfektuDoUsuniecia = i;
+            }
+        }
+
+        if (indeksSpellEfektuDoUsuniecia != 99) {
+            System.out.println("Usuwam Spell efekt: ");
+            this.spellEffects.remove(indeksSpellEfektuDoUsuniecia);
+            this.aktualizujDzialanieEfektow();
+        }
+    }
+
+    public int getSzybkoscEfekt() {
+        int sumaSzybkosci = 0;
+        for (Effect dItema : this.efekty) {
+            sumaSzybkosci += dItema.getEfektSzybkosc();
+        }
+        for (SpellEffects sE : this.spellEffects) {
+            sumaSzybkosci += sE.getEfektSzybkosc();
+        }
+        return sumaSzybkosci;
     }
 
     /**
@@ -364,6 +411,9 @@ public class Bohater extends Actor {
         int sumaAtaku = 0;
         for (Effect dItema : this.efekty) {
             sumaAtaku += dItema.getEfektAtak();
+        }
+        for (SpellEffects sE : this.spellEffects) {
+            sumaAtaku += sE.getEfektAtak();
         }
         return sumaAtaku;
     }
@@ -378,6 +428,9 @@ public class Bohater extends Actor {
         int sumaObrona = 0;
         for (Effect dItema : this.efekty) {
             sumaObrona += dItema.getEfektObrona();
+        }
+        for (SpellEffects sE : this.spellEffects) {
+            sumaObrona += sE.getEfektObrona();
         }
         return sumaObrona;
     }
@@ -773,7 +826,8 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca wartość mocy
-     * @return 
+     *
+     * @return
      */
     public int getMoc() {
         return moc;
@@ -781,7 +835,8 @@ public class Bohater extends Actor {
 
     /**
      * Ustala wartość mocy
-     * @param moc 
+     *
+     * @param moc
      */
     public void setMoc(int moc) {
         this.moc = moc;
@@ -789,7 +844,8 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca poziom wiedzy
-     * @return 
+     *
+     * @return
      */
     public int getWiedza() {
         return wiedza;
@@ -797,12 +853,47 @@ public class Bohater extends Actor {
 
     /**
      * Ustala poziom wiedzy.
-     * @param wiedza 
+     *
+     * @param wiedza
      */
     public void setWiedza(int wiedza) {
         this.wiedza = wiedza;
     }
-    
-    
+
+    /**
+     * Zwraca regenereacje pnkt. many na ture
+     *
+     * @return
+     */
+    public int getManaRegeneration() {
+        return manaRegeneration;
+    }
+
+    /**
+     * Ustala regeneracje pntk. many na ture.
+     *
+     * @param manaRegeneration
+     */
+    public void setManaRegeneration(int manaRegeneration) {
+        this.manaRegeneration = manaRegeneration;
+    }
+
+    /**
+     * Zwraca tablicę z efektami czarów oddziaływujących na bohatera.
+     *
+     * @return
+     */
+    public ArrayList<SpellEffects> getSpellEffects() {
+        return spellEffects;
+    }
+
+    /**
+     * Ustala tablicę z efektami czarów oddziaływujących na bohatera.
+     *
+     * @param spellEffects
+     */
+    public void setSpellEffects(ArrayList<SpellEffects> spellEffects) {
+        this.spellEffects = spellEffects;
+    }
 
 }

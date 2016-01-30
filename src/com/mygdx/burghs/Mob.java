@@ -310,4 +310,13 @@ public class Mob extends Actor {
         this.pozY = pozY;
     }
 
+    public int getAktualnaSzybkosc() {
+        return aktualnaSzybkosc;
+    }
+
+    public void setAktualnaSzybkosc(int aktualnaSzybkosc) {
+        this.aktualnaSzybkosc = aktualnaSzybkosc;
+    }
+
+    
 }

@@ -16,46 +16,59 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class SpellCaster {
 
-    Bohater bohater;
+    Bohater bohaterCastujacy;
     Assets a;
     GameStatus gs;
     SpellActor spell;
 
-    public SpellCaster(Bohater bohater, Assets a, GameStatus gs, SpellActor spell) {
-        this.bohater = bohater;
+    public SpellCaster(Bohater bohaterCastujacy, Assets a, GameStatus gs, SpellActor spell) {
+        this.bohaterCastujacy = bohaterCastujacy;
         this.a = a;
         this.gs = gs;
         this.spell = spell;
 
-        int pozX = this.bohater.getPozXnaMapie();
-        int pozY = this.bohater.getPozYnaMapie();
+        int pozX = this.bohaterCastujacy.getPozXnaMapie();
+        int pozY = this.bohaterCastujacy.getPozYnaMapie();
 
-        for (int i = pozX - 1 - spell.getZasieg(); i < pozX + 1 + 1 + spell.getZasieg(); i++) {
-            for (int j = pozY - 1 - spell.getZasieg(); j < pozY + 1 + 1 + spell.getZasieg(); j++) {
-                if (i >= 0 && j >= 0 && i < gs.getMapa().getIloscPolX() && j < gs.getMapa().getIloscPolY()) {
+        // Sprawdza czy czar działa tylko na bohatera castującego
+        if (spell.isSpellWorksOnlyForCaster()) {
+            spell.getSpellEffects().get(0).dzialanie(spell, bohaterCastujacy, bohaterCastujacy, a);
+            Assets.stage03MapScreen.clear();
+            gs.isSpellPanelActive = false;
+            Gdx.input.setInputProcessor(Assets.stage01MapScreen);
+            Ruch.wylaczPrzyciski();
 
-                    if (bohater.getPozXnaMapie() == i && bohater.getPozYnaMapie() == j) {
-                        CastButtonCancel przyciskCancel = new CastButtonCancel(new TextureRegionDrawable(new TextureRegion(a.cancelIcon)));
-                        przyciskCancel.setPosition(i * 100, j * 100);
-                        Assets.stage01MapScreen.addActor(przyciskCancel);
-                        Ruch.wylaczPrzyciski();
-                    } else {
-                        if (sprawdzPrzeciwnika(i, j)) {
+        } else {
+            for (int i = pozX - 1 - spell.getZasieg(); i < pozX + 1 + 1 + spell.getZasieg(); i++) {
+                for (int j = pozY - 1 - spell.getZasieg(); j < pozY + 1 + 1 + spell.getZasieg(); j++) {
+                    if (i >= 0 && j >= 0 && i < gs.getMapa().getIloscPolX() && j < gs.getMapa().getIloscPolY()) {
 
-                            // Potrzebny warunek sprawdzający czy w polu znajduje się przeciwnik
-                            CastButton castButton = new CastButton(new TextureRegionDrawable(new TextureRegion(a.spellIcon)), i, j);
-                            castButton.setPosition(i * 100, j * 100);
-                            Assets.stage01MapScreen.addActor(castButton);
+                        if (bohaterCastujacy.getPozXnaMapie() == i && bohaterCastujacy.getPozYnaMapie() == j) {
+                            CastButtonCancel przyciskCancel = new CastButtonCancel(new TextureRegionDrawable(new TextureRegion(a.cancelIcon)));
+                            przyciskCancel.setPosition(i * 100, j * 100);
+                            Assets.stage01MapScreen.addActor(przyciskCancel);
                             Assets.stage03MapScreen.clear();
                             gs.isSpellPanelActive = false;
                             Gdx.input.setInputProcessor(Assets.stage01MapScreen);
+                            Ruch.wylaczPrzyciski();
+                        } else {
+                            if (sprawdzPrzeciwnika(i, j)) {
+
+                                // Potrzebny warunek sprawdzający czy w polu znajduje się przeciwnik
+                                CastButton castButton = new CastButton(new TextureRegionDrawable(new TextureRegion(a.spellIcon)), i, j);
+                                castButton.setPosition(i * 100, j * 100);
+                                Assets.stage01MapScreen.addActor(castButton);
+                                Assets.stage03MapScreen.clear();
+                                gs.isSpellPanelActive = false;
+                                Gdx.input.setInputProcessor(Assets.stage01MapScreen);
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
+
     public static void wylaczPrzyciski() {
         int rozmiar = Assets.stage01MapScreen.getActors().size;
         // Infromuje czy wśród aktorów stage 01 są jeszcze przyciski
@@ -70,7 +83,6 @@ public class SpellCaster {
                 }
             }
             for (int i = 0; i < Assets.stage01MapScreen.getActors().size; i++) {
-                //czySaPrzyciski = Assets.stage01MapScreen.getActors().get(i).getClass() == PrzyciskRuchu.class;
                 if (Assets.stage01MapScreen.getActors().get(i).getClass() == SpellCaster.CastButton.class) {
                     czySaPrzyciski = true;
                 }
@@ -89,7 +101,6 @@ public class SpellCaster {
                 czySaPrzyciski = Assets.stage01MapScreen.getActors().get(i).getClass() == SpellCaster.CastButtonCancel.class;
             }
         } while (czySaPrzyciski);
-
 
     }
 
@@ -130,6 +141,24 @@ public class SpellCaster {
             this.locX = locX;
             this.locY = locY;
         }
+
+        @Override
+        public boolean addListener(EventListener listener) {
+            return super.addListener(new ClickListener() {
+
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("Przycisk cast kliknięty");
+
+                    if (gs.getMapa().getPola()[locX][locY].getBohater() != null) {
+                        spell.getSpellEffects().get(0).dzialanie(spell, gs.getMapa().getPola()[locX][locY].getBohater(), bohaterCastujacy, a);
+                    } else if (gs.getMapa().getPola()[locX][locY].getMob() != null) {
+                        spell.getSpellEffects().get(0).dzialanie(spell, gs.getMapa().getPola()[locX][locY].getMob(), bohaterCastujacy, a);
+                    }
+                    wylaczPrzyciski();
+                }
+            });
+        }
     }
 
     /**
@@ -148,7 +177,7 @@ public class SpellCaster {
 
         @Override
         public boolean addListener(EventListener listener) {
-            return super.addListener(new ClickListener(){
+            return super.addListener(new ClickListener() {
 
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

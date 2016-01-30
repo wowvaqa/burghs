@@ -19,6 +19,21 @@ version 0.0099
 version 0.0098
         1. Dokończy MapEditora 
 
+version 0.0033
+        1. Poprawić wygląd Screenu Bohatera.        
+        2. Naprawić bug. z restartem szybkości Moba w tej samej turze.
+        3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
+        4. Dodać okienko informacyjne z działaniem efektu.
+
+version 0.0032 30012016
+DONE    1. Dodać moc i więdze. Moc do określania mocy czarów i wiedzę do 
+        określania poziomu pnkt. many oraz poziomów poznania czarów.
+DONE    2. Dodać info o mocy i wiedzy do Screenu Bohatera.
+DONE    3. Do naliczania many przy tworzeniu nowego bohatera użyć pnkt. wiedzy.
+DONE    4. Zaimplementowanie testowego działania czaru FIREBALL
+DONE    5. Zaimplementowanie testowego działania czaru FROZEN
+DONE    6. Zaimplementowanie testowego działabia czaru RAGE
+
 version 0.0031 28012016 DONE
 DONE    1. Usprawnienia w czarach.
 

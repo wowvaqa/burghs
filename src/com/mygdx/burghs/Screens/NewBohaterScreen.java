@@ -105,6 +105,10 @@ public class NewBohaterScreen implements Screen {
         tabelaNowyBohater.row();
         tabelaNowyBohater.add(new Label("Szybkosc: " + NewGame.pobierzSzybkosc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaNowyBohater.getColumns());
         tabelaNowyBohater.row();
+        tabelaNowyBohater.add(new Label("Moc: " + NewGame.pobierzMoc(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaNowyBohater.getColumns());
+        tabelaNowyBohater.row();
+        tabelaNowyBohater.add(new Label("Wiedza: " + NewGame.pobierzWiedze(NewGame.klasaPostaciGracz01), a.skin)).colspan(tabelaNowyBohater.getColumns());
+        tabelaNowyBohater.row();
     }
 
     private void formatujTabele01() {

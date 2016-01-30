@@ -165,4 +165,8 @@ CZARY
     Spelle wyświetlane są na MapScreen.Stage03
     Obsługa wyglądu Spelli: klasa SpellActor.
     Zarządzanie interfejsem rzucania czarów: SpellCaster
+    Dostępne efekty czarów: Enum SPELLS.
+    Zarządzanie działaniem efektów czarów klasa SpellEffects na pdst. 
+    ENUM SPELLS.
+
     

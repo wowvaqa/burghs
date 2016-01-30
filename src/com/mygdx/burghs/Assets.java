@@ -59,10 +59,11 @@ public class Assets {
     public Texture texShield;
     public Texture texBow;
     public Texture texGold;
-    
+
     // Spell Textures
     public Texture texSpellFireBall;
     public Texture texSpellFreez;
+    public Texture texSpellRage;
 
     // Potions
     public Texture texHelthPotion;
@@ -144,6 +145,44 @@ public class Assets {
         fillMap();
         utworzInfoWindow();
 
+    }
+
+    /**
+     * Animuje label obrażeń oraz uruchamia procedurę liczenia dmg. dla BohVSBoh
+     *
+     * @param pozX
+     * @param pozY
+     * @param bohaterAtakujacy
+     * @param bohaterBroniacy
+     * @param spell
+     */
+    public void animujSpellLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Bohater bohaterBroniacy, SpellActor spell) {
+        lblDmg.setText("Dmg: " + Integer.toString(Fight.getSpellObrazenia(bohaterAtakujacy, bohaterBroniacy, spell)));
+        lblDmg.setPosition(pozX - 50, pozY - 25);
+        lblDmg.setFontScale(1.5f);
+        lblDmg.addAction(Actions.alpha(1));
+        lblDmg.addAction(Actions.fadeOut(2.0f));
+        lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
+        lblDmg.act(Gdx.graphics.getDeltaTime());
+    }
+
+    /**
+     * Animuje label obrażeń oraz uruchamia procedurę liczenia dmg. dla BohVSMob
+     *
+     * @param pozX
+     * @param pozY
+     * @param bohaterAtakujacy
+     * @param mob
+     * @param spell
+     */
+    public void animujSpellLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Mob mob, SpellActor spell) {
+        lblDmg.setText(Integer.toString(Fight.getSpellObrazenia(bohaterAtakujacy, mob, spell)));
+        lblDmg.setPosition(pozX - 50, pozY - 25);
+        lblDmg.setFontScale(1.5f);
+        lblDmg.addAction(Actions.alpha(1));
+        lblDmg.addAction(Actions.fadeOut(2.0f));
+        lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
+        lblDmg.act(Gdx.graphics.getDeltaTime());
     }
 
     /**
@@ -301,16 +340,16 @@ public class Assets {
                 tresureBox.remove();
 
                 // Usuwa TresureBoxa z mapy
-                for (int i = 0; i < gs.getMapa().getIloscPolX(); i ++){
-                    for (int j = 0; j < gs.getMapa().getIloscPolY(); j ++){
-                        if (gs.getMapa().getPola()[i][j].getTresureBox() != null){
-                            if (gs.getMapa().getPola()[i][j].getTresureBox().equals(tresureBox)){
+                for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+                    for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                        if (gs.getMapa().getPola()[i][j].getTresureBox() != null) {
+                            if (gs.getMapa().getPola()[i][j].getTresureBox().equals(tresureBox)) {
                                 gs.getMapa().getPola()[i][j].setTresureBox(null);
                             }
                         }
                     }
                 }
-                
+
                 bohater.setOtwartaSkrzyniaZeSkarbem(false);
                 ukryjInfoWindow();
 
@@ -350,17 +389,19 @@ public class Assets {
         texAttackPotion = new Texture("items/texAttackPotion.png");
         texDefencePotion = new Texture("items/texDefencePotion.png");
     }
-    
-    private void makeSpellTextures(){
+
+    private void makeSpellTextures() {
         texSpellFireBall = new Texture("spells/texFireball.png");
         texSpellFreez = new Texture("spells/texFreez.png");
+        texSpellRage = new Texture("spells/texRage.png");
     }
-    
+
     /**
      * Zwraca Spell Actor z panelem czarów
-     * @return 
+     *
+     * @return
      */
-    public SpellActor getSpellPanel(){
+    public SpellActor getSpellPanel() {
         Pixmap pmSpellPanel = new Pixmap(Gdx.graphics.getWidth(), 100, Pixmap.Format.RGBA8888);
         pmSpellPanel.setColor(Color.LIGHT_GRAY);
         pmSpellPanel.fillRectangle(0, 0, 500, 60);
@@ -373,7 +414,7 @@ public class Assets {
         Texture texSpellPanel = new Texture(pmSpellPanel);
 
         SpellActor spellPanel = new SpellActor(texSpellPanel, 250, 10);
-        
+
         return spellPanel;
     }
 

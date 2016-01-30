@@ -250,15 +250,57 @@ public class NewGame {
     static public int pobierzMane(KlasyPostaci kP) {
         switch (kP) {
             case Berserk:
-                return 5;
+                return 1;
             case Obronca:
-                return 5;
+                return 1;
             case Lowca:
-                return 5;
+                return 1;
             case Twierdza:
-                return 5;
+                return 1;
             case Czarodziej:
-                return 10;
+                return 3;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param kP
+     * @return
+     */
+    static public int pobierzMoc(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
+                return 1;
+            case Obronca:
+                return 1;
+            case Lowca:
+                return 1;
+            case Twierdza:
+                return 1;
+            case Czarodziej:
+                return 3;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param kP
+     * @return
+     */
+    static public int pobierzWiedze(KlasyPostaci kP) {
+        switch (kP) {
+            case Berserk:
+                return 1;
+            case Obronca:
+                return 1;
+            case Lowca:
+                return 1;
+            case Twierdza:
+                return 1;
+            case Czarodziej:
+                return 3;
         }
         return 0;
     }
@@ -369,6 +411,25 @@ public class NewGame {
     }
 
     /**
+     * W zależnosci od klasy bohatera pdopina odpowiednie czary.
+     */
+    private static void podepnijCzary(KlasyPostaci kP, Bohater bohater) {
+        //SpellCreator spellCreator = new SpellCreator(a, gs);
+        switch (kP) {
+            case Berserk:
+                break;
+            case Obronca:
+                break;
+            case Lowca:
+                break;
+            case Twierdza:
+                break;
+            case Czarodziej:
+                break;
+        }
+    }
+
+    /**
      * Podpina odpowiednie statystyki pod poszczególnego bohatera każdego
      * gracza.
      *
@@ -401,6 +462,10 @@ public class NewGame {
             gs.gracze.get(i).getBohaterowie().get(0).setPozostaloRuchow(pobierzSzybkosc(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setMana(pobierzMane(tmpKp));
             gs.gracze.get(i).getBohaterowie().get(0).setActualMana(pobierzMane(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setMoc(pobierzMoc(tmpKp));
+            gs.gracze.get(i).getBohaterowie().get(0).setWiedza(pobierzWiedze(tmpKp));
+
+            podepnijCzary(tmpKp, gs.gracze.get(i).getBohaterowie().get(0));
 
             switch (i) {
                 case 0:
