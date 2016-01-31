@@ -320,12 +320,8 @@ public class Bohater extends Actor {
      * @return
      */
     private int poziomHP() {
-        //System.out.println(this.getHp());
-        //System.out.println(this.hp);
-
         float poziom = this.actualHp * 100 / this.hp;
 
-        //System.out.println((int) Math.round(poziom));
         return (int) Math.round(poziom);
     }
 

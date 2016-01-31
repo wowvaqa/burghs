@@ -1,8 +1,6 @@
 package com.mygdx.burghs;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import enums.AnimsTypes;
 import java.util.Random;
 
 /**
@@ -40,14 +38,18 @@ public class SpellEffects {
             case FireBall:
                 // Zadaje obrażenia
                 if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.FireExplosionAnimation));
                     if (obiketBroniacy.getClass() == Bohater.class) {
                         Bohater tmpBoh = (Bohater) obiketBroniacy;
                         a.animujSpellLblDmg(tmpBoh.getX(), tmpBoh.getY(), bohaterCastujacy, tmpBoh, spell);
+                        animActor.setPosition(tmpBoh.getX(), tmpBoh.getY());
                     } else if (obiketBroniacy.getClass() == Mob.class) {
                         System.out.println("przeciwnik jest mobem");
                         Mob tmpMob = (Mob) obiketBroniacy;
+                        animActor.setPosition(tmpMob.getX(), tmpMob.getY());
                         a.animujSpellLblDmg(tmpMob.getX(), tmpMob.getY(), bohaterCastujacy, tmpMob, spell);
                     }
+                        Assets.stage01MapScreen.addActor(animActor);
                 } else {
                     System.out.println("Za mało MANY");
                 }
@@ -77,9 +79,11 @@ public class SpellEffects {
                 break;
 
             case Rage:
+                // Zwiększa atak +1 do końca tury.
                 if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
                     this.efektAtak = 1;
                     this.dlugoscTrwaniaEfektu = 1;
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
                     bohaterCastujacy.getSpellEffects().add(this);
                 } else {
                     System.out.println("Za mało MANY");

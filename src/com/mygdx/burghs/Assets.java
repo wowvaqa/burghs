@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import enums.AnimsTypes;
 import enums.CzesciCiala;
 import java.util.ArrayList;
 
@@ -201,6 +202,7 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
+        this.animujCiecie((int)bohaterBroniacy.getX(), (int)bohaterBroniacy.getY());
     }
 
     public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Castle castle) {
@@ -211,6 +213,7 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
+        this.animujCiecie((int)castle.getX(), (int)castle.getY());
     }
 
     public void animujLblDmg(float pozX, float pozY, Mob mob, Bohater bohaterBroniacy) {
@@ -221,6 +224,7 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
+        this.animujCiecie((int)bohaterBroniacy.getX(), (int)bohaterBroniacy.getY());
     }
 
     /**
@@ -238,6 +242,18 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
+        this.animujCiecie((int)mob.getX(), (int)mob.getY());
+    }
+
+    /**
+     * Animuje cięcie miecza w momencie ataku.
+     * @param locX
+     * @param locY 
+     */
+    public void animujCiecie(int locX, int locY) {
+        AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.SlashAnimation));
+        animActor.setPosition(locX, locY);
+        Assets.stage01MapScreen.addActor(animActor);
     }
 
     // utworzenie okna informacyjnego

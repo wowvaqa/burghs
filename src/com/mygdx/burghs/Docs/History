@@ -25,6 +25,10 @@ version 0.0033
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
 
+version 0.0033 01022016
+DONE    1. Dodanie do Screenu awansu atrybutów: wiedza, moc.
+DONE    2. Dodanie animacji FireBalla i animacji cięcia mieczem.
+
 version 0.0032 30012016
 DONE    1. Dodać moc i więdze. Moc do określania mocy czarów i wiedzę do 
         określania poziomu pnkt. many oraz poziomów poznania czarów.

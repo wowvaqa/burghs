@@ -116,6 +116,7 @@ public class AwansScreen implements Screen {
         TextButton btn03 = new TextButton("S", a.skin);
         TextButton btn04 = new TextButton("HP", a.skin);
         TextButton btn05 = new TextButton("M", a.skin);
+        TextButton btn06 = new TextButton("W", a.skin);
 
         btn01.addListener(new ClickListener() {
             @Override
@@ -152,7 +153,15 @@ public class AwansScreen implements Screen {
         btn05.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                awans.zwiekszMana();
+                awans.zwiekszMoc();
+                reformatujTabele();
+            }
+        });
+        
+        btn06.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                awans.zwiekszWiedze();
                 reformatujTabele();
             }
         });
@@ -162,6 +171,7 @@ public class AwansScreen implements Screen {
         rightTable.add(btn03).size(50).align(Align.center).pad(25);
         rightTable.add(btn04).size(50).align(Align.center).pad(25);
         rightTable.add(btn05).size(50).align(Align.center).pad(25);
+        rightTable.add(btn06).size(50).align(Align.center).pad(25);
 
         rightTable.row();
 
@@ -170,7 +180,8 @@ public class AwansScreen implements Screen {
         Label lblobr = new Label("Obrona: " + gs.getBohaterZaznaczony().getObrona(), a.skin);
         Label lblszb = new Label("Szybkosc: " + gs.getBohaterZaznaczony().getSzybkosc(), a.skin);
         Label lblhpp = new Label("Hp: " + gs.getBohaterZaznaczony().getHp(), a.skin);
-        Label lblman = new Label("Mana: " + gs.getBohaterZaznaczony().getMana(), a.skin);
+        Label lblmoc = new Label("Moc: " + gs.getBohaterZaznaczony().getMoc(), a.skin);
+        Label lblwie = new Label("Wiedza: " + gs.getBohaterZaznaczony().getWiedza(), a.skin);
 
         rightTable.add(lblOpis1).colspan(10).align(Align.center);
         rightTable.row();
@@ -178,7 +189,8 @@ public class AwansScreen implements Screen {
         rightTable.add(lblobr).pad(5);
         rightTable.add(lblszb).pad(5);
         rightTable.add(lblhpp).pad(5);
-        rightTable.add(lblman).pad(5);
+        rightTable.add(lblmoc).pad(5);
+        rightTable.add(lblwie).pad(5);
         rightTable.row();
 
         Label lblOpis2 = new Label("Po awansie: ", a.skin);
@@ -186,7 +198,8 @@ public class AwansScreen implements Screen {
         Label lblobr2 = new Label("Obrona: " + (gs.getBohaterZaznaczony().getObrona() + awans.tmpObrona + awans.atrKlasowyObrona), a.skin);
         Label lblszb2 = new Label("Szybkosc: " + (gs.getBohaterZaznaczony().getSzybkosc() + awans.tmpSzybkosc + awans.atrKlasowySzybkosc), a.skin);
         Label lblhpp2 = new Label("Hp: " + (gs.getBohaterZaznaczony().getHp() + awans.tmpHp + awans.atrKlasowyHp), a.skin);
-        Label lblman2 = new Label("Mana: " + (gs.getBohaterZaznaczony().getMana() + awans.tmpMana + awans.atrKlasowyMana), a.skin);
+        Label lblmoc2 = new Label("Moc: " + (gs.getBohaterZaznaczony().getMana() + awans.tmpMoc + awans.atrKlasowyMoc), a.skin);
+        Label lblwie2 = new Label("Wiedza: " + (gs.getBohaterZaznaczony().getMana() + awans.tmpWiedza + awans.atrKlasowyWiedza), a.skin);
 
         rightTable.add(lblOpis2).colspan(10).align(Align.center);
         rightTable.row();
@@ -194,7 +207,8 @@ public class AwansScreen implements Screen {
         rightTable.add(lblobr2).pad(5);
         rightTable.add(lblszb2).pad(5);
         rightTable.add(lblhpp2).pad(5);
-        rightTable.add(lblman2).pad(5);
+        rightTable.add(lblmoc2).pad(5);
+        rightTable.add(lblwie2).pad(5);
         rightTable.row();
     }
 
@@ -253,13 +267,15 @@ public class AwansScreen implements Screen {
         public int tmpObrona = 0;
         public int tmpSzybkosc = 0;
         public int tmpHp = 0;
-        public int tmpMana = 0;
+        public int tmpMoc = 0;
+        public int tmpWiedza = 0;
 
         public int atrKlasowyAtak = 0;
         public int atrKlasowyObrona = 0;
         public int atrKlasowySzybkosc = 0;
         public int atrKlasowyHp = 0;
-        public int atrKlasowyMana = 0;
+        public int atrKlasowyMoc = 0;
+        public int atrKlasowyWiedza = 0;
 
         public void zwiekszAtak() {
             wyczyscTmpStats();
@@ -281,17 +297,23 @@ public class AwansScreen implements Screen {
             tmpHp += 1;
         }
 
-        public void zwiekszMana() {
+        public void zwiekszMoc() {
             wyczyscTmpStats();
-            tmpMana += 1;
+            tmpMoc += 1;
         }
 
+        public void zwiekszWiedze() {
+            wyczyscTmpStats();
+            tmpWiedza += 1;
+        }
+        
         private void wyczyscTmpStats() {
             this.tmpAtak = 0;
             this.tmpObrona = 0;
             this.tmpSzybkosc = 0;
             this.tmpHp = 0;
-            this.tmpMana = 0;
+            this.tmpMoc = 0;
+            this.tmpWiedza = 0;
         }
 
         public String getAtrybutKlasowy() {
@@ -299,15 +321,16 @@ public class AwansScreen implements Screen {
             this.atrKlasowyObrona = 0;
             this.atrKlasowySzybkosc = 0;
             this.atrKlasowyHp = 0;
-            this.atrKlasowyMana = 0;
+            this.atrKlasowyMoc = 0;
+            this.atrKlasowyWiedza = 0;
             
             switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {
                 case Berserk:
                     atrKlasowyAtak += 1;
                     return "Atak + 1";
                 case Czarodziej:
-                    atrKlasowyMana += 1;
-                    return "Mana + 1";
+                    atrKlasowyMoc += 1;
+                    return "Moc + 1";
                 case Lowca:
                     atrKlasowySzybkosc += 1;
                     return "Szybkosc + 1";
@@ -328,10 +351,14 @@ public class AwansScreen implements Screen {
             b.setObrona(b.getObrona()+ this.tmpObrona + this.atrKlasowyObrona);
             b.setSzybkosc(b.getSzybkosc()+ this.tmpSzybkosc + this.atrKlasowySzybkosc);
             b.setHp(b.getHp()+ this.tmpHp + this.atrKlasowyHp);
-            b.setMana(b.getMana()+ this.tmpMana + this.atrKlasowyMana);
+            b.setMoc(b.getMoc()+ this.tmpMoc + this.atrKlasowyMoc);
+            b.setWiedza(b.getWiedza()+ this.tmpWiedza + this.atrKlasowyWiedza);
+            
+            //Ustala poziom many na poziomie nowej wiedzy.
+            b.setMana(b.getWiedza());
+            b.setActualMana(b.getWiedza());
             
             b.setExpToNextLevel(b.getExp() + 2 * b.getExp());
-            
         }
     }
 }

@@ -9,13 +9,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
@@ -54,23 +58,23 @@ public class TestingScreen implements Screen {
     private final Assets a;
     private final Game g;
     private final GameStatus gs;
-    
+
     Pixmap pm;
 
     private final float rotationSpeed;
 
     public TestingScreen(Game g, Assets a, GameStatus gs) {
-        
+
         pm = new Pixmap(Gdx.files.internal("mobElfTex.png"));
-        
+
         pm.setColor(Color.RED);
         pm.fillRectangle(0, 0, 10, 100);
         pm.setColor(Color.WHITE);
         pm.fillRectangle(1, 1, 8, 90);
-        
+
         Texture pmTex = new Texture(pm);
         pm.dispose();
-        
+
         rotationSpeed = 0.5f;
 
         float w = Gdx.graphics.getWidth();
@@ -90,6 +94,24 @@ public class TestingScreen implements Screen {
         makeButtons();
 
         formatujTabele();
+
+        makeAnimation();
+    }
+
+    private void makeAnimation() {
+        Texture texture = new Texture(Gdx.files.internal("animation/texExplosionFire.png"));
+        TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 5);
+        TextureRegion[] walkFrames = new TextureRegion[8 * 5];
+        int index = 0;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 8; j++) {
+                walkFrames[index++] = tmp[i][j];
+            }
+        }
+        Animation walkAnimation = new Animation(0.05f, walkFrames);
+
+        AnimatedImage animatedImage = new AnimatedImage(walkAnimation);
+        stage01.addActor(animatedImage);
     }
 
     private void makeSprites(Texture tex) {
@@ -100,13 +122,13 @@ public class TestingScreen implements Screen {
 
     private void makeButtons() {
         btnMapEditor = new TextButton("MapEditor", a.skin);
-        btnMapEditor.addListener(new ClickListener(){
+        btnMapEditor.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 g.setScreen(Assets.mapEditor);
             }
         });
-        
+
         btnExit = new TextButton("EXIT", a.skin);
         btnExit.setPosition(1, 1);
         btnExit.setSize(200, 100);
@@ -116,13 +138,13 @@ public class TestingScreen implements Screen {
                 g.setScreen(Assets.mainMenuScreen);
             }
         });
-        
+
         btnSerylizacja = new TextButton("Serylizacja", a.skin);
-        btnSerylizacja.addListener(new ClickListener(){
+        btnSerylizacja.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Mapa mapa = new Mapa();
-                
+
                 try {
                     ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("d:\\mapa.dat"));
                     wy.writeObject(mapa);
@@ -134,16 +156,16 @@ public class TestingScreen implements Screen {
                 }
             }
         });
-        
+
         btnOdczytSerylizacji = new TextButton("Odczyt Serylizacji", a.skin);
-        btnOdczytSerylizacji.addListener(new ClickListener(){
+        btnOdczytSerylizacji.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Mapa mapa = null;
-                
+
                 try {
                     ObjectInputStream we = new ObjectInputStream(new FileInputStream("d:\\mapa.dat"));
-                    mapa = (Mapa)we.readObject();
+                    mapa = (Mapa) we.readObject();
                     System.out.println("odczyt obiektu");
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,12 +174,12 @@ public class TestingScreen implements Screen {
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 System.out.println(mapa.getIloscPolX() + " " + mapa.getIloscPolY());
             }
-            
+
         });
-        
+
     }
 
     private void formatujTabele() {
@@ -248,5 +270,28 @@ public class TestingScreen implements Screen {
     @Override
     public void dispose() {
         stage01.dispose();
+    }
+
+    public class AnimatedImage extends Image {
+
+        protected Animation animation = null;
+        private float stateTime = 0;
+
+        public AnimatedImage(Animation animation) {
+            super(animation.getKeyFrame(0));
+            this.animation = animation;
+        }
+
+        @Override
+        public void act(float delta) {
+
+            //animation.setPlayMode(Animation.PlayMode.NORMAL);
+            if (!animation.isAnimationFinished(stateTime)) {
+                ((TextureRegionDrawable) getDrawable()).setRegion(animation.getKeyFrame(stateTime += delta, true));
+                super.act(delta);
+            } else {
+                this.remove();
+            }
+        }
     }
 }

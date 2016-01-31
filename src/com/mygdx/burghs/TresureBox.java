@@ -115,7 +115,7 @@ public class TresureBox extends Actor {
 
         Random rnd = new Random();
         int indeks = rnd.nextInt(GameStatus.itemyPoziom1.size());
-        System.out.println("Wylosowano indeks: " + indeks);
+        //System.out.println("Wylosowano indeks: " + indeks);
 
         return GameStatus.itemyPoziom1.get(indeks);
     }

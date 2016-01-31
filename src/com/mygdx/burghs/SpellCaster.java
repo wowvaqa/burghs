@@ -183,7 +183,7 @@ public class SpellCaster {
                 public void clicked(InputEvent event, float x, float y) {
                     SpellCaster.wylaczPrzyciski();
                 }
-            }); //To change body of generated methods, choose Tools | Templates.
+            }); 
         }
     }
 }
