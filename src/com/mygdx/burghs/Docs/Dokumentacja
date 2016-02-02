@@ -169,4 +169,25 @@ CZARY
     Zarządzanie działaniem efektów czarów klasa SpellEffects na pdst. 
     ENUM SPELLS.
 
+    Spelle (tymczasowe) tworzone są w MapScreen().utworzPanelBohatera().
+    Nowe obiekty czarów tworzone są za każdym razem gdy po kliknięciu w przycisk
+    SPELL BOOK w Menu i dodawane do ArrayListy z czarami bohatera.
+    Usuwanie czarów z ww. ArrayListy następuje każdorazow po rzuceniu czaru
+    i wywołaniu jego efektu: SpellEffect.dzialanie() oraz po naciśnięciu 
+    przycisku EXIT w panelu z czarami.
+
+    Efekty czaru:
+    Każdy czar posiada ArrayList z dostępnymi dla siebie efektami.
+    Do ww tablicy efektów dodaje się określony dla czaru efekt. 
+    
+    Efekt natychmiastowy czaru:
+        SpellEffect.dzialanie() posiada parametry niezbędne do wywołania 
+    natychmiastowego działania czaru.
+
+    Efekt długotrwały
+        Efekt czaru, który ma działać => turę dodany zostaje do ArrayList
+    SpellEffect bohatera.
+    Sprawdzenie działania efektu następuje w metodzie MapScreen.koniecTury()
+    
+
     

@@ -5,13 +5,6 @@ version 0.0300
         Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
         na mapie w określonych miejscach.
 
-version 0.0200
-        1. Bug: w przypadku naciśnięcia przycisku KoniecTury jeżeli bohater
-        był zaznaczony - przyciski dezaktywują się ale nie zmienia się tekstura
-        bohatera na nie zaznaczonego.
-        2. Zaprojektować klasę dialog służącą do wyświetlania prostych 
-        komunikatów.
-
 version 0.0099
         1. Przeprojektować Screen2 w Map Screen
             - uporządkować wyświetlanie przycisków, labeli
@@ -24,6 +17,14 @@ version 0.0033
         2. Naprawić bug. z restartem szybkości Moba w tej samej turze.
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
+
+version 0.0034 02022016
+DONE    1. Poprawiono błąd w którym ikony efektów czarów wyświetlały się 
+        niepoprawnie w panlu bohatera.
+DONE    2. Dodano informacje w Screenie awansu na który poziom awansuje bohater.
+DONE    3. Poprawiono błąd wyświetlający niepoprawny poziom bohatera w Screenie
+        bohatera.
+DONE    4. Dodano szkic lewego panelu w Screenie awansu.
 
 version 0.0033 01022016
 DONE    1. Dodanie do Screenu awansu atrybutów: wiedza, moc.

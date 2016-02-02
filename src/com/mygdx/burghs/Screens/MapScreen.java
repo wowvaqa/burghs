@@ -26,7 +26,9 @@ import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.Ruch;
 import com.mygdx.burghs.SpellActor;
+import com.mygdx.burghs.SpellCreator;
 import com.mygdx.burghs.TresureBox;
+import enums.Spells;
 import enums.TypyTerenu;
 import java.util.ArrayList;
 
@@ -62,7 +64,6 @@ public class MapScreen implements Screen {
     // *** PANEL ZAKLĘĆ
     //private boolean isSpellPanelActive = false;
     // *** KONIEC PANEL ZAKLĘĆ
-
     // *** PANEL BOHATERA
     private Label pbLblHp;
     private Label pbLblMove;
@@ -207,11 +208,14 @@ public class MapScreen implements Screen {
         // Przywrócenie wszystkich punktów ruchu dla bohaterów oraz aktualizacja czasu działania efektów
         // Regenereacja many
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
-            i.setPozostaloRuchow(i.getSzybkosc() + /**Fight.getSzybkoscEkwipunkuBohatera(i) + **/i.getSzybkoscEfekt());
+            i.setPozostaloRuchow(i.getSzybkosc() + /**
+                     * Fight.getSzybkoscEkwipunkuBohatera(i) + *
+                     */
+                    i.getSzybkoscEfekt());
             i.aktualizujDzialanieEfektow();
-            
+
             i.setActualMana(i.getActualMana() + i.getManaRegeneration());
-            if (i.getActualMana() > i.getMana()){
+            if (i.getActualMana() > i.getMana()) {
                 i.setActualMana(i.getMana());
             }
         }
@@ -390,12 +394,19 @@ public class MapScreen implements Screen {
                         stage03.clear();
                         gs.isSpellPanelActive = false;
                         Gdx.input.setInputProcessor(stage01);
+                        gs.getBohaterZaznaczony().getSpells().clear();
                     }
                 });
                 stage03.addActor(btnSpellPanelExit);
 
                 int spellXpos = 254;
                 int spellYpos = 54;
+
+                SpellCreator spellCreator = new SpellCreator(a, gs);
+                gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(Spells.FireBall, gs.getBohaterZaznaczony()));
+                gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(Spells.Frozen, gs.getBohaterZaznaczony()));
+                gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(Spells.Rage, gs.getBohaterZaznaczony()));
+
                 for (SpellActor sA : gs.getBohaterZaznaczony().getSpells()) {
                     sA.setPosition(spellXpos, spellYpos);
                     stage03.addActor(sA);
@@ -430,10 +441,6 @@ public class MapScreen implements Screen {
                 g.setScreen(Assets.awansScreen);
             }
         });
-    }
-
-    private void addSpellsToSpellPanel() {
-
     }
 
     private void aktualizujPanelBohatera() {
@@ -708,19 +715,6 @@ public class MapScreen implements Screen {
         }
     }
 
-    /**
-     * 1. Sprawdza każdego bohatera z Graczy pod względem zaznaczenia. 2. Jeżeli
-     * TRUE wtedy ładuje statsy bohatera do labeli z MapScreena
-     */
-//    private void wyswietlStatystykiBohatera() {
-//        for (Gracz i : gs.getGracze()) {
-//            for (Bohater j : i.getBohaterowie()) {
-//                if (j.isZaznaczony()) {
-//                    lblPozostaloRuchow.setText("Pozostalo ruchow: " + Integer.toString(j.getPozostaloRuchow()));
-//                }
-//            }
-//        }
-//    }
     // Steruje ruchem kamery
     private void ruchKamery() {
 

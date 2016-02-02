@@ -145,11 +145,6 @@ public class Bohater extends Actor {
         if (this.getKlasyPostaci() == KlasyPostaci.Czarodziej) {
             manaRegeneration = 2;
         }
-
-        SpellCreator spellCreator = new SpellCreator(a, gs);
-        this.spells.add(spellCreator.utworzSpell(Spells.FireBall, this));
-        this.spells.add(spellCreator.utworzSpell(Spells.Frozen, this));
-        this.spells.add(spellCreator.utworzSpell(Spells.Rage, this));
     }
 
     // 1. Dodoaje Click Listnera do obiektu klasy Bohater

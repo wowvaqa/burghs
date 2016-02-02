@@ -89,6 +89,9 @@ public class AwansScreen implements Screen {
         Label lblTitle = new Label("AWANS", this.a.skin);
         mainTable.add(lblTitle).expandX().pad(5).colspan(10);
         mainTable.row();
+        Label lblPoziom = new Label("Poziom " + (gs.getBohaterZaznaczony().getLevelOfExp() + 1), a.skin);
+        mainTable.add(lblPoziom).expandX().pad(5).colspan(10);
+        mainTable.row();
         mainTable.add(leftTable);
         mainTable.add(rightTable).expand().colspan(10);
         mainTable.row();
@@ -98,6 +101,61 @@ public class AwansScreen implements Screen {
     private void formatLeftTable() {
         leftTable.pad(10);
         leftTable.setDebug(true);
+        
+        //Label lblPoziom1 = new Label("1", a.skin);
+        Label lblPoziom2 = new Label("2", a.skin);
+        Label lblPoziom3A = new Label("3A", a.skin);
+        Label lblPoziom3B = new Label("3B", a.skin);
+        Label lblPoziom4A = new Label("4A", a.skin);
+        Label lblPoziom4B = new Label("4B", a.skin);
+        
+        TextButton btnPoziom1 = new TextButton("WYBIERZ", a.skin);
+        TextButton btnPoziom2 = new TextButton("WYBIERZ", a.skin);
+        TextButton btnPoziom3A = new TextButton("WYBIERZ", a.skin);
+        TextButton btnPoziom3B = new TextButton("WYBIERZ", a.skin);
+        TextButton btnPoziom4A = new TextButton("WYBIERZ", a.skin);
+        TextButton btnPoziom4B = new TextButton("WYBIERZ", a.skin);
+        
+        switch(gs.getBohaterZaznaczony().getLevelOfExp()){
+            case 1:
+                
+                btnPoziom3A.setVisible(false);
+                btnPoziom3B.setVisible(false);
+                btnPoziom4A.setVisible(false);
+                btnPoziom4B.setVisible(false);
+                break;
+            case 2:
+                btnPoziom2.setVisible(false);
+                btnPoziom4A.setVisible(false);
+                btnPoziom4B.setVisible(false);
+                break;
+            case 3:                
+                btnPoziom2.setVisible(false);
+                btnPoziom3A.setVisible(false);
+                btnPoziom3B.setVisible(false);
+                break;
+        }
+        
+        //leftTable.add(lblPoziom1).pad(5).colspan(2);
+        //leftTable.row();
+        leftTable.add(btnPoziom1).pad(5).colspan(2);
+        leftTable.row();        
+        leftTable.add(lblPoziom2).pad(5).colspan(2);
+        leftTable.row();        
+        leftTable.add(btnPoziom2).pad(5).colspan(2);
+        leftTable.row();
+        leftTable.add(lblPoziom3A).pad(5);
+        leftTable.add(lblPoziom3B).pad(5);
+        leftTable.row();        
+        leftTable.add(btnPoziom3A).pad(5);
+        leftTable.add(btnPoziom3B).pad(5);
+        leftTable.row();
+        leftTable.add(lblPoziom4A).pad(5);
+        leftTable.add(lblPoziom4B).pad(5);
+        leftTable.row();        
+        leftTable.add(btnPoziom4A).pad(5);
+        leftTable.add(btnPoziom4B).pad(5);
+        leftTable.row();
     }
 
     private void formatRightTable() {        
@@ -209,6 +267,10 @@ public class AwansScreen implements Screen {
         rightTable.add(lblhpp2).pad(5);
         rightTable.add(lblmoc2).pad(5);
         rightTable.add(lblwie2).pad(5);
+        rightTable.row();
+        
+        Label lblNewSpells = new Label("Nowe Czary: ", a.skin);
+        rightTable.add(lblNewSpells).pad(5).colspan(10);
         rightTable.row();
     }
 
@@ -358,7 +420,10 @@ public class AwansScreen implements Screen {
             b.setMana(b.getWiedza());
             b.setActualMana(b.getWiedza());
             
+            b.setLevelOfExp(b.getLevelOfExp() + 1);
+            
             b.setExpToNextLevel(b.getExp() + 2 * b.getExp());
+            
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.Texture;
 import enums.AnimsTypes;
 import java.util.Random;
 
@@ -49,10 +50,11 @@ public class SpellEffects {
                         animActor.setPosition(tmpMob.getX(), tmpMob.getY());
                         a.animujSpellLblDmg(tmpMob.getX(), tmpMob.getY(), bohaterCastujacy, tmpMob, spell);
                     }
-                        Assets.stage01MapScreen.addActor(animActor);
+                    Assets.stage01MapScreen.addActor(animActor);
                 } else {
                     System.out.println("Za mało MANY");
                 }
+                bohaterCastujacy.getSpells().clear();
                 break;
 
             case Frozen:
@@ -76,6 +78,7 @@ public class SpellEffects {
                 } else {
                     System.out.println("Za mało MANY");
                 }
+                bohaterCastujacy.getSpells().clear();
                 break;
 
             case Rage:
@@ -88,6 +91,8 @@ public class SpellEffects {
                 } else {
                     System.out.println("Za mało MANY");
                 }
+                bohaterCastujacy.getSpells().clear();
+                bohaterCastujacy.aktualizujEfektyBohatera();
                 break;
         }
     }

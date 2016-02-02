@@ -154,8 +154,8 @@ public class SpellCaster {
                         spell.getSpellEffects().get(0).dzialanie(spell, gs.getMapa().getPola()[locX][locY].getBohater(), bohaterCastujacy, a);
                     } else if (gs.getMapa().getPola()[locX][locY].getMob() != null) {
                         spell.getSpellEffects().get(0).dzialanie(spell, gs.getMapa().getPola()[locX][locY].getMob(), bohaterCastujacy, a);
-                    }
-                    wylaczPrzyciski();
+                    }                    
+                    wylaczPrzyciski();                    
                 }
             });
         }

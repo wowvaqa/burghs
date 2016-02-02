@@ -51,7 +51,7 @@ public class SpellActor extends DefaultActor {
         this.dodajListnera();
         this.a = a;
         this.gs = gs;
-        this.spellEffects = new ArrayList<SpellEffects>();
+        //this.spellEffects = new ArrayList<SpellEffects>();
     }
 
     private void dodajListnera() {

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.burghs.Screens.DialogScreen;
 import enums.Spells;
+import java.util.ArrayList;
 
 /**
  * Kalsa tworzy zaklęcia
@@ -37,16 +38,20 @@ public class SpellCreator {
         SpellActor spell = new SpellActor(a.texFist, 0, 0, bohater, a, gs);
 
         switch (spells) {
+            
             case FireBall:
                 spell.getSprite().setTexture(a.texSpellFireBall);
                 spell.setDmg(3);
-                spell.setKoszt(1);
+                spell.setKoszt(1);      
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
-                spell.getSpellEffects().get(0).setEfektDmg(3);
+                spell.getSpellEffects().get(0).setEfektDmg(3);                
                 spell.setRodzajCzaru(spells);
                 break;
+                
             case Frozen:
                 spell.getSprite().setTexture(a.texSpellFreez);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
                 spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellFreez, 0, 0));
                 spell.setRodzajCzaru(spells);
@@ -63,6 +68,7 @@ public class SpellCreator {
             case Rage:
                 spell.setSpellWorksOnlyForCaster(true);
                 spell.getSprite().setTexture(a.texSpellRage);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
                 spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellRage, 0, 0));
                 spell.setRodzajCzaru(spells);

@@ -157,14 +157,14 @@ public class Assets {
      * @param bohaterBroniacy
      * @param spell
      */
-    public void animujSpellLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Bohater bohaterBroniacy, SpellActor spell) {
+    public void animujSpellLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Bohater bohaterBroniacy, SpellActor spell) {        
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getSpellObrazenia(bohaterAtakujacy, bohaterBroniacy, spell)));
         lblDmg.setPosition(pozX - 50, pozY - 25);
         lblDmg.setFontScale(1.5f);
         lblDmg.addAction(Actions.alpha(1));
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
-        lblDmg.act(Gdx.graphics.getDeltaTime());
+        lblDmg.act(Gdx.graphics.getDeltaTime());        
     }
 
     /**

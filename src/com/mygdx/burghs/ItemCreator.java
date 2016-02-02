@@ -1,6 +1,9 @@
 package com.mygdx.burghs;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.burghs.Screens.DialogScreen;
 import enums.DostepneItemki;
 import enums.CzesciCiala;
 import enums.TypItemu;
@@ -21,7 +24,7 @@ public class ItemCreator {
         this.gs = gs;
     }
 
-    public Item utworzItem(DostepneItemki dostepneItemki, Assets a, Game g) {
+    public Item utworzItem(DostepneItemki dostepneItemki, final Assets a, Game g) {
         this.a = a;
         this.g = g;
         Item item = new Item(a.texFist, this.a, this.gs, this.g);
@@ -246,6 +249,12 @@ public class ItemCreator {
                 item.dzialania = new ArrayList<Effect>();
                 item.dzialania.add(new Effect());
                 item.dzialania.get(0).setIkona(new EffectActor(a.texAttackPotion, 0, 0));
+                item.dzialania.get(0).getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {                        
+                        DialogScreen dialogScreen = new DialogScreen("Gniew", a.skin, "Zwiększenie ataku +1 do końca tury", Assets.stage01MapScreen);
+                    }
+                });
                 break;
             case PotionDefence:
                 item.setNazwa("Obrona + 2 przez 2 tury");
