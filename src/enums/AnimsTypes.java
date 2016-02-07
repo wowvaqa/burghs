@@ -12,5 +12,6 @@ package enums;
 public enum AnimsTypes {
     FireExplosionAnimation,
     SlashAnimation,
-    UseMixtureAnimation;
+    UseMixtureAnimation,
+    SelfSpellAnimation;
 }

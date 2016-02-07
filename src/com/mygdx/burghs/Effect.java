@@ -16,6 +16,8 @@ public class Effect {
     private int efektSzybkosc = 0;
     private int efektHp = 0;
     private int efektMana = 0;
+    private int efektDmg = 0;
+    private int efektArmor = 0;
 
     private int zmianaHp;
     private String opis;
@@ -208,11 +210,45 @@ public class Effect {
     }
 
     /**
-     * Ustala ikone
+     * Ustala ikone.
      *
      * @param ikona
      */
     public void setIkona(DefaultActor ikona) {
         this.ikona = ikona;
     }
+
+    /**
+     * Zwraca tymczasowy współczynnik modyfikujący obrażenia.
+     * @return 
+     */
+    public int getEfektDmg() {
+        return efektDmg;
+    }
+
+    /**
+     * Ustala tymczaswoy współczynnik modyfikujący obrażenia.
+     * @param efektDmg 
+     */
+    public void setEfektDmg(int efektDmg) {
+        this.efektDmg = efektDmg;
+    }
+
+    /**
+     * Zwraca współczynnik pancerza dla efektu.
+     * @return 
+     */
+    public int getEfektArmor() {
+        return efektArmor;
+    }
+
+    /**
+     * Ustala współczynnik pancerza dla efektu.
+     * @param efektArmor 
+     */
+    public void setEfektArmor(int efektArmor) {
+        this.efektArmor = efektArmor;
+    }
+    
+    
 }

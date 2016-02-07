@@ -32,7 +32,18 @@ public class Fight {
                 + getObronaEfektyBohatera(bohaterBroniacy) + 1);
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
-        int dmg = atak - obrona;
+
+        if (atak > 0) {
+            System.out.println("Nastąpiło trafienie...");
+            atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
+            atak += getDamageEfektyBohatera(bohaterAtakujacy);
+        } else {
+            System.out.println("Pudło...");
+        }
+
+        int dmg = atak - (obrona + getArmorEkwipunkuBohateraAtakujacego(bohaterBroniacy)
+                + getArmorEfektyBohatera(bohaterBroniacy));
+
         if (dmg < 0) {
             dmg = 0;
         }
@@ -70,6 +81,15 @@ public class Fight {
         int obrona = rnd.nextInt(castle.getObrona() + 1);
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
+
+        if (atak > 0) {
+            System.out.println("Nastąpiło trafienie...");
+            atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
+            atak += getDamageEfektyBohatera(bohaterAtakujacy);
+        } else {
+            System.out.println("Pudło...");
+        }
+
         int dmg = atak - obrona;
         if (dmg < 0) {
             dmg = 0;
@@ -105,6 +125,15 @@ public class Fight {
         int obrona = rnd.nextInt(mob.getObrona() + 1);
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
+
+        if (atak > 0) {
+            System.out.println("Nastąpiło trafienie...");
+            atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
+            atak += getDamageEfektyBohatera(bohaterAtakujacy);
+        } else {
+            System.out.println("Pudło...");
+        }
+
         int dmg = atak - obrona;
         if (dmg < 0) {
             dmg = 0;
@@ -142,7 +171,8 @@ public class Fight {
                 + getObronaEfektyBohatera(bohaterBroniacy) + 1);
         System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
-        int dmg = atak - obrona;
+        int dmg = atak - (obrona + getArmorEkwipunkuBohateraAtakujacego(bohaterBroniacy)
+                + getArmorEfektyBohatera(bohaterBroniacy));
         if (dmg < 0) {
             dmg = 0;
         }
@@ -162,10 +192,11 @@ public class Fight {
 
     /**
      * Liczy obrażenia dla rzucenia czaru przez bohatera na moba.
+     *
      * @param bohaterAtakujacy
      * @param mob
      * @param spell
-     * @return 
+     * @return
      */
     static public int getSpellObrazenia(Bohater bohaterAtakujacy, Mob mob, SpellActor spell) {
         mob.mobZaatakowany(bohaterAtakujacy.getPozXnaMapie(), bohaterAtakujacy.getPozYnaMapie());
@@ -205,7 +236,8 @@ public class Fight {
                 + getObronaEfektyBohatera(bohaterBroniacy) + 1);
         System.out.println("Siła ataku:  " + damage);
         System.out.println("siła obrony: " + obrona);
-        int dmg = damage - obrona;
+        int dmg = damage - (obrona + getArmorEkwipunkuBohateraAtakujacego(bohaterBroniacy)
+                + getArmorEfektyBohatera(bohaterBroniacy));
         if (dmg < 0) {
             dmg = 0;
         }
@@ -224,6 +256,46 @@ public class Fight {
         bohaterBroniacy.aktualizujTeksture();
 
         return dmg;
+    }
+
+    /**
+     * Zwraca sume pancerza itemkó bohatera
+     *
+     * @param bohaterBroniacy
+     * @return
+     */
+    static public int getArmorEkwipunkuBohateraAtakujacego(Bohater bohaterBroniacy) {
+        int sumaObrazen = 0;
+        sumaObrazen += bohaterBroniacy.getItemGlowa().getArmor();
+        sumaObrazen += bohaterBroniacy.getItemKorpus().getArmor();
+        sumaObrazen += bohaterBroniacy.getItemLewaReka().getArmor();
+        sumaObrazen += bohaterBroniacy.getItemPrawaReka().getArmor();
+        sumaObrazen += bohaterBroniacy.getItemNogi().getArmor();
+        sumaObrazen += bohaterBroniacy.getItemStopy().getArmor();
+
+        System.out.println("Sumba pancerza itemków: " + sumaObrazen);
+
+        return sumaObrazen;
+    }
+
+    /**
+     * Zwraca wartość obrażeń ekwipunku zadanego bohatera.
+     *
+     * @param bohaterAtakujacy
+     * @return Wartość obrażeń
+     */
+    static public int getDamageEkwipunkuBohateraAtakujacego(Bohater bohaterAtakujacy) {
+        int sumaObrazen = 0;
+        sumaObrazen += bohaterAtakujacy.getItemGlowa().getDmg();
+        sumaObrazen += bohaterAtakujacy.getItemKorpus().getDmg();
+        sumaObrazen += bohaterAtakujacy.getItemLewaReka().getDmg();
+        sumaObrazen += bohaterAtakujacy.getItemPrawaReka().getDmg();
+        sumaObrazen += bohaterAtakujacy.getItemNogi().getDmg();
+        sumaObrazen += bohaterAtakujacy.getItemStopy().getDmg();
+
+        System.out.println("Sumba obrażeń itemków: " + sumaObrazen);
+
+        return sumaObrazen;
     }
 
     /**
@@ -247,6 +319,46 @@ public class Fight {
     }
 
     /**
+     * Zwraca sume pancerza dla efektów czarów i efektó mikstur.
+     *
+     * @param bohater
+     * @return
+     */
+    static public int getArmorEfektyBohatera(Bohater bohater) {
+        int sumaEfektArmor = 0;
+        for (Effect efekty : bohater.getEfekty()) {
+            sumaEfektArmor += efekty.getEfektArmor();
+        }
+        for (SpellEffects sE : bohater.getSpellEffects()) {
+            sumaEfektArmor += sE.getEfektArmor();
+        }
+        
+        System.out.println("Suma pancerza dla efektów: " + sumaEfektArmor);
+        
+        return sumaEfektArmor;
+    }
+
+    /**
+     * Zwraca sume obrażeń dla efektów czarów i efektó mikstur.
+     *
+     * @param bohater
+     * @return
+     */
+    static public int getDamageEfektyBohatera(Bohater bohater) {
+        int sumaEfektDamage = 0;
+        for (Effect efekty : bohater.getEfekty()) {
+            sumaEfektDamage += efekty.getEfektDmg();
+        }
+        for (SpellEffects sE : bohater.getSpellEffects()) {
+            sumaEfektDamage += sE.getEfektDmg();
+        }
+        
+        System.out.println("Suma obrażeń dla efektów: " + sumaEfektDamage);
+        
+        return sumaEfektDamage;
+    }
+
+    /**
      * Zwraca wartosć ataku efektów zadanego bohatera
      *
      * @param bohater Referencja do obiektu bohatera
@@ -259,7 +371,7 @@ public class Fight {
         }
         for (SpellEffects sE : bohater.getSpellEffects()) {
             sumaEfektAtak += sE.getEfektAtak();
-        }   
+        }
         return sumaEfektAtak;
     }
 
@@ -276,7 +388,7 @@ public class Fight {
         }
         for (SpellEffects sE : bohater.getSpellEffects()) {
             sumaEfektObrona += sE.getEfektObrona();
-        }  
+        }
         return sumaEfektObrona;
     }
 

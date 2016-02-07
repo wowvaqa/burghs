@@ -49,6 +49,7 @@ public class ItemCreator {
                 item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setArmor(1);
                 item.setCzescCiala(CzesciCiala.glowa);
                 item.getSprite().setTexture(a.texLinenCap);
                 item.setTypItemu(TypItemu.Pancerz);
@@ -60,6 +61,7 @@ public class ItemCreator {
                 item.setObrona(2);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setArmor(2);
                 item.setCzescCiala(CzesciCiala.glowa);
                 item.getSprite().setTexture(a.texLeatherCap);
                 item.setTypItemu(TypItemu.Pancerz);
@@ -72,6 +74,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setArmor(1);
                 item.setCzescCiala(CzesciCiala.praweRamie);
                 item.getSprite().setTexture(a.texLinenShirt);
                 item.setTypItemu(TypItemu.Pancerz);
@@ -95,6 +98,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setDmg(1);
                 item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texStick);
                 item.setTypItemu(TypItemu.Bron);
@@ -106,6 +110,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setDmg(2);
                 item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texSword);
                 item.setTypItemu(TypItemu.Bron);
@@ -117,6 +122,7 @@ public class ItemCreator {
                 item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setArmor(1);
                 item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texShield);
                 item.setTypItemu(TypItemu.Pancerz);
@@ -128,6 +134,7 @@ public class ItemCreator {
                 item.setObrona(0);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setDmg(1);
                 item.setZasieg(1);
                 item.setCzescCiala(CzesciCiala.rece);
                 item.getSprite().setTexture(a.texBow);
@@ -152,6 +159,7 @@ public class ItemCreator {
                 item.setObrona(1);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setArmor(1);
                 item.setCzescCiala(CzesciCiala.nogi);
                 item.getSprite().setTexture(a.texLinenTousers);
                 item.setTypItemu(TypItemu.Pancerz);
@@ -163,6 +171,7 @@ public class ItemCreator {
                 item.setObrona(2);
                 item.setSzybkosc(0);
                 item.setHp(0);
+                item.setArmor(2);
                 item.setCzescCiala(CzesciCiala.nogi);
                 item.getSprite().setTexture(a.texLeatherTousers);
                 item.setTypItemu(TypItemu.Pancerz);

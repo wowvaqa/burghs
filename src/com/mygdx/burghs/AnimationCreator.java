@@ -61,6 +61,9 @@ public class AnimationCreator {
                     }
                 }
                 break;
+                
+            case SelfSpellAnimation:
+                break;
         }
 
         Animation animation = new Animation(0.05f, walkFrames);

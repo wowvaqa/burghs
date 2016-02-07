@@ -5,5 +5,5 @@ package enums;
  * @author v
  */
 public enum KlasyPostaci {
-    Berserk, Obronca, Lowca, Twierdza, Czarodziej;
+     Wojownik, Giermek, Lowca, Twierdza, Czarodziej;
 }

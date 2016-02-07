@@ -19,6 +19,7 @@ public class SpellActor extends DefaultActor {
     private Spells rodzajCzaru;
     private ArrayList<SpellEffects> spellEffects;
     private boolean spellWorksOnlyForCaster = false;
+    private boolean spellWorksOnlyForPlayersHeroes = false;
 
     private int zasieg = 0;
     private int dmg = 0;
@@ -182,4 +183,22 @@ public class SpellActor extends DefaultActor {
     public void setSpellWorksOnlyForCaster(boolean spellWorksOnlyForCaster) {
         this.spellWorksOnlyForCaster = spellWorksOnlyForCaster;
     }
+
+    /**
+     * Zwraca czy czar działa tylko na bohaterów gracza.
+     * @return 
+     */
+    public boolean isSpellWorksOnlyForPlayersHeroes() {
+        return spellWorksOnlyForPlayersHeroes;
+    }
+
+    /**
+     * Ustala czy czar działa tylko na bohaterów gracza.
+     * @param spellWorksOnlyForPlayersHeroes 
+     */
+    public void setSpellWorksOnlyForPlayersHeroes(boolean spellWorksOnlyForPlayersHeroes) {
+        this.spellWorksOnlyForPlayersHeroes = spellWorksOnlyForPlayersHeroes;
+    }
+    
+    
 }

@@ -21,7 +21,6 @@ import com.mygdx.burghs.Bohater;
 import com.mygdx.burghs.ButtonActor;
 import com.mygdx.burghs.Castle;
 import com.mygdx.burghs.DefaultActor;
-import com.mygdx.burghs.Fight;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.Ruch;
@@ -208,7 +207,8 @@ public class MapScreen implements Screen {
         // Przywrócenie wszystkich punktów ruchu dla bohaterów oraz aktualizacja czasu działania efektów
         // Regenereacja many
         for (Bohater i : gs.getGracze().get(gs.getTuraGracza()).getBohaterowie()) {
-            i.setPozostaloRuchow(i.getSzybkosc() + /**
+            i.setPozostaloRuchow(i.getSzybkosc()
+                    + /**
                      * Fight.getSzybkoscEkwipunkuBohatera(i) + *
                      */
                     i.getSzybkoscEfekt());
@@ -403,9 +403,10 @@ public class MapScreen implements Screen {
                 int spellYpos = 54;
 
                 SpellCreator spellCreator = new SpellCreator(a, gs);
-                gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(Spells.FireBall, gs.getBohaterZaznaczony()));
-                gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(Spells.Frozen, gs.getBohaterZaznaczony()));
-                gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(Spells.Rage, gs.getBohaterZaznaczony()));
+
+                for (Spells spl : gs.getBohaterZaznaczony().getListOfSpells()) {
+                    gs.getBohaterZaznaczony().getSpells().add(spellCreator.utworzSpell(spl, gs.getBohaterZaznaczony()));
+                }
 
                 for (SpellActor sA : gs.getBohaterZaznaczony().getSpells()) {
                     sA.setPosition(spellXpos, spellYpos);

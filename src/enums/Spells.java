@@ -6,6 +6,13 @@ package enums;
  */
 public enum Spells {
     FireBall,
+    SongOfGlory,
     Frozen,
-    Rage;
+    Rage,
+    Haste,
+    Cure,
+    Fury,
+    Discouragement,
+    Charge,
+    FinalJudgment;
 }

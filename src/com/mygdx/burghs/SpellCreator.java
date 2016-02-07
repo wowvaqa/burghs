@@ -38,17 +38,17 @@ public class SpellCreator {
         SpellActor spell = new SpellActor(a.texFist, 0, 0, bohater, a, gs);
 
         switch (spells) {
-            
+
             case FireBall:
                 spell.getSprite().setTexture(a.texSpellFireBall);
                 spell.setDmg(3);
-                spell.setKoszt(1);      
+                spell.setKoszt(1);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
-                spell.getSpellEffects().get(0).setEfektDmg(3);                
+                spell.getSpellEffects().get(0).setEfektDmg(3);
                 spell.setRodzajCzaru(spells);
                 break;
-                
+
             case Frozen:
                 spell.getSprite().setTexture(a.texSpellFreez);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
@@ -59,12 +59,12 @@ public class SpellCreator {
                 spell.getSpellEffects().get(0).setOpis("Spowolnienie spowodowane schłodzeniem");
                 spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
                     @Override
-                    public void clicked(InputEvent event, float x, float y) {                        
+                    public void clicked(InputEvent event, float x, float y) {
                         DialogScreen dialogScreen = new DialogScreen("Chlod", a.skin, "Spowolnienie spowodowane schłodzeniem", Assets.stage01MapScreen);
                     }
                 });
                 break;
-                
+
             case Rage:
                 spell.setSpellWorksOnlyForCaster(true);
                 spell.getSprite().setTexture(a.texSpellRage);
@@ -76,10 +76,69 @@ public class SpellCreator {
                 spell.getSpellEffects().get(0).setOpis("Zwiększenie ataku +1 do końca tury");
                 spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
                     @Override
-                    public void clicked(InputEvent event, float x, float y) {                        
+                    public void clicked(InputEvent event, float x, float y) {
                         DialogScreen dialogScreen = new DialogScreen("Gniew", a.skin, "Zwiększenie ataku +1 do końca tury", Assets.stage01MapScreen);
                     }
                 });
+                break;
+
+            case Haste:
+                spell.setSpellWorksOnlyForCaster(true);
+                spell.getSprite().setTexture(a.texSpellHaste);
+                spell.setKoszt(1);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
+                break;
+
+            case Cure:
+                spell.setSpellWorksOnlyForCaster(true);
+                spell.getSprite().setTexture(a.texSpellCure);
+                spell.setKoszt(1);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
+                break;
+
+            case SongOfGlory:
+                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.getSprite().setTexture(a.texSpellSongOfGlory);
+                spell.setKoszt(2);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
+                break;
+            case Discouragement:
+                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.getSprite().setTexture(a.texSpellDiscouragement);
+                spell.setKoszt(2);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
+                break;
+            case Fury:
+                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.getSprite().setTexture(a.texSpellFury);
+                spell.setKoszt(2);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
+                break;
+            case Charge:
+                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.getSprite().setTexture(a.texSpellCharge);
+                spell.setKoszt(2);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
+                break;
+            case FinalJudgment:
+                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.getSprite().setTexture(a.texSpellFinalJudgment);
+                spell.setKoszt(2);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+                spell.setRodzajCzaru(spells);
                 break;
         }
 

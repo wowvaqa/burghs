@@ -169,7 +169,12 @@ CZARY
     Zarządzanie działaniem efektów czarów klasa SpellEffects na pdst. 
     ENUM SPELLS.
 
-    Spelle (tymczasowe) tworzone są w MapScreen().utworzPanelBohatera().
+    Lista czarów dostępnych dla danej klasy bohaterów: bohater.listOfSpells
+    Lista generowana jest w: NewGame.podepnijCzary().
+    Na pdst. listy każdorazowo generowane są czary dla bohatera.
+
+    Spelle tworzone są w MapScreen().utworzPanelBohatera() na pdst. 
+    bohater.listOfSpells.
     Nowe obiekty czarów tworzone są za każdym razem gdy po kliknięciu w przycisk
     SPELL BOOK w Menu i dodawane do ArrayListy z czarami bohatera.
     Usuwanie czarów z ww. ArrayListy następuje każdorazow po rzuceniu czaru

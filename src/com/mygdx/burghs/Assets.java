@@ -65,6 +65,13 @@ public class Assets {
     public Texture texSpellFireBall;
     public Texture texSpellFreez;
     public Texture texSpellRage;
+    public Texture texSpellSongOfGlory;
+    public Texture texSpellHaste;
+    public Texture texSpellCure;
+    public Texture texSpellDiscouragement;
+    public Texture texSpellFury;
+    public Texture texSpellCharge;
+    public Texture texSpellFinalJudgment;
 
     // Potions
     public Texture texHelthPotion;
@@ -157,14 +164,14 @@ public class Assets {
      * @param bohaterBroniacy
      * @param spell
      */
-    public void animujSpellLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Bohater bohaterBroniacy, SpellActor spell) {        
+    public void animujSpellLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Bohater bohaterBroniacy, SpellActor spell) {
         lblDmg.setText("Dmg: " + Integer.toString(Fight.getSpellObrazenia(bohaterAtakujacy, bohaterBroniacy, spell)));
         lblDmg.setPosition(pozX - 50, pozY - 25);
         lblDmg.setFontScale(1.5f);
         lblDmg.addAction(Actions.alpha(1));
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
-        lblDmg.act(Gdx.graphics.getDeltaTime());        
+        lblDmg.act(Gdx.graphics.getDeltaTime());
     }
 
     /**
@@ -202,7 +209,7 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
-        this.animujCiecie((int)bohaterBroniacy.getX(), (int)bohaterBroniacy.getY());
+        this.animujCiecie((int) bohaterBroniacy.getX(), (int) bohaterBroniacy.getY());
     }
 
     public void animujLblDmg(float pozX, float pozY, Bohater bohaterAtakujacy, Castle castle) {
@@ -213,7 +220,7 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
-        this.animujCiecie((int)castle.getX(), (int)castle.getY());
+        this.animujCiecie((int) castle.getX(), (int) castle.getY());
     }
 
     public void animujLblDmg(float pozX, float pozY, Mob mob, Bohater bohaterBroniacy) {
@@ -224,7 +231,7 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
-        this.animujCiecie((int)bohaterBroniacy.getX(), (int)bohaterBroniacy.getY());
+        this.animujCiecie((int) bohaterBroniacy.getX(), (int) bohaterBroniacy.getY());
     }
 
     /**
@@ -242,13 +249,14 @@ public class Assets {
         lblDmg.addAction(Actions.fadeOut(2.0f));
         lblDmg.addAction(Actions.moveBy(0, 175, 2.0f));
         lblDmg.act(Gdx.graphics.getDeltaTime());
-        this.animujCiecie((int)mob.getX(), (int)mob.getY());
+        this.animujCiecie((int) mob.getX(), (int) mob.getY());
     }
 
     /**
      * Animuje cięcie miecza w momencie ataku.
+     *
      * @param locX
-     * @param locY 
+     * @param locY
      */
     public void animujCiecie(int locX, int locY) {
         AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.SlashAnimation));
@@ -410,6 +418,13 @@ public class Assets {
         texSpellFireBall = new Texture("spells/texFireball.png");
         texSpellFreez = new Texture("spells/texFreez.png");
         texSpellRage = new Texture("spells/texRage.png");
+        texSpellSongOfGlory = new Texture("spells/texSongOfGlory.png");
+        texSpellHaste = new Texture("spells/texHaste.png");
+        texSpellCure = new Texture("spells/texCure.png");
+        texSpellDiscouragement = new Texture("spells/texDiscouragement.png");
+        texSpellFury = new Texture("spells/texFury.png");
+        texSpellCharge = new Texture("spells/texCharge.png");
+        texSpellFinalJudgment = new Texture("spells/texFinalJudgment.png");
     }
 
     /**

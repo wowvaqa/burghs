@@ -18,6 +18,15 @@ version 0.0033
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
 
+version 0.0035 07022016
+DONE    1. Dla broni dodano 2 nowe współczynniki: obrażenia, atak.
+DONE    2. Uaktualnienie systemu walki o 2 ww. dodane parametry.
+DONE    3. Dodano listę czarów dostępnych dla każdego z bohaterów. Tworzenie
+        czarów dla bohatera dobywa się na pdst. listy.
+DONE    5. Dodanie czaru przyspieszenia dla Łowcy.
+DONE    6. Dodanie czaru leczenia dla Twierdzy.
+DONE    7. Dodanie drzewka rozwoju dla wojownika.
+
 version 0.0034 02022016
 DONE    1. Poprawiono błąd w którym ikony efektów czarów wyświetlały się 
         niepoprawnie w panlu bohatera.

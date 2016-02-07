@@ -1,6 +1,5 @@
 package com.mygdx.burghs;
 
-import com.badlogic.gdx.graphics.Texture;
 import enums.AnimsTypes;
 import java.util.Random;
 
@@ -19,6 +18,7 @@ public class SpellEffects {
     private int efektHp = 0;
     private int efektMana = 0;
     private int efektDmg = 0;
+    private int efektArmor = 0;
 
     private int zmianaHp;
     private String opis;
@@ -93,6 +93,56 @@ public class SpellEffects {
                 }
                 bohaterCastujacy.getSpells().clear();
                 bohaterCastujacy.aktualizujEfektyBohatera();
+                break;
+
+            case Haste:
+                // Zwiększa aktualną szybkość + 1
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    System.out.println("Czar HASTE");
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    bohaterCastujacy.setPozostaloRuchow(bohaterCastujacy.getPozostaloRuchow() + 1);
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
+                break;
+
+            case Cure:
+                // Leczy bohatera o 1
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    System.out.println("Czar CURE");
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    bohaterCastujacy.setActualHp(bohaterCastujacy.getActualHp() + 3);
+                    if (bohaterCastujacy.getActualHp() > bohaterCastujacy.getHp()) {
+                        bohaterCastujacy.setActualHp(bohaterCastujacy.getHp());
+                    }
+                    bohaterCastujacy.aktualizujTeksture();
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
+                break;
+
+            case SongOfGlory:
+                System.out.println("Czar SONG OF GLORY");
+//                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+//                    this.efektAtak = 1;
+//                    this.dlugoscTrwaniaEfektu = 1;
+//                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+//                    bohaterCastujacy.getSpellEffects().add(this);
+//                } else {
+//                    System.out.println("Za mało MANY");
+//                }
+//                bohaterCastujacy.getSpells().clear();
+//                bohaterCastujacy.aktualizujEfektyBohatera();
+                break;
+            case Discouragement:
+                break;
+            case Fury:
+                break;
+            case Charge:
+                break;
+            case FinalJudgment:
                 break;
         }
     }
@@ -257,6 +307,24 @@ public class SpellEffects {
      */
     public void setEfektDmg(int efektDmg) {
         this.efektDmg = efektDmg;
+    }
+
+    /**
+     * Zwraca pancerz dla efektu.
+     *
+     * @return
+     */
+    public int getEfektArmor() {
+        return efektArmor;
+    }
+
+    /**
+     * Ustala pancerz dla efektu.
+     *
+     * @param efektArmor
+     */
+    public void setEfektArmor(int efektArmor) {
+        this.efektArmor = efektArmor;
     }
 
 }

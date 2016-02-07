@@ -37,7 +37,8 @@ public class SpellCaster {
             gs.isSpellPanelActive = false;
             Gdx.input.setInputProcessor(Assets.stage01MapScreen);
             Ruch.wylaczPrzyciski();
-
+        } else if (spell.isSpellWorksOnlyForPlayersHeroes()) {
+            System.out.println("Zaklęcie działa tylko na bohaterów gracza.");
         } else {
             for (int i = pozX - 1 - spell.getZasieg(); i < pozX + 1 + 1 + spell.getZasieg(); i++) {
                 for (int j = pozY - 1 - spell.getZasieg(); j < pozY + 1 + 1 + spell.getZasieg(); j++) {
@@ -154,8 +155,8 @@ public class SpellCaster {
                         spell.getSpellEffects().get(0).dzialanie(spell, gs.getMapa().getPola()[locX][locY].getBohater(), bohaterCastujacy, a);
                     } else if (gs.getMapa().getPola()[locX][locY].getMob() != null) {
                         spell.getSpellEffects().get(0).dzialanie(spell, gs.getMapa().getPola()[locX][locY].getMob(), bohaterCastujacy, a);
-                    }                    
-                    wylaczPrzyciski();                    
+                    }
+                    wylaczPrzyciski();
                 }
             });
         }
@@ -183,7 +184,7 @@ public class SpellCaster {
                 public void clicked(InputEvent event, float x, float y) {
                     SpellCaster.wylaczPrzyciski();
                 }
-            }); 
+            });
         }
     }
 }

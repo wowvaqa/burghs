@@ -87,6 +87,13 @@ public class ItemScreen implements Screen {
         tabela.add(new Label("HP:", a.skin)).expandX();
         tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getHp()), a.skin)).expandX();
         tabela.row();
+        tabela.add(new Label("Obrazenia:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getDmg()), a.skin)).expandX();
+        tabela.row();
+        tabela.add(new Label("Pancerz:", a.skin)).expandX();
+        tabela.add(new Label((CharSequence) Integer.toString(gs.getItem().getArmor()), a.skin)).expandX();
+        tabela.row();
+        
 
         if (gs.getItem().getZasieg() > 0) {
             tabela.add(new Label("Zasieg:", a.skin)).expandX();

@@ -13,7 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.Bohater;
+import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
+import enums.Spells;
+import java.util.ArrayList;
 
 /**
  * Wyświetla screen Awansu bohatera.
@@ -56,13 +59,14 @@ public class AwansScreen implements Screen {
 
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        
+
                         awans.zakonczAwans(gs);
-                        
+
                         awansScreenShow = false;
                         mainTable.clear();
                         rightTable.clear();
                         leftTable.clear();
+                        awans.czyscWyborKlasy();
                         g.setScreen(Assets.mapScreen);
                     }
                 }
@@ -77,6 +81,7 @@ public class AwansScreen implements Screen {
      * Formatuje główną tabelę.
      */
     private void formatMainTable() {
+
         formatLeftTable();
         formatRightTable();
 
@@ -101,24 +106,69 @@ public class AwansScreen implements Screen {
     private void formatLeftTable() {
         leftTable.pad(10);
         leftTable.setDebug(true);
-        
-        //Label lblPoziom1 = new Label("1", a.skin);
+
+        Label lblPoziom1 = new Label("1", a.skin);
         Label lblPoziom2 = new Label("2", a.skin);
         Label lblPoziom3A = new Label("3A", a.skin);
         Label lblPoziom3B = new Label("3B", a.skin);
         Label lblPoziom4A = new Label("4A", a.skin);
         Label lblPoziom4B = new Label("4B", a.skin);
-        
-        TextButton btnPoziom1 = new TextButton("WYBIERZ", a.skin);
+
+        definiujNazwy(lblPoziom1, lblPoziom2, lblPoziom3A, lblPoziom3B, lblPoziom4A, lblPoziom4B);
+
         TextButton btnPoziom2 = new TextButton("WYBIERZ", a.skin);
         TextButton btnPoziom3A = new TextButton("WYBIERZ", a.skin);
         TextButton btnPoziom3B = new TextButton("WYBIERZ", a.skin);
         TextButton btnPoziom4A = new TextButton("WYBIERZ", a.skin);
         TextButton btnPoziom4B = new TextButton("WYBIERZ", a.skin);
-        
-        switch(gs.getBohaterZaznaczony().getLevelOfExp()){
+
+        btnPoziom2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                awans.czyscWyborKlasy();
+                awans.wybor2 = true;
+                reformatujTabele();
+            }
+        });
+
+        btnPoziom3A.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                awans.czyscWyborKlasy();
+                awans.wybor3A = true;
+                reformatujTabele();
+            }
+        });
+
+        btnPoziom3B.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                awans.czyscWyborKlasy();
+                awans.wybor3B = true;
+                reformatujTabele();
+            }
+        });
+
+        btnPoziom4A.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                awans.czyscWyborKlasy();
+                awans.wybor4A = true;
+                reformatujTabele();
+            }
+        });
+
+        btnPoziom4B.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                awans.czyscWyborKlasy();
+                awans.wybor4B = true;
+                reformatujTabele();
+            }
+        });
+
+        switch (gs.getBohaterZaznaczony().getLevelOfExp()) {
             case 1:
-                
                 btnPoziom3A.setVisible(false);
                 btnPoziom3B.setVisible(false);
                 btnPoziom4A.setVisible(false);
@@ -129,36 +179,34 @@ public class AwansScreen implements Screen {
                 btnPoziom4A.setVisible(false);
                 btnPoziom4B.setVisible(false);
                 break;
-            case 3:                
+            case 3:
                 btnPoziom2.setVisible(false);
                 btnPoziom3A.setVisible(false);
                 btnPoziom3B.setVisible(false);
                 break;
         }
-        
-        //leftTable.add(lblPoziom1).pad(5).colspan(2);
-        //leftTable.row();
-        leftTable.add(btnPoziom1).pad(5).colspan(2);
-        leftTable.row();        
+
+        leftTable.add(lblPoziom1).pad(5).colspan(2);
+        leftTable.row();
         leftTable.add(lblPoziom2).pad(5).colspan(2);
-        leftTable.row();        
+        leftTable.row();
         leftTable.add(btnPoziom2).pad(5).colspan(2);
         leftTable.row();
         leftTable.add(lblPoziom3A).pad(5);
         leftTable.add(lblPoziom3B).pad(5);
-        leftTable.row();        
+        leftTable.row();
         leftTable.add(btnPoziom3A).pad(5);
         leftTable.add(btnPoziom3B).pad(5);
         leftTable.row();
         leftTable.add(lblPoziom4A).pad(5);
         leftTable.add(lblPoziom4B).pad(5);
-        leftTable.row();        
+        leftTable.row();
         leftTable.add(btnPoziom4A).pad(5);
         leftTable.add(btnPoziom4B).pad(5);
         leftTable.row();
     }
 
-    private void formatRightTable() {        
+    private void formatRightTable() {
         rightTable.pad(10);
         rightTable.setDebug(true);
 
@@ -180,7 +228,7 @@ public class AwansScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 awans.zwiekszAtak();
-                reformatujTabele();                
+                reformatujTabele();
             }
         });
 
@@ -191,7 +239,7 @@ public class AwansScreen implements Screen {
                 reformatujTabele();
             }
         });
-        
+
         btn03.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -199,7 +247,7 @@ public class AwansScreen implements Screen {
                 reformatujTabele();
             }
         });
-        
+
         btn04.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -207,7 +255,7 @@ public class AwansScreen implements Screen {
                 reformatujTabele();
             }
         });
-        
+
         btn05.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -215,7 +263,7 @@ public class AwansScreen implements Screen {
                 reformatujTabele();
             }
         });
-        
+
         btn06.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -223,7 +271,7 @@ public class AwansScreen implements Screen {
                 reformatujTabele();
             }
         });
-        
+
         rightTable.add(btn01).size(50).align(Align.center).pad(25);
         rightTable.add(btn02).size(50).align(Align.center).pad(25);
         rightTable.add(btn03).size(50).align(Align.center).pad(25);
@@ -268,20 +316,80 @@ public class AwansScreen implements Screen {
         rightTable.add(lblmoc2).pad(5);
         rightTable.add(lblwie2).pad(5);
         rightTable.row();
-        
+
         Label lblNewSpells = new Label("Nowe Czary: ", a.skin);
         rightTable.add(lblNewSpells).pad(5).colspan(10);
         rightTable.row();
+
+        for (Spells listaCzarow : awans.listaCzarow) {
+            rightTable.add(ikoneNowegoCzaru()).pad(2).colspan(10);
+        }
+        rightTable.row();
+    }
+
+    /**
+     * Zwraca ikonę nowego czaru.
+     *
+     * @return Default Actor
+     */
+    private DefaultActor ikoneNowegoCzaru() {
+        for (Spells spls : awans.listaCzarow) {
+            switch (spls) {
+                case SongOfGlory:
+                    return new DefaultActor(a.texSpellSongOfGlory, 0, 0);
+                case Discouragement:
+                    return new DefaultActor(a.texSpellDiscouragement, 0, 0);
+                case Fury:
+                    return new DefaultActor(a.texSpellFury, 0, 0);
+                case Charge:
+                    return new DefaultActor(a.texSpellCharge, 0, 0);
+                case FinalJudgment:
+                    return new DefaultActor(a.texSpellFinalJudgment, 0, 0);
+            }
+        }
+        return null;
     }
 
     /**
      * Formatuje wszystkie tabele.
      */
     private void reformatujTabele() {
+        awans.uzupelnijListyCzarow();
         mainTable.clear();
         rightTable.clear();
         leftTable.clear();
         formatMainTable();
+    }
+
+    /**
+     * Definiuje jakie klasy bohaterów znajdą się na labelach
+     *
+     * @param l1
+     * @param l2
+     * @param l3
+     * @param l4
+     * @param l5
+     * @param l6
+     */
+    private void definiujNazwy(Label l1, Label l2, Label l3, Label l4, Label l5, Label l6) {
+        switch (gs.getBohaterZaznaczony().klasyPostaci) {
+            case Wojownik:
+                l1.setText("Wojownik");
+                l2.setText("Paladyn");
+                l3.setText("Arcypaladyn");
+                l4.setText("Msciciel");
+                l5.setText("Pogromca");
+                l6.setText("Sedzia");
+                break;
+            case Giermek:
+                l1.setText("Giermek");
+                l2.setText("Rycerz");
+                l3.setText("Hierofanta");
+                l4.setText("Golem");
+                l5.setText("Inkwizytor");
+                l6.setText("Diamentowy golem");
+                break;
+        }
     }
 
     @Override
@@ -339,6 +447,53 @@ public class AwansScreen implements Screen {
         public int atrKlasowyMoc = 0;
         public int atrKlasowyWiedza = 0;
 
+        public boolean wybor2 = false;
+        public boolean wybor3A = false;
+        public boolean wybor3B = false;
+        public boolean wybor4A = false;
+        public boolean wybor4B = false;
+
+        private ArrayList<Spells> listaCzarow;
+
+        public Awans() {
+            listaCzarow = new ArrayList<Spells>();
+            //uzupelnijListyCzarow();
+        }
+
+        /**
+         * Czyści wybór klasy.
+         */
+        public void czyscWyborKlasy() {
+            listaCzarow.clear();
+            wybor2 = false;
+            wybor3A = false;
+            wybor3B = false;
+            wybor4A = false;
+            wybor4B = false;
+        }
+
+        /**
+         * Uzupełnia listy czarów dla klas bohaterów
+         */
+        public void uzupelnijListyCzarow() {
+
+            switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {
+                case Wojownik:
+                    if (wybor2) {
+                        listaCzarow.add(Spells.SongOfGlory);
+                    } else if (wybor3A) {
+                        listaCzarow.add(Spells.Charge);
+                    } else if (wybor3B) {
+                        listaCzarow.add(Spells.Discouragement);
+                    } else if (wybor4A) {
+                        listaCzarow.add(Spells.Fury);
+                    } else if (wybor4B) {
+                        listaCzarow.add(Spells.FinalJudgment);
+                    }
+                    break;
+            }
+        }
+
         public void zwiekszAtak() {
             wyczyscTmpStats();
             tmpAtak += 1;
@@ -368,7 +523,7 @@ public class AwansScreen implements Screen {
             wyczyscTmpStats();
             tmpWiedza += 1;
         }
-        
+
         private void wyczyscTmpStats() {
             this.tmpAtak = 0;
             this.tmpObrona = 0;
@@ -385,9 +540,9 @@ public class AwansScreen implements Screen {
             this.atrKlasowyHp = 0;
             this.atrKlasowyMoc = 0;
             this.atrKlasowyWiedza = 0;
-            
+
             switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {
-                case Berserk:
+                case Wojownik:
                     atrKlasowyAtak += 1;
                     return "Atak + 1";
                 case Czarodziej:
@@ -396,7 +551,7 @@ public class AwansScreen implements Screen {
                 case Lowca:
                     atrKlasowySzybkosc += 1;
                     return "Szybkosc + 1";
-                case Obronca:
+                case Giermek:
                     atrKlasowyObrona += 1;
                     return "Obrona + 1";
                 case Twierdza:
@@ -405,25 +560,48 @@ public class AwansScreen implements Screen {
             }
             return null;
         }
-        
-        public void zakonczAwans(GameStatus gs){
+
+        public void zakonczAwans(GameStatus gs) {
             Bohater b = gs.getBohaterZaznaczony();
-            
+
             b.setAtak(b.getAtak() + this.tmpAtak + this.atrKlasowyAtak);
-            b.setObrona(b.getObrona()+ this.tmpObrona + this.atrKlasowyObrona);
-            b.setSzybkosc(b.getSzybkosc()+ this.tmpSzybkosc + this.atrKlasowySzybkosc);
-            b.setHp(b.getHp()+ this.tmpHp + this.atrKlasowyHp);
-            b.setMoc(b.getMoc()+ this.tmpMoc + this.atrKlasowyMoc);
-            b.setWiedza(b.getWiedza()+ this.tmpWiedza + this.atrKlasowyWiedza);
-            
+            b.setObrona(b.getObrona() + this.tmpObrona + this.atrKlasowyObrona);
+            b.setSzybkosc(b.getSzybkosc() + this.tmpSzybkosc + this.atrKlasowySzybkosc);
+            b.setHp(b.getHp() + this.tmpHp + this.atrKlasowyHp);
+            b.setMoc(b.getMoc() + this.tmpMoc + this.atrKlasowyMoc);
+            b.setWiedza(b.getWiedza() + this.tmpWiedza + this.atrKlasowyWiedza);
+
             //Ustala poziom many na poziomie nowej wiedzy.
             b.setMana(b.getWiedza());
             b.setActualMana(b.getWiedza());
-            
+
             b.setLevelOfExp(b.getLevelOfExp() + 1);
-            
-            b.setExpToNextLevel(b.getExp() + 2 * b.getExp());
-            
+
+            // Oryginalne ustawienie osiągnięcia następnego poziomu. NIE KASOWAĆ
+            //b.setExpToNextLevel(b.getExp() + 2 * b.getExp());
+            b.setExpToNextLevel(b.getExp() + 100);
+
+            for (Spells listaCzarow1 : awans.listaCzarow) {
+                gs.getBohaterZaznaczony().getListOfSpells().add(listaCzarow1);
+            }
+        }
+
+        /**
+         * Zwraca listę czarów dostępnych dla klasy.
+         *
+         * @return
+         */
+        public ArrayList<Spells> getListaCzarow() {
+            return listaCzarow;
+        }
+
+        /**
+         * Ustala listę czarów dostępnych dla klasy.
+         *
+         * @param listaCzarow
+         */
+        public void setListaCzarow(ArrayList<Spells> listaCzarow) {
+            this.listaCzarow = listaCzarow;
         }
     }
 }

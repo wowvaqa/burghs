@@ -40,6 +40,7 @@ public class Bohater extends Actor {
     private Item itemLewaReka = null;
     private Item itemStopy = null;
 
+    private ArrayList<Spells> listOfSpells;
     private ArrayList<SpellActor> spells;
     private ArrayList<Item> equipment;
 
@@ -111,6 +112,8 @@ public class Bohater extends Actor {
 
         this.efekty = new ArrayList<Effect>();
         this.spellEffects = new ArrayList<SpellEffects>();
+        this.listOfSpells = new ArrayList<Spells>();
+        
         this.equipment = new ArrayList<Item>();
         this.spells = new ArrayList<SpellActor>();
         this.gs = gs;
@@ -887,4 +890,19 @@ public class Bohater extends Actor {
         this.spellEffects = spellEffects;
     }
 
+    /**
+     * Zwraca listę zaklęć dostępnych dla bohatera
+     * @return 
+     */
+    public ArrayList<Spells> getListOfSpells() {
+        return listOfSpells;
+    }
+
+    /**
+     * Ustala listę zaklęć dostępnych dla bohatera.
+     * @param listOfSpells 
+     */
+    public void setListOfSpells(ArrayList<Spells> listOfSpells) {
+        this.listOfSpells = listOfSpells;
+    }
 }

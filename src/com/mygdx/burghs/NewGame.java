@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import enums.KlasyPostaci;
-import static enums.KlasyPostaci.Berserk;
+import static enums.KlasyPostaci.Wojownik;
 import static enums.KlasyPostaci.Lowca;
-import static enums.KlasyPostaci.Obronca;
+import static enums.KlasyPostaci.Giermek;
 import static enums.KlasyPostaci.Twierdza;
+import enums.Spells;
 
 /**
  * Klasa zarządza zachowanie nowej gry
@@ -18,10 +19,10 @@ import static enums.KlasyPostaci.Twierdza;
  */
 public class NewGame {
 
-    static public KlasyPostaci klasaPostaciGracz01 = KlasyPostaci.Berserk;
-    static public KlasyPostaci klasaPostaciGracz02 = KlasyPostaci.Berserk;
-    static public KlasyPostaci klasaPostaciGracz03 = KlasyPostaci.Berserk;
-    static public KlasyPostaci klasaPostaciGracz04 = KlasyPostaci.Berserk;
+    static public KlasyPostaci klasaPostaciGracz01 = KlasyPostaci.Wojownik;
+    static public KlasyPostaci klasaPostaciGracz02 = KlasyPostaci.Wojownik;
+    static public KlasyPostaci klasaPostaciGracz03 = KlasyPostaci.Wojownik;
+    static public KlasyPostaci klasaPostaciGracz04 = KlasyPostaci.Wojownik;
 
     static public Pixmap pixmapRed = new Pixmap(50, 25, Pixmap.Format.RGBA8888);
     static public Pixmap pixmapBlue = new Pixmap(50, 25, Pixmap.Format.RGBA8888);
@@ -73,18 +74,18 @@ public class NewGame {
      */
     static public KlasyPostaci nastepnaKlasaPostaci(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
-                return KlasyPostaci.Obronca;
-            case Obronca:
+            case Wojownik:
+                return KlasyPostaci.Giermek;
+            case Giermek:
                 return KlasyPostaci.Lowca;
             case Lowca:
                 return KlasyPostaci.Twierdza;
             case Twierdza:
                 return KlasyPostaci.Czarodziej;
             case Czarodziej:
-                return KlasyPostaci.Berserk;
+                return KlasyPostaci.Wojownik;
         }
-        return KlasyPostaci.Berserk;
+        return KlasyPostaci.Wojownik;
     }
 
     /**
@@ -95,19 +96,19 @@ public class NewGame {
      */
     static public KlasyPostaci poprzedniaKlasaPostaci(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return KlasyPostaci.Czarodziej;
-            case Obronca:
-                return KlasyPostaci.Berserk;
+            case Giermek:
+                return KlasyPostaci.Wojownik;
             case Lowca:
-                return KlasyPostaci.Obronca;
+                return KlasyPostaci.Giermek;
             case Twierdza:
                 return KlasyPostaci.Lowca;
             case Czarodziej:
                 return KlasyPostaci.Twierdza;
 
         }
-        return KlasyPostaci.Berserk;
+        return KlasyPostaci.Wojownik;
     }
 
     /**
@@ -118,11 +119,11 @@ public class NewGame {
      */
     static public DefaultActor pobierzPortret(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return new DefaultActor(a.mobHumanTex, 0, 0);
             case Lowca:
                 return new DefaultActor(a.mobElfTex, 0, 0);
-            case Obronca:
+            case Giermek:
                 return new DefaultActor(a.mobDwarfTex, 0, 0);
             case Twierdza:
                 return new DefaultActor(a.mobOrkTex, 0, 0);
@@ -140,10 +141,10 @@ public class NewGame {
      */
     static public String pobierzTytul(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
-                return "Berserk";
-            case Obronca:
-                return "Obronca";
+            case Wojownik:
+                return "Wojownik";
+            case Giermek:
+                return "Giermek";
             case Lowca:
                 return "Lowca";
             case Twierdza:
@@ -162,9 +163,9 @@ public class NewGame {
      */
     static public int pobierzAtak(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 6;
-            case Obronca:
+            case Giermek:
                 return 5;
             case Lowca:
                 return 5;
@@ -184,9 +185,9 @@ public class NewGame {
      */
     static public int pobierzObrone(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 5;
-            case Obronca:
+            case Giermek:
                 return 6;
             case Lowca:
                 return 5;
@@ -206,9 +207,9 @@ public class NewGame {
      */
     static public int pobierzSzybkosc(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 5;
-            case Obronca:
+            case Giermek:
                 return 5;
             case Lowca:
                 return 6;
@@ -228,9 +229,9 @@ public class NewGame {
      */
     static public int pobierzHp(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 10;
-            case Obronca:
+            case Giermek:
                 return 10;
             case Lowca:
                 return 10;
@@ -249,9 +250,9 @@ public class NewGame {
      */
     static public int pobierzMane(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 1;
-            case Obronca:
+            case Giermek:
                 return 1;
             case Lowca:
                 return 1;
@@ -270,9 +271,9 @@ public class NewGame {
      */
     static public int pobierzMoc(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 1;
-            case Obronca:
+            case Giermek:
                 return 1;
             case Lowca:
                 return 1;
@@ -291,9 +292,9 @@ public class NewGame {
      */
     static public int pobierzWiedze(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return 1;
-            case Obronca:
+            case Giermek:
                 return 1;
             case Lowca:
                 return 1;
@@ -416,15 +417,19 @@ public class NewGame {
     private static void podepnijCzary(KlasyPostaci kP, Bohater bohater) {
         //SpellCreator spellCreator = new SpellCreator(a, gs);
         switch (kP) {
-            case Berserk:
+            case Wojownik:
+                bohater.getListOfSpells().add(Spells.Rage);
                 break;
-            case Obronca:
+            case Giermek:
                 break;
             case Lowca:
+                bohater.getListOfSpells().add(Spells.Haste);
                 break;
             case Twierdza:
+                bohater.getListOfSpells().add(Spells.Cure);
                 break;
             case Czarodziej:
+                bohater.getListOfSpells().add(Spells.FireBall);
                 break;
         }
     }
@@ -492,11 +497,11 @@ public class NewGame {
      */
     public static Texture getTeksturaBohatera(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return a.mobHumanTex;
             case Lowca:
                 return a.mobElfTex;
-            case Obronca:
+            case Giermek:
                 return a.mobDwarfTex;
             case Twierdza:
                 return a.mobOrkTex;
@@ -514,11 +519,11 @@ public class NewGame {
      */
     public static Texture getTeksturaBohateraZaznaczonego(KlasyPostaci kP) {
         switch (kP) {
-            case Berserk:
+            case Wojownik:
                 return a.mobHumanTexZaznaczony;
             case Lowca:
                 return a.mobElfTexZaznaczony;
-            case Obronca:
+            case Giermek:
                 return a.mobDwarfTexZaznaczony;
             case Twierdza:
                 return a.mobOrkTexZaznaczony;

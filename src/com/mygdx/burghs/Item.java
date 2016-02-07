@@ -43,6 +43,8 @@ public class Item extends Actor {
     private int zasieg = 0;
     private int level = 0;
     private int czasDzialania = 0;
+    private int dmg = 0;
+    private int armor = 0;
     
     private String opis;
     private DostepneItemki itemNazwa;
@@ -264,4 +266,38 @@ public class Item extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
+
+    /**
+     * Zwraca poziom obrażeń.
+     * @return 
+     */
+    public int getDmg() {
+        return dmg;
+    }
+
+    /**
+     * Ustala poziom obrażeń.
+     * @param dmg 
+     */
+    public void setDmg(int dmg) {
+        this.dmg = dmg;
+    }
+
+    /**
+     * Zwraca wartość pancerza.
+     * @return 
+     */
+    public int getArmor() {
+        return armor;
+    }
+
+    /**
+     * Ustala wartość pancerza.
+     * @param armor 
+     */
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+    
+    
 }
