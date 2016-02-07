@@ -107,7 +107,7 @@ public class MapScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Dodanie nowego bohatera.");
-                if (gs.getGracze().get(gs.getTuraGracza()).getGold() < 30) {
+                if (gs.getGracze().get(gs.getTuraGracza()).getGold() < 10) {
                     System.out.println("Za mało złota!");
                     DialogScreen dialogScreen = new DialogScreen("ERROR", a.skin, "Za malo zlota", stage01);
                 } else {

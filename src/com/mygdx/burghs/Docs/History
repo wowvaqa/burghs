@@ -18,6 +18,9 @@ version 0.0033
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
 
+version 0.0036 07022016
+DONE    1. Dodanie czaru Pieśń Chwały dla wojownika.
+
 version 0.0035 07022016
 DONE    1. Dla broni dodano 2 nowe współczynniki: obrażenia, atak.
 DONE    2. Uaktualnienie systemu walki o 2 ww. dodane parametry.

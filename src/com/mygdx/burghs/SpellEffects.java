@@ -125,16 +125,19 @@ public class SpellEffects {
 
             case SongOfGlory:
                 System.out.println("Czar SONG OF GLORY");
-//                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
-//                    this.efektAtak = 1;
-//                    this.dlugoscTrwaniaEfektu = 1;
-//                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
-//                    bohaterCastujacy.getSpellEffects().add(this);
-//                } else {
-//                    System.out.println("Za mało MANY");
-//                }
-//                bohaterCastujacy.getSpells().clear();
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    this.efektAtak = 1;
+                    this.dlugoscTrwaniaEfektu = 1;
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    Bohater tempBoh;
+                    tempBoh = (Bohater)obiketBroniacy;
+                    tempBoh.getSpellEffects().add(this);
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
 //                bohaterCastujacy.aktualizujEfektyBohatera();
+
                 break;
             case Discouragement:
                 break;

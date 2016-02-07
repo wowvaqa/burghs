@@ -103,11 +103,22 @@ public class SpellCreator {
             case SongOfGlory:
                 spell.setSpellWorksOnlyForPlayersHeroes(true);
                 spell.getSprite().setTexture(a.texSpellSongOfGlory);
-                spell.setKoszt(2);
+                spell.setKoszt(1);
+                spell.setZasieg(5);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
+                spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellSongOfGlory, 0, 0));
                 spell.setRodzajCzaru(spells);
+                spell.setKoszt(1);
+                spell.getSpellEffects().get(0).setOpis("Zwiększenie ataku +1 do końca tury");
+                spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Gniew", a.skin, "Zwiększenie ataku +1 do końca tury", Assets.stage01MapScreen);
+                    }
+                });
                 break;
+
             case Discouragement:
                 spell.setSpellWorksOnlyForPlayersHeroes(true);
                 spell.getSprite().setTexture(a.texSpellDiscouragement);

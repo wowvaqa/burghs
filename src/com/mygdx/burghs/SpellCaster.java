@@ -37,8 +37,26 @@ public class SpellCaster {
             gs.isSpellPanelActive = false;
             Gdx.input.setInputProcessor(Assets.stage01MapScreen);
             Ruch.wylaczPrzyciski();
+
+        // Sprawdzenie czarów przyjacielskich
         } else if (spell.isSpellWorksOnlyForPlayersHeroes()) {
             System.out.println("Zaklęcie działa tylko na bohaterów gracza.");
+            for (int i = pozX - 1 - spell.getZasieg(); i < pozX + 1 + 1 + spell.getZasieg(); i++) {
+                for (int j = pozY - 1 - spell.getZasieg(); j < pozY + 1 + 1 + spell.getZasieg(); j++) {
+                    if (i >= 0 && j >= 0 && i < gs.getMapa().getIloscPolX() && j < gs.getMapa().getIloscPolY()) {
+                        if (sprawdzPrzyjaciela(i, j)) {
+                            CastButton castButton = new CastButton(new TextureRegionDrawable(new TextureRegion(a.spellIcon)), i, j);
+                            castButton.setPosition(i * 100, j * 100);
+                            Assets.stage01MapScreen.addActor(castButton);
+                            Assets.stage03MapScreen.clear();
+                            gs.isSpellPanelActive = false;
+                            Ruch.wylaczPrzyciski();
+                            Gdx.input.setInputProcessor(Assets.stage01MapScreen);
+                        }
+                    }
+                }
+            }
+
         } else {
             for (int i = pozX - 1 - spell.getZasieg(); i < pozX + 1 + 1 + spell.getZasieg(); i++) {
                 for (int j = pozY - 1 - spell.getZasieg(); j < pozY + 1 + 1 + spell.getZasieg(); j++) {
@@ -105,6 +123,14 @@ public class SpellCaster {
 
     }
 
+    /**
+     * Zwraca TREU jeżeli w zadanym parametrami polu jest przeciwnik, tj.: mob,
+     * wrogi zamek lub bohater.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean sprawdzPrzeciwnika(int x, int y) {
         if (gs.getMapa().getPola()[x][y].getBohater() != null
                 && gs.getMapa().getPola()[x][y].getBohater().getPrzynaleznoscDoGracza() != gs.getTuraGracza()) {
@@ -120,6 +146,19 @@ public class SpellCaster {
             return true;
         }
         return gs.getMapa().getPola()[x][y].getMob() != null;
+    }
+
+    /**
+     * Zwraca True jeżeli w zdanaym parametrami polu mapy znajduje sie
+     * przyjacielski bohater.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    private boolean sprawdzPrzyjaciela(int x, int y) {
+        return gs.getMapa().getPola()[x][y].getBohater() != null
+                && gs.getMapa().getPola()[x][y].getBohater().getPrzynaleznoscDoGracza() == gs.getTuraGracza();
     }
 
     /**
