@@ -193,6 +193,12 @@ CZARY
         Efekt czaru, który ma działać => turę dodany zostaje do ArrayList
     SpellEffect bohatera.
     Sprawdzenie działania efektu następuje w metodzie MapScreen.koniecTury()
+   
+    Efekty czaru podczas walki    
+        Efekty te definiuje ENUM FightEffects.
+    Efekt podczas walki sprawdzany jest w Fight.GetObrazenia, od każdego z
+    bohaterów/mobów wywołana zostaje tablica efektów, i sprawdzony warunek
+    fightEffect. Jeżeli warunek jest prawdziwy wtedy następuje wywołanie 
+    metody SpellEffects.dzialanie(FightEffects, Object, Object).
     
-
     

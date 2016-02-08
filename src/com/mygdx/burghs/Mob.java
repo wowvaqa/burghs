@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import java.util.ArrayList;
 
 public class Mob extends Actor {
 
@@ -43,6 +44,9 @@ public class Mob extends Actor {
     private int aktualnaSzybkosc = 0;
     private int expReward = 0;
     private int mobLevel = 0;
+    
+    // Lista efektów czarów które działają na moba.
+    private ArrayList<SpellEffects> spellEffects;
 
     /**
      *
@@ -316,6 +320,22 @@ public class Mob extends Actor {
 
     public void setAktualnaSzybkosc(int aktualnaSzybkosc) {
         this.aktualnaSzybkosc = aktualnaSzybkosc;
+    }
+
+    /**
+     * Zwraca listę efektów które działają na moba.
+     * @return 
+     */
+    public ArrayList<SpellEffects> getSpellEffects() {
+        return spellEffects;
+    }
+
+    /**
+     * Ustala listę efektów które działają na moba.
+     * @param spellEffects 
+     */
+    public void setSpellEffects(ArrayList<SpellEffects> spellEffects) {
+        this.spellEffects = spellEffects;
     }
 
     

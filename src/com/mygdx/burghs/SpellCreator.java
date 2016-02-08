@@ -114,19 +114,28 @@ public class SpellCreator {
                 spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        DialogScreen dialogScreen = new DialogScreen("Gniew", a.skin, "Zwiększenie ataku +1 do końca tury", Assets.stage01MapScreen);
+                        DialogScreen dialogScreen = new DialogScreen("Piesn Chwaly", a.skin, "Zwiększenie ataku +1 do końca tury", Assets.stage01MapScreen);
                     }
                 });
                 break;
 
             case Discouragement:
-                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.setSpellWorksOnlyForCaster(true);
                 spell.getSprite().setTexture(a.texSpellDiscouragement);
-                spell.setKoszt(2);
+                spell.setKoszt(1);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
+                spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellDiscouragement, 0, 0));
+                spell.getSpellEffects().get(0).setOpis("Zmniejsza obrone przeciwnika -1 za kazdy udany atak");
+                spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Zniechecenie", a.skin, "Zmniejsza obrone przeciwnika -1 za kazdy udany atak", Assets.stage01MapScreen);
+                    }
+                });
                 spell.setRodzajCzaru(spells);
                 break;
+                
             case Fury:
                 spell.setSpellWorksOnlyForPlayersHeroes(true);
                 spell.getSprite().setTexture(a.texSpellFury);

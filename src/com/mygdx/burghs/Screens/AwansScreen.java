@@ -457,7 +457,6 @@ public class AwansScreen implements Screen {
 
         public Awans() {
             listaCzarow = new ArrayList<Spells>();
-            //uzupelnijListyCzarow();
         }
 
         /**
@@ -477,7 +476,9 @@ public class AwansScreen implements Screen {
          */
         public void uzupelnijListyCzarow() {
 
-            switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {
+            listaCzarow.clear();
+            
+            switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {                
                 case Wojownik:
                     if (wybor2) {
                         listaCzarow.add(Spells.SongOfGlory);

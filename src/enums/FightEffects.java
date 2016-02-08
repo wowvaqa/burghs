@@ -6,14 +6,9 @@
 package enums;
 
 /**
- *
+ * Efekty w czasie walki
  * @author v
  */
-public enum AnimsTypes {
-    FireExplosionAnimation,
-    SlashAnimation,
-    UseMixtureAnimation,
-    SelfSpellAnimation,
-    GoodSpellAnimation,
-    BadSpellAnimation;
+public enum FightEffects {
+    DiscouragementEffect;
 }

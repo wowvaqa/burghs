@@ -1,6 +1,10 @@
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.burghs.Screens.DialogScreen;
 import enums.AnimsTypes;
+import enums.FightEffects;
 import java.util.Random;
 
 /**
@@ -9,6 +13,9 @@ import java.util.Random;
  * @author v
  */
 public class SpellEffects {
+
+    private boolean fightEffect = false;
+    private FightEffects fightEffects;
 
     private int dlugoscTrwaniaEfektu = 0;
 
@@ -82,12 +89,15 @@ public class SpellEffects {
                 break;
 
             case Rage:
-                // Zwiększa atak +1 do końca tury.
+                // Zwiększa atak o punkty mocy do końca tury.
                 if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
                     this.efektAtak = 1;
-                    this.dlugoscTrwaniaEfektu = 1;
+                    this.dlugoscTrwaniaEfektu = bohaterCastujacy.getMoc();
                     bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
                     bohaterCastujacy.getSpellEffects().add(this);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
                 } else {
                     System.out.println("Za mało MANY");
                 }
@@ -96,11 +106,15 @@ public class SpellEffects {
                 break;
 
             case Haste:
-                // Zwiększa aktualną szybkość + 1
+                // Zwiększa aktualną szybkość o liczbę punktów mocy
                 if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
                     System.out.println("Czar HASTE");
                     bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
-                    bohaterCastujacy.setPozostaloRuchow(bohaterCastujacy.getPozostaloRuchow() + 1);
+                    bohaterCastujacy.setPozostaloRuchow(bohaterCastujacy.getPozostaloRuchow() + bohaterCastujacy.getMoc());
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+
                 } else {
                     System.out.println("Za mało MANY");
                 }
@@ -108,15 +122,19 @@ public class SpellEffects {
                 break;
 
             case Cure:
-                // Leczy bohatera o 1
+                // Leczy bohatera o liczbę posiadanych punków mocy * 2
                 if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
                     System.out.println("Czar CURE");
                     bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
-                    bohaterCastujacy.setActualHp(bohaterCastujacy.getActualHp() + 3);
+                    bohaterCastujacy.setActualHp(bohaterCastujacy.getActualHp() + bohaterCastujacy.getMoc() * 2);
                     if (bohaterCastujacy.getActualHp() > bohaterCastujacy.getHp()) {
                         bohaterCastujacy.setActualHp(bohaterCastujacy.getHp());
                     }
                     bohaterCastujacy.aktualizujTeksture();
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+
                 } else {
                     System.out.println("Za mało MANY");
                 }
@@ -127,25 +145,82 @@ public class SpellEffects {
                 System.out.println("Czar SONG OF GLORY");
                 if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
                     this.efektAtak = 1;
-                    this.dlugoscTrwaniaEfektu = 1;
+                    this.dlugoscTrwaniaEfektu = bohaterCastujacy.getMoc();
                     bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
                     Bohater tempBoh;
-                    tempBoh = (Bohater)obiketBroniacy;
+                    tempBoh = (Bohater) obiketBroniacy;
                     tempBoh.getSpellEffects().add(this);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(tempBoh.getX(), tempBoh.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+
                 } else {
                     System.out.println("Za mało MANY");
                 }
                 bohaterCastujacy.getSpells().clear();
-//                bohaterCastujacy.aktualizujEfektyBohatera();
+                break;
 
-                break;
             case Discouragement:
+                System.out.println("Czar DISCOURAGEMENT");
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    this.fightEffect = true;
+                    this.fightEffects = FightEffects.DiscouragementEffect;
+                    this.dlugoscTrwaniaEfektu = bohaterCastujacy.getMoc();
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    bohaterCastujacy.getSpellEffects().add(this);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
                 break;
+
             case Fury:
                 break;
+
             case Charge:
                 break;
+
             case FinalJudgment:
+                break;
+        }
+    }
+
+    /**
+     * Wykonuje działanie efektu podczas walki
+     *
+     * @param fightEffects efekt czaru w czasie walki
+     * @param obiektAtakujacy Referencja do obiektu atakującego
+     * @param obiektBroniacy Referencja do obiektu broniącego
+     */
+    public void dzialanie(FightEffects fightEffects, Object obiektAtakujacy, Object obiektBroniacy) {
+        switch (fightEffects) {
+            case DiscouragementEffect:
+
+                Bohater tmpBohaterBroniacy;
+                Bohater tmpBohaterAtakujacy;
+                final Assets tmpAssets = new Assets();
+                tmpBohaterBroniacy = (Bohater) obiektBroniacy;
+                tmpBohaterAtakujacy = (Bohater) obiektAtakujacy;
+                SpellEffects tmpSpellEffects = new SpellEffects();
+                tmpSpellEffects.efektObrona = -1;
+                tmpSpellEffects.dlugoscTrwaniaEfektu = tmpBohaterAtakujacy.getMoc();
+                EffectActor tmpEffectActor = new EffectActor(tmpAssets.texSpellDiscouragement, 0, 0);
+                tmpSpellEffects.setIkona(tmpEffectActor);
+                tmpSpellEffects.getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Piesn Chwaly", tmpAssets.skin, "Obrona zmniejszona o 1", Assets.stage01MapScreen);
+                    }
+                });
+                tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects);
+
+                AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.BadSpellAnimation));
+                animActor.setPosition(tmpBohaterBroniacy.getX(), tmpBohaterBroniacy.getY());
+                Assets.stage01MapScreen.addActor(animActor);
+
                 break;
         }
     }
@@ -328,6 +403,42 @@ public class SpellEffects {
      */
     public void setEfektArmor(int efektArmor) {
         this.efektArmor = efektArmor;
+    }
+
+    /**
+     * Zwraca czy efekt dotyczy walki
+     *
+     * @return
+     */
+    public boolean isFightEffect() {
+        return fightEffect;
+    }
+
+    /**
+     * Ustala czy efekt dotyczy walki
+     *
+     * @param fightEffect
+     */
+    public void setFightEffect(boolean fightEffect) {
+        this.fightEffect = fightEffect;
+    }
+
+    /**
+     * Zwraca konkretny efekt walki
+     *
+     * @return
+     */
+    public FightEffects getFightEffects() {
+        return fightEffects;
+    }
+
+    /**
+     * Ustala konkretny efekt walki.
+     *
+     * @param fightEffects
+     */
+    public void setFightEffects(FightEffects fightEffects) {
+        this.fightEffects = fightEffects;
     }
 
 }

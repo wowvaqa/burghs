@@ -37,6 +37,13 @@ public class Fight {
             System.out.println("Nastąpiło trafienie...");
             atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
             atak += getDamageEfektyBohatera(bohaterAtakujacy);
+            
+            for (SpellEffects sE: bohaterAtakujacy.getSpellEffects()){
+                if (sE.isFightEffect()){
+                    sE.dzialanie(sE.getFightEffects(), bohaterAtakujacy, bohaterBroniacy);
+                }
+            }
+            
         } else {
             System.out.println("Pudło...");
         }

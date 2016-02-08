@@ -61,7 +61,29 @@ public class AnimationCreator {
                     }
                 }
                 break;
-                
+
+            case GoodSpellAnimation:
+                texture = new Texture(Gdx.files.internal("animation/texGoodSpell.png"));
+                tmp = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 4);
+                walkFrames = new TextureRegion[8 * 4];
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        walkFrames[index++] = tmp[i][j];
+                    }
+                }
+                break;
+
+            case BadSpellAnimation:
+                texture = new Texture(Gdx.files.internal("animation/texBadSpell.png"));
+                tmp = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 4);
+                walkFrames = new TextureRegion[8 * 4];
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        walkFrames[index++] = tmp[i][j];
+                    }
+                }
+                break;
+
             case SelfSpellAnimation:
                 break;
         }

@@ -18,6 +18,13 @@ version 0.0033
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
 
+version 0.0037 08022016
+DONE    1. Poprawiono błąd z czarami w Screenie Awansu
+DONE    2. Dodano animacje czarów działających pozytywnie na bohatera.
+DONE    3. Dodano czar Zniechęcenie dla Mściciela.
+DONE    4. Dodanie efektów czarów podczas walki
+DONE    5. Dodanie animacji czarów działających negatywanie na bohatera.
+
 version 0.0036 07022016
 DONE    1. Dodanie czaru Pieśń Chwały dla wojownika.
 
