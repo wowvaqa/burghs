@@ -18,6 +18,13 @@ version 0.0033
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
 
+version 0.0038 0902216
+DONE    1. Poprawiono błąd z niepoprawnym wyświetlaniem się atrybutów 
+        podczas awansu.
+DONE    2. Dodanie efektów czarów dla Mobów.
+DONE    3. Dodanie czaru CHARGE dla wojownika.
+DONE    4. Usprawnienia w Map Editorze.
+
 version 0.0037 08022016
 DONE    1. Poprawiono błąd z czarami w Screenie Awansu
 DONE    2. Dodano animacje czarów działających pozytywnie na bohatera.

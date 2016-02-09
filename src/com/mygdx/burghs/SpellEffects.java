@@ -177,10 +177,24 @@ public class SpellEffects {
                 bohaterCastujacy.getSpells().clear();
                 break;
 
-            case Fury:
+            case Charge:
+                System.out.println("Czar CHARGE");
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    this.fightEffect = true;
+                    this.fightEffects = FightEffects.ChargeEffect;
+                    this.dlugoscTrwaniaEfektu = bohaterCastujacy.getMoc();
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    bohaterCastujacy.getSpellEffects().add(this);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
                 break;
 
-            case Charge:
+            case Fury:
                 break;
 
             case FinalJudgment:
@@ -196,14 +210,14 @@ public class SpellEffects {
      * @param obiektBroniacy Referencja do obiektu broniącego
      */
     public void dzialanie(FightEffects fightEffects, Object obiektAtakujacy, Object obiektBroniacy) {
+
+        Bohater tmpBohaterAtakujacy;
+        tmpBohaterAtakujacy = (Bohater) obiektAtakujacy;
+        final Assets tmpAssets = new Assets();
+
         switch (fightEffects) {
             case DiscouragementEffect:
 
-                Bohater tmpBohaterBroniacy;
-                Bohater tmpBohaterAtakujacy;
-                final Assets tmpAssets = new Assets();
-                tmpBohaterBroniacy = (Bohater) obiektBroniacy;
-                tmpBohaterAtakujacy = (Bohater) obiektAtakujacy;
                 SpellEffects tmpSpellEffects = new SpellEffects();
                 tmpSpellEffects.efektObrona = -1;
                 tmpSpellEffects.dlugoscTrwaniaEfektu = tmpBohaterAtakujacy.getMoc();
@@ -215,12 +229,29 @@ public class SpellEffects {
                         DialogScreen dialogScreen = new DialogScreen("Piesn Chwaly", tmpAssets.skin, "Obrona zmniejszona o 1", Assets.stage01MapScreen);
                     }
                 });
-                tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects);
+                if (obiektBroniacy.getClass() == Bohater.class) {
+                    Bohater tmpBohaterBroniacy;
+                    tmpBohaterBroniacy = (Bohater) obiektBroniacy;
+                    tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.BadSpellAnimation));
+                    animActor.setPosition(tmpBohaterBroniacy.getX(), tmpBohaterBroniacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
 
-                AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.BadSpellAnimation));
-                animActor.setPosition(tmpBohaterBroniacy.getX(), tmpBohaterBroniacy.getY());
-                Assets.stage01MapScreen.addActor(animActor);
+                } else if (obiektBroniacy.getClass() == Mob.class) {
+                    System.out.println("Dodanie efektu do Moba.");
+                    Mob tmpBohaterBroniacy;
+                    tmpBohaterBroniacy = (Mob) obiektBroniacy;
+                    tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.BadSpellAnimation));
+                    animActor.setPosition(tmpBohaterBroniacy.getX(), tmpBohaterBroniacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
 
+                }
+                break;
+
+            case ChargeEffect:
+                System.out.println("Zwiększenie obrażeń o 1 --------------------");
+                tmpBohaterAtakujacy.getTempEffects().get(0).setEfektDmg(1);
                 break;
         }
     }

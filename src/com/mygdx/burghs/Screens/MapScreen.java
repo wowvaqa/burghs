@@ -26,6 +26,7 @@ import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.Ruch;
 import com.mygdx.burghs.SpellActor;
 import com.mygdx.burghs.SpellCreator;
+import com.mygdx.burghs.SpellEffects;
 import com.mygdx.burghs.TresureBox;
 import enums.Spells;
 import enums.TypyTerenu;
@@ -219,6 +220,16 @@ public class MapScreen implements Screen {
                 i.setActualMana(i.getMana());
             }
         }
+
+        //  Aktualizuje działanie efektów czarów moba.
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolY(); j++) {
+                if (gs.getMapa().getPola()[i][j].getMob() != null) {
+                    gs.getMapa().getPola()[i][j].getMob().aktualizujDzialanieEfektow();
+                }
+            }
+        }
+
         usunBohaterowGraczyGO();
 
         przesunKamereNadBohatera();

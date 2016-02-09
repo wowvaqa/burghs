@@ -304,8 +304,8 @@ public class AwansScreen implements Screen {
         Label lblobr2 = new Label("Obrona: " + (gs.getBohaterZaznaczony().getObrona() + awans.tmpObrona + awans.atrKlasowyObrona), a.skin);
         Label lblszb2 = new Label("Szybkosc: " + (gs.getBohaterZaznaczony().getSzybkosc() + awans.tmpSzybkosc + awans.atrKlasowySzybkosc), a.skin);
         Label lblhpp2 = new Label("Hp: " + (gs.getBohaterZaznaczony().getHp() + awans.tmpHp + awans.atrKlasowyHp), a.skin);
-        Label lblmoc2 = new Label("Moc: " + (gs.getBohaterZaznaczony().getMana() + awans.tmpMoc + awans.atrKlasowyMoc), a.skin);
-        Label lblwie2 = new Label("Wiedza: " + (gs.getBohaterZaznaczony().getMana() + awans.tmpWiedza + awans.atrKlasowyWiedza), a.skin);
+        Label lblmoc2 = new Label("Moc: " + (gs.getBohaterZaznaczony().getMoc() + awans.tmpMoc + awans.atrKlasowyMoc), a.skin);
+        Label lblwie2 = new Label("Wiedza: " + (gs.getBohaterZaznaczony().getWiedza() + awans.tmpWiedza + awans.atrKlasowyWiedza), a.skin);
 
         rightTable.add(lblOpis2).colspan(10).align(Align.center);
         rightTable.row();
@@ -323,6 +323,11 @@ public class AwansScreen implements Screen {
 
         for (Spells listaCzarow : awans.listaCzarow) {
             rightTable.add(ikoneNowegoCzaru()).pad(2).colspan(10);
+        }
+        rightTable.row();
+        
+        for (Spells listaCzarow : awans.listaCzarow) {
+            rightTable.add(new Label(listaCzarow.toString(), a.skin)).pad(2).colspan(10);
         }
         rightTable.row();
     }

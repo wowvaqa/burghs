@@ -75,10 +75,10 @@ public class MapEditor implements Screen {
     private void formatujTypyTerenu() {
         for (int i = 0; i < iloscPolX; i++) {
             for (int j = 0; j < iloscPolY; j++) {
-                SelectBox sb = new SelectBox(a.skin);
-                sb.setItems(array);
+//                SelectBox sb = new SelectBox(a.skin);
+ //               sb.setItems(array);
                 //listaPol.add(sb);
-                listaPol.add(new poleEdytora(a.trawaTex, 1, 1, this.stage01));
+                listaPol.add(new poleEdytora(a.trawaTex, 1, 1, this.stage01, i, j));
             }
         }
     }
@@ -174,27 +174,15 @@ public class MapEditor implements Screen {
         tabela01.pad(5);
 
         int j = 0;
-        
-        for (int i = 0; i < listaPol.size(); i ++){
-            tabela01.add((poleEdytora)listaPol.get(i));
+
+        for (Object listaPol1 : listaPol) {
+            tabela01.add((poleEdytora) listaPol1);
             j += 1;
-            if (j> iloscPolY - 1){
+            if (j > iloscPolY - 1) {
                 j = 0;
                 tabela01.row();
             }
         }
-        
-
-//        for (Object listaPol1 : listaPol) {
-//            j += 1;
-//            tabela01.add((SelectBox) listaPol1);
-//            if (j > iloscPolY - 1) {
-//                j = 0;
-//                tabela01.row();
-//            }
-//        }
-
-        tabela01.row();
     }
 
     /**
@@ -205,10 +193,14 @@ public class MapEditor implements Screen {
         Mapa mapa = new Mapa(iloscPolX, iloscPolY);
         for (int i = 0; i < iloscPolX; i++) {
             for (int j = 0; j < iloscPolY; j++) {
-                mapa.getPola()[i][j].setTypTerenu((TypyTerenu) ((SelectBox) listaPol.get(index)).getSelected());
+                //mapa.getPola()[i][j].setTypTerenu((TypyTerenu) ((SelectBox) listaPol.get(index)).getSelected());
+                poleEdytora tmpPE;
+                tmpPE = (poleEdytora)listaPol.get(index);
+                mapa.getPola()[i][j].setTypTerenu(tmpPE.typTerenu);
                 index += 1;
             }
         }
+        System.out.println("Zapisuje mape");
         ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("mapa.dat"));
         wy.writeObject(mapa);
     }
@@ -254,19 +246,29 @@ public class MapEditor implements Screen {
     public class poleEdytora extends DefaultActor {
 
         private final Stage stage;
-        
+        public int wspX;
+        public int wspY;
+        public TypyTerenu typTerenu;
+
         /**
          * @param tekstura Tekstura pola
          * @param x Współżędna X
          * @param y Współżędna Y
          * @param stage Stage na której wyświetli się okno
+         * @param wspX
          */
-        public poleEdytora(Texture tekstura, int x, int y, Stage stage) {
+        public poleEdytora(Texture tekstura, int x, int y, Stage stage, int wspX, int wspY) {
             super(tekstura, x, y);
             super.setSize(30, 30);
             this.stage = stage;
-            
+
+            this.wspX = wspX;
+            this.wspY = wspY;
+
+            this.typTerenu = TypyTerenu.Trawa;
+
             dodajListenera();
+            
         }
 
         private void dodajListenera() {
@@ -275,38 +277,53 @@ public class MapEditor implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     System.out.println("Pole edytora klikniete");
-                    
-                    new Dialog("Edycja Pola", a.skin) {
-                    {
-                        text("Obrona: ");
-                        this.row();
-                        text("HP: ");
-                        this.row();
-                        button("Zakoncz", "zakoncz");                        
-                    }
 
-                    @Override
-                    protected void result(Object object) {
-                        if (object.equals("zakoncz")) {
-                            this.remove();
+                    new Dialog("Edycja Pola", a.skin) {
+                        {
+                            button("Las", "las");
+                            button("Gory", "gory");
+                            button("Trawa", "trawa");
+                            text("Obrona: ");
+                            this.row();
+                            text("HP: ");
+                            this.row();
+                            button("Zakoncz", "zakoncz");
                         }
-                    }
-                }.show(stage);
-                    
-                }                
+
+                        @Override
+                        protected void result(Object object) {
+                            if (object.equals("las")) {
+                                typTerenu = TypyTerenu.Drzewo;                                
+                                getSprite().setTexture(a.trawaDrzewoTex);
+                                formatujTeabele02();
+                                this.remove();
+                            } else if (object.equals("gory")) {
+                                typTerenu = TypyTerenu.Gory;
+                                getSprite().setTexture(a.trawaGoraTex);
+                                this.remove();
+                            } else if (object.equals("trawa")) {
+                                typTerenu = TypyTerenu.Trawa;
+                                getSprite().setTexture(a.trawaTex);
+                                this.remove();
+                            } else if (object.equals("zakoncz")) {
+                                this.remove();
+                            }
+                        }
+                    }.show(stage);
+                }
             });
         }
     }
-    
+
     /**
      * Klasa definiująca okno edycyjne, służące do edycji pól
      */
     public class oknoEdycyjne extends Dialog {
 
         /**
-         * 
+         *
          * @param title
-         * @param skin 
+         * @param skin
          */
         public oknoEdycyjne(String title, Skin skin) {
             super(title, skin);

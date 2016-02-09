@@ -44,7 +44,7 @@ public class Mob extends Actor {
     private int aktualnaSzybkosc = 0;
     private int expReward = 0;
     private int mobLevel = 0;
-    
+
     // Lista efektów czarów które działają na moba.
     private ArrayList<SpellEffects> spellEffects;
 
@@ -60,6 +60,7 @@ public class Mob extends Actor {
      */
     public Mob(Texture textureIcon, Game g, GameStatus gs, Assets a,
             int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, int mobLevel) {
+        this.spellEffects = new ArrayList<SpellEffects>();
         this.gs = gs;
         this.a = a;
         this.g = g;
@@ -82,10 +83,25 @@ public class Mob extends Actor {
                 new Dialog("Mob", a.skin) {
                     {
                         text("Atak: " + atak);
-                        this.row();
+                        row();
                         text("Obrona: " + obrona);
-                        this.row();
+                        row();
                         text("HP: " + aktualneHp);
+                        row();
+                        text("Dzialajace efekty czarow:");
+                        this.row();
+                        for (SpellEffects sE : spellEffects) {
+                            text("Efekt Ataku: " + sE.getEfektAtak());
+                            this.row();
+                            text("Efekt Obrony: " + sE.getEfektObrona());
+                            this.row();
+                            text("Czas: " + sE.getDlugoscTrwaniaEfektu());
+                            this.row();
+                            //text("Efekt Szybkosci: " + sE.getEfektSzybkosc());
+                            //this.row();
+                            //text("Efekt Dmg: " + sE.getEfektDmg());
+                            //this.row();
+                        }
                         this.row();
                         button("Zakoncz", "zakoncz");
                     }
@@ -100,7 +116,7 @@ public class Mob extends Actor {
             }
         });
     }
-    
+
     /**
      * Generuje statystyki Moba.
      *
@@ -109,7 +125,7 @@ public class Mob extends Actor {
     private void wygenerujStatystykiMoba(int mobLevel) {
         this.atak = 5 * mobLevel;
         this.obrona = 5 * mobLevel;
-        this.hp = 3 * mobLevel;
+        this.hp = 7 * mobLevel;
         this.aktualneHp = this.hp;
         this.szybkosc = 5 * mobLevel;
         this.aktualnaSzybkosc = this.szybkosc;
@@ -152,26 +168,52 @@ public class Mob extends Actor {
         gs.usunMartweMoby();
     }
 
+    /**
+     * Aktualizuje działanie efektów czarów.
+     */
+    public void aktualizujDzialanieEfektow() {
+        System.out.println("Aktualizacja czasu działania efektów dla Mobó");
+
+        // Aktualizacja efektów czarów
+        int indeksSpellEfektuDoUsuniecia = 99;
+
+        for (int i = 0; i < this.spellEffects.size(); i++) {
+            System.out.println("Wykonuje petle w Spell efektach");
+            spellEffects.get(i).setDlugoscTrwaniaEfektu(spellEffects.get(i).getDlugoscTrwaniaEfektu() - 1);
+            System.out.println(i + ": " + spellEffects.get(i).getDlugoscTrwaniaEfektu());
+            if (spellEffects.get(i).getDlugoscTrwaniaEfektu() < 1) {
+                System.out.println("Warunek usuniecia Spell efektu został spełniony");
+                indeksSpellEfektuDoUsuniecia = i;
+            }
+        }
+
+        if (indeksSpellEfektuDoUsuniecia != 99) {
+            System.out.println("Usuwam Spell efekt: ");
+            this.spellEffects.remove(indeksSpellEfektuDoUsuniecia);
+            this.aktualizujDzialanieEfektow();
+        }
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
-        
+
         if (czyZaatakowany) {
             this.atakMoba();
         }
-        
+
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        if (this.getAktualneHp() < 1){
+        if (this.getAktualneHp() < 1) {
             System.out.println("Dodaje skrzynie po zabiciu  przeciwnika");
             TresureBox tb = new TresureBox(1, 1, this.a, this.gs, this.g, this.pozX, this.pozY);
             gs.getMapa().getPola()[this.pozX / 100][this.pozY / 100].setTresureBox(tb);
             Assets.stage01MapScreen.addActor(gs.getMapa().getPola()[this.pozX / 100][this.pozY / 100].getTresureBox());
         }
-        
+
     }
 
     /**
@@ -324,7 +366,8 @@ public class Mob extends Actor {
 
     /**
      * Zwraca listę efektów które działają na moba.
-     * @return 
+     *
+     * @return
      */
     public ArrayList<SpellEffects> getSpellEffects() {
         return spellEffects;
@@ -332,11 +375,11 @@ public class Mob extends Actor {
 
     /**
      * Ustala listę efektów które działają na moba.
-     * @param spellEffects 
+     *
+     * @param spellEffects
      */
     public void setSpellEffects(ArrayList<SpellEffects> spellEffects) {
         this.spellEffects = spellEffects;
     }
 
-    
 }

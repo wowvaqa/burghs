@@ -10,5 +10,6 @@ package enums;
  * @author v
  */
 public enum FightEffects {
-    DiscouragementEffect;
+    DiscouragementEffect,
+    ChargeEffect;
 }

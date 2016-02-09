@@ -135,18 +135,29 @@ public class SpellCreator {
                 });
                 spell.setRodzajCzaru(spells);
                 break;
-                
+
+            case Charge:
+                spell.setSpellWorksOnlyForCaster(true);
+                spell.getSprite().setTexture(a.texSpellCharge);
+                spell.setKoszt(1);
+                spell.setSpellEffects(new ArrayList<SpellEffects>());
+                spell.getSpellEffects().add(new SpellEffects());
+
+                spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellCharge, 0, 0));
+                spell.getSpellEffects().get(0).setOpis("Kazdy udany atak zadaje dodatkowo +1 do obrazen.");
+                spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Szarza", a.skin, "Kazdy udany atak zadaje dodatkowo +1 do obrazen.", Assets.stage01MapScreen);
+                    }
+                });
+
+                spell.setRodzajCzaru(spells);
+                break;
+
             case Fury:
                 spell.setSpellWorksOnlyForPlayersHeroes(true);
                 spell.getSprite().setTexture(a.texSpellFury);
-                spell.setKoszt(2);
-                spell.setSpellEffects(new ArrayList<SpellEffects>());
-                spell.getSpellEffects().add(new SpellEffects());
-                spell.setRodzajCzaru(spells);
-                break;
-            case Charge:
-                spell.setSpellWorksOnlyForPlayersHeroes(true);
-                spell.getSprite().setTexture(a.texSpellCharge);
                 spell.setKoszt(2);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());

@@ -91,6 +91,8 @@ public class Bohater extends Actor {
     private ArrayList<Effect> efekty;
     // efekty czarów które oddziaływują na bohatera
     private ArrayList<SpellEffects> spellEffects;
+    // efekty które działają jednorazowo
+    private ArrayList<Effect> tempEffects;
 
     /**
      *
@@ -114,6 +116,9 @@ public class Bohater extends Actor {
         this.spellEffects = new ArrayList<SpellEffects>();
         this.listOfSpells = new ArrayList<Spells>();
         
+        this.tempEffects = new ArrayList<Effect>();
+        this.tempEffects.add(new Effect());
+
         this.equipment = new ArrayList<Item>();
         this.spells = new ArrayList<SpellActor>();
         this.gs = gs;
@@ -892,7 +897,8 @@ public class Bohater extends Actor {
 
     /**
      * Zwraca listę zaklęć dostępnych dla bohatera
-     * @return 
+     *
+     * @return
      */
     public ArrayList<Spells> getListOfSpells() {
         return listOfSpells;
@@ -900,9 +906,28 @@ public class Bohater extends Actor {
 
     /**
      * Ustala listę zaklęć dostępnych dla bohatera.
-     * @param listOfSpells 
+     *
+     * @param listOfSpells
      */
     public void setListOfSpells(ArrayList<Spells> listOfSpells) {
         this.listOfSpells = listOfSpells;
+    }
+
+    /**
+     * Zwraca tablicę tymczasowych efektów.
+     *
+     * @return
+     */
+    public ArrayList<Effect> getTempEffects() {
+        return tempEffects;
+    }
+
+    /**
+     * Ustala tablicę tymczasowych efektów
+     *
+     * @param tempEffects
+     */
+    public void setTempEffects(ArrayList<Effect> tempEffects) {
+        this.tempEffects = tempEffects;
     }
 }
