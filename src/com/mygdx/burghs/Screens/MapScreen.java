@@ -526,10 +526,43 @@ public class MapScreen implements Screen {
 
     // Gneruje graczy w konstruktorze klasy i dodaje ich do planszy 01
     private void generujGraczy() {
-        for (int i = 0; i < gs.getGracze().size(); i++) {
-            stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
-        }
+//        for (int i = 0; i < gs.getGracze().size(); i++) {
+//            stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
+//        }
 
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolX(); j++) {
+
+                if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP1()) {
+                    gs.getGracze().get(0).getBohaterowie().get(0).setPozXnaMapie(i);
+                    gs.getGracze().get(0).getBohaterowie().get(0).setPozYnaMapie(j);
+                    gs.getGracze().get(0).getBohaterowie().get(0).setPosition(i * 100, j * 100);
+                    stage01.addActor(gs.getGracze().get(0).getBohaterowie().get(0));
+                }
+                if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP2()) {
+                    gs.getGracze().get(1).getBohaterowie().get(0).setPozXnaMapie(i);
+                    gs.getGracze().get(1).getBohaterowie().get(0).setPozYnaMapie(j);
+                    gs.getGracze().get(1).getBohaterowie().get(0).setPosition(i * 100, j * 100);
+                    stage01.addActor(gs.getGracze().get(1).getBohaterowie().get(0));
+                }
+                if (gs.getGracze().size() == 3 || gs.getGracze().size() == 4) {
+                    if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP3()) {
+                        gs.getGracze().get(2).getBohaterowie().get(0).setPozXnaMapie(i);
+                        gs.getGracze().get(2).getBohaterowie().get(0).setPozYnaMapie(j);
+                        gs.getGracze().get(2).getBohaterowie().get(0).setPosition(i * 100, j * 100);
+                        stage01.addActor(gs.getGracze().get(2).getBohaterowie().get(0));
+                    }
+                }
+                if (gs.getGracze().size() == 4) {
+                    if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP4()) {
+                        gs.getGracze().get(3).getBohaterowie().get(0).setPozXnaMapie(i);
+                        gs.getGracze().get(3).getBohaterowie().get(0).setPozYnaMapie(j);
+                        gs.getGracze().get(3).getBohaterowie().get(0).setPosition(i * 100, j * 100);
+                        stage01.addActor(gs.getGracze().get(3).getBohaterowie().get(0));
+                    }
+                }
+            }
+        }
     }
 
     private Texture teksturaTerenu(TypyTerenu tT) {

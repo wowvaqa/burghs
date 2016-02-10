@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -52,6 +51,12 @@ public class MapEditor implements Screen {
     private int iloscPolX = 10;
     private int iloscPolY = 10;
 
+    private poleEdytora[][] mapaPolEdycyjncyh;
+
+    private Mapa mapa;
+
+    private Label lblP1;
+
     private Label lblIloscPolX;
     private Label lblIloscPolY;
     private TextButton btnPlus;
@@ -66,6 +71,10 @@ public class MapEditor implements Screen {
         array.add(TypyTerenu.Gory);
         array.add(TypyTerenu.Drzewo);
 
+        lblP1 = new Label("P1", a.skin);
+
+        generujNowaMape();
+
         this.formatujTypyTerenu();
         this.makeButtons();
         this.formatujTeabele02();
@@ -76,7 +85,7 @@ public class MapEditor implements Screen {
         for (int i = 0; i < iloscPolX; i++) {
             for (int j = 0; j < iloscPolY; j++) {
 //                SelectBox sb = new SelectBox(a.skin);
- //               sb.setItems(array);
+                //               sb.setItems(array);
                 //listaPol.add(sb);
                 listaPol.add(new poleEdytora(a.trawaTex, 1, 1, this.stage01, i, j));
             }
@@ -118,6 +127,7 @@ public class MapEditor implements Screen {
                 iloscPolY += 1;
                 lblIloscPolX.setText("Ilosc Pol X: " + iloscPolX);
                 lblIloscPolY.setText("Ilosc Pol Y: " + iloscPolY);
+                generujNowaMape();
                 aktualizacjaPol();
             }
         });
@@ -132,6 +142,7 @@ public class MapEditor implements Screen {
                 iloscPolY -= 1;
                 lblIloscPolX.setText("Ilosc Pol X: " + iloscPolX);
                 lblIloscPolY.setText("Ilosc Pol Y: " + iloscPolY);
+                generujNowaMape();
                 aktualizacjaPol();
             }
         });
@@ -173,41 +184,86 @@ public class MapEditor implements Screen {
         tabela01.setDebug(true);
         tabela01.pad(5);
 
-        int j = 0;
+        //int j = 0;
+        int rowIndex = 0;
 
-        for (Object listaPol1 : listaPol) {
-            tabela01.add((poleEdytora) listaPol1);
-            j += 1;
-            if (j > iloscPolY - 1) {
-                j = 0;
-                tabela01.row();
+        //for (int j = 9; j > -1; j--) {
+        for (int j = iloscPolY - 1; j > -1; j--) {
+            for (int i = 0; i < iloscPolX; i++) {
+                tabela01.add(mapaPolEdycyjncyh[i][j]);
+
+                rowIndex += 1;
+                if (rowIndex > iloscPolY - 1) {
+                    tabela01.row();
+                    rowIndex = 0;
+                }
             }
         }
+
+        System.out.print(tabela01.getCells().size);
+        poleEdytora tmpPE = (poleEdytora)tabela01.getCells().get(99).getActor();
+        tmpPE.getSprite().setTexture(a.mobDwarfTex);
+
+//        for (Object listaPol1 : listaPol) {
+//            tabela01.add((poleEdytora) listaPol1);
+//            j += 1;
+//            if (j > iloscPolY - 1) {
+//                j = 0;
+//                tabela01.row();
+//            }
+//        }
     }
 
     /**
      * Generuje mapę i zapisuje do poliku.
      */
     private void zapiszMape() throws FileNotFoundException, IOException {
-        int index = 0;
-        Mapa mapa = new Mapa(iloscPolX, iloscPolY);
+//        int index = 0;
+//        //Mapa mapa = new Mapa(iloscPolX, iloscPolY);
+//        for (int i = 0; i < iloscPolX; i++) {
+//            for (int j = 0; j < iloscPolY; j++) {
+//                //mapa.getPola()[i][j].setTypTerenu((TypyTerenu) ((SelectBox) listaPol.get(index)).getSelected());
+//                poleEdytora tmpPE;
+//                tmpPE = (poleEdytora) listaPol.get(index);
+//                mapa.getPola()[i][j].setTypTerenu(tmpPE.typTerenu);
+//                index += 1;
+//            }
+//        }
+
         for (int i = 0; i < iloscPolX; i++) {
             for (int j = 0; j < iloscPolY; j++) {
-                //mapa.getPola()[i][j].setTypTerenu((TypyTerenu) ((SelectBox) listaPol.get(index)).getSelected());
-                poleEdytora tmpPE;
-                tmpPE = (poleEdytora)listaPol.get(index);
-                mapa.getPola()[i][j].setTypTerenu(tmpPE.typTerenu);
-                index += 1;
+                mapa.getPola()[i][j].setTypTerenu(mapaPolEdycyjncyh[i][j].typTerenu);
+                mapa.getPola()[i][j].setLokacjaStartowaP1(mapaPolEdycyjncyh[i][j].lokacjaStartowaP1);
+                mapa.getPola()[i][j].setLokacjaStartowaP2(mapaPolEdycyjncyh[i][j].lokacjaStartowaP2);
+                mapa.getPola()[i][j].setLokacjaStartowaP3(mapaPolEdycyjncyh[i][j].lokacjaStartowaP3);
+                mapa.getPola()[i][j].setLokacjaStartowaP4(mapaPolEdycyjncyh[i][j].lokacjaStartowaP4);
             }
         }
+
         System.out.println("Zapisuje mape");
         ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("mapa.dat"));
-        wy.writeObject(mapa);
+        wy.writeObject(this.mapa);
+    }
+
+    /**
+     * Generuje nową mapę.
+     */
+    private void generujNowaMape() {
+        this.mapa = new Mapa(iloscPolX, iloscPolY);
+
+        this.mapaPolEdycyjncyh = new poleEdytora[iloscPolX][iloscPolY];
+
+        for (int i = 0; i < mapa.getIloscPolX(); i++) {
+            for (int j = 0; j < mapa.getIloscPolY(); j++) {
+                this.mapaPolEdycyjncyh[i][j] = new poleEdytora(a.trawaTex, 0, 0, stage01, i, j);
+            }
+        }
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage01);
+        //this.generujNowaMape();
     }
 
     @Override
@@ -250,12 +306,18 @@ public class MapEditor implements Screen {
         public int wspY;
         public TypyTerenu typTerenu;
 
+        public boolean lokacjaStartowaP1 = false;
+        public boolean lokacjaStartowaP2 = false;
+        public boolean lokacjaStartowaP3 = false;
+        public boolean lokacjaStartowaP4 = false;
+
         /**
          * @param tekstura Tekstura pola
          * @param x Współżędna X
          * @param y Współżędna Y
          * @param stage Stage na której wyświetli się okno
          * @param wspX
+         * @param wspY
          */
         public poleEdytora(Texture tekstura, int x, int y, Stage stage, int wspX, int wspY) {
             super(tekstura, x, y);
@@ -268,7 +330,7 @@ public class MapEditor implements Screen {
             this.typTerenu = TypyTerenu.Trawa;
 
             dodajListenera();
-            
+
         }
 
         private void dodajListenera() {
@@ -280,6 +342,8 @@ public class MapEditor implements Screen {
 
                     new Dialog("Edycja Pola", a.skin) {
                         {
+                            //text("X: " + wspX + " Y: " + wspY);
+                            button("Lokacja Startowa", "ls");
                             button("Las", "las");
                             button("Gory", "gory");
                             button("Trawa", "trawa");
@@ -292,10 +356,39 @@ public class MapEditor implements Screen {
 
                         @Override
                         protected void result(Object object) {
+
+                            if (object.equals("ls")) {
+                                new Dialog("Lokacja Startowa", a.skin) {
+                                    {
+                                        button("Player 1", "p1");
+                                        button("Player 2", "p2");
+                                        button("Player 3", "p3");
+                                        button("Player 4", "p4");
+                                    }
+
+                                    @Override
+                                    protected void result(Object object) {
+                                        if (object.equals("p1")) {
+                                            lokacjaStartowaP1 = true;
+                                            this.remove();
+                                        } else if (object.equals("p2")) {
+                                            lokacjaStartowaP2 = true;
+                                            this.remove();
+                                        } else if (object.equals("p3")) {
+                                            lokacjaStartowaP3 = true;
+                                            this.remove();
+                                        } else if (object.equals("p4")) {
+                                            lokacjaStartowaP4 = true;
+                                            this.remove();
+                                        }
+                                    }
+                                }.show(stage);
+                            }
+
                             if (object.equals("las")) {
-                                typTerenu = TypyTerenu.Drzewo;                                
+                                typTerenu = TypyTerenu.Drzewo;
                                 getSprite().setTexture(a.trawaDrzewoTex);
-                                formatujTeabele02();
+                                //formatujTeabele02();
                                 this.remove();
                             } else if (object.equals("gory")) {
                                 typTerenu = TypyTerenu.Gory;

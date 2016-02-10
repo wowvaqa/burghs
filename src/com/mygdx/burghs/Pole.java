@@ -18,6 +18,12 @@ public class Pole implements Serializable{
     private Mob mob = null;
     
     private TypyTerenu typTerenu;
+    
+    // Zmienne określają czy dane pole jest lokacją startową któregoś z graczy
+    private boolean lokacjaStartowaP1 = false;
+    private boolean lokacjaStartowaP2 = false;
+    private boolean lokacjaStartowaP3 = false;
+    private boolean lokacjaStartowaP4 = false;
 
     public Pole() {        
 
@@ -89,5 +95,39 @@ public class Pole implements Serializable{
 
     public void setCastle(Castle castle) {
         this.castle = castle;
-    }    
+    }
+
+    public boolean isLokacjaStartowaP1() {
+        return lokacjaStartowaP1;
+    }
+
+    public void setLokacjaStartowaP1(boolean lokacjaStartowaP1) {
+        this.lokacjaStartowaP1 = lokacjaStartowaP1;
+    }
+
+    public boolean isLokacjaStartowaP2() {
+        return lokacjaStartowaP2;
+    }
+
+    public void setLokacjaStartowaP2(boolean lokacjaStartowaP2) {
+        this.lokacjaStartowaP2 = lokacjaStartowaP2;
+    }
+
+    public boolean isLokacjaStartowaP3() {
+        return lokacjaStartowaP3;
+    }
+
+    public void setLokacjaStartowaP3(boolean lokacjaStartowaP3) {
+        this.lokacjaStartowaP3 = lokacjaStartowaP3;
+    }
+
+    public boolean isLokacjaStartowaP4() {
+        return lokacjaStartowaP4;
+    }
+
+    public void setLokacjaStartowaP4(boolean lokacjaStartowaP4) {
+        this.lokacjaStartowaP4 = lokacjaStartowaP4;
+    }
+    
+    
 }

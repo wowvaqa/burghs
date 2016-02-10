@@ -18,7 +18,12 @@ version 0.0033
         3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
         4. Dodać okienko informacyjne z działaniem efektu.
 
-version 0.0038 0902216
+version 0.0039 10022016
+DONE    1. Poprawki w klasie FIGHT.
+DONE    2. Usprawnienia w MapEditora.
+DONE    3. Dodano możliwość edycji lokacji początkowych graczy.         
+
+version 0.0038 09022016
 DONE    1. Poprawiono błąd z niepoprawnym wyświetlaniem się atrybutów 
         podczas awansu.
 DONE    2. Dodanie efektów czarów dla Mobów.

@@ -14,6 +14,37 @@ import java.util.Random;
 public class Fight {
 
     /**
+     * Zwraca współczynnik ataku bohater z uwzględnieniem ekwipunku i efektów.
+     *
+     * @param bohater Referencja do obiektu bohatera.
+     * @return
+     */
+    static public int getAttack(Bohater bohater) {
+        int atak;
+        Random rnd = new Random();
+        atak = rnd.nextInt(bohater.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohater)
+                + getAtakEfektyBohatera(bohater) + 1);
+        System.out.println("Siła ataku: " + atak);
+        return atak;
+    }
+
+    /**
+     * Zwraca współczynnik oborony bohatera z uzwględnieniem ekwipunku i
+     * efektów.
+     *
+     * @param bohater Referencja do obiektu bohatera.
+     * @return
+     */
+    static public int getObrona(Bohater bohater) {
+        int obrona;
+        Random rnd = new Random();
+        obrona = rnd.nextInt(bohater.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohater)
+                + getObronaEfektyBohatera(bohater) + 1);
+        System.out.println("Siła obrony: " + obrona);
+        return obrona;
+    }
+
+    /**
      * Zwraca ilość obrażeń po ataku bohatera
      *
      * @param bohaterAtakujacy referencja do obiektu bohatera atakującego
@@ -22,16 +53,9 @@ public class Fight {
      */
     static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy) {
 
-        System.out.println("Funkacja Fight.getObrazenia");
-
-        Random rnd = new Random();
-        System.out.println("Nastąpił atak mf");
-        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy)
-                + getAtakEfektyBohatera(bohaterAtakujacy) + 1);
-        int obrona = rnd.nextInt(bohaterBroniacy.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohaterBroniacy)
-                + getObronaEfektyBohatera(bohaterBroniacy) + 1);
-        System.out.println("Siła ataku:  " + atak);
-        System.out.println("siła obrony: " + obrona);
+        System.out.println("Nastąpił atak Bohater VS Bohater");
+        int atak = getAttack(bohaterAtakujacy);
+        int obrona = getObrona(bohaterBroniacy);
 
         if (atak > 0) {
             System.out.println("Nastąpiło trafienie...");
@@ -86,15 +110,10 @@ public class Fight {
      * @return Ilosć obrażeń
      */
     static public int getObrazenia(Bohater bohaterAtakujacy, Castle castle) {
-
-        System.out.println("Funkacja Fight.getObrazenia");
-
         Random rnd = new Random();
-        System.out.println("Nastąpił atak na zamek");
-        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy)
-                + getAtakEfektyBohatera(bohaterAtakujacy) + 1);
-        int obrona = rnd.nextInt(castle.getObrona() + 1);
-        System.out.println("Siła ataku:  " + atak);
+        System.out.println("Nastąpił atak Bohater VS Zamek");
+        int atak = getAttack(bohaterAtakujacy);
+        int obrona = rnd.nextInt(castle.getObrona() + 1);        
         System.out.println("siła obrony: " + obrona);
 
         if (atak > 0) {
@@ -142,11 +161,9 @@ public class Fight {
         mob.mobZaatakowany(bohaterAtakujacy.getPozXnaMapie(), bohaterAtakujacy.getPozYnaMapie());
 
         Random rnd = new Random();
-        System.out.println("Nastąpił atak na moba");
-        int atak = rnd.nextInt(bohaterAtakujacy.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohaterAtakujacy)
-                + getAtakEfektyBohatera(bohaterAtakujacy) + 1);
+        System.out.println("Nastąpił atak Bohater VS Mob");
+        int atak = getAttack(bohaterAtakujacy);
         int obrona = rnd.nextInt(mob.getObrona() + 1 + getObronaEfektyMoba(mob));
-        System.out.println("Siła ataku:  " + atak);
         System.out.println("siła obrony: " + obrona);
 
         if (atak > 0) {
@@ -203,12 +220,10 @@ public class Fight {
         System.out.println("Funkacja Fight.getObrazenia");
 
         Random rnd = new Random();
-        System.out.println("Nastąpił atak mf");
+        System.out.println("Nastąpił atak Mob vs Bohater");
         int atak = rnd.nextInt(mob.getAtak() + 1 + getAtakEfektyMoba(mob));
-        int obrona = rnd.nextInt(bohaterBroniacy.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohaterBroniacy)
-                + getObronaEfektyBohatera(bohaterBroniacy) + 1);
+        int obrona = getObrona(bohaterBroniacy);
         System.out.println("Siła ataku:  " + atak);
-        System.out.println("siła obrony: " + obrona);
         int dmg = atak - (obrona + getArmorEkwipunkuBohateraAtakujacego(bohaterBroniacy)
                 + getArmorEfektyBohatera(bohaterBroniacy));
         if (dmg < 0) {
