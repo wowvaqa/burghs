@@ -12,11 +12,16 @@ version 0.0099
 version 0.0098
         1. Dokończy MapEditora 
 
-version 0.0033
-        1. Poprawić wygląd Screenu Bohatera.        
-        2. Naprawić bug. z restartem szybkości Moba w tej samej turze.
-        3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
-        4. Dodać okienko informacyjne z działaniem efektu.
+version 0.0033 16022016
+DONE    1. Poprawić wygląd Screenu Bohatera.        
+DONE    2. Naprawić bug. z restartem szybkości Moba w tej samej turze.
+DONE    3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
+DONE    4. Dodać okienko informacyjne z działaniem efektu.
+
+version 0.0040 15022016
+DONE    1. Dodano Nowy Teren: Rzekę.
+DONE    2. Dodano łączenie się terenu rzeki.
+DONE    3. DOdano łączenie się terenu las.
 
 version 0.0039 10022016
 DONE    1. Poprawki w klasie FIGHT.

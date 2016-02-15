@@ -19,6 +19,9 @@ import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.NewGame;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Klasa definiuje Screen nowej gry zajmuje się zarządzaniem interfejsem
@@ -130,7 +133,13 @@ public class NewGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("EXIT");
-                NewGame.zakonczGenerowanieNowejGry(g, gs, a);
+                try {
+                    NewGame.zakonczGenerowanieNowejGry(g, gs, a);
+                } catch (IOException ex) {
+                    Logger.getLogger(NewGameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(NewGameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 g.setScreen(Assets.mapScreen);
             }
         });

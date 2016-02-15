@@ -54,16 +54,16 @@ public class GameStatus {
 
     public GameStatus() {
         wczytajItemy();
-        try {
-            wczytajMape();
-        } catch (IOException ex) {
-            Logger.getLogger(GameStatus.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GameStatus.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            wczytajMape();
+//        } catch (IOException ex) {
+//            Logger.getLogger(GameStatus.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(GameStatus.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
-    private void wczytajMape() throws IOException, ClassNotFoundException {
+    public void wczytajMape() throws IOException, ClassNotFoundException {
         ObjectInputStream we = new ObjectInputStream(new FileInputStream("mapa.dat"));
         mapa = (Mapa) we.readObject();
         System.out.println("odczyt obiektu");

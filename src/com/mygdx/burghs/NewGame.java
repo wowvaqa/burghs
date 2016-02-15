@@ -11,6 +11,7 @@ import static enums.KlasyPostaci.Lowca;
 import static enums.KlasyPostaci.Giermek;
 import static enums.KlasyPostaci.Twierdza;
 import enums.Spells;
+import java.io.IOException;
 
 /**
  * Klasa zarządza zachowanie nowej gry
@@ -310,21 +311,31 @@ public class NewGame {
      * @param g
      * @param gs
      * @param a
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
      */
-    static public void zakonczGenerowanieNowejGry(Game g, GameStatus gs, Assets a) {
+    static public void zakonczGenerowanieNowejGry(Game g, GameStatus gs, Assets a) throws IOException, ClassNotFoundException {
+        
+        gs.wczytajMape();
+        gs.setTuraGracza(0);
+        
         //gs.setActualScreen(1);
         gs.iloscGraczy = iloscGraczy;
         // Po kliknięciu w OK następuje przekazanie info, że mapa
         // została utworzona (wszystkie parametry zadane przez screen
         // nowej gry zostaną użyte do tworzenia nowej mapy).
         gs.czyUtworzonoMape = true;
+        
+        // Sprawdzenie czy tablica gracz jest pusta i ewentualne wyczyszczenie jej
+        if (gs.gracze.size() > 0){
+            gs.gracze.clear();
+        }
 
         // Dodoaje nowych graczy wg. ilości zadeklarowanej
         for (int i = 0; i < gs.iloscGraczy; i++) {
             gs.gracze.add(new Gracz(i));
             gs.gracze.get(i).setNumerGracza(i);
 
-//            
             //System.out.println(gs.gracze.size());
         }
         // Dodanie dla każdego gracza bohatera
@@ -377,6 +388,7 @@ public class NewGame {
 
         podepnijStatystkiBohaterow(gs);
 
+        
         Assets.mapScreen = new MapScreen(g, a, gs);
     }
 

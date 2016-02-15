@@ -52,6 +52,7 @@ public class TestingScreen implements Screen {
     private TextButton btnMapEditor;
     private TextButton btnExit;
     private TextButton btnSerylizacja;
+    private TextButton btnTexturePacker;
     private TextButton btnOdczytSerylizacji;
 
     private Table tabela = new Table();
@@ -128,6 +129,17 @@ public class TestingScreen implements Screen {
                 g.setScreen(Assets.mapEditor);
             }
         });
+        
+        btnTexturePacker = new TextButton("Texture Packer", a.skin);
+        btnTexturePacker.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("TexturePacker");
+                
+                
+                
+            }
+        });
 
         btnExit = new TextButton("EXIT", a.skin);
         btnExit.setPosition(1, 1);
@@ -192,6 +204,8 @@ public class TestingScreen implements Screen {
         tabela.add(btnOdczytSerylizacji);
         tabela.row();
         tabela.add(btnMapEditor);
+        tabela.row();
+        tabela.add(btnTexturePacker);
         tabela.row();
         tabela.add(btnExit).width(200).height(50).space(300);
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -43,6 +44,10 @@ public class Assets {
     public Texture texSzkieletMob;
     public Texture texWilkMob;
 
+    // Texture Atlas
+    public TextureAtlas tAtals;
+    public AssetManager aM;
+    
     // tekstury itemków
     public Texture texHead;
     public Texture texLinenTousers;
@@ -110,6 +115,12 @@ public class Assets {
     public static Screen awansScreen;
 
     public Assets() {
+        
+        tAtals = new TextureAtlas(Gdx.files.internal("terrain/test.atlas"));
+        aM = new AssetManager();
+        aM.load("terrain/test.atlas", TextureAtlas.class);
+        aM.finishLoading();
+        
         trawaDrzewoTex = new Texture("grassTree100x100.png");
         trawaTex = new Texture("grass100x100.png");
         trawaGoraTex = new Texture("grassMountain100x100.png");

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -22,11 +23,11 @@ import com.mygdx.burghs.ButtonActor;
 import com.mygdx.burghs.Castle;
 import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
+import com.mygdx.burghs.Mapa;
 import com.mygdx.burghs.Mob;
 import com.mygdx.burghs.Ruch;
 import com.mygdx.burghs.SpellActor;
 import com.mygdx.burghs.SpellCreator;
-import com.mygdx.burghs.SpellEffects;
 import com.mygdx.burghs.TresureBox;
 import enums.Spells;
 import enums.TypyTerenu;
@@ -51,7 +52,8 @@ public class MapScreen implements Screen {
     private final TextButton btnKoniecTury;
     private final TextButton btnKupBohatera;
 
-    private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
+    //private final ArrayList<DefaultActor> teren = new ArrayList<DefaultActor>();
+    private final ArrayList<Image> teren = new ArrayList<Image>();
 
     // labele informujące o statystykach klikniętego bohatera
     private final Label lblGold;
@@ -592,7 +594,43 @@ public class MapScreen implements Screen {
         stage01.addActor(gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].getTresureBox());
     }
 
-    // wypełnia stage01 aktorami planszy
+    private String getTextureRegion(TypyTerenu tt, int x, int y) {
+
+        //Pole pole;
+        switch (tt) {
+
+            case Rzeka:
+
+                if (y == gs.getMapa().getIloscPolY()) {
+                    return "riverNS";
+                } else if (x == gs.getMapa().getIloscPolX()) {
+                    return "riverNS";
+                } else if (sprawdzGraniceMapyY(y + 1) && sprawdzGraniceMapyY(y - 1)) {
+                    if (gs.getMapa().getPola()[x][y + 1].getTypTerenu() == tt
+                            && gs.getMapa().getPola()[x][y - 1].getTypTerenu() == tt) {
+                        return "riverNS";
+                    }
+                } else if (sprawdzGraniceMapyX(x + 1) && sprawdzGraniceMapyX(x - 1)) {
+                    if (gs.getMapa().getPola()[x - 1][y].getTypTerenu() == tt
+                            && gs.getMapa().getPola()[x + 1][y].getTypTerenu() == tt) {
+                        return "riverWE";
+                    }
+                }
+
+        }
+
+        return "riverNS";
+    }
+
+    private boolean sprawdzGraniceMapyX(int x) {
+        return !(x > gs.getMapa().getIloscPolX() - 1 || x < 0);
+    }
+
+    private boolean sprawdzGraniceMapyY(int y) {
+        return !(y > gs.getMapa().getIloscPolY() - 1 || y < 0);
+    }
+
+    // wypełnia stage01 aktorami planszy 
     private void generujPlansze() {
 
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
@@ -600,14 +638,36 @@ public class MapScreen implements Screen {
                 if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory) {
                     gs.getMapa().getPola()[i][j].setMovable(false);
                 }
-                teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
+
+                if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Rzeka) {
+                    Image img = new Image(a.tAtals.findRegion(Mapa.getTextureRegion(i, j, gs.getMapa(), TypyTerenu.Rzeka)));
+                    //Image img = new Image(a.tAtals.findRegion("riverNS"));
+                    img.setPosition(i * 100, j * 100);
+                    teren.add(img);
+                } else if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Drzewo) {
+                    Image img = new Image(a.tAtals.findRegion(Mapa.getTextureRegion(i, j, gs.getMapa(), TypyTerenu.Drzewo)));
+                    //Image img = new Image(a.tAtals.findRegion("riverNS"));
+                    img.setPosition(i * 100, j * 100);
+                    teren.add(img);
+                } else {
+                    //teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
+                    //teren.add(new Image(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
+                    Image img = new Image(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()));
+                    img.setPosition(i * 100, j * 100);
+                    teren.add(img);
+                }
             }
         }
 
-        for (DefaultActor teren1 : teren) {
+//        for (DefaultActor teren1 : teren) {
+//            stage01.addActor(teren1);
+//        }
+        //NOWY KOD
+        for (Image teren1 : teren) {
             stage01.addActor(teren1);
         }
 
+        //KONIEC NOWY KOD
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
         TresureBox tb = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 200);
@@ -827,6 +887,12 @@ public class MapScreen implements Screen {
 
         for (int i = 0; i < stage01.getActors().size; i++) {
             if (stage01.getActors().get(i).getClass() == DefaultActor.class) {
+                stage01.getActors().get(i).toBack();
+            }
+        }
+
+        for (int i = 0; i < stage01.getActors().size; i++) {
+            if (stage01.getActors().get(i).getClass() == Image.class) {
                 stage01.getActors().get(i).toBack();
             }
         }

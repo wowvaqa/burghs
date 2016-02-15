@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -259,6 +260,13 @@ public class MapEditor implements Screen {
             }
         }
     }
+    
+    /**
+     * Przerysowuje tekstury
+     */
+    public void redrawTextures(){
+        
+    }
 
     @Override
     public void show() {
@@ -347,6 +355,7 @@ public class MapEditor implements Screen {
                             button("Las", "las");
                             button("Gory", "gory");
                             button("Trawa", "trawa");
+                            button("Rzeka", "rzeka");
                             text("Obrona: ");
                             this.row();
                             text("HP: ");
@@ -397,6 +406,11 @@ public class MapEditor implements Screen {
                             } else if (object.equals("trawa")) {
                                 typTerenu = TypyTerenu.Trawa;
                                 getSprite().setTexture(a.trawaTex);
+                                this.remove();
+                            } else if (object.equals("rzeka")){
+                                typTerenu = TypyTerenu.Rzeka;
+                                AtlasRegion region = a.tAtals.findRegion("riverES");
+                                getSprite().setTexture(region.getTexture());
                                 this.remove();
                             } else if (object.equals("zakoncz")) {
                                 this.remove();
