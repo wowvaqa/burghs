@@ -63,6 +63,8 @@ public final class Mapa implements Serializable {
         if ("PG".equals(getPartOfMap(x, y, mapa))) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverNS";
             }
@@ -70,6 +72,8 @@ public final class Mapa implements Serializable {
         else if ("LG".equals(getPartOfMap(x, y, mapa))) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverNS";
             }
@@ -77,6 +81,8 @@ public final class Mapa implements Serializable {
         else if ("PD".equals(getPartOfMap(x, y, mapa))) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverNS";
             }
@@ -84,6 +90,8 @@ public final class Mapa implements Serializable {
         else if ("LD".equals(getPartOfMap(x, y, mapa))) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverNS";
             }
@@ -93,12 +101,16 @@ public final class Mapa implements Serializable {
             if (mapa.getPola()[x][y - 1].getTypTerenu() == tT) {
                 if (tT == TypyTerenu.Drzewo) {
                     return "forestS";
+                } else if (tT == TypyTerenu.Gory) {
+                    return "mountainC";
                 } else {
                     return "riverNS";
                 }
             }
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverNS";
             }
@@ -107,12 +119,16 @@ public final class Mapa implements Serializable {
             if (mapa.getPola()[x][y + 1].getTypTerenu() == tT) {
                 if (tT == TypyTerenu.Drzewo) {
                     return "forestN";
+                } else if (tT == TypyTerenu.Gory) {
+                    return "mountainN";
                 } else {
                     return "riverNS";
                 }
             }
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverNS";
             }
@@ -121,12 +137,16 @@ public final class Mapa implements Serializable {
             if (mapa.getPola()[x + 1][y].getTypTerenu() == tT) {
                 if (tT == TypyTerenu.Drzewo) {
                     return "forestE";
+                } else if (tT == TypyTerenu.Gory) {
+                    return "mountainE";
                 } else {
                     return "riverWE";
                 }
             }
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverWE";
             }
@@ -135,12 +155,16 @@ public final class Mapa implements Serializable {
             if (mapa.getPola()[x - 1][y].getTypTerenu() == tT) {
                 if (tT == TypyTerenu.Drzewo) {
                     return "forestW";
+                } else if (tT == TypyTerenu.Gory) {
+                    return "mountainW";
                 } else {
                     return "riverWE";
                 }
             }
             if (tT == TypyTerenu.Drzewo) {
                 return "forestC";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainC";
             } else {
                 return "riverWE";
             }
@@ -150,6 +174,8 @@ public final class Mapa implements Serializable {
         }
         if (tT == TypyTerenu.Drzewo) {
             return "forestC";
+        } else if (tT == TypyTerenu.Gory) {
+            return "mountainC";
         } else {
             return "riverNS";
         }
@@ -163,6 +189,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x - 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNSWE";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNSWE";
             } else {
                 return "riverNS";
             }
@@ -172,6 +200,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x + 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNSE";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNSE";
             } else {
                 return "riverNS";
             }
@@ -181,6 +211,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x - 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNSW";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNSW";
             } else {
                 return "riverNS";
             }
@@ -190,6 +222,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x - 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNWE";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNWE";
             } else {
                 return "riverNS";
             }
@@ -199,6 +233,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x][y - 1].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestWES";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainWES";
             } else {
                 return "riverNS";
             }
@@ -207,6 +243,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x][y - 1].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNS";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNS";
             } else {
                 return "riverNS";
             }
@@ -215,6 +253,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x + 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNE";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNE";
             } else {
                 return "riverNE";
             }
@@ -223,6 +263,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x - 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestNW";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainNW";
             } else {
                 return "riverNW";
             }
@@ -231,6 +273,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x][y - 1].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestWS";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainWS";
             }
             return "riverWS";
             // EAST & SOUTH
@@ -238,6 +282,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x][y - 1].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestES";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainES";
             } else {
                 return "riverES";
             }
@@ -246,6 +292,8 @@ public final class Mapa implements Serializable {
                 && mapa.getPola()[x + 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestWE";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainWE";
             } else {
                 return "riverWE";
             }
@@ -253,6 +301,8 @@ public final class Mapa implements Serializable {
         } else if (mapa.getPola()[x][y + 1].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestN";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainN";
             } else {
                 return "riverNS";
             }
@@ -260,6 +310,8 @@ public final class Mapa implements Serializable {
         } else if (mapa.getPola()[x][y - 1].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestS";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainS";
             } else {
                 return "riverNS";
             }
@@ -267,6 +319,8 @@ public final class Mapa implements Serializable {
         } else if (mapa.getPola()[x - 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestW";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainW";
             } else {
                 return "riverNS";
             }
@@ -274,12 +328,16 @@ public final class Mapa implements Serializable {
         } else if (mapa.getPola()[x + 1][y].getTypTerenu() == tT) {
             if (tT == TypyTerenu.Drzewo) {
                 return "forestE";
+            } else if (tT == TypyTerenu.Gory) {
+                return "mountainE";
             } else {
                 return "riverNS";
             }
         }
         if (tT == TypyTerenu.Drzewo) {
             return "forestNSWE";
+        } else if (tT == TypyTerenu.Gory) {
+            return "mountainC";
         } else {
             return "riverNS";
         }

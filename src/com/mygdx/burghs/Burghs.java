@@ -32,6 +32,10 @@ public class Burghs extends Game {
 
     @Override
     public void create() {
+   
+        
+      
+        
         a = new Assets();
         mainScreen = new Main(this, a, gs);
         newGameScreen = new NewGameScreen(this, this.a, this.gs);

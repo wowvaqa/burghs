@@ -649,6 +649,11 @@ public class MapScreen implements Screen {
                     //Image img = new Image(a.tAtals.findRegion("riverNS"));
                     img.setPosition(i * 100, j * 100);
                     teren.add(img);
+                } else if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory) {
+                    Image img = new Image(a.tAtals.findRegion(Mapa.getTextureRegion(i, j, gs.getMapa(), TypyTerenu.Gory)));
+                    //Image img = new Image(a.tAtals.findRegion("riverNS"));
+                    img.setPosition(i * 100, j * 100);
+                    teren.add(img);
                 } else {
                     //teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
                     //teren.add(new Image(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));

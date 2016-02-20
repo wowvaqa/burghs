@@ -22,6 +22,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Server;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.GameStatus;
@@ -34,6 +39,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import test.SomeRequest;
+import test.SomeResponse;
 
 /**
  *
@@ -52,13 +59,17 @@ public class TestingScreen implements Screen {
     private TextButton btnMapEditor;
     private TextButton btnExit;
     private TextButton btnSerylizacja;
-    private TextButton btnTexturePacker;
+    private TextButton btnServer;
+    private TextButton btnClient;
+    private TextButton btnGetConnections;
     private TextButton btnOdczytSerylizacji;
 
     private Table tabela = new Table();
     private final Assets a;
     private final Game g;
     private final GameStatus gs;
+    
+    Server server;
 
     Pixmap pm;
 
@@ -129,68 +140,162 @@ public class TestingScreen implements Screen {
                 g.setScreen(Assets.mapEditor);
             }
         });
-        
-        btnTexturePacker = new TextButton("Texture Packer", a.skin);
-        btnTexturePacker.addListener(new ClickListener() {
+
+        btnServer = new TextButton("Run Server", a.skin);
+        btnServer.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("TexturePacker");
-                
-                
-                
+                System.out.println("Running server...");
+                server = new Server();
+
+                Kryo kryo = server.getKryo();
+                kryo.register(SomeRequest.class);
+                kryo.register(SomeResponse.class);
+
+                server.addListener(new Listener() {
+                    @Override
+                    public void received(Connection connection, Object object) {
+                        if (object instanceof SomeRequest) {
+                            SomeRequest request = (SomeRequest) object;
+                            System.out.println(request.text);
+
+                            SomeResponse response = new SomeResponse();
+                            response.text = "Thanks";
+                            connection.sendTCP(response);
+                        }
+                    }
+                });
+
+                server.start();
+
+                try {
+                    server.bind(54556, 54777);
+                } catch (IOException ex) {
+                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        );
+
+        btnClient = new TextButton("Run Client", a.skin);
+
+        btnClient.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        System.out.println("Running client...");
+                        final Client client = new Client();
+
+//                        Kryo kryo = client.getKryo();
+//                        kryo.register(SomeRequest.class);
+//                        kryo.register(SomeResponse.class);
+//                        client.addListener(new Listener() {
+//                            @Override
+//                            public void received(Connection connection, Object object) {
+//                                if (object instanceof SomeResponse) {
+//                                    SomeResponse response = (SomeResponse) object;
+//                                    System.out.println(response.text);
+//                                }
+//                            }
+//                        });
+                        //new Thread(client).start();
+                        client.start();
+
+//                        new Thread() {
+//                            public void run() {
+//                                //Log.w("here", "yeah");
+//                                try {
+//                                    //client.connect(50000, "10.0.2.2", 54557, 54777);
+//                                    client.connect(5000, "192.168.1.100", 54556, 54777);// 10.0.2.2 is addres for connecting localhost from emulator.
+//                                } catch (IOException e) {
+//                                  //  Log.w("expection", e);
+//
+//                                }
+//                            }
+//                        }.start();
+
+                        try {
+                            client.connect(5000, "192.168.1.100", 54556, 54777);
+                        } catch (IOException ex) {
+                            Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+                }
+        );
+        
+        btnGetConnections = new TextButton("Get Connections", a.skin);
+        btnGetConnections.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println(server.getConnections().length);
             }
         });
 
         btnExit = new TextButton("EXIT", a.skin);
-        btnExit.setPosition(1, 1);
-        btnExit.setSize(200, 100);
-        btnExit.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                g.setScreen(Assets.mainMenuScreen);
-            }
-        });
+
+        btnExit.setPosition(
+                1, 1);
+        btnExit.setSize(
+                200, 100);
+        btnExit.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y
+                    ) {
+                        g.setScreen(Assets.mainMenuScreen);
+                    }
+                }
+        );
 
         btnSerylizacja = new TextButton("Serylizacja", a.skin);
-        btnSerylizacja.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Mapa mapa = new Mapa();
 
-                try {
-                    ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("d:\\mapa.dat"));
-                    wy.writeObject(mapa);
-                    System.out.println("serylizacja obiektu");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+        btnSerylizacja.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y
+                    ) {
+                        Mapa mapa = new Mapa();
+
+                        try {
+                            ObjectOutputStream wy = new ObjectOutputStream(new FileOutputStream("d:\\mapa.dat"));
+                            wy.writeObject(mapa);
+                            System.out.println("serylizacja obiektu");
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
-            }
-        });
+        );
 
         btnOdczytSerylizacji = new TextButton("Odczyt Serylizacji", a.skin);
-        btnOdczytSerylizacji.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Mapa mapa = null;
 
-                try {
-                    ObjectInputStream we = new ObjectInputStream(new FileInputStream("d:\\mapa.dat"));
-                    mapa = (Mapa) we.readObject();
-                    System.out.println("odczyt obiektu");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+        btnOdczytSerylizacji.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y
+                    ) {
+                        Mapa mapa = null;
+
+                        try {
+                            ObjectInputStream we = new ObjectInputStream(new FileInputStream("d:\\mapa.dat"));
+                            mapa = (Mapa) we.readObject();
+                            System.out.println("odczyt obiektu");
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(TestingScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        System.out.println(mapa.getIloscPolX() + " " + mapa.getIloscPolY());
+                    }
+
                 }
-
-                System.out.println(mapa.getIloscPolX() + " " + mapa.getIloscPolY());
-            }
-
-        });
+        );
 
     }
 
@@ -205,7 +310,11 @@ public class TestingScreen implements Screen {
         tabela.row();
         tabela.add(btnMapEditor);
         tabela.row();
-        tabela.add(btnTexturePacker);
+        tabela.add(btnServer);
+        tabela.row();
+        tabela.add(btnClient);
+        tabela.row();
+        tabela.add(btnGetConnections);
         tabela.row();
         tabela.add(btnExit).width(200).height(50).space(300);
 
@@ -308,4 +417,14 @@ public class TestingScreen implements Screen {
             }
         }
     }
+
+//    public class SomeRequest {
+//
+//        public String text;
+//    }
+//
+//    public class SomeResponse {
+//
+//        public String text;
+//    }
 }

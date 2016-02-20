@@ -127,6 +127,7 @@ public class NewGameScreen implements Screen {
         });
         tabela01.add(btnAnuluj).align(Align.left);
 
+        
         // Przycisk Zakończ
         TextButton btnExit = new TextButton("ZAKONCZ", a.skin);
         btnExit.addListener(new ClickListener() {

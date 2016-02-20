@@ -8,7 +8,7 @@ import enums.DostepneItemki;
  * @author v
  */
 public class Effect {
-
+    
     private int dlugoscTrwaniaEfektu = 0;
 
     private int efektAtak = 0;

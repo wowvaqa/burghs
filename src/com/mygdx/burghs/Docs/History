@@ -18,6 +18,9 @@ DONE    2. Naprawić bug. z restartem szybkości Moba w tej samej turze.
 DONE    3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
 DONE    4. Dodać okienko informacyjne z działaniem efektu.
 
+version 0.0041 20022016
+DONE    1. Dodano łączenie się terenu góry.
+
 version 0.0040 15022016
 DONE    1. Dodano Nowy Teren: Rzekę.
 DONE    2. Dodano łączenie się terenu rzeki.
