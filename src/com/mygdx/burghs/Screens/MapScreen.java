@@ -216,6 +216,7 @@ public class MapScreen implements Screen {
                      */
                     i.getSzybkoscEfekt());
             i.aktualizujDzialanieEfektow();
+            i.czyscEfektyTymczasowe();
 
             i.setActualMana(i.getActualMana() + i.getManaRegeneration());
             if (i.getActualMana() > i.getMana()) {
@@ -528,27 +529,37 @@ public class MapScreen implements Screen {
 
     // Gneruje graczy w konstruktorze klasy i dodaje ich do planszy 01
     private void generujGraczy() {
-//        for (int i = 0; i < gs.getGracze().size(); i++) {
-//            stage01.addActor(gs.getGracze().get(i).getBohaterowie().get(0));
-//        }
 
         for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
             for (int j = 0; j < gs.getMapa().getIloscPolX(); j++) {
 
                 if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP1()) {
+
+                    gs.getMapa().getPola()[i][j].setCastle(new Castle(a, i * 100, j * 100, 0));
+                    stage01.addActor(gs.getMapa().getPola()[i][j].getCastle());
+
                     gs.getGracze().get(0).getBohaterowie().get(0).setPozXnaMapie(i);
                     gs.getGracze().get(0).getBohaterowie().get(0).setPozYnaMapie(j);
                     gs.getGracze().get(0).getBohaterowie().get(0).setPosition(i * 100, j * 100);
                     stage01.addActor(gs.getGracze().get(0).getBohaterowie().get(0));
                 }
                 if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP2()) {
+
+                    gs.getMapa().getPola()[i][j].setCastle(new Castle(a, i * 100, j * 100, 1));
+                    stage01.addActor(gs.getMapa().getPola()[i][j].getCastle());
+
                     gs.getGracze().get(1).getBohaterowie().get(0).setPozXnaMapie(i);
                     gs.getGracze().get(1).getBohaterowie().get(0).setPozYnaMapie(j);
                     gs.getGracze().get(1).getBohaterowie().get(0).setPosition(i * 100, j * 100);
                     stage01.addActor(gs.getGracze().get(1).getBohaterowie().get(0));
                 }
                 if (gs.getGracze().size() == 3 || gs.getGracze().size() == 4) {
+
                     if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP3()) {
+
+                        gs.getMapa().getPola()[i][j].setCastle(new Castle(a, i * 100, j * 100, 2));
+                        stage01.addActor(gs.getMapa().getPola()[i][j].getCastle());
+
                         gs.getGracze().get(2).getBohaterowie().get(0).setPozXnaMapie(i);
                         gs.getGracze().get(2).getBohaterowie().get(0).setPozYnaMapie(j);
                         gs.getGracze().get(2).getBohaterowie().get(0).setPosition(i * 100, j * 100);
@@ -557,11 +568,52 @@ public class MapScreen implements Screen {
                 }
                 if (gs.getGracze().size() == 4) {
                     if (gs.getMapa().getPola()[i][j].isLokacjaStartowaP4()) {
+
+                        gs.getMapa().getPola()[i][j].setCastle(new Castle(a, i * 100, j * 100, 3));
+                        stage01.addActor(gs.getMapa().getPola()[i][j].getCastle());
+
                         gs.getGracze().get(3).getBohaterowie().get(0).setPozXnaMapie(i);
                         gs.getGracze().get(3).getBohaterowie().get(0).setPozYnaMapie(j);
                         gs.getGracze().get(3).getBohaterowie().get(0).setPosition(i * 100, j * 100);
                         stage01.addActor(gs.getGracze().get(3).getBohaterowie().get(0));
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * Generuje skrzynie ze skarbami.
+     */
+    private void tresureBoxGenerator() {
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolX(); j++) {
+
+                if (gs.getMapa().getPola()[i][j].isTresureBox1Location()) {
+                    TresureBox tb = new TresureBox(1, 2, this.a, this.gs, this.g, i * 100, j * 100);
+                    gs.getMapa().getPola()[i][j].setTresureBox(tb);
+                    stage01.addActor(gs.getMapa().getPola()[i][j].getTresureBox());
+                } else if (gs.getMapa().getPola()[i][j].isTresureBox2Location()) {
+                    TresureBox tb = new TresureBox(2, 1, this.a, this.gs, this.g, i * 100, j * 100);
+                    gs.getMapa().getPola()[i][j].setTresureBox(tb);
+                    stage01.addActor(gs.getMapa().getPola()[i][j].getTresureBox());
+                }
+            }
+        }
+    }
+
+    /**
+     * Generuje moby na mapie.
+     */
+    private void mobsGenerator() {
+        for (int i = 0; i < gs.getMapa().getIloscPolX(); i++) {
+            for (int j = 0; j < gs.getMapa().getIloscPolX(); j++) {
+
+                if (gs.getMapa().getPola()[i][j].isMob1Location()) {
+
+                    Mob mob = new Mob(g, gs, a, i * 100, j * 100, 1, Mob.losujMoba(1));
+                    gs.getMapa().getPola()[i][j].setMob(mob);
+                    stage01.addActor(gs.getMapa().getPola()[i][j].getMob());
                 }
             }
         }
@@ -588,48 +640,11 @@ public class MapScreen implements Screen {
      * @param pozXstage
      * @param pozYstage
      */
-    public void generujSkrzynieZeSkarbem(int poziom, int iloscItemow, int pozXstage, int pozYstage) {
-        TresureBox tb = new TresureBox(poziom, iloscItemow, this.a, this.gs, this.g, pozXstage, pozYstage);
-        gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].setTresureBox(tb);
-        stage01.addActor(gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].getTresureBox());
-    }
-
-    private String getTextureRegion(TypyTerenu tt, int x, int y) {
-
-        //Pole pole;
-        switch (tt) {
-
-            case Rzeka:
-
-                if (y == gs.getMapa().getIloscPolY()) {
-                    return "riverNS";
-                } else if (x == gs.getMapa().getIloscPolX()) {
-                    return "riverNS";
-                } else if (sprawdzGraniceMapyY(y + 1) && sprawdzGraniceMapyY(y - 1)) {
-                    if (gs.getMapa().getPola()[x][y + 1].getTypTerenu() == tt
-                            && gs.getMapa().getPola()[x][y - 1].getTypTerenu() == tt) {
-                        return "riverNS";
-                    }
-                } else if (sprawdzGraniceMapyX(x + 1) && sprawdzGraniceMapyX(x - 1)) {
-                    if (gs.getMapa().getPola()[x - 1][y].getTypTerenu() == tt
-                            && gs.getMapa().getPola()[x + 1][y].getTypTerenu() == tt) {
-                        return "riverWE";
-                    }
-                }
-
-        }
-
-        return "riverNS";
-    }
-
-    private boolean sprawdzGraniceMapyX(int x) {
-        return !(x > gs.getMapa().getIloscPolX() - 1 || x < 0);
-    }
-
-    private boolean sprawdzGraniceMapyY(int y) {
-        return !(y > gs.getMapa().getIloscPolY() - 1 || y < 0);
-    }
-
+//    public void generujSkrzynieZeSkarbem(int poziom, int iloscItemow, int pozXstage, int pozYstage) {
+//        TresureBox tb = new TresureBox(poziom, iloscItemow, this.a, this.gs, this.g, pozXstage, pozYstage);
+//        gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].setTresureBox(tb);
+//        stage01.addActor(gs.getMapa().getPola()[pozXstage / 100][pozYstage / 100].getTresureBox());
+//    }
     // wypełnia stage01 aktorami planszy 
     private void generujPlansze() {
 
@@ -638,25 +653,19 @@ public class MapScreen implements Screen {
                 if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory) {
                     gs.getMapa().getPola()[i][j].setMovable(false);
                 }
-
                 if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Rzeka) {
                     Image img = new Image(a.tAtals.findRegion(Mapa.getTextureRegion(i, j, gs.getMapa(), TypyTerenu.Rzeka)));
-                    //Image img = new Image(a.tAtals.findRegion("riverNS"));
                     img.setPosition(i * 100, j * 100);
                     teren.add(img);
                 } else if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Drzewo) {
                     Image img = new Image(a.tAtals.findRegion(Mapa.getTextureRegion(i, j, gs.getMapa(), TypyTerenu.Drzewo)));
-                    //Image img = new Image(a.tAtals.findRegion("riverNS"));
                     img.setPosition(i * 100, j * 100);
                     teren.add(img);
                 } else if (gs.getMapa().getPola()[i][j].getTypTerenu() == TypyTerenu.Gory) {
                     Image img = new Image(a.tAtals.findRegion(Mapa.getTextureRegion(i, j, gs.getMapa(), TypyTerenu.Gory)));
-                    //Image img = new Image(a.tAtals.findRegion("riverNS"));
                     img.setPosition(i * 100, j * 100);
                     teren.add(img);
                 } else {
-                    //teren.add(new DefaultActor(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
-                    //teren.add(new Image(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()), i * 100, j * 100));
                     Image img = new Image(teksturaTerenu(gs.getMapa().getPola()[i][j].getTypTerenu()));
                     img.setPosition(i * 100, j * 100);
                     teren.add(img);
@@ -664,101 +673,97 @@ public class MapScreen implements Screen {
             }
         }
 
-//        for (DefaultActor teren1 : teren) {
-//            stage01.addActor(teren1);
-//        }
-        //NOWY KOD
         for (Image teren1 : teren) {
             stage01.addActor(teren1);
         }
 
+        this.tresureBoxGenerator();
+        this.mobsGenerator();
+
         //KONIEC NOWY KOD
         // Tworzy nową skrzynie ze skarbem i wrzuca jej referencje do stage 01
         // oraz do obiektu mapy w obiekt pole.
-        TresureBox tb = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 200);
-        gs.getMapa().getPola()[2][2].setTresureBox(tb);
-        stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
-
-        TresureBox tb2 = new TresureBox(1, 2, this.a, this.gs, this.g, 700, 700);
-        gs.getMapa().getPola()[7][7].setTresureBox(tb2);
-        stage01.addActor(gs.getMapa().getPola()[7][7].getTresureBox());
-
-        TresureBox tb3 = new TresureBox(1, 2, this.a, this.gs, this.g, 700, 200);
-        gs.getMapa().getPola()[7][2].setTresureBox(tb3);
-        stage01.addActor(gs.getMapa().getPola()[7][2].getTresureBox());
-
-        TresureBox tb4 = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 700);
-        gs.getMapa().getPola()[2][7].setTresureBox(tb4);
-        stage01.addActor(gs.getMapa().getPola()[2][7].getTresureBox());
-
+//        TresureBox tb = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 200);
+//        gs.getMapa().getPola()[2][2].setTresureBox(tb);
+//        stage01.addActor(gs.getMapa().getPola()[2][2].getTresureBox());
+//
+//        TresureBox tb2 = new TresureBox(1, 2, this.a, this.gs, this.g, 700, 700);
+//        gs.getMapa().getPola()[7][7].setTresureBox(tb2);
+//        stage01.addActor(gs.getMapa().getPola()[7][7].getTresureBox());
+//
+//        TresureBox tb3 = new TresureBox(1, 2, this.a, this.gs, this.g, 700, 200);
+//        gs.getMapa().getPola()[7][2].setTresureBox(tb3);
+//        stage01.addActor(gs.getMapa().getPola()[7][2].getTresureBox());
+//
+//        TresureBox tb4 = new TresureBox(1, 2, this.a, this.gs, this.g, 200, 700);
+//        gs.getMapa().getPola()[2][7].setTresureBox(tb4);
+//        stage01.addActor(gs.getMapa().getPola()[2][7].getTresureBox());
         // Tymczasowa obiekt moba
-        Mob mob = new Mob(a.texWilkMob, g, gs, a, 300, 0, 1);
-        gs.getMapa().getPola()[3][0].setMob(mob);
-        stage01.addActor(gs.getMapa().getPola()[3][0].getMob());
-
-        Mob mob2 = new Mob(a.texSzkieletMob, g, gs, a, 0, 300, 1);
-        gs.getMapa().getPola()[0][3].setMob(mob2);
-        stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
-
-        // Tymczasowa obiekt moba
-        Mob mob3 = new Mob(a.texWilkMob, g, gs, a, 600, 900, 1);
-        gs.getMapa().getPola()[6][9].setMob(mob3);
-        stage01.addActor(gs.getMapa().getPola()[6][9].getMob());
-
-        Mob mob4 = new Mob(a.texSzkieletMob, g, gs, a, 900, 600, 1);
-        gs.getMapa().getPola()[9][6].setMob(mob4);
-        stage01.addActor(gs.getMapa().getPola()[9][6].getMob());
-
-        Mob mob5 = new Mob(a.texWilkMob, g, gs, a, 300, 900, 1);
-        gs.getMapa().getPola()[3][9].setMob(mob5);
-        stage01.addActor(gs.getMapa().getPola()[3][9].getMob());
-
-        Mob mob6 = new Mob(a.texSzkieletMob, g, gs, a, 0, 600, 1);
-        gs.getMapa().getPola()[0][6].setMob(mob6);
-        stage01.addActor(gs.getMapa().getPola()[0][6].getMob());
-
-        Mob mob7 = new Mob(a.texWilkMob, g, gs, a, 600, 0, 1);
-        gs.getMapa().getPola()[6][0].setMob(mob7);
-        stage01.addActor(gs.getMapa().getPola()[6][0].getMob());
-
-        Mob mob8 = new Mob(a.texSzkieletMob, g, gs, a, 900, 300, 1);
-        gs.getMapa().getPola()[9][3].setMob(mob8);
-        stage01.addActor(gs.getMapa().getPola()[9][3].getMob());
-
+//        Mob mob = new Mob(a.texWilkMob, g, gs, a, 300, 0, 1);
+//        gs.getMapa().getPola()[3][0].setMob(mob);
+//        stage01.addActor(gs.getMapa().getPola()[3][0].getMob());
+//
+//        Mob mob2 = new Mob(a.texSzkieletMob, g, gs, a, 0, 300, 1);
+//        gs.getMapa().getPola()[0][3].setMob(mob2);
+//        stage01.addActor(gs.getMapa().getPola()[0][3].getMob());
+//
+//        // Tymczasowa obiekt moba
+//        Mob mob3 = new Mob(a.texWilkMob, g, gs, a, 600, 900, 1);
+//        gs.getMapa().getPola()[6][9].setMob(mob3);
+//        stage01.addActor(gs.getMapa().getPola()[6][9].getMob());
+//
+//        Mob mob4 = new Mob(a.texSzkieletMob, g, gs, a, 900, 600, 1);
+//        gs.getMapa().getPola()[9][6].setMob(mob4);
+//        stage01.addActor(gs.getMapa().getPola()[9][6].getMob());
+//
+//        Mob mob5 = new Mob(a.texWilkMob, g, gs, a, 300, 900, 1);
+//        gs.getMapa().getPola()[3][9].setMob(mob5);
+//        stage01.addActor(gs.getMapa().getPola()[3][9].getMob());
+//
+//        Mob mob6 = new Mob(a.texSzkieletMob, g, gs, a, 0, 600, 1);
+//        gs.getMapa().getPola()[0][6].setMob(mob6);
+//        stage01.addActor(gs.getMapa().getPola()[0][6].getMob());
+//
+//        Mob mob7 = new Mob(a.texWilkMob, g, gs, a, 600, 0, 1);
+//        gs.getMapa().getPola()[6][0].setMob(mob7);
+//        stage01.addActor(gs.getMapa().getPola()[6][0].getMob());
+//
+//        Mob mob8 = new Mob(a.texSzkieletMob, g, gs, a, 900, 300, 1);
+//        gs.getMapa().getPola()[9][3].setMob(mob8);
+//        stage01.addActor(gs.getMapa().getPola()[9][3].getMob());
         // W zależności od iloścy gracz utworzone zostaja odpowiednie ilości 
         // zamków
-        switch (gs.iloscGraczy) {
-            // generuje zamek dla 2 graczy
-            case 2:
-                generujZamki();
-                break;
-            // generuje zamek dla 3 graczy
-            case 3:
-                generujZamki();
-                gs.getMapa().getPola()[0][9].setCastle(new Castle(a, 0, 900, 2));
-                stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
-                break;
-            // generuje zamek dla 4 graczy
-            case 4:
-                generujZamki();
-                gs.getMapa().getPola()[0][9].setCastle(new Castle(a, 0, 900, 2));
-                stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
-
-                gs.getMapa().getPola()[9][0].setCastle(new Castle(a, 900, 0, 3));
-                stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
-                break;
-        }
+//        switch (gs.iloscGraczy) {
+//            // generuje zamek dla 2 graczy
+//            case 2:
+//                generujZamki();
+//                break;
+//            // generuje zamek dla 3 graczy
+//            case 3:
+//                generujZamki();
+//                gs.getMapa().getPola()[0][9].setCastle(new Castle(a, 0, 900, 2));
+//                stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
+//                break;
+//            // generuje zamek dla 4 graczy
+//            case 4:
+//                generujZamki();
+//                gs.getMapa().getPola()[0][9].setCastle(new Castle(a, 0, 900, 2));
+//                stage01.addActor(gs.getMapa().getPola()[0][9].getCastle());
+//
+//                gs.getMapa().getPola()[9][0].setCastle(new Castle(a, 900, 0, 3));
+//                stage01.addActor(gs.getMapa().getPola()[9][0].getCastle());
+//                break;
+//        }
     }
 
     // generuje zamki 2 dwóch podstawowych graczy
-    private void generujZamki() {
-        gs.getMapa().getPola()[0][0].setCastle(new Castle(a, 0, 0, 0));
-        stage01.addActor(gs.getMapa().getPola()[0][0].getCastle());
-
-        gs.getMapa().getPola()[9][9].setCastle(new Castle(a, 900, 900, 1));
-        stage01.addActor(gs.getMapa().getPola()[9][9].getCastle());
-    }
-
+//    private void generujZamki() {
+//        gs.getMapa().getPola()[0][0].setCastle(new Castle(a, 0, 0, 0));
+//        stage01.addActor(gs.getMapa().getPola()[0][0].getCastle());
+//
+//        gs.getMapa().getPola()[9][9].setCastle(new Castle(a, 900, 900, 1));
+//        stage01.addActor(gs.getMapa().getPola()[9][9].getCastle());
+//    }
     @Override
     public void render(float delta) {
 

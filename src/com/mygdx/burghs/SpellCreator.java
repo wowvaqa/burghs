@@ -5,6 +5,7 @@
  */
 package com.mygdx.burghs;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.burghs.Screens.DialogScreen;
@@ -156,19 +157,38 @@ public class SpellCreator {
                 break;
 
             case Fury:
-                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.setSpellWorksOnlyForCaster(true);
                 spell.getSprite().setTexture(a.texSpellFury);
-                spell.setKoszt(2);
+                spell.setKoszt(1);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
+                spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellFury, 0, 0));
+                spell.getSpellEffects().get(0).setOpis("Kazdy udany atak zwiększa atak bohatera +2 redukując obronę -1.");
+                spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Furia", a.skin, "Kazdy udany atak zwiększa atak bohatera +2 redukując obronę -1.", Assets.stage01MapScreen);
+                    }
+                });
                 spell.setRodzajCzaru(spells);
                 break;
+
             case FinalJudgment:
-                spell.setSpellWorksOnlyForPlayersHeroes(true);
+                spell.setSpellWorksOnlyForCaster(true);
                 spell.getSprite().setTexture(a.texSpellFinalJudgment);
-                spell.setKoszt(2);
+                spell.setKoszt(1);
                 spell.setSpellEffects(new ArrayList<SpellEffects>());
                 spell.getSpellEffects().add(new SpellEffects());
+
+                spell.getSpellEffects().get(0).setIkona(new EffectActor(a.texSpellFinalJudgment, 0, 0));
+                spell.getSpellEffects().get(0).setOpis("Kazdy udany atak zmniejsza Obronę przeciwnika -2 i zwiększa Atak +1.");
+                spell.getSpellEffects().get(0).getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Final Judgment", a.skin, "Kazdy udany atak zmniejsza Obronę przeciwnika -2 i zwiększa Atak +1.", Assets.stage01MapScreen);
+                    }
+                });
+
                 spell.setRodzajCzaru(spells);
                 break;
         }
@@ -176,5 +196,63 @@ public class SpellCreator {
         spell.setSize(50, 50);
 
         return spell;
+    }
+
+    /**
+     * Zwraca teksture zadanego parametrem zaklęcia
+     *
+     * @param spellKind Enum Spells
+     * @return Tekstura
+     */
+    public Texture getSpellTexture(Spells spellKind) {
+        switch (spellKind) {
+            case Fury:
+                return a.texSpellFury;
+            case Charge:
+                return a.texSpellCharge;
+            case Discouragement:
+                return a.texSpellDiscouragement;
+            case Cure:
+                return a.texSpellCure;
+            case FinalJudgment:
+                return a.texSpellFinalJudgment;
+            case FireBall:
+                return a.texSpellFireBall;
+            case Frozen:
+                return a.texSpellFreez;
+            case Haste:
+                return a.texSpellHaste;
+            case Rage:
+                return a.texSpellRage;
+            case SongOfGlory:
+                return a.texSpellSongOfGlory;
+        }
+        return a.texStick;
+    }
+
+    public String getSpellDescription(Spells spellKind) {
+        switch (spellKind) {
+            case Fury:
+                return "Kazdy udany atak zwiększa atak bohatera +2 redukując obronę -1.";
+            case Charge:
+                return "Kazdy udany atak zadaje dodatkowo +1 do obrazen.";
+            case Discouragement:
+                return "Zmniejsza obrone przeciwnika -1 za kazdy udany atak";
+            case Cure:
+                return "Leczenie";
+            case FinalJudgment:
+                return "Kazdy udany atak zmniejsza Obronę przeciwnika -2 i zwiększa Atak +1.";
+            case FireBall:
+                return "Fireball";
+            case Frozen:
+                return "Frozen";
+            case Haste:
+                return "Haste";
+            case Rage:
+                return "Zwiększenie ataku +1 do końca tury";
+            case SongOfGlory:
+                return "Song of Glory";
+        }
+        return "Brak opisu";
     }
 }

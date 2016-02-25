@@ -195,9 +195,37 @@ public class SpellEffects {
                 break;
 
             case Fury:
+                System.out.println("Czar FURY");
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    this.fightEffect = true;
+                    this.fightEffects = FightEffects.FuryEffect;
+                    this.dlugoscTrwaniaEfektu = bohaterCastujacy.getMoc();
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    bohaterCastujacy.getSpellEffects().add(this);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
                 break;
 
             case FinalJudgment:
+                System.out.println("Czar FinalJudgment");
+                if (spell.getKoszt() <= bohaterCastujacy.getActualMana()) {
+                    this.fightEffect = true;
+                    this.fightEffects = FightEffects.FinalJudgeEffect;
+                    this.dlugoscTrwaniaEfektu = bohaterCastujacy.getMoc();
+                    bohaterCastujacy.setActualMana(bohaterCastujacy.getActualMana() - spell.getKoszt());
+                    bohaterCastujacy.getSpellEffects().add(this);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.GoodSpellAnimation));
+                    animActor.setPosition(bohaterCastujacy.getX(), bohaterCastujacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+                } else {
+                    System.out.println("Za mało MANY");
+                }
+                bohaterCastujacy.getSpells().clear();
                 break;
         }
     }
@@ -230,6 +258,7 @@ public class SpellEffects {
                     }
                 });
                 if (obiektBroniacy.getClass() == Bohater.class) {
+                    System.out.println("Dodanie efektu DISCOURAGEMENT do Bohatera.");
                     Bohater tmpBohaterBroniacy;
                     tmpBohaterBroniacy = (Bohater) obiektBroniacy;
                     tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects);
@@ -238,7 +267,7 @@ public class SpellEffects {
                     Assets.stage01MapScreen.addActor(animActor);
 
                 } else if (obiektBroniacy.getClass() == Mob.class) {
-                    System.out.println("Dodanie efektu do Moba.");
+                    System.out.println("Dodanie efektu DISCOURAGEMENT do Moba.");
                     Mob tmpBohaterBroniacy;
                     tmpBohaterBroniacy = (Mob) obiektBroniacy;
                     tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects);
@@ -250,8 +279,55 @@ public class SpellEffects {
                 break;
 
             case ChargeEffect:
-                System.out.println("Zwiększenie obrażeń o 1 --------------------");
-                tmpBohaterAtakujacy.getTempEffects().get(0).setEfektDmg(1);
+                System.out.println("Charge Effect: Zwiększenie obrażeń o 1 za każdy udany atak");
+                tmpBohaterAtakujacy.getTempEffects().get(0).setEfektDmg(tmpBohaterAtakujacy.getTempEffects().get(0).getEfektDmg() + 1);
+                break;
+
+            case FuryEffect:
+                System.out.println("Fury Effect: Atak +2, Obrona -1 za każdy udany atak do końca tury ");
+                tmpBohaterAtakujacy.getTempEffects().get(0).setEfektAtak(
+                        tmpBohaterAtakujacy.getTempEffects().get(0).getEfektAtak() + 2);
+                tmpBohaterAtakujacy.getTempEffects().get(0).setEfektObrona(
+                        tmpBohaterAtakujacy.getTempEffects().get(0).getEfektObrona() - 1);
+                break;
+
+            case FinalJudgeEffect:
+                System.out.println("Final Judge Effect: Obrona przeciwnika -2, Atak + 1 za każdy udany atak do końca tury ");
+
+                SpellEffects tmpSpellEffects2 = new SpellEffects();
+                tmpSpellEffects2.efektObrona = -2;
+                tmpSpellEffects2.dlugoscTrwaniaEfektu = tmpBohaterAtakujacy.getMoc();
+                EffectActor tmpEffectActor2 = new EffectActor(tmpAssets.texSpellFinalJudgment, 0, 0);
+                tmpSpellEffects2.setIkona(tmpEffectActor2);
+                tmpSpellEffects2.getIkona().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        DialogScreen dialogScreen = new DialogScreen("Sad Ostateczny", tmpAssets.skin, "Obrona zmniejszona o 2", Assets.stage01MapScreen);
+                    }
+                });
+                if (obiektBroniacy.getClass() == Bohater.class) {
+                    System.out.println("Dodanie efektu FINAL JUDGE do Bohatera Broniącego.");
+                    Bohater tmpBohaterBroniacy;
+                    tmpBohaterBroniacy = (Bohater) obiektBroniacy;
+                    tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects2);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.BadSpellAnimation));
+                    animActor.setPosition(tmpBohaterBroniacy.getX(), tmpBohaterBroniacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+
+                } else if (obiektBroniacy.getClass() == Mob.class) {
+                    System.out.println("Dodanie efektu FINAL JUDGE do Moba.");
+                    Mob tmpBohaterBroniacy;
+                    tmpBohaterBroniacy = (Mob) obiektBroniacy;
+                    tmpBohaterBroniacy.getSpellEffects().add(tmpSpellEffects2);
+                    AnimActor animActor = new AnimActor(new AnimationCreator().makeAniamtion(AnimsTypes.BadSpellAnimation));
+                    animActor.setPosition(tmpBohaterBroniacy.getX(), tmpBohaterBroniacy.getY());
+                    Assets.stage01MapScreen.addActor(animActor);
+                }
+
+                System.out.println("Final Judge Effect: Atak +1 za każdy udany atak do końca tury ");
+                tmpBohaterAtakujacy.getTempEffects().get(0).setEfektAtak(
+                        tmpBohaterAtakujacy.getTempEffects().get(0).getEfektAtak() + 1);
+
                 break;
         }
     }

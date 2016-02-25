@@ -335,7 +335,7 @@ public final class Mapa implements Serializable {
             }
         }
         if (tT == TypyTerenu.Drzewo) {
-            return "forestNSWE";
+            return "forestC";
         } else if (tT == TypyTerenu.Gory) {
             return "mountainC";
         } else {

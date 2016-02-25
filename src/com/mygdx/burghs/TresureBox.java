@@ -124,6 +124,10 @@ public class TresureBox extends Actor {
      * Losuje dowolny item poziomu 2.
      */
     private DostepneItemki losujDowolnyItemLevel2() {
-        return null;
+        Random rnd = new Random();
+        int indeks = rnd.nextInt(GameStatus.itemyPoziom2.size());
+        //System.out.println("Wylosowano indeks: " + indeks);
+
+        return GameStatus.itemyPoziom2.get(indeks);
     }
 }

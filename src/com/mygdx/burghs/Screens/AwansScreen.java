@@ -186,21 +186,33 @@ public class AwansScreen implements Screen {
                 break;
         }
 
+        leftTable.add(new DefaultActor(a.texWarrior0, 0, 0)).pad(1).colspan(2);
+        leftTable.row();
         leftTable.add(lblPoziom1).pad(5).colspan(2);
+        leftTable.row();
+        leftTable.add(new DefaultActor(a.texWarrior1, 0, 0)).pad(1).colspan(2);
         leftTable.row();
         leftTable.add(lblPoziom2).pad(5).colspan(2);
         leftTable.row();
         leftTable.add(btnPoziom2).pad(5).colspan(2);
         leftTable.row();
+        leftTable.add(new DefaultActor(a.texWarrior1, 0, 0)).pad(1).colspan(2);
+        leftTable.add(new DefaultActor(a.texWarrior1, 0, 0)).pad(1).colspan(2);
+        leftTable.row();
         leftTable.add(lblPoziom3A).pad(5);
         leftTable.add(lblPoziom3B).pad(5);
         leftTable.row();
+        //leftTable.row();
         leftTable.add(btnPoziom3A).pad(5);
         leftTable.add(btnPoziom3B).pad(5);
+        leftTable.row();
+        leftTable.add(new DefaultActor(a.texWarrior1, 0, 0)).pad(1).colspan(2);
+        leftTable.add(new DefaultActor(a.texWarrior1, 0, 0)).pad(1).colspan(2);
         leftTable.row();
         leftTable.add(lblPoziom4A).pad(5);
         leftTable.add(lblPoziom4B).pad(5);
         leftTable.row();
+        //leftTable.row();
         leftTable.add(btnPoziom4A).pad(5);
         leftTable.add(btnPoziom4B).pad(5);
         leftTable.row();
@@ -325,7 +337,7 @@ public class AwansScreen implements Screen {
             rightTable.add(ikoneNowegoCzaru()).pad(2).colspan(10);
         }
         rightTable.row();
-        
+
         for (Spells listaCzarow : awans.listaCzarow) {
             rightTable.add(new Label(listaCzarow.toString(), a.skin)).pad(2).colspan(10);
         }
@@ -482,8 +494,8 @@ public class AwansScreen implements Screen {
         public void uzupelnijListyCzarow() {
 
             listaCzarow.clear();
-            
-            switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {                
+
+            switch (gs.getBohaterZaznaczony().getKlasyPostaci()) {
                 case Wojownik:
                     if (wybor2) {
                         listaCzarow.add(Spells.SongOfGlory);
@@ -517,7 +529,7 @@ public class AwansScreen implements Screen {
 
         public void zwiekszHp() {
             wyczyscTmpStats();
-            tmpHp += 1;
+            tmpHp += 2;
         }
 
         public void zwiekszMoc() {
@@ -561,8 +573,8 @@ public class AwansScreen implements Screen {
                     atrKlasowyObrona += 1;
                     return "Obrona + 1";
                 case Twierdza:
-                    atrKlasowyHp += 1;
-                    return "HP + 1";
+                    atrKlasowyHp += 4;
+                    return "HP + 4";
             }
             return null;
         }

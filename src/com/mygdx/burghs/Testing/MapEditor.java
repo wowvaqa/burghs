@@ -202,7 +202,7 @@ public class MapEditor implements Screen {
         }
 
         System.out.print(tabela01.getCells().size);
-        poleEdytora tmpPE = (poleEdytora)tabela01.getCells().get(99).getActor();
+        poleEdytora tmpPE = (poleEdytora) tabela01.getCells().get(99).getActor();
         tmpPE.getSprite().setTexture(a.mobDwarfTex);
 
 //        for (Object listaPol1 : listaPol) {
@@ -238,6 +238,11 @@ public class MapEditor implements Screen {
                 mapa.getPola()[i][j].setLokacjaStartowaP2(mapaPolEdycyjncyh[i][j].lokacjaStartowaP2);
                 mapa.getPola()[i][j].setLokacjaStartowaP3(mapaPolEdycyjncyh[i][j].lokacjaStartowaP3);
                 mapa.getPola()[i][j].setLokacjaStartowaP4(mapaPolEdycyjncyh[i][j].lokacjaStartowaP4);
+
+                mapa.getPola()[i][j].setTresureBox1Location(mapaPolEdycyjncyh[i][j].tresureBox1Location);
+                mapa.getPola()[i][j].setTresureBox2Location(mapaPolEdycyjncyh[i][j].tresureBox2Location);
+
+                mapa.getPola()[i][j].setMob1Location(mapaPolEdycyjncyh[i][j].mob1Location);
             }
         }
 
@@ -260,12 +265,12 @@ public class MapEditor implements Screen {
             }
         }
     }
-    
+
     /**
      * Przerysowuje tekstury
      */
-    public void redrawTextures(){
-        
+    public void redrawTextures() {
+
     }
 
     @Override
@@ -319,6 +324,13 @@ public class MapEditor implements Screen {
         public boolean lokacjaStartowaP3 = false;
         public boolean lokacjaStartowaP4 = false;
 
+        // Lokacje startowe Skrzyń ze skarbem
+        public boolean tresureBox1Location = false;
+        public boolean tresureBox2Location = false;
+
+        // Lokacje startowe mobów
+        public boolean mob1Location = false;
+
         /**
          * @param tekstura Tekstura pola
          * @param x Współżędna X
@@ -350,16 +362,10 @@ public class MapEditor implements Screen {
 
                     new Dialog("Edycja Pola", a.skin) {
                         {
-                            //text("X: " + wspX + " Y: " + wspY);
                             button("Lokacja Startowa", "ls");
-                            button("Las", "las");
-                            button("Gory", "gory");
-                            button("Trawa", "trawa");
-                            button("Rzeka", "rzeka");
-                            text("Obrona: ");
-                            this.row();
-                            text("HP: ");
-                            this.row();
+                            button("Teren", "teren");
+                            button("Moby", "mobs");
+                            button("Skrzynia", "skrzynia");
                             button("Zakoncz", "zakoncz");
                         }
 
@@ -373,45 +379,128 @@ public class MapEditor implements Screen {
                                         button("Player 2", "p2");
                                         button("Player 3", "p3");
                                         button("Player 4", "p4");
+                                        button("anuluj", "anuluj");
                                     }
 
                                     @Override
                                     protected void result(Object object) {
                                         if (object.equals("p1")) {
                                             lokacjaStartowaP1 = true;
+                                            getSprite().setTexture(a.mobWizardTex);
                                             this.remove();
                                         } else if (object.equals("p2")) {
                                             lokacjaStartowaP2 = true;
+                                            getSprite().setTexture(a.mobWizardTex);
                                             this.remove();
                                         } else if (object.equals("p3")) {
                                             lokacjaStartowaP3 = true;
+                                            getSprite().setTexture(a.mobWizardTex);
                                             this.remove();
                                         } else if (object.equals("p4")) {
                                             lokacjaStartowaP4 = true;
+                                            getSprite().setTexture(a.mobWizardTex);
+                                            this.remove();
+                                        } else if (object.equals("anuluj")) {
                                             this.remove();
                                         }
                                     }
                                 }.show(stage);
-                            }
+                                // --- SKRZYNIA ZE SKARBEM ---------------------
+                            } else if (object.equals("skrzynia")) {
+                                new Dialog("Lokacja Startowa skrzyni", a.skin) {
+                                    {
+                                        button("Lvl 1", "1");
+                                        button("Lvl 2", "2");
+                                        //button("Lvl 3", "3");
+                                        //button("Lvl 4", "4");
+                                        button("anuluj", "anuluj");
+                                    }
 
-                            if (object.equals("las")) {
-                                typTerenu = TypyTerenu.Drzewo;
-                                getSprite().setTexture(a.trawaDrzewoTex);
-                                //formatujTeabele02();
-                                this.remove();
-                            } else if (object.equals("gory")) {
-                                typTerenu = TypyTerenu.Gory;
-                                getSprite().setTexture(a.trawaGoraTex);
-                                this.remove();
-                            } else if (object.equals("trawa")) {
-                                typTerenu = TypyTerenu.Trawa;
-                                getSprite().setTexture(a.trawaTex);
-                                this.remove();
-                            } else if (object.equals("rzeka")){
-                                typTerenu = TypyTerenu.Rzeka;
-                                AtlasRegion region = a.tAtals.findRegion("riverES");
-                                getSprite().setTexture(region.getTexture());
-                                this.remove();
+                                    @Override
+                                    protected void result(Object object) {
+                                        if (object.equals("1")) {
+                                            tresureBox1Location = true;
+                                            getSprite().setTexture(a.texTresureBox);
+                                            this.remove();
+                                        } else if (object.equals("2")) {
+                                            tresureBox2Location = true;
+                                            getSprite().setTexture(a.texTresureBox);
+                                            this.remove();
+//                                        } else if (object.equals("3")) {
+//                                            this.remove();
+//                                        } else if (object.equals("4")) {
+//                                            this.remove();
+                                        } else if (object.equals("anuluj")) {
+                                            tresureBox1Location = false;
+                                            tresureBox2Location = false;
+                                            getSprite().setTexture(a.trawaTex);
+                                            this.remove();
+                                        }
+                                    }
+                                }.show(stage);
+                                // --- LOKACJA STARTOWA MOBÓW ------------------
+                            } else if (object.equals("mobs")) {
+                                new Dialog("Lokacja Startowa mobów", a.skin) {
+                                    {
+                                        button("Lvl 1", "1");
+                                        //button("Lvl 2", "2");
+                                        //button("Lvl 3", "3");
+                                        //button("Lvl 4", "4");
+                                        button("anuluj", "anuluj");
+                                    }
+
+                                    @Override
+                                    protected void result(Object object) {
+                                        if (object.equals("1")) {
+                                            mob1Location = true;
+                                            getSprite().setTexture(a.texSzkieletMob);
+                                            this.remove();
+//                                        } else if (object.equals("2")) {
+//                                            this.remove();
+//                                        } else if (object.equals("3")) {
+//                                            this.remove();
+//                                        } else if (object.equals("4")) {
+//                                            this.remove();
+                                        } else if (object.equals("anuluj")) {
+                                            mob1Location = false;
+                                            getSprite().setTexture(a.trawaTex);
+                                            this.remove();
+                                        }
+                                    }
+                                }.show(stage);
+                                // --- TEREN -----------------------------------
+                            } else if (object.equals("teren")) {
+                                new Dialog("Typy Terenu", a.skin) {
+                                    {
+                                        button("Las", "las");
+                                        button("Gory", "gory");
+                                        button("Trawa", "trawa");
+                                        button("Rzeka", "rzeka");
+                                    }
+
+                                    @Override
+                                    protected void result(Object object) {
+                                        if (object.equals("las")) {
+                                            typTerenu = TypyTerenu.Drzewo;
+                                            getSprite().setTexture(a.trawaDrzewoTex);
+                                            //formatujTeabele02();
+                                            this.remove();
+                                        } else if (object.equals("gory")) {
+                                            typTerenu = TypyTerenu.Gory;
+                                            getSprite().setTexture(a.trawaGoraTex);
+                                            this.remove();
+                                        } else if (object.equals("trawa")) {
+                                            typTerenu = TypyTerenu.Trawa;
+                                            getSprite().setTexture(a.trawaTex);
+                                            this.remove();
+                                        } else if (object.equals("rzeka")) {
+                                            typTerenu = TypyTerenu.Rzeka;
+                                            AtlasRegion region = a.tAtals.findRegion("riverES");
+                                            getSprite().setTexture(region.getTexture());
+                                            this.remove();
+                                        }
+                                    }
+                                }.show(stage);
                             } else if (object.equals("zakoncz")) {
                                 this.remove();
                             }

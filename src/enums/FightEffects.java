@@ -11,5 +11,7 @@ package enums;
  */
 public enum FightEffects {
     DiscouragementEffect,
-    ChargeEffect;
+    ChargeEffect,
+    FuryEffect,
+    FinalJudgeEffect;
 }

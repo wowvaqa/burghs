@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -16,11 +17,13 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.burghs.Assets;
 import com.mygdx.burghs.Bohater;
+import com.mygdx.burghs.DefaultActor;
 import com.mygdx.burghs.Effect;
 import com.mygdx.burghs.Fight;
 import com.mygdx.burghs.GameStatus;
 import com.mygdx.burghs.Gracz;
 import com.mygdx.burghs.Item;
+import com.mygdx.burghs.SpellCreator;
 import enums.CzesciCiala;
 import enums.TypItemu;
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ public class BohaterScreen implements Screen {
     // Tabela
     private final Table tabela = new Table();
     private final Table tabela2 = new Table();
+    private final Table tabela3 = new Table();
 
     public BohaterScreen(Game g, Assets a, GameStatus gs) {
         this.a = a;
@@ -101,12 +105,11 @@ public class BohaterScreen implements Screen {
         tabela.add(lblKlasaPostaci).align(Align.topLeft);
         tabela.row();
 
-        tabela.add(lblGlowa).align(Align.left);
-        tabela.add(sprawdzBohatera().getItemGlowa()).size(50, 50);
-        tabela.row();
-
         tabela.add(lblLewaReka).align(Align.left);
         tabela.add(sprawdzBohatera().getItemLewaReka()).size(50, 50);
+
+        tabela.add(lblGlowa).align(Align.left);
+        tabela.add(sprawdzBohatera().getItemGlowa()).size(50, 50);
 
         tabela.add(lblPrawaReka).align(Align.left);
         tabela.add(sprawdzBohatera().getItemPrawaReka()).size(50, 50);
@@ -117,13 +120,16 @@ public class BohaterScreen implements Screen {
 
         tabela.add(lblNogi).align(Align.left);
         tabela.add(sprawdzBohatera().getItemNogi()).size(50, 50);
-        tabela.row();
 
         tabela.add(lblStopy).align(Align.left);
         tabela.add(sprawdzBohatera().getItemStopy()).size(50, 50);
         tabela.row();
 
         tabela.add(tabela2).align(Align.topLeft).expand().colspan(tabela.getColumns());
+
+        tabela.row();
+
+        tabela.add(tabela3).align(Align.topLeft).expand().colspan(tabela.getColumns());
 
         tabela.row();
 
@@ -210,6 +216,47 @@ public class BohaterScreen implements Screen {
                 iloscPozycjiwWierszu = 0;
             }
         }
+    }
+
+    private void formatujTabela3() {
+        tabela3.pad(10);
+        tabela3.setDebug(false);
+
+        tabela3.add(new Label("Czary:", a.skin)).align(Align.topLeft);
+        tabela3.row();
+
+        for (int i = 0; i < gs.getBohaterZaznaczony().getListOfSpells().size(); i++) {
+            final SpellCreator sC = new SpellCreator(a, gs);
+            DefaultActor dA = new DefaultActor(sC.getSpellTexture(
+                    gs.getBohaterZaznaczony().getListOfSpells().get(i)), i, i);
+
+            final int tempI = i;
+
+            dA.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    new Dialog("Lokacja Startowa", a.skin) {
+                        {
+                            text(sC.getSpellDescription(gs.getBohaterZaznaczony().getListOfSpells().get(tempI)));
+                            button("anuluj", "anuluj");
+                        }
+
+                        @Override
+                        protected void result(Object object) {
+                            if (object.equals("anuluj")) {
+                                this.remove();
+                            }
+                        }
+                    }.show(stage01);
+
+                }
+            });
+
+            tabela3.add(dA).pad(5);
+        }
+
+//        System.out.println("Ilość czarów getSpells(): " + gs.getBohaterZaznaczony().getSpells().size());
+        //tabela3.add(new ImageButton(gs.getBohaterZaznaczony().getSpells().get(0).getSprite().getTexture().getTextureData()))
     }
 
     /**
@@ -326,6 +373,7 @@ public class BohaterScreen implements Screen {
                 g.setScreen(Assets.mapScreen);
                 tabela.clear();
                 tabela2.clear();
+                tabela3.clear();
                 tabelaZaktualizowana = false;
                 System.out.println("Exit klikniety");
             }
@@ -359,12 +407,13 @@ public class BohaterScreen implements Screen {
 
         formatujTabele();
         formatujTabele2();
+        formatujTabela3();
 
         lblAtak.setText("Atak: " + sprawdzBohatera().getAtak()
                 + " (" + Fight.getAtakEkwipunkuBohaterAtakujacego(gs.getBohaterZaznaczony()) + ")"
                 + " (" + sprawdzBohatera().getAtakEfekt() + ")"
         );
-        
+
         lblObrona.setText("Obrona: " + sprawdzBohatera().getObrona()
                 + " (" + Fight.getObronaEkwipunkuBohaterBroniacego(gs.getBohaterZaznaczony()) + ")"
                 + " (" + sprawdzBohatera().getObronaEfekt() + ")");
@@ -377,9 +426,9 @@ public class BohaterScreen implements Screen {
 
         lblMana.setText("Mana: " + sprawdzBohatera().getActualMana()
                 + " (" + sprawdzBohatera().getMana() + ")");
-        
+
         lblMoc.setText("Moc: " + sprawdzBohatera().getMoc());
-        
+
         lblWiedza.setText("Wiedza: " + sprawdzBohatera().getWiedza());
 
         lblKlasaPostaci.setText(gs.getBohaterZaznaczony().getKlasyPostaci().toString());

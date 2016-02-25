@@ -115,7 +115,7 @@ public class Bohater extends Actor {
         this.efekty = new ArrayList<Effect>();
         this.spellEffects = new ArrayList<SpellEffects>();
         this.listOfSpells = new ArrayList<Spells>();
-        
+
         this.tempEffects = new ArrayList<Effect>();
         this.tempEffects.add(new Effect());
 
@@ -386,6 +386,21 @@ public class Bohater extends Actor {
             System.out.println("Usuwam Spell efekt: ");
             this.spellEffects.remove(indeksSpellEfektuDoUsuniecia);
             this.aktualizujDzialanieEfektow();
+        }
+    }
+
+    /**
+     * Czyści efekty tymczasowe
+     */
+    public void czyscEfektyTymczasowe() {
+        for (Effect efk : this.getTempEffects()) {
+            efk.setEfektArmor(0);
+            efk.setEfektAtak(0);
+            efk.setEfektDmg(0);
+            efk.setEfektObrona(0);
+            efk.setEfektSzybkosc(0);
+            efk.setEfektHp(0);
+            efk.setEfektMana(0);
         }
     }
 

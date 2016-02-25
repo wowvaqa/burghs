@@ -24,7 +24,7 @@ public class Fight {
         Random rnd = new Random();
         atak = rnd.nextInt(bohater.getAtak() + getAtakEkwipunkuBohaterAtakujacego(bohater)
                 + getAtakEfektyBohatera(bohater) + 1);
-        System.out.println("Siła ataku: " + atak);
+
         return atak;
     }
 
@@ -38,8 +38,13 @@ public class Fight {
     static public int getObrona(Bohater bohater) {
         int obrona;
         Random rnd = new Random();
-        obrona = rnd.nextInt(bohater.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohater)
-                + getObronaEfektyBohatera(bohater) + 1);
+        obrona = bohater.getObrona() + getObronaEkwipunkuBohaterBroniacego(bohater)
+                + getObronaEfektyBohatera(bohater) + 1;
+        if (obrona <= 0) {
+            obrona = 0;
+        } else {
+            obrona = rnd.nextInt(obrona);
+        }
         System.out.println("Siła obrony: " + obrona);
         return obrona;
     }
@@ -53,12 +58,12 @@ public class Fight {
      */
     static public int getObrazenia(Bohater bohaterAtakujacy, Bohater bohaterBroniacy) {
 
-        System.out.println("Nastąpił atak Bohater VS Bohater");
+        System.out.println("----- BOHATER VS BOHATER -----");
         int atak = getAttack(bohaterAtakujacy);
         int obrona = getObrona(bohaterBroniacy);
 
         if (atak > 0) {
-            System.out.println("Nastąpiło trafienie...");
+            System.out.println("ATAK > 0 = TRAFIENIE");
             atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
             atak += getDamageEfektyBohatera(bohaterAtakujacy);
 
@@ -69,17 +74,16 @@ public class Fight {
             }
 
         } else {
-            System.out.println("Pudło...");
+            System.out.println("ATAK < 0 = PUDŁO");
         }
 
         int dmg = 0;
 
-        if (bohaterAtakujacy.getTempEffects().get(0).getEfektDmg() > 0) {
-            System.out.println("Wykryto zwiększone obrażenia: " + bohaterAtakujacy.getTempEffects().get(0).getEfektDmg());
-            dmg += bohaterAtakujacy.getTempEffects().get(0).getEfektDmg();
-            bohaterAtakujacy.getTempEffects().get(0).setEfektDmg(0);
-        }
-
+//        if (bohaterAtakujacy.getTempEffects().get(0).getEfektDmg() > 0) {
+//            System.out.println("Wykryto zwiększone obrażenia: " + bohaterAtakujacy.getTempEffects().get(0).getEfektDmg());
+//            dmg += bohaterAtakujacy.getTempEffects().get(0).getEfektDmg();
+//            bohaterAtakujacy.getTempEffects().get(0).setEfektDmg(0);
+//        }
         dmg += atak - (obrona + getArmorEkwipunkuBohateraAtakujacego(bohaterBroniacy)
                 + getArmorEfektyBohatera(bohaterBroniacy));
 
@@ -113,25 +117,24 @@ public class Fight {
         Random rnd = new Random();
         System.out.println("Nastąpił atak Bohater VS Zamek");
         int atak = getAttack(bohaterAtakujacy);
-        int obrona = rnd.nextInt(castle.getObrona() + 1);        
+        int obrona = rnd.nextInt(castle.getObrona() + 1);
         System.out.println("siła obrony: " + obrona);
 
         if (atak > 0) {
-            System.out.println("Nastąpiło trafienie...");
+            System.out.println("ATAK > 0 = TRAFIENIE");
             atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
             atak += getDamageEfektyBohatera(bohaterAtakujacy);
         } else {
-            System.out.println("Pudło...");
+            System.out.println("ATAK < 0 = PUDŁO");
         }
 
         int dmg = 0;
 
-        if (bohaterAtakujacy.getTempEffects().get(0).getEfektDmg() > 0) {
-            System.out.println("Wykryto zwiększone obrażenia: " + bohaterAtakujacy.getTempEffects().get(0).getEfektDmg());
-            dmg += bohaterAtakujacy.getTempEffects().get(0).getEfektDmg();
-            bohaterAtakujacy.getTempEffects().get(0).setEfektDmg(0);
-        }
-
+//        if (bohaterAtakujacy.getTempEffects().get(0).getEfektDmg() > 0) {
+//            System.out.println("Wykryto zwiększone obrażenia: " + bohaterAtakujacy.getTempEffects().get(0).getEfektDmg());
+//            dmg += bohaterAtakujacy.getTempEffects().get(0).getEfektDmg();
+//            bohaterAtakujacy.getTempEffects().get(0).setEfektDmg(0);
+//        }
         dmg += atak - obrona;
         if (dmg < 0) {
             dmg = 0;
@@ -161,13 +164,19 @@ public class Fight {
         mob.mobZaatakowany(bohaterAtakujacy.getPozXnaMapie(), bohaterAtakujacy.getPozYnaMapie());
 
         Random rnd = new Random();
-        System.out.println("Nastąpił atak Bohater VS Mob");
+        System.out.println("----- BOHATER VS MOB ------");
         int atak = getAttack(bohaterAtakujacy);
-        int obrona = rnd.nextInt(mob.getObrona() + 1 + getObronaEfektyMoba(mob));
+        System.out.println("Siła ataku: " + atak);
+        int obrona = mob.getObrona() + getObronaEfektyMoba(mob) + 1;
+        if (obrona <= 0) {
+            obrona = 0;
+        } else {
+            obrona = rnd.nextInt(obrona);
+        }
         System.out.println("siła obrony: " + obrona);
 
         if (atak > 0) {
-            System.out.println("Nastąpiło trafienie...");
+            System.out.println("ATAK > 0 = TRAFIENIE");
             atak += getDamageEkwipunkuBohateraAtakujacego(bohaterAtakujacy);
             atak += getDamageEfektyBohatera(bohaterAtakujacy);
 
@@ -178,17 +187,16 @@ public class Fight {
             }
 
         } else {
-            System.out.println("Pudło...");
+            System.out.println("ATAK < 0 = PUDŁO");
         }
 
         int dmg = 0;
 
-        if (bohaterAtakujacy.getTempEffects().get(0).getEfektDmg() > 0) {
-            System.out.println("Wykryto zwiększone obrażęnia: " + bohaterAtakujacy.getTempEffects().get(0).getEfektDmg());
-            dmg += bohaterAtakujacy.getTempEffects().get(0).getEfektDmg();
-            bohaterAtakujacy.getTempEffects().get(0).setEfektDmg(0);
-        }
-
+//        if (bohaterAtakujacy.getTempEffects().get(0).getEfektDmg() > 0) {
+//            System.out.println("Wykryto zwiększone obrażęnia: " + bohaterAtakujacy.getTempEffects().get(0).getEfektDmg());
+//            dmg += bohaterAtakujacy.getTempEffects().get(0).getEfektDmg();
+//            bohaterAtakujacy.getTempEffects().get(0).setEfektDmg(0);
+//        }
         dmg += atak - obrona;
         if (dmg < 0) {
             dmg = 0;
@@ -217,10 +225,8 @@ public class Fight {
      */
     static public int getObrazenia(Mob mob, Bohater bohaterBroniacy) {
 
-        System.out.println("Funkacja Fight.getObrazenia");
-
         Random rnd = new Random();
-        System.out.println("Nastąpił atak Mob vs Bohater");
+        System.out.println("----- MOB VS BOHATER -----");
         int atak = rnd.nextInt(mob.getAtak() + 1 + getAtakEfektyMoba(mob));
         int obrona = getObrona(bohaterBroniacy);
         System.out.println("Siła ataku:  " + atak);
@@ -381,12 +387,18 @@ public class Fight {
         int sumaEfektArmor = 0;
         for (Effect efekty : bohater.getEfekty()) {
             sumaEfektArmor += efekty.getEfektArmor();
+            System.out.print("E ARM: " + efekty.getEfektArmor() + " ");
         }
         for (SpellEffects sE : bohater.getSpellEffects()) {
             sumaEfektArmor += sE.getEfektArmor();
+            System.out.print("SE ARM: " + sE.getEfektArmor() + " ");
+        }
+        for (Effect tmpEfekts : bohater.getTempEffects()) {
+            sumaEfektArmor += tmpEfekts.getEfektArmor();
+            System.out.print("TE ARM: " + tmpEfekts.getEfektArmor() + " ");
         }
 
-        System.out.println("Suma pancerza dla efektów: " + sumaEfektArmor);
+        System.out.println("Suma ARM dla efektów: " + sumaEfektArmor);
 
         return sumaEfektArmor;
     }
@@ -401,12 +413,18 @@ public class Fight {
         int sumaEfektDamage = 0;
         for (Effect efekty : bohater.getEfekty()) {
             sumaEfektDamage += efekty.getEfektDmg();
+            System.out.print("E DMG: " + efekty.getEfektDmg() + " ");
         }
         for (SpellEffects sE : bohater.getSpellEffects()) {
             sumaEfektDamage += sE.getEfektDmg();
+            System.out.print("SE DMG: " + sE.getEfektDmg() + " ");
+        }
+        for (Effect tmpEfekts : bohater.getTempEffects()) {
+            sumaEfektDamage += tmpEfekts.getEfektDmg();
+            System.out.print("TE DMG: " + tmpEfekts.getEfektDmg() + " ");
         }
 
-        System.out.println("Suma obrażeń dla efektów: " + sumaEfektDamage);
+        System.out.println("Suma DMG dla efektów: " + sumaEfektDamage);
 
         return sumaEfektDamage;
     }
@@ -421,10 +439,17 @@ public class Fight {
         int sumaEfektAtak = 0;
         for (Effect efekty : bohater.getEfekty()) {
             sumaEfektAtak += efekty.getEfektAtak();
+            System.out.print("E ATK: " + efekty.getEfektAtak() + " ");
         }
         for (SpellEffects sE : bohater.getSpellEffects()) {
             sumaEfektAtak += sE.getEfektAtak();
+            System.out.print("SE ATK: " + sE.getEfektAtak() + " ");
         }
+        for (Effect tmpEfekts : bohater.getTempEffects()) {
+            sumaEfektAtak += tmpEfekts.getEfektAtak();
+            System.out.print("TE ATK: " + tmpEfekts.getEfektAtak() + " ");
+        }
+        System.out.println("Suma ATK dla efektów: " + sumaEfektAtak);
         return sumaEfektAtak;
     }
 
@@ -438,10 +463,17 @@ public class Fight {
         int sumaEfektObrona = 0;
         for (Effect efekty : bohater.getEfekty()) {
             sumaEfektObrona += efekty.getEfektObrona();
+            System.out.print("E OBR: " + efekty.getEfektObrona() + " ");
         }
         for (SpellEffects sE : bohater.getSpellEffects()) {
             sumaEfektObrona += sE.getEfektObrona();
+            System.out.print("SE OBR: " + sE.getEfektObrona() + " ");
         }
+        for (Effect tmpEfekts : bohater.getTempEffects()) {
+            sumaEfektObrona += tmpEfekts.getEfektObrona();
+            System.out.print("TE OBR: " + tmpEfekts.getEfektObrona() + " ");
+        }
+        System.out.println("Suma OBR dla efektów: " + sumaEfektObrona);
         return sumaEfektObrona;
     }
 
@@ -497,6 +529,7 @@ public class Fight {
 
         for (SpellEffects sE : mob.getSpellEffects()) {
             sumaEfektObrona += sE.getEfektObrona();
+            System.out.println("E OBR MOBA: " + sE.getEfektObrona());
         }
         return sumaEfektObrona;
     }
@@ -512,6 +545,7 @@ public class Fight {
 
         for (SpellEffects sE : mob.getSpellEffects()) {
             sumaEfektAtak += sE.getEfektAtak();
+            System.out.println("E ATK MOBA: " + sE.getEfektAtak());
         }
         return sumaEfektAtak;
     }

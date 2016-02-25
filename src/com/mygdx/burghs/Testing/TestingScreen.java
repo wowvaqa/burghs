@@ -69,7 +69,7 @@ public class TestingScreen implements Screen {
     private final Game g;
     private final GameStatus gs;
     
-    Server server;
+    private Server server;
 
     Pixmap pm;
 

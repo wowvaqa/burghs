@@ -1,22 +1,12 @@
 
 TODO:
 
-version 0.0300
-        Zaprojektować klasę moba - losowego przeciwnika, który będzie występował
-        na mapie w określonych miejscach.
-
-version 0.0099
-        1. Przeprojektować Screen2 w Map Screen
-            - uporządkować wyświetlanie przycisków, labeli
-
-version 0.0098
-        1. Dokończy MapEditora 
-
-version 0.0033 16022016
-DONE    1. Poprawić wygląd Screenu Bohatera.        
-DONE    2. Naprawić bug. z restartem szybkości Moba w tej samej turze.
-DONE    3. Dodać edycje Mocy i Wiedzy podczas tworzenia nowego bohatra.
-DONE    4. Dodać okienko informacyjne z działaniem efektu.
+version 0.0042 25022016
+DONE    1. Dodanie do edytora map opcji umożliwiających modyfikacje położenia
+        skrzyń oraz mobów.
+DONE    2. Dodanie skrzyni z przedmiotami poziomu 2
+DONE    3. Dodanie czarów: Furia, Sąd Ostateczny.
+DONE    4. Poprawiono działanie przycisków w oknie Tresure Box
 
 version 0.0041 20022016
 DONE    1. Dodano łączenie się terenu góry.

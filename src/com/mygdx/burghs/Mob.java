@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import enums.DostepneMoby;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Mob extends Actor {
 
@@ -50,21 +52,26 @@ public class Mob extends Actor {
 
     /**
      *
-     * @param textureIcon Tekstura moba
-     * @param g
+     * @param g Referenca do boiektu Game
      * @param gs Referencja do obiketu Game Status
      * @param a Referencja do obiektu Assets
      * @param lokaczjaPoczatkowaX Lokacja początkowa X w Stage
      * @param lokaczjaPoczatkowaY Lokacja początkowa Y w Stage
      * @param mobLevel Poziom moba.
+     * @param typMoba
      */
-    public Mob(Texture textureIcon, Game g, GameStatus gs, Assets a,
-            int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, int mobLevel) {
+    public Mob(/**
+             * Texture textureIcon, *
+             */
+            Game g, GameStatus gs, Assets a,
+            int lokaczjaPoczatkowaX, int lokaczjaPoczatkowaY, int mobLevel,
+            DostepneMoby typMoba) {
         this.spellEffects = new ArrayList<SpellEffects>();
         this.gs = gs;
         this.a = a;
         this.g = g;
-        this.icon = textureIcon;
+        //this.icon = textureIcon;
+        this.icon = zwrocTeksture(typMoba);
         this.mobLevel = mobLevel;
         sprite = new Sprite(this.icon);
         this.setSize(sprite.getWidth(), sprite.getHeight());
@@ -72,6 +79,22 @@ public class Mob extends Actor {
 
         wygenerujStatystykiMoba(this.mobLevel);
         this.dodajListnera();
+    }
+
+    /**
+     * Zwraca teksture wg zadango typu Moba
+     *
+     * @param typMoba Typ moba
+     * @return Tekstura moba
+     */
+    private Texture zwrocTeksture(DostepneMoby typMoba) {
+        switch (typMoba) {
+            case Szkielet:
+                return a.texSzkieletMob;
+            case Wilk:
+                return a.texWilkMob;
+        }
+        return a.btnAttackTex;
     }
 
     // Dodaje ClickListnera do obiektu Zamku
@@ -192,6 +215,30 @@ public class Mob extends Actor {
             this.spellEffects.remove(indeksSpellEfektuDoUsuniecia);
             this.aktualizujDzialanieEfektow();
         }
+    }
+
+    /**
+     * Losuje wg. zadanego poziomu odpowiedniego moba.
+     *
+     * @param levelMoba Poziom Moba
+     * @return Typ Enum DostepneMoby
+     */
+    public static DostepneMoby losujMoba(int levelMoba) {
+
+        Random rnd = new Random();
+
+        switch (levelMoba) {
+            case 1:
+                int indeks = rnd.nextInt(2);
+                //System.out.println("!!!!!!!!!!!!!!!!!: " + indeks);
+                if (indeks == 0) {
+                    return DostepneMoby.Szkielet;
+                } else {
+                    return DostepneMoby.Wilk;
+                }
+
+        }
+        return DostepneMoby.Szkielet;
     }
 
     @Override

@@ -44,10 +44,13 @@ public class Assets {
     public Texture texSzkieletMob;
     public Texture texWilkMob;
 
+    public Texture texWarrior0;
+    public Texture texWarrior1;
+
     // Texture Atlas
     public TextureAtlas tAtals;
     public AssetManager aM;
-    
+
     // tekstury itemków
     public Texture texHead;
     public Texture texLinenTousers;
@@ -115,12 +118,12 @@ public class Assets {
     public static Screen awansScreen;
 
     public Assets() {
-        
+
         tAtals = new TextureAtlas(Gdx.files.internal("terrain/test.atlas"));
         aM = new AssetManager();
         aM.load("terrain/test.atlas", TextureAtlas.class);
         aM.finishLoading();
-        
+
         trawaDrzewoTex = new Texture("grassTree100x100.png");
         trawaTex = new Texture("grass100x100.png");
         trawaGoraTex = new Texture("grassMountain100x100.png");
@@ -335,6 +338,35 @@ public class Assets {
             infoWindow.add(tresureBox.getDostepneItemy().get(i).getNazwa());
             tmpButtons.add(new TextButton("TAKE IT", skin));
             tmpButtons.get(i).addListener(new ClickListener() {
+
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println("przycisk TAKE IT kliknięty");
+                    for (int i = 0; i < tmpButtons.size(); i++) {
+                        if (tmpButtons.get(i).isPressed()) {
+                            // Sprawdzenie czy itemek jest złotem
+                            if (tresureBox.getDostepneItemy().get(i).getCzescCiala().equals(CzesciCiala.gold)) {
+                                gs.dodajDoZlotaAktualnegoGracza(tresureBox.getDostepneItemy().get(i).getGold());
+                                tresureBox.getDostepneItemy().remove(i);
+                                tmpButtons.get(i).remove();
+                                ukryjInfoWindow();
+                                pokazInfoWindow(tresureBox, bohater, gs);
+                                // Jeżeli nie jest złotem
+                            } else {
+                                tmpButtons.get(i).remove();
+                                // dodanie itemka z tresureboxa do ekwipunku
+                                bohater.getEquipment().add(tresureBox.getDostepneItemy().get(i));
+                                // usuniecie wybranego itemka z trasureboxa
+                                tresureBox.getDostepneItemy().remove(i);
+                                // aktualizacja okna
+                                ukryjInfoWindow();
+                                pokazInfoWindow(tresureBox, bohater, gs);
+                            }
+                        }
+                    }
+                    return false;
+                }
+
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     System.out.println("przycisk TAKE IT kliknięty");
@@ -488,6 +520,9 @@ public class Assets {
     }
 
     private void makeMobs() {
+        this.texWarrior0 = new Texture("moby/warrior/0.png");
+        this.texWarrior1 = new Texture("moby/warrior/1.png");
+
         this.texWilkMob = new Texture("moby/mobWolfTex.png");
         this.texSzkieletMob = new Texture("moby/mobSzkieletfTex.png");
     }
